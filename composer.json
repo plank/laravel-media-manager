@@ -13,11 +13,18 @@
             "name": "Massimo Triassi",
             "email": "massimo@plankdesign.com",
             "role": "Developer"
+        },
+        {
+            "name": "Evan Dimopoulos",
+            "email": "evan@plankdesign.com",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "^6.0"
+        "illuminate/support": "^6.0",
+        "intervention/image": "^2.5",
+        "plank/laravel-mediable": "^4.2"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",
