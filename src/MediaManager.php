@@ -68,7 +68,6 @@ class MediaManager
         if (!$filesystem->isDirectory($directory)) {
             MediaManagerException::directoryNotFound($disk, $directory);
         }
-        return $directory;
+        return trim($directory, '/');
     }
-
 }
