@@ -10,7 +10,9 @@ use Plank\Mediable\Exceptions\MediaMoveException;
 use Plank\Mediable\Media;
 use Plank\Mediable\MediaMover;
 use Plank\Mediable\MediaUploader;
+use Plank\MediaManager\Conversions;
 use Plank\MediaManager\MediaManager;
+
 
 class MediaController extends BaseController
 {
@@ -60,8 +62,14 @@ class MediaController extends BaseController
         $path = $this->manager->verifyDirectory($disk, $request->path);
 
         $media = Media::findOrFail($id);
+        //TODO::redo once converted file names are finalized
+        $children = Media::inDirectory($media->disk, 'Conversions/'.$media->directory)
+            ->where('filename','like',$media->filename.'-%')->get();
         try {
-            $this->mover->move($path);
+            $this->mover->move($media, $path);
+            foreach($children as $child){
+                $this->mover->move($child, 'Conversions/'.$path);
+            }
         } catch (MediaMoveException $e) {
             return $e;
         }
