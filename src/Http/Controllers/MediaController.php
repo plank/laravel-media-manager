@@ -35,13 +35,15 @@ class MediaController extends BaseController
         $disk = $this->manager->verifyDisk($disk);
         $path = $this->manager->verifyDirectory($disk, $path);
 
-        // TODO: better validation, overall
+        $media = Media::inDirectory($disk, $path)->get();
+        $subdirectories = Storage::disk($disk)->directories($path);
 
-        return response(Media::inDirectory($disk, $path)->get());
+        return response(['subdirectories' => $subdirectories, 'media' => $media]);
     }
 
     public function create(Request $request)
     {
+        // TODO: better validation, overall
         $media = $request->media;
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
@@ -52,6 +54,7 @@ class MediaController extends BaseController
 
     public function update(Request $request)
     {
+        // TODO: Make this handle multiple update actions? Move, Rename, resize, crop?
         $id = $request->id;
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
@@ -64,7 +67,6 @@ class MediaController extends BaseController
         }
 
         return response($media->fresh());
-
     }
 
     public function destroy(Request $request)
