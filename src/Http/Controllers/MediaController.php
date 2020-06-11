@@ -60,8 +60,13 @@ class MediaController extends BaseController
         $path = $this->manager->verifyDirectory($disk, $request->path);
 
         $media = Media::findOrFail($id);
+        $children = Media::inDirectory($media->disk, 'Conversions/'.$media->directory)
+            ->where('filename','like',$media->filename.'-%')->get();
         try {
-            $this->mover->move($path);
+            $this->mover->move($media, $path);
+            foreach($children as $child){
+                $this->mover->move($child, 'Conversions/'.$path);
+            }
         } catch (MediaMoveException $e) {
             return $e;
         }

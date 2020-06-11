@@ -11,9 +11,10 @@ trait Conversions
 {
     protected $conversions = [];
 
-    protected static function bootConversions(){
+    protected static function bootConversions()
+    {
         static::save(function (Model $model) {
-           //do things
+            $model->createConvertions();
         });
 
         static::delete(function (Model $model) {
@@ -21,7 +22,7 @@ trait Conversions
         });
     }
 
-    public function createConvertions()
+    public function createConvertions(): void
     {
         $taggedMedia = $this->getMedia(array_keys($this->conversions));
         foreach ($taggedMedia as $media){
@@ -34,7 +35,7 @@ trait Conversions
                 foreach($this->conversions[$media->tag] as $task=>$parameters){
                     MediaManager::{$task}($converted, ...$parameters);
                 }
-
         }
     }
+
 }
