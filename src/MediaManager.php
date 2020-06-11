@@ -48,7 +48,7 @@ class MediaManager
 
     public function verifyDisk($disk = null)
     {
-        if ($disk) {
+        if (!$disk) {
             $disk = config('mediable.default_disk');
         }
 
