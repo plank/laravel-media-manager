@@ -6,18 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Plank\Mediable\Exceptions\MediaMoveException;
 use Plank\Mediable\Media;
+use Plank\Mediable\MediaMover;
 use Plank\Mediable\MediaUploader;
 use Plank\MediaManager\MediaManager;
 
 class MediaController extends BaseController
 {
     protected $manager;
+    protected $mover;
     protected $uploader;
 
-    public function __construct(MediaUploader $uploader)
+    public function __construct(MediaUploader $uploader, MediaMover $mover)
     {
         $this->manager = new MediaManager();
+        $this->mover = $mover;
         $this->uploader = $uploader;
     }
 
@@ -31,26 +35,54 @@ class MediaController extends BaseController
         $disk = $this->manager->verifyDisk($disk);
         $path = $this->manager->verifyDirectory($disk, $path);
 
+        // TODO: better validation, overall
+
         return response(Media::inDirectory($disk, $path)->get());
     }
 
     public function create(Request $request)
     {
-        // upload a file
+        $media = $request->media;
+        $disk = $this->manager->verifyDisk($request->disk);
+        $path = $this->manager->verifyDirectory($disk, $request->path);
+
+
+        return response($this->uploader->toDestination($disk, $path)->fromSource($media)->upload());
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        // move a file
+        $id = $request->id;
+        $disk = $this->manager->verifyDisk($request->disk);
+        $path = $this->manager->verifyDirectory($disk, $request->path);
+
+        $media = Media::findOrFail($id);
+        try {
+            $this->mover->move($path);
+        } catch (MediaMoveException $e) {
+            return $e;
+        }
+
+        return response($media->fresh());
+
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
-        // delete a file
+        $id = $request->id;
+
+        return response(Media::destroy($id));
     }
 
-    public function resize()
+    public function resize(Request $request)
     {
-        // resize a file
+        $id = $request->id;
+        $size = $request->size;
+        $disk = $request->disk;
+        // TODO: add exceptions for this that will detect incorrect function calls
+        $function = $request->function ?? MediaManager::RESIZE_WIDTH;
+
+        $image = Media::findOrFail($id);
+        $this->manager->resize($image, $size, $disk, $function);
     }
 }
