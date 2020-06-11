@@ -6,21 +6,35 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class MediaManagerController extends BaseController
+class MediaController extends BaseController
 {
+    public function show()
+    {
+        // get a file's details
+    }
 
     public function index()
     {
-        // summon the media manager view?
+        // list all files in a given directory
     }
 
     public function create()
     {
-        // create directory
+        // upload a file
+    }
+
+    public function update()
+    {
+        // move a file
     }
 
     public function destroy()
     {
-        // delete a directory (and all the contained files)
+        // delete a file
+    }
+
+    public function resize()
+    {
+
     }
 }
