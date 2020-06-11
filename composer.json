@@ -1,9 +1,10 @@
 {
-    "name": "plank/media-manager",
+    "name": "plank/laravel-media-manager",
     "description": "A package that exposes an API for handling media manipulations",
     "keywords": [
         "plank",
-        "media-manager"
+        "media-manager",
+        "laravel"
     ],
     "homepage": "https://github.com/plank/media-manager",
     "license": "MIT",
