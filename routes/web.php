@@ -14,7 +14,7 @@ Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
 // Json Routes
 // =============================================================
 Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
-    Route::get('index/{$path}', 'MediaController@index')->name('index');
+    Route::get('index/{path}', 'MediaController@index')->name('index');
     Route::get('show/{id}', 'MediaController@show')->name('show');
 
     Route::post('create', 'MediaController@create')->name('create');
