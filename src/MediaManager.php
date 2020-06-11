@@ -46,7 +46,7 @@ class MediaManager
         return $this->manager->make($image)->$method($dimension)->save();
     }
 
-    protected function verifyDisk($disk)
+    public function verifyDisk($disk = null)
     {
         if ($disk) {
             $disk = config('mediable.default_disk');
@@ -62,7 +62,7 @@ class MediaManager
         return $disk;
     }
 
-    protected function verifyDirectory($disk, $directory)
+    public function verifyDirectory($disk, $directory)
     {
         $filesystem = Storage::disk($disk);
         if (!$filesystem->isDirectory($directory)) {

@@ -2,23 +2,39 @@
 namespace Plank\MediaManager\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Plank\Mediable\Media;
+use Plank\Mediable\MediaUploader;
+use Plank\MediaManager\MediaManager;
 
 class MediaController extends BaseController
 {
-    public function show()
+    protected $manager;
+    protected $uploader;
+
+    public function __construct(MediaUploader $uploader)
     {
-        // get a file's details
+        $this->manager = new MediaManager();
+        $this->uploader = $uploader;
     }
 
-    public function index()
+    public function show($id)
     {
-        // list all files in a given directory
+        return response(Media::findOrFail($id));
     }
 
-    public function create()
+    public function index($path = '', $disk = '')
+    {
+        $disk = $this->manager->verifyDisk($disk);
+        $path = $this->manager->verifyDirectory($disk, $path);
+
+        return response(Media::inDirectory($disk, $path)->get());
+    }
+
+    public function create(Request $request)
     {
         // upload a file
     }
@@ -35,6 +51,6 @@ class MediaController extends BaseController
 
     public function resize()
     {
-
+        // resize a file
     }
 }

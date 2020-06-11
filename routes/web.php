@@ -2,3 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 
+// =============================================================
+// View Routes
+// =============================================================
+
+Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
+    Route::get('index', 'MediaManagerController@index')->name('index');
+});
+
+// =============================================================
+// Json Routes
+// =============================================================
+Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
+    Route::get('index/{$path}', 'MediaController@index')->name('index');
+    Route::get('show/{id}', 'MediaController@show')->name('show');
+
+    Route::post('create', 'MediaController@create')->name('create');
+    Route::post('directory/create', 'MediaManagerController@create')->name('directory.create');
+    Route::post('resize', 'MediaController@resize')->name('resize');
+
+    Route::delete('destroy', 'MediaController@destroy')->name('destroy');
+    Route::delete('destroy-directory', 'MediaManagerController@destroy')->name('directory.destroy');
+});
