@@ -2,7 +2,11 @@
 
 namespace Plank\MediaManager;
 
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use Plank\MediaManager\Http\Controllers\MediaController;
+use Plank\MediaManager\Http\Controllers\MediaManagerController;
 
 class MediaManagerServiceProvider extends ServiceProvider
 {
@@ -17,7 +21,7 @@ class MediaManagerServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'media-manager');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -53,8 +57,31 @@ class MediaManagerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'media-manager');
 
         // Register the main class to use with the facade
-        $this->app->singleton('media-manager', function () {
+        $this->registerMediaManager();
+        $this->registerMediaManagerController();
+        $this->registerMediaController();
+
+    }
+
+    public function registerMediaManager()
+    {
+        $this->app->bind('media-manager', function (Container $app) {
             return new MediaManager;
         });
     }
+
+    public function registerMediaManagerController()
+    {
+        $this->app->bind('MediaManagerController', function (Container $app) {
+            return new MediaManagerController($app['media-manager']);
+        });
+    }
+
+    public function registerMediaController()
+    {
+        $this->app->bind('MediaController', function (Container $app) {
+            return new MediaController($app['mediable.uploader'], $app['mediable.mover']);
+        });
+    }
+
 }
