@@ -1,0 +1,54 @@
+{
+    "name": "plank/media-manager",
+    "description": "A package that exposes an API for handling media manipulations",
+    "keywords": [
+        "plank",
+        "media-manager"
+    ],
+    "homepage": "https://github.com/plank/media-manager",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Massimo Triassi",
+            "email": "massimo@plankdesign.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Plank\\MediaManager\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Plank\\MediaManager\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Plank\\MediaManager\\MediaManagerServiceProvider"
+            ],
+            "aliases": {
+                "MediaManager": "Plank\\MediaManager\\MediaManagerFacade"
+            }
+        }
+    }
+}
