@@ -41,13 +41,9 @@ If you discover any security related issues, please email massimo@plankdesign.co
 
 ## Credits
 
-- [Massimo Triass](https://github.com/plank)
-- [All Contributors](../../contributors)
+- [Massimo Triassi](https://github.com/m-triassi)
+- [Evan Dimopoulos](https://github.com/EvanDime)
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
