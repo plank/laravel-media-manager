@@ -1,4 +1,5 @@
 <?php
+
 namespace Plank\MediaManager\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -61,14 +62,19 @@ class MediaController extends BaseController
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
 
-        $media = Media::findOrFail($id);
-        //TODO::redo once converted file names are finalized
-        $children = Media::inDirectory($media->disk, 'Conversions/'.$media->directory)
-            ->where('filename','like',$media->filename.'-%')->get();
+        $media = Media::with('models')->findOrFail($id);
+        $conversions = collect();
+        foreach ($media->models as $model) {
+            if (in_array(Conversions::class, class_uses(get_class($model)))) {
+                $conversions = $conversions->push($model->getConversionName($media->filename, $model->pivot->tag));
+            }
+        }
+        $children = Media::inDirectory($media->disk, 'Conversions/' . $media->directory)
+            ->whereIn('filename', $conversions)->get();
         try {
             $this->mover->move($media, $path);
-            foreach($children as $child){
-                $this->mover->move($child, 'Conversions/'.$path);
+            foreach ($children as $child) {
+                $this->mover->move($child, 'Conversions/' . $path);
             }
         } catch (MediaMoveException $e) {
             return $e;
