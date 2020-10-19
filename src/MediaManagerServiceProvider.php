@@ -25,7 +25,7 @@ class MediaManagerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('media-manager.php'),
+                __DIR__.'/../config/media-manager.php' => config_path('media-manager.php'),
             ], 'config');
 
             // Publishing the views.
@@ -54,7 +54,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'media-manager');
+        $this->mergeConfigFrom(__DIR__.'/../config/media-manager.php', 'media-manager');
 
         // Register the main class to use with the facade
         $this->registerMediaManager();
