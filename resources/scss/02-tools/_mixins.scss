@@ -1,0 +1,39 @@
+// Mixins
+// ------------------------------------------------
+
+// Calculate Em Based On Pixels
+// ------------------------------------------------------------------------------------
+@function em-calc($target-px: $base-font-size, $context: $base-font-size) {
+    @return $target-px / $context * 1em;
+}
+
+
+// Use REM For Font-Size
+// ------------------------------------------------------------
+@mixin rem($property, $values) {
+    $base-font-size: 16px;
+    $px-values: ();
+    $rem-values: ();
+
+    @each $value in $values {
+        @if $value == 0 or $value == 0px {
+            $px-values: join($px-values, 0);
+            $rem-values: join($rem-values, 0);
+        } @else if type-of($value) == number and not unitless($value) and (unit($value) == px) {
+            $new-rem-value: $value / $base-font-size;
+            $px-values: join($px-values, round($value));
+            $rem-values: join($rem-values, #{$new-rem-value}rem);
+        } @else {
+            $px-values: join($px-values, round($value * $base-font-size));
+            $rem-values: join($rem-values, #{$value}rem);
+        }
+    }
+
+    #{$property}: $px-values;
+    #{$property}: $rem-values;
+}
+
+// Px -> Em
+@function em($pixels, $context: $base-font-size ) {
+    @return #{$pixels/$context}em;
+}

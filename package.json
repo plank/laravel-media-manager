@@ -1,0 +1,44 @@
+{
+  "name": "laravel-media-manager",
+  "version": "1.0.0",
+  "description": "[![Latest Version on Packagist](https://img.shields.io/packagist/v/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager) [![Build Status](https://img.shields.io/travis/plank/media-manager/master.svg?style=flat-square)](https://travis-ci.org/plank/media-manager) [![Quality Score](https://img.shields.io/scrutinizer/g/plank/media-manager.svg?style=flat-square)](https://scrutinizer-ci.com/g/plank/media-manager) [![Total Downloads](https://img.shields.io/packagist/dt/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "watch": "parcel watch index.html",
+    "dev": "parcel index.html",
+    "production": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plank/laravel-media-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plank/laravel-media-manager/issues"
+  },
+  "homepage": "https://github.com/plank/laravel-media-manager#readme",
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.0",
+    "axios": "^0.20.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.27.0",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "dependencies": {
+    "lang": "^0.1.1",
+    "search": "^1.0.0",
+    "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-i18n": "^8.22.1"
+  }
+}

@@ -1,0 +1,33 @@
+
+// 01-settings
+@import '01-settings/reset';
+@import '01-settings/variables';
+
+
+// 02-tools
+@import '02-tools/mixins';
+@import '02-tools/animations';
+
+// 03-base
+@import '03-base/typography';
+
+// 05-components
+@import '05-components/main-container';
+@import '05-components/header';
+@import '05-components/search';
+@import '05-components/card';
+@import '05-components/slidepanel';
+@import '05-components/form';
+
+
+// For Demo Only
+// NOTE: This can be remove
+body {
+    background: $mm-bg-color;
+}
+
+.app-container {
+    background: #25223F;
+    display: grid;
+    grid-template-columns: 24% auto;
+}

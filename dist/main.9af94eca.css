@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+h1 {
+  font-size: 1.875em;
+  font-family: "Barlow", sans-serif;
+  text-transform: uppercase;
+}
+
+.wrapper {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.mm {
+  background: #FFFFFF;
+}
+
+.mm__header {
+  background: #E3E2ED;
+  padding: 2.5em 0;
+}
+
+.mm__search-container {
+  position: relative;
+}
+.mm__search-container input {
+  width: 100%;
+  padding: 0.8125em;
+  border-radius: 1.5em;
+  border: none;
+  background-color: #F9F9F9;
+  font-family: "Open Sans", sans-serif;
+  color: #616161;
+  font-size: 0.875em;
+  margin: 1.125em 0;
+  box-sizing: border-box;
+}
+.mm__search-send {
+  cursor: pointer;
+  position: absolute;
+  right: 2em;
+  top: 1.8em;
+  background: url("/icon-search.0c562674.svg");
+  border: none;
+  display: block;
+  text-indent: -9999px;
+  width: 1.875em;
+  height: 1.875em;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.mm__search-select {
+  background: url("/icon-select.b42cd0a7.svg");
+  background-repeat: no-repeat;
+  background-position: center right 1em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.875em;
+  box-sizing: border-box;
+  padding: 0.625em 7.5em 0.625em 0.625em;
+  border: 2px solid #DEDEDE;
+  border-radius: 2px;
+  color: #616161;
+  line-height: 19px;
+}
+.mm__results-grid {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1.3125em 0;
+}
+.mm__results-single {
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+.mm__results-single.selected {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.3125em;
+  border: 2px solid #42329C;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+}
+.mm__results-single.selected:after {
+  content: "";
+  position: absolute;
+  width: 4em;
+  height: 4em;
+  display: inline-block;
+  background: url("/icon-selected.c118e37d.svg");
+  top: -2em;
+  right: -2em;
+}
+
+.mm__card {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+  transition: all 0.2s ease-in-out;
+}
+.mm__card:hover {
+  cursor: pointer;
+  box-shadow: 0 1px 20px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.46);
+  transition: all 0.2s ease-in-out;
+}
+.mm__card-infos {
+  padding: 0.5625em;
+}
+.mm__card-infos h6 {
+  color: #222222;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.0625em;
+}
+.mm__card-infos .type {
+  color: #616161;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.625em;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+
+.mm__slidepanel {
+  overflow-x: scroll;
+  position: fixed;
+  width: 32%;
+  height: 100vh;
+  background: #FFFFFF;
+  top: 0;
+  right: 0;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+}
+.mm__slidepanel-close {
+  float: right;
+  text-indent: -9999px;
+  background: url("/icon-close.085c97ef.svg");
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 1.375em;
+  height: 1.375em;
+  margin: 1.25em 1.25em 1.25em 0;
+  transition: all 0.2s ease-in-out;
+}
+.mm__slidepanel-close:hover {
+  transition: all 0.2s ease-in-out;
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+.mm__slidepanel-infos {
+  margin: 0 auto;
+  width: 90%;
+  font-family: "Open Sans", sans-serif;
+}
+.mm__slidepanel-infos h5 {
+  font-size: 1.125em;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.5em;
+  text-align: left;
+  padding: 1.3125em 0;
+  border-bottom: 1px solid #E2E2E2;
+  margin-bottom: 1.25em;
+}
+.mm__slidepanel-infos p {
+  font-size: 0.875em;
+  display: block;
+  line-height: 2em;
+  color: #6D6D6D;
+  font-weight: 600;
+}
+.mm__slidepanel-infos p strong {
+  font-weight: 900;
+  color: #222222;
+}
+
+form {
+  margin-top: 1.25em;
+  border-top: 1px solid #E2E2E2;
+  padding-top: 1.3125em;
+}
+form div {
+  margin-bottom: 1em;
+}
+form div label {
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8125em;
+  color: #6D6D6D;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.3125em;
+}
+form div input {
+  width: 100%;
+  min-height: 2.5em;
+  border: 1px solid #CACACA;
+  border-radius: 3px;
+}
+
+body {
+  background: #FFFFFF;
+}
+
+.app-container {
+  background: #25223F;
+  display: grid;
+  grid-template-columns: 24% auto;
+}
+
+/*# sourceMappingURL=/main.9af94eca.css.map */

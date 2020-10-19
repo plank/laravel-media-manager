@@ -1,0 +1,38 @@
+// Cards
+// ------------------------------
+
+
+
+// Results Card
+// ------------------------------
+.mm__card {
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 1px 20px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.46);
+        transition: all 0.2s ease-in-out;
+    }
+
+    &-infos {
+        padding: em(9px);
+        h6 {
+            color: #222222;
+            font-family: $font-family-base;
+            font-size: em-calc(12px);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: em-calc(17px);
+        }
+
+        .type {
+            color: #616161;
+            font-family: $font-family-base;
+            font-size: em-calc(10px);
+            letter-spacing: 0;
+            line-height: 14px;
+        }
+    }
+}

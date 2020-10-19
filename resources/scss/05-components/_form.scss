@@ -1,0 +1,26 @@
+form {
+    margin-top: em(20px);
+    border-top: 1px solid $mm-form-separator;
+    padding-top: em(21px);
+
+    div {
+        margin-bottom: em-calc(16px);
+        label {
+            display: block;
+            font-family: $font-family-base;
+            font-size: em-calc(13px);
+            color: $mm-slidepanel-label-color;
+            text-align: left;
+            font-weight: 600;
+            margin-bottom: em(5px);
+        }
+
+        input {
+            width: 100%;
+            min-height: em(40px);
+            border: 1px solid $mm-form-border-color;
+            border-radius: 3px;
+        }
+    }
+
+}

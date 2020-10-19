@@ -1,0 +1,59 @@
+// Sidepanel
+
+.mm__slidepanel {
+    overflow-x: scroll;
+    position: fixed;
+    width: 32%;
+    height: 100vh;
+    background: $mm-slidepanel-bg;
+    top: 0;
+    right: 0;
+    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
+
+    &-close {
+        float: right;
+        text-indent: -9999px;
+        background: url('./../img/icon-close.svg');
+        background-repeat: no-repeat;
+        display: inline-block;
+        width: em(22px);
+        height: em(22px);
+        margin: em(20px) em(20px) em(20px) 0;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            transition: all 0.2s ease-in-out;
+            opacity: 0.5;
+            transform: scale(1.1);
+        }
+    }
+
+    &-infos {
+        margin: 0 auto;
+        width: 90%;
+        font-family: $font-family-base;
+
+        h5 {
+            font-size: em-calc(18px);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: em(24px);
+            text-align: left;
+            padding: em(21px) 0;
+            border-bottom: 1px solid $mm-form-separator;
+            margin-bottom: em(20px);
+        }
+
+        p {
+            font-size: em-calc(14px);
+            display: block;
+            line-height: 2em;
+            color: $mm-slidepanel-label-color;
+            font-weight: 600;
+
+            strong {
+                font-weight: 900;
+                color: $mm-slidepanel-strong-color;
+            }
+        }
+    }
+}
