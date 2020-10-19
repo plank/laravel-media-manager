@@ -9,15 +9,20 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Media;
+use Plank\Mediable\MediaMover;
+use Plank\Mediable\MediaUploader;
 use Plank\MediaManager\MediaManager;
 
 class MediaManagerController extends BaseController
 {
     protected $manager;
+    protected $mover;
+    protected $uploader;
 
-    public function __construct(MediaManager $manager)
+    public function __construct(MediaUploader $uploader, MediaMover $mover)
     {
-        $this->manager = $manager;
+        $this->manager = new MediaManager();
+        $this->mover = $mover;
     }
 
     public function index()
@@ -45,5 +50,19 @@ class MediaManagerController extends BaseController
         Storage::disk($disk)->deleteDirectory($path);
         Media::where('directory', $path)->delete();
         return response();
+    }
+
+    public function update(Request $request) {
+        $disk = $this->manager->verifyDisk($request->disk);
+        $sourcePath = $this->manager->verifyDirectory($disk, $request->path);
+        $destinationPath = $this->manager->verifyDirectory($disk, $request->path);
+
+        $media = Media::inOrUnderDirectory($sourcePath)->get();
+        $media->map(function ($medium) use ($destinationPath){
+            // TODO: dont't manually invoke save for every move, implement a moveMany()?
+            // TODO: Create destination sub directories, since the move is recursive?
+            $this->mover->move($medium, $destinationPath);
+        });
+
     }
 }
