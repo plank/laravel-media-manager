@@ -29,17 +29,21 @@ trait Convertible
         $this->conversions = config("media-manager.conversions");
     }
 
-    public function getConversionName(string $id, string $tag): string
+    public function getConversionName(string $tag): string
     {
-        return "$id-$tag";
+        return "{$this->id}-{$tag}.{$this->extension}";
     }
+
+//    public function getConversion($tag, $disk = null)
+//    {
+//        return Storage::get($this->getConversionsDirectory($disk).$this->getConversionName($tag));
+//    }
 
     public function saveConversions(): void
     {
-        $conversions = $this->getConversionsDirectory($this->disk);
         foreach ($this->conversions as $tag => $width) {
-            $filename = $this->getConversionName($this->id, $tag);
-            ProcessImage::execute($this, $width, $conversions.$filename);
+            $filename = $this->getConversionName($tag);
+            ProcessImage::execute($this, $width, $filename, $this->disk);
         }
     }
 
@@ -48,7 +52,7 @@ trait Convertible
         File::delete(File::glob($this->getConversionsDirectory($this->disk)."{$this->id}-*"));
     }
 
-    public function getConversionsDirectory($disk)
+    public function getConversionsDirectory($disk = null)
     {
         return Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix().config('media-manager.conversions-directory');
     }
