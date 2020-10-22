@@ -55,9 +55,9 @@ class MediaManagerServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/media-manager.php', 'media-manager');
+        // TODO: Find a cleaner way to achieve this
+        // Make sure Mediable uses this packages model instead
         config(['mediable.model' => config('media-manager.model')]);
-//        $this->mergeConfigFrom(__DIR__.'/../config/mediable.php', 'mediable');
-//        dd(config("mediable.model"));
 
         // Register the main class to use with the facade
         $this->registerMediaManager();
