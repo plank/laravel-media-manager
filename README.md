@@ -27,6 +27,14 @@ composer require plank/media-manager
 composer test
 ```
 
+## Frontend
+
+You can compile frontend with :
+
+```bash
+parcel index.html
+```
+
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
@@ -43,6 +51,7 @@ If you discover any security related issues, please email massimo@plankdesign.co
 
 - [Massimo Triassi](https://github.com/m-triassi)
 - [Evan Dimopoulos](https://github.com/EvanDime)
+- [Jerome Devillers](https://github.com/JeromeDevillers/)
 
 ## License
 

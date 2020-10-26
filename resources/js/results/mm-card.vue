@@ -1,7 +1,7 @@
 <template>
     <div class="mm__card">
         <div>
-            <img width="100%" src="https://source.unsplash.com/1600x900/?music" alt="">
+            <img width="100%" src="https://via.placeholder.com/200" alt="">
         </div>
         <div class="mm__card-infos">
             <h6>file_name.jpeg</h6>

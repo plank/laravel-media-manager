@@ -14996,7 +14996,7 @@ var staticRenderFns = [
         _c("img", {
           attrs: {
             width: "100%",
-            src: "https://source.unsplash.com/1600x900/?music",
+            src: "https://via.placeholder.com/200",
             alt: ""
           }
         })
@@ -17475,7 +17475,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59642" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54774" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
