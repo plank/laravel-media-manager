@@ -62,7 +62,7 @@ class MediaController extends BaseController
         $media = Media::with('models')->findOrFail($id);
         $conversions = collect();
         foreach ($media->models as $model) {
-            if (in_array(Convertible::class, class_uses(get_class($model)))) {
+            if (method_exists($model, "bootConvertible")) {
                 $conversions = $conversions->push($model->getConversionName($media->filename, $model->pivot->tag));
             }
         }

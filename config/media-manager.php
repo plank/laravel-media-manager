@@ -1,7 +1,6 @@
 <?php
-
 /*
- * You can place your custom package configuration in here.
+ * Configuration to allow for controlling or extending some default values of the media manager
  */
 return [
     'model' => \Plank\MediaManager\Models\Media::class,
