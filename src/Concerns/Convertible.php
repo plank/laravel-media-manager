@@ -5,7 +5,6 @@ namespace Plank\MediaManager\Concerns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Plank\Mediable\Media;
 use Plank\MediaManager\Actions\ProcessImage;
 use Plank\MediaManager\MediaManager;
 
@@ -26,7 +25,7 @@ trait Convertible
 
     protected function initializeConvertible()
     {
-        $this->conversions = config("media-manager.conversions");
+        $this->conversions = collect(config("media-manager.conversions"))->sortKeys();
     }
 
     public function getConversionName(string $tag): string
@@ -34,10 +33,19 @@ trait Convertible
         return "{$this->id}-{$tag}.{$this->extension}";
     }
 
-//    public function getConversion($tag, $disk = null)
-//    {
-//        return Storage::get($this->getConversionsDirectory($disk).$this->getConversionName($tag));
-//    }
+    public function getConversion($tag, $disk = null)
+    {
+        return Storage::disk($disk)->url(config('media-manager.conversions-directory').$this->getConversionName($tag));
+    }
+
+    public function getConversions($disk = null)
+    {
+        return collect(File::glob($this->getConversionsDirectory($disk)."{$this->id}-*"))->mapWithKeys(function ($path, $count) use ($disk) {
+            $parts = explode('/', $path);
+            $tags = $this->conversions->keys();
+            return [$tags[$count] => Storage::disk($disk)->url(config('media-manager.conversions-directory').end($parts))];
+        });
+    }
 
     public function saveConversions(): void
     {
