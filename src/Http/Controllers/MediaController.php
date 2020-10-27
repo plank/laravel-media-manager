@@ -9,7 +9,6 @@ use Plank\Mediable\Exceptions\MediaMoveException;
 use Plank\MediaManager\Models\Media;
 use Plank\Mediable\MediaMover;
 use Plank\Mediable\MediaUploader;
-use Plank\MediaManager\Concerns\Convertible;
 use Plank\MediaManager\MediaManager;
 
 
@@ -18,6 +17,7 @@ class MediaController extends BaseController
     protected $manager;
     protected $mover;
     protected $uploader;
+    protected $model;
 
     public function __construct(MediaUploader $uploader, MediaMover $mover)
     {
@@ -54,25 +54,21 @@ class MediaController extends BaseController
 
     public function update(Request $request)
     {
-        // TODO: Make this handle multiple update actions? Move, Rename, resize, crop?
-        $id = $request->id;
-        $disk = $this->manager->verifyDisk($request->disk);
-        $path = $this->manager->verifyDirectory($disk, $request->path);
+        $model = config('media-manager.model');
+        $valid = $request->validate([
+            'id' => "required|exists:{$model}",
+            'disk' => "string",
+            'path' => "string|required",
+            'name' => "string|nullable"
+        ]);
 
-        $media = Media::with('models')->findOrFail($id);
-        $conversions = collect();
-        foreach ($media->models as $model) {
-            if (method_exists($model, "bootConvertible")) {
-                $conversions = $conversions->push($model->getConversionName($media->filename, $model->pivot->tag));
-            }
-        }
-        $children = Media::inDirectory($media->disk, 'Conversions/' . $media->directory)
-            ->whereIn('filename', $conversions)->get();
+        $disk = $this->manager->verifyDisk($valid['disk']);
+        $path = $this->manager->verifyDirectory($disk, $valid['path']);
+
+        $media = Media::find($valid['id']);
+
         try {
-            $this->mover->move($media, $path);
-            foreach ($children as $child) {
-                $this->mover->move($child, 'Conversions/' . $path);
-            }
+            $this->mover->move($media, $path, $valid['name']);
         } catch (MediaMoveException $e) {
             return $e;
         }
