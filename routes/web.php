@@ -21,6 +21,7 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
     Route::post('directory/create', 'MediaManagerController@create')->name('directory.create');
     Route::post('resize', 'MediaController@resize')->name('resize');
     Route::post('update', 'MediaController@update')->name('update');
+    Route::post('directory/update', 'MediaManagerController@update')->name('directory.update');
 
     Route::post('destroy', 'MediaController@destroy')->name('destroy');
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
