@@ -2,16 +2,14 @@
 
 namespace Plank\MediaManager\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Exceptions\MediaMoveException;
-use Plank\Mediable\Media;
+use Plank\MediaManager\Models\Media;
 use Plank\Mediable\MediaMover;
 use Plank\Mediable\MediaUploader;
-use Plank\MediaManager\Conversions;
+use Plank\MediaManager\Concerns\Convertible;
 use Plank\MediaManager\MediaManager;
 
 
@@ -51,7 +49,6 @@ class MediaController extends BaseController
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
 
-
         return response($this->uploader->toDestination($disk, $path)->fromSource($media)->upload());
     }
 
@@ -65,7 +62,7 @@ class MediaController extends BaseController
         $media = Media::with('models')->findOrFail($id);
         $conversions = collect();
         foreach ($media->models as $model) {
-            if (in_array(Conversions::class, class_uses(get_class($model)))) {
+            if (method_exists($model, "bootConvertible")) {
                 $conversions = $conversions->push($model->getConversionName($media->filename, $model->pivot->tag));
             }
         }

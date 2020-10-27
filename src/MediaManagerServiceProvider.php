@@ -3,7 +3,7 @@
 namespace Plank\MediaManager;
 
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Plank\MediaManager\Http\Controllers\MediaController;
 use Plank\MediaManager\Http\Controllers\MediaManagerController;
@@ -25,7 +25,7 @@ class MediaManagerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('media-manager.php'),
+                __DIR__.'/../config/media-manager.php' => config_path('media-manager.php'),
             ], 'config');
 
             // Publishing the views.
@@ -54,7 +54,9 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'media-manager');
+        $this->mergeConfigFrom(__DIR__.'/../config/media-manager.php', 'media-manager');
+        // Make sure Mediable uses this packages model instead
+        Config::set('mediable.model', config('media-manager.model'));
 
         // Register the main class to use with the facade
         $this->registerMediaManager();

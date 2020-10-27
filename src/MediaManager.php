@@ -1,7 +1,7 @@
 <?php
 namespace Plank\MediaManager;
 
-use App\Exceptions\MediaManagerException;
+use Plank\MediaManager\Exceptions\MediaManagerException;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
@@ -86,13 +86,14 @@ class MediaManager
      * Checks for the existiance of the passed directory on the specified disk.
      * @param $disk
      * @param $directory
+     * @throws MediaManagerException
      * @return string
      */
     public function verifyDirectory($disk, $directory)
     {
         $filesystem = Storage::disk($disk);
-        if (!$filesystem->isDirectory($directory)) {
-            MediaManagerException::directoryNotFound($disk, $directory);
+        if (!$filesystem->exists($directory)) {
+            throw MediaManagerException::directoryNotFound($disk, $directory);
         }
         return trim($directory, '/');
     }
