@@ -101,12 +101,7 @@ class MediaController extends BaseController
         $path = $this->manager->verifyDirectory($disk, $valid['path']);
 
         $media = Media::find($valid['id']);
-
-        try {
-            $this->mover->move($media, $path, $valid['rename']);
-        } catch (MediaMoveException $e) {
-            return $e;
-        }
+        $media->move($path, $valid['rename'] ?? null);
 
         return response($media->fresh());
     }
