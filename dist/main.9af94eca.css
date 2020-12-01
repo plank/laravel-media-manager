@@ -61,7 +61,7 @@ table {
 
 h1 {
   font-size: 1.875em;
-  font-family: "Barlow", sans-serif;
+  font-family: "Open Sans", sans-serif;
   text-transform: uppercase;
 }
 
@@ -303,6 +303,10 @@ form div input {
   border-radius: 3px;
 }
 
+input {
+  cursor: pointer;
+}
+
 .modal {
   background: #FFFFFF;
   width: 400px;
@@ -336,11 +340,32 @@ form div input {
 
 table {
   width: 100%;
+  margin-top: 1em;
 }
-table td {
-  border: 1px solid red;
+table thead {
+  height: 50px;
 }
-
+table thead tr {
+  background: #F9F9F9;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+  border-radius: 5px;
+}
+table thead tr th {
+  vertical-align: middle;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.875em;
+  text-align: center;
+  font-weight: 600;
+  height: 2.375em;
+  color: #222222;
+}
+table tbody tr td {
+  vertical-align: middle;
+}
+table tr {
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+  border-radius: 5px;
+}
 body {
   background: #FFFFFF;
 }

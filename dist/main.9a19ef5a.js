@@ -15749,39 +15749,43 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
 var _default = {
-  name: 'mmlistresults',
+  name: "mmlistresults",
   components: {},
   data: function data() {
     return {
       current: null,
       collection: [{
         id: 1,
-        name: 'item 1'
+        name: "item 1"
       }, {
         id: 2,
-        name: 'item 2'
+        name: "item 2"
       }, {
         id: 3,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 4,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 5,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 6,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 7,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 8,
-        name: 'item 3'
+        name: "item 3"
       }, {
         id: 9,
-        name: 'item 3'
+        name: "item 3"
       }]
     };
   },
@@ -15791,7 +15795,7 @@ var _default = {
       event.preventDefault();
       this.current = id;
 
-      _eventBus.EventBus.$emit('openSlidepanel', this.current);
+      _eventBus.EventBus.$emit("openSlidepanel", this.current);
     }
   },
   mounted: function mounted() {},
@@ -15822,9 +15826,9 @@ exports.default = _default;
         "tbody",
         _vm._l(_vm.collection, function(elem) {
           return _c("tr", [
-            _c("td", [_vm._v(_vm._s(elem.id))]),
+            _vm._m(1, true),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(elem.name))]),
+            _vm._m(2, true),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(elem.name))]),
             _vm._v(" "),
@@ -15847,7 +15851,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th"),
         _vm._v(" "),
-        _c("th", [_vm._v("Preview")]),
+        _c("th", { attrs: { width: "75" } }, [_vm._v("Preview")]),
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
@@ -15855,6 +15859,20 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Upload Date")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("input", { attrs: { type: "checkbox" } })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("img", { attrs: { src: "https://via.placeholder.com/75", alt: "" } })
     ])
   }
 ]
