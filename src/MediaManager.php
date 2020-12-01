@@ -91,7 +91,7 @@ class MediaManager
     public function verifyDirectory($disk, $directory)
     {
         $filesystem = Storage::disk($disk);
-        if (!$filesystem->exists($directory)) {
+        if ($directory && !$filesystem->exists($directory)) {
             throw MediaManagerException::directoryNotFound($disk, $directory);
         }
         return trim($directory, '/');

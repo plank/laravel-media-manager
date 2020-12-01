@@ -17,12 +17,14 @@ class MediaController extends BaseController
     protected $mover;
     protected $uploader;
     protected $model;
+    protected $ignore = ["conversions"];
 
-    public function __construct(MediaUploader $uploader, MediaMover $mover)
+    public function __construct(MediaUploader $uploader, MediaMover $mover, array $ignore = [])
     {
         $this->manager = new MediaManager();
         $this->mover = $mover;
         $this->uploader = $uploader;
+        $this->ignore = array_merge($ignore, $this->ignore);
     }
 
     /**
@@ -44,7 +46,7 @@ class MediaController extends BaseController
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Plank\MediaManager\Exceptions\MediaManagerException
      */
-    public function index(Request $request, $path)
+    public function index(Request $request, $path = "")
     {
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $path);
@@ -53,7 +55,7 @@ class MediaController extends BaseController
         $media = Media::inDirectory($disk, $path)->get()->forPage($page, 20);
         $subdirectories = Storage::disk($disk)->directories($path);
 
-        return response(['subdirectories' => $subdirectories, 'media' => $media]);
+        return response(['subdirectories' => array_diff($subdirectories, $this->ignore), 'media' => $media]);
     }
 
     /**

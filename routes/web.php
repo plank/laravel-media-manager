@@ -25,6 +25,6 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
 
     Route::get('show/{id}', 'MediaController@show')->name('show');
-    Route::get('index/{path}', 'MediaController@index')->name('index')
+    Route::get('index/{path?}', 'MediaController@index')->name('index')
         ->where(['path' => '.*']);
 });
