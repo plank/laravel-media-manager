@@ -7,7 +7,6 @@ use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use phpDocumentor\Reflection\Types\ClassString;
 use Plank\Mediable\Media;
-use Plank\Mediable\Mediable;
 
 /**
  * Responsible for handling all file / image transformations, such as resizing, compressing, etc...
@@ -52,11 +51,11 @@ class MediaManager
     public function resize($image, $dimension, $method = self::RESIZE_WIDTH)
     {
         if ($image instanceof $this->media) {
-            $imagePath = $image->getAbsolutePath;
+            $imagePath = $image->getAbsolutePath();
         } else {
             $imagePath = $this->media->whereBasename($image)->firstOrFail()->getAbsolutePath();
         }
-        return $this->manager->make($image)->$method($dimension)->save();
+        return $this->manager->make($imagePath)->$method($dimension)->save();
     }
 
     /**

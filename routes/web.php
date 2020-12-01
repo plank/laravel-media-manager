@@ -14,8 +14,6 @@ Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
 // Json Routes
 // =============================================================
 Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
-    Route::get('index/{path}', 'MediaController@index')->name('index');
-    Route::get('show/{id}', 'MediaController@show')->name('show');
 
     Route::post('create', 'MediaController@create')->name('create');
     Route::post('directory/create', 'MediaManagerController@create')->name('directory.create');
@@ -25,4 +23,8 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
 
     Route::post('destroy', 'MediaController@destroy')->name('destroy');
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
+
+    Route::get('show/{id}', 'MediaController@show')->name('show');
+    Route::get('index/{path}', 'MediaController@index')->name('index')
+        ->where(['path' => '.*']);
 });

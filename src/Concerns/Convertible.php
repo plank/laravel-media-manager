@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Plank\MediaManager\Actions\ProcessImage;
-use Plank\MediaManager\MediaManager;
 
 trait Convertible
 {

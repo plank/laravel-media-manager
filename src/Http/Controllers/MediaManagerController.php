@@ -1,6 +1,7 @@
 <?php
 namespace Plank\MediaManager\Http\Controllers;
 
+use App\Http\Requests\MoveMediaFolder;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -21,11 +22,21 @@ class MediaManagerController extends BaseController
         $this->mover = $mover;
     }
 
+    /**
+     * Summon the view containing the media manager component
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('media-manager');
     }
 
+    /**
+     * Create a folder on disk with the given name
+     * @param  Request  $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws MediaManagerException
+     */
     public function create(Request $request)
     {
         $disk = $this->manager->verifyDisk($request->disk);
@@ -35,39 +46,50 @@ class MediaManagerController extends BaseController
             throw MediaManagerException::directoryAlreadyExists($disk, $path);
         }
 
+        Storage::disk($disk)->makeDirectory($path);
         return response(['success' => true]);
     }
 
+    /**
+     * Move an entire directory, and it's contained media to another folder. Supports renaming folders as well.
+     *
+     * Note: An edge case bug exists where if you move a folder from the root, which contains folders with the
+     * containing folder's name as substrings for those folders, the action of moving will also rename those subfolders
+     * resulting faulty move results
+     * @param  Request  $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws MediaManagerException
+     */
     public function update(Request $request)
     {
-//        $valid = $request->validate([
-//            'source' => 'required|string',
-//            'destination' => 'required|string',
-//            'disk' => 'nullable'
-//        ]);
-        $source = $request->source;
-        $destination = $request->destination;
-        $disk = $request->disk;
-
+        $disk = $this->manager->verifyDisk($request->disk);
+        $source = $this->manager->verifyDirectory($disk, $request->source);
+        $destination = trim($request->destination, '/');
         $container = collect(explode('/', $source))->last();
-        $destination .= "/" . $container;
-
+        $rename = $request->rename ?? $container;
+        $destination .= "/" . $rename;
         $filesystem = Storage::disk($disk);
-        if (!$filesystem->exists($destination)) {
-            $filesystem->makeDirectory($destination);
-        }
 
-        $media = Media::whereDirectory($source)->get();
+        $filesystem->move($source, $destination);
         $moved = collect();
-        foreach ($media as $medium) {
-            $this->mover->move($medium, $destination);
-            $moved[] = $medium->fresh();
-        }
-        $filesystem->deleteDirectory($source);
+        Media::inOrUnderDirectory($disk, $source)->get()->each(function($media) use($source, $destination, $moved){
+            $media->directory = trim(str_replace($source, $destination, $media->directory), '/');
+            $media->save();
+            $moved[] = $media->fresh();
+        });
 
-        return response($moved);
+        return response([
+            'success' => true,
+            'media' => $moved
+        ]);
     }
 
+    /**
+     * Delete the specified folder from the disk, along with its entries in Media
+     * @param  Request  $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws MediaManagerException
+     */
     public function destroy(Request $request)
     {
         $disk = $this->manager->verifyDisk($request->disk);
