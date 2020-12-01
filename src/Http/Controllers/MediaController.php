@@ -7,22 +7,19 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Exceptions\MediaMoveException;
 use Plank\MediaManager\Models\Media;
-use Plank\Mediable\MediaMover;
 use Plank\Mediable\MediaUploader;
 use Plank\MediaManager\MediaManager;
 
 class MediaController extends BaseController
 {
     protected $manager;
-    protected $mover;
     protected $uploader;
     protected $model;
     protected $ignore = ["conversions"];
 
-    public function __construct(MediaUploader $uploader, MediaMover $mover, array $ignore = [])
+    public function __construct(MediaUploader $uploader, array $ignore = [])
     {
         $this->manager = new MediaManager();
-        $this->mover = $mover;
         $this->uploader = $uploader;
         $this->ignore = array_merge($ignore, $this->ignore);
     }

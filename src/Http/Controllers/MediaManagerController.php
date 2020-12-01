@@ -1,12 +1,9 @@
 <?php
 namespace Plank\MediaManager\Http\Controllers;
 
-use App\Http\Requests\MoveMediaFolder;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
-use Plank\Mediable\MediaMover;
 use Plank\MediaManager\Models\Media;
 use Plank\MediaManager\Exceptions\MediaManagerException;
 use Plank\MediaManager\MediaManager;
@@ -16,10 +13,9 @@ class MediaManagerController extends BaseController
     protected $manager;
     protected $mover;
 
-    public function __construct(MediaManager $manager, MediaMover $mover)
+    public function __construct(MediaManager $manager)
     {
         $this->manager = $manager;
-        $this->mover = $mover;
     }
 
     /**
