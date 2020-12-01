@@ -1,16 +1,17 @@
 // Buttons
 .btn {
-    background: #9C1820;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
-    color: $mm-color-white;
-    border: none;
-    border-radius: 150px;
-    width: $button-add-dimension;
-    height: $button-add-dimension;
-    cursor: pointer;
+    &-rounded {
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
+        color: $mm-color-white;
+        border: none;
+        border-radius: 150px;
+        width: $button-add-dimension;
+        height: $button-add-dimension;
+        cursor: pointer;
+    }
 
     &-add {
-        position: absolute;
+        position: fixed;
         right: em-calc(10px);
         bottom: em-calc(10px);
         &:hover {

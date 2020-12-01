@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./../img/icon-search.svg":[["icon-search.0c562674.svg","resources/img/icon-search.svg"],"resources/img/icon-search.svg"],"./../img/icon-select.svg":[["icon-select.b42cd0a7.svg","resources/img/icon-select.svg"],"resources/img/icon-select.svg"],"./../img/icon-selected.svg":[["icon-selected.c118e37d.svg","resources/img/icon-selected.svg"],"resources/img/icon-selected.svg"],"./../img/icon-add.svg":[["icon-add.edc9b9f7.svg","resources/img/icon-add.svg"],"resources/img/icon-add.svg"],"./../img/icon-close.svg":[["icon-close.085c97ef.svg","resources/img/icon-close.svg"],"resources/img/icon-close.svg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./../img/icon-search.svg":[["icon-search.0c562674.svg","resources/img/icon-search.svg"],"resources/img/icon-search.svg"],"./../img/icon-select.svg":[["icon-select.b42cd0a7.svg","resources/img/icon-select.svg"],"resources/img/icon-select.svg"],"./../img/icon-selected.svg":[["icon-selected.c118e37d.svg","resources/img/icon-selected.svg"],"resources/img/icon-selected.svg"],"./../img/icon-add.svg":[["icon-add.edc9b9f7.svg","resources/img/icon-add.svg"],"resources/img/icon-add.svg"],"./../img/icon-list.svg":[["icon-list.ef742921.svg","resources/img/icon-list.svg"],"resources/img/icon-list.svg"],"./../img/icon-grid.svg":[["icon-grid.ffbd81c5.svg","resources/img/icon-grid.svg"],"resources/img/icon-grid.svg"],"./../img/icon-close.svg":[["icon-close.085c97ef.svg","resources/img/icon-close.svg"],"resources/img/icon-close.svg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51836" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55764" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

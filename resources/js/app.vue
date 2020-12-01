@@ -7,12 +7,13 @@
     </div>
 
     <div class="wrapper">
-      {{ store }}
       <!-- Search Panel -->
       <mmsearch></mmsearch>
 
+      <mmlistresults v-if="viewState"></mmlistresults>
+
       <!-- Results Panel -->
-      <mmresults></mmresults>
+      <mmresults v-if="!viewState"></mmresults>
 
       <!-- Add Button -->
       <mmaddbutton></mmaddbutton>
@@ -24,31 +25,44 @@
     </transition>
 
     <!-- Modal -->
-    <mmmodaladd v-if="showModal" @close="showModal = false"></mmmodaladd>
+    <transition name="fade">
+      <mmmodaladd v-if="modalState" @close="this.$store.modalState = false"></mmmodaladd>
+    </transition>
+
+    <transition name="fade">
+      <div v-if="modalState" @close="this.$store.modalState = false" class="overlay"></div>
+    </transition>
   </div>
 </template>
 
 <script>
-import mmsearch from "./search/mm-search";
-import mmresults from "./results/mm-results";
-import mmslidepanel from "./slidepanel/mm-slidepanel";
-import mmaddbutton from "./buttons/mm-add-button";
-import mmmodaladd from "./modals/mm-modal-add";
-import store from "./store.js";
+import mmsearch from './search/mm-search';
+import mmresults from './results/mm-results';
+import mmslidepanel from './slidepanel/mm-slidepanel';
+import mmaddbutton from './buttons/mm-add-button';
+import mmmodaladd from './modals/mm-modal-add';
+import mmlistresults from './results/mm-list-results';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     mmsearch,
     mmresults,
     mmslidepanel,
     mmaddbutton,
     mmmodaladd,
+    mmlistresults
   },
-  data() {
-    return {
-      showModal: false,
-    };
+  data () {
+    return {};
   },
+  computed: {
+    modalState () {
+      return this.$store.state.modalState;
+    },
+    viewState () {
+      return this.$store.state.viewState;
+    }
+  }
 };
 </script>

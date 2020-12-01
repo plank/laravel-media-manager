@@ -51,10 +51,22 @@ table {
   opacity: 0;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 h1 {
   font-size: 1.875em;
   font-family: "Barlow", sans-serif;
   text-transform: uppercase;
+}
+
+b, strong {
+  font-weight: bold;
 }
 
 .wrapper {
@@ -72,19 +84,17 @@ h1 {
 }
 
 .mm__search-container {
-  position: relative;
-}
-.mm__search-container input {
-  width: 100%;
-  padding: 0.8125em;
-  border-radius: 1.5em;
-  border: none;
-  background-color: #F9F9F9;
-  font-family: "Open Sans", sans-serif;
-  color: #616161;
-  font-size: 0.875em;
+  display: grid;
   margin: 1.125em 0;
-  box-sizing: border-box;
+  grid-template-columns: repeat(2, 1fr);
+}
+.mm__search-breadcrumb {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.875em;
+  float: right;
+}
+.mm__search-actions {
+  float: right;
 }
 .mm__search-send {
   cursor: pointer;
@@ -145,8 +155,7 @@ h1 {
   right: -2em;
 }
 
-.btn {
-  background: #9C1820;
+.btn-rounded {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.25);
   color: #FFFFFF;
   border: none;
@@ -156,7 +165,7 @@ h1 {
   cursor: pointer;
 }
 .btn-add {
-  position: absolute;
+  position: fixed;
   right: 0.625em;
   bottom: 0.625em;
 }
@@ -170,6 +179,20 @@ h1 {
   display: block;
   width: 2.375em;
   height: 2.375em;
+  margin: 0 auto;
+}
+.i-list {
+  background: url("/icon-list.ef742921.svg");
+  display: block;
+  width: 1.5625em;
+  height: 1.3125em;
+  margin: 0 auto;
+}
+.i-grid {
+  background: url("/icon-grid.ffbd81c5.svg");
+  display: block;
+  width: 1.25em;
+  height: 1.4375em;
   margin: 0 auto;
 }
 
@@ -281,7 +304,7 @@ form div input {
 }
 
 .modal {
-  background: red;
+  background: #FFFFFF;
   width: 400px;
   height: 400px;
   display: inline-block;
@@ -290,6 +313,32 @@ form div input {
   top: 33%;
   left: 0;
   right: 0;
+  padding: 1.5625em;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+  border-radius: 0.1875em;
+  z-index: 2;
+}
+.modal__container {
+  border: 2px dashed #848484;
+}
+.modal-close {
+  float: right;
+}
+
+.overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: rgba(245, 245, 245, 0.8);
+  top: 0;
+  z-index: 1;
+}
+
+table {
+  width: 100%;
+}
+table td {
+  border: 1px solid red;
 }
 
 body {

@@ -1,6 +1,6 @@
 // Modals
 .modal {
-    background: red;
+    background: $mm-color-white;
     width: 400px;
     height: 400px;
     display: inline-block;
@@ -9,4 +9,25 @@
     top: 33%;
     left: 0;
     right: 0;
+    padding: em-calc(25px);
+    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
+    border-radius: em-calc(3px);
+    z-index: 2;
+
+    &__container {
+        border: 2px dashed $mm-modal-add-border;
+    }
+
+    &-close {
+        float: right;
+    }
+}
+
+.overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(245,245,245,0.80);
+    top: 0;
+    z-index: 1;
 }
