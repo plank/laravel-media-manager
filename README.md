@@ -35,6 +35,14 @@ You can compile frontend with :
 parcel index.html
 ```
 
+## Dependencies
+
+| Name | Function |
+| --- | --- |
+| [vue-dropzone](https://rowanwins.github.io/vue-dropzone/) | Upload Files |
+|     |     |
+
+
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.

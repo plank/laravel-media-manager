@@ -13,6 +13,7 @@
     "start": "parcel index.html",
     "watch": "parcel watch index.html",
     "dev": "parcel index.html",
+    "eslint": "./node_modules/.bin/eslint resources/",
     "production": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,9 +31,16 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",
     "axios": "^0.20.0",
+    "eslint": "^7.14.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^7.1.0",
     "parcel-bundler": "^1.12.4",
     "sass": "^1.27.0",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "vuex": "^3.6.0"
   },
   "dependencies": {
     "lang": "^0.1.1",
