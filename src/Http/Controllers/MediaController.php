@@ -15,6 +15,10 @@ class MediaController extends BaseController
     protected $manager;
     protected $uploader;
     protected $model;
+    /**
+     *
+     * @var array $ignore Directories, of format "path/relative/to/disk/root" to be ignored for display in the media manager.
+     */
     protected $ignore = ["conversions"];
 
     public function __construct(MediaUploader $uploader, array $ignore = [])
