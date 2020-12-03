@@ -11,7 +11,6 @@ use Plank\MediaManager\MediaManager;
 class MediaManagerController extends BaseController
 {
     protected $manager;
-    protected $mover;
 
     public function __construct(MediaManager $manager)
     {
