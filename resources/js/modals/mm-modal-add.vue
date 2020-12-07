@@ -32,6 +32,7 @@ export default {
     },
   },
   computed: {
+    // Get Main Color From Store
     getColor() {
       return this.$store.state.mainColor;
     },

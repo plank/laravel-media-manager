@@ -1,5 +1,10 @@
 // Buttons
 .btn {
+    font-family: $font-family-header;
+    text-align: center;
+    text-decoration: none;
+    border-radius: em-calc(3px);
+
     &-rounded {
         box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
         color: $mm-color-white;
@@ -18,5 +23,23 @@
             transform: scale(1.1);
             transition: all 0.2s ease-in-out;
         }
+    }
+
+    &-default {
+        text-transform: uppercase;
+        color: white;
+    }
+
+    &-default-border {
+        border-width: 3px;
+        border-style: solid;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    &-delete {
+        font-weight: 100;
+        text-transform: uppercase;
+        text-decoration: underline;
     }
 }

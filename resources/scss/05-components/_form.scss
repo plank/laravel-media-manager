@@ -15,11 +15,17 @@ form {
             margin-bottom: em(5px);
         }
 
+        textarea,
         input {
             width: 100%;
             min-height: em(40px);
             border: 1px solid $mm-form-border-color;
             border-radius: 3px;
+        }
+
+        textarea {
+            padding: em-calc(10px);
+            font-family: $font-family-base;
         }
     }
 

@@ -1,9 +1,9 @@
 <template>
   <div class="mm__results">
-    <table>
+    <table class="mm-table">
       <thead>
         <tr>
-          <th></th>
+          <th class="mm-table__input" width="40"></th>
           <th width="75">Preview</th>
           <th>Name</th>
           <th>Type</th>
@@ -11,16 +11,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="elem in collection">
-          <td>
-            <input type="checkbox" />
+        <tr v-for="(elem, index) in mediaCollection" v-bind:key="index">
+          <td class="mm-table__input">
+            <input v-on:click="setCurrent($event, elem)" type="checkbox" />
           </td>
           <td>
             <img src="https://via.placeholder.com/75" alt="" />
           </td>
-          <td>{{ elem.name }}</td>
-          <td>{{ elem.name }}</td>
-          <td>{{ elem.name }}</td>
+          <td><strong>{{ elem.filename }}</strong></td>
+          <td>{{ elem.mime_type }}</td>
+          <td>{{ elem.created_at }}</td>
         </tr>
       </tbody>
     </table>
@@ -37,25 +37,13 @@ export default {
   data() {
     return {
       current: null,
-      collection: [
-        { id: 1, name: "item 1" },
-        { id: 2, name: "item 2" },
-        { id: 3, name: "item 3" },
-        { id: 4, name: "item 3" },
-        { id: 5, name: "item 3" },
-        { id: 6, name: "item 3" },
-        { id: 7, name: "item 3" },
-        { id: 8, name: "item 3" },
-        { id: 9, name: "item 3" },
-      ],
+      mediaCollection: this.$store.state.mediaCollection,
     };
   },
   methods: {
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
-      event.preventDefault();
-      this.current = id;
-      EventBus.$emit("openSlidepanel", this.current);
+      EventBus.$emit("openSlidepanel", id);
     },
   },
   mounted() {},

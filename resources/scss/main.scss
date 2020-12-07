@@ -7,9 +7,13 @@
 // 02-tools
 @import '02-tools/mixins';
 @import '02-tools/animations';
+@import '02-tools/classes';
 
 // 03-base
 @import '03-base/typography';
+
+// 04-Layouts
+@import '04-layouts/grid';
 
 // 05-components
 @import '05-components/main-container';

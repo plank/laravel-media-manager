@@ -21,6 +21,17 @@ const messages = {
       by_type: 'Filter by type',
       by_date: 'Filter by date'
     },
+    actions: {
+      delete: 'Delete',
+      createDirectory: 'Create Directory',
+      viewGrid: 'View Grid',
+      viewList: 'View List',
+      search: 'Search',
+      sort: {
+        oldest: 'Sort Oldest to Newset',
+        newest: 'Sort Newest to Oldest'
+      }
+    },
     slidepanel: {
       alt_text: 'Alternative Text',
       credit: 'Credit',
@@ -35,6 +46,17 @@ const messages = {
       input_placeholder: 'Que cherchez-vous?',
       by_type: 'Filtrer par type',
       by_date: 'Filtrer par date'
+    },
+    actions: {
+      delete: 'Effacer',
+      createDirectory: 'Nouveau dossier',
+      viewGrid: 'Grille',
+      viewList: 'Liste',
+      search: 'Chercher',
+      sort: {
+        oldest: 'Sort Oldest to Newset',
+        newest: 'Sort Newest to Oldest'
+      }
     },
     slidepanel: {
       alt_text: 'Texte alternatif',
