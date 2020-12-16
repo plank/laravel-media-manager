@@ -11,13 +11,21 @@
       <!-- Name -->
       <h5>{{ this.data[0].filename }}</h5>
       <!-- Type -->
-      <p>Type: <strong>{{ this.data[0].mime_type }}</strong></p>
+      <p>
+        Type: <strong>{{ this.data[0].mime_type }}</strong>
+      </p>
       <!-- Dimension -->
-      <p>Dimension: <strong>{{ this.data[0].size }}</strong></p>
+      <p>
+        Dimension: <strong>{{ this.data[0].size }}</strong>
+      </p>
       <!-- File Size -->
-      <p>File Size: <strong>{{ this.data[0].size }}</strong></p>
+      <p>
+        File Size: <strong>{{ this.data[0].size }}</strong>
+      </p>
       <!-- Upload Date -->
-      <p>Upload Date: <strong>{{ this.data[0].created_at }}</strong></p>
+      <p>
+        Upload Date: <strong>{{ this.data[0].created_at }}</strong>
+      </p>
       <!-- Form -->
       <form action="">
         <div>
@@ -34,13 +42,17 @@
         </div>
       </form>
 
-      <div class="">
+      <div class="mm__slidepanel-btn-container">
         <div class="columns columns__2">
-            <a :style="{ background : getColor }" class="btn btn-default" href="">Save</a>
-            <a :style="{ color: getColor, borderColor : getColor }" class="btn btn-default-border" href="">Add Details</a>
+          <a :style="styleBtnDefault" class="btn btn-default" href="">Save</a>
+          <a :style="styleBtnDefault" class="btn btn-default-border" href=""
+            >Add Details</a
+          >
         </div>
         <div class="columns__1">
-            <a class="btn btn-delete text-center" :style="{ color : getColor }" href="@">Delete file</a>
+          <a class="btn btn-delete text-center" :style="styleBtnDefault" href="@"
+            >Delete file</a
+          >
         </div>
       </div>
     </div>
@@ -55,7 +67,7 @@ export default {
   data() {
     return {
       slideOpen: false,
-      data: []
+      data: [],
     };
   },
   methods: {
@@ -71,9 +83,33 @@ export default {
     });
   },
   computed: {
-    getColor() {
-      return this.$store.state.mainColor;
-    }
+    styleBtnDefault() {
+      return {
+        "--bg-color": this.$store.state.mainColor,
+      };
+    },
   },
 };
 </script>
+
+<style lang="sass">
+.btn-default
+    background: var(--bg-color)
+    border-color: var(--bg-color)
+    &:hover
+        background: white
+        border-color: var(--bg-color)
+        color: var(--bg-color)
+        transition: all 0.2s ease-in-out
+
+.btn-default-border
+    border: var(--bg-color)
+    color: var(--bg-color)
+    &:hover
+        background: var(--bg-color)
+        color: white
+        transition: all 0.2s ease-in-out
+
+.btn-delete
+    color: var(--bg-color)
+</style>

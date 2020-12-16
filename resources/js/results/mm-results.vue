@@ -2,7 +2,7 @@
   <div class="mm__results">
     <!-- For Each Loop -->
     <div class="mm__results-grid">
-      <div v-for="item in mediaCollection" :key="item.id" class="mm__results-single" v-bind:class="{ selected: current === item.id }" v-on:click="pushSelected($event, item)">
+      <div v-for="item in mediaCollection" :key="item.id" class="mm__results-single">
         <mmcard :item="item"></mmcard>
       </div>
     </div>
@@ -20,18 +20,10 @@ export default {
   },
   data() {
     return {
-      current: null,
       mediaCollection: this.$store.state.mediaCollection,
     };
   },
   methods: {
-    // Push selected element to store
-    pushSelected: function (event, value) {
-      console.log(value);
-      event.preventDefault();
-      this.current = value.id;;
-      this.$store.dispatch("pushSelected", value);
-    },
     // Set Current State And Open Slidepanel
     // setCurrent: function (event, id) {
     //   event.preventDefault();
@@ -40,10 +32,6 @@ export default {
     // },
   },
   mounted() {},
-  computed: {
-    totalSelectedCount() {
-      return this.$store.state.totalSelected;
-    },
-  },
+  computed: {},
 };
 </script>

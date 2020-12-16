@@ -10,6 +10,19 @@
     right: 0;
     box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
 
+    &-btn-container {
+        padding: 0 em(40px);
+
+        .columns__1 {
+            text-align: center;
+            margin: em(20px) 0 em(60px) 0;
+        }
+
+        .columns__2 {
+            column-gap: em(10px);
+        }
+    }
+
     &-close {
         float: right;
         text-indent: -9999px;

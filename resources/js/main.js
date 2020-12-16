@@ -27,6 +27,7 @@ const messages = {
       viewGrid: 'View Grid',
       viewList: 'View List',
       search: 'Search',
+      created_on: 'Created on',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -36,6 +37,11 @@ const messages = {
       alt_text: 'Alternative Text',
       credit: 'Credit',
       caption: 'Caption'
+    },
+    carousel: {
+      title: 'Create Carousel',
+      btn_create: 'Create',
+      btn_cancel: 'Cancel',
     }
   },
   fr: {
@@ -53,6 +59,7 @@ const messages = {
       viewGrid: 'Grille',
       viewList: 'Liste',
       search: 'Chercher',
+      created_on: 'Crée le',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -62,6 +69,11 @@ const messages = {
       alt_text: 'Texte alternatif',
       credit: 'Crédit',
       caption: 'Légende'
+    },
+    carousel: {
+      title: 'Créer carousel',
+      btn_create: 'Créer',
+      btn_cancel: 'Annuler',
     }
   }
 }

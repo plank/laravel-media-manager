@@ -1,0 +1,67 @@
+// Sidepanel
+
+.mm__carousel {
+    overflow-y: scroll;
+    position: fixed;
+    width: 100%;
+    height: 300px;
+    background: $mm-carousel-bg;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
+    padding: em(50px);
+    box-sizing: border-box;
+
+    h2 {
+        margin-bottom: em(22px);
+    }
+
+    &-reorder {
+        display: none;
+        overflow: hidden;
+        margin: em(30px) 0;
+        font-family: $font-family-base;
+        font-size: em(14px);
+        line-height: 1.2em;
+    }
+
+    &-card {
+        position: relative;
+
+        span {
+            background: $mm-card-selected;
+            color: white;
+            box-shadow: 0 2px 11px 0 rgba(0,0,0,0.25);
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            height: 24px;
+            padding: 4px 12px;
+            border-radius: em(150px);
+            font-family: $font-family-base;
+            font-size: em(12px);
+            top: -1em;
+            right: -1em;
+            font-weight: 900;
+
+        }
+    }
+
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        margin-bottom: em(16px);
+        column-gap: em(16px);
+        row-gap: em(16px);
+
+        div {
+            text-align: center;
+        }
+    }
+
+    &-btn-container {
+        display: block;
+        margin-top: em(60px);
+        text-align: center;
+    }
+}

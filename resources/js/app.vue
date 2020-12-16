@@ -10,13 +10,25 @@
       <!-- Search Panel -->
       <mmsearch></mmsearch>
 
-      <mmlistresults v-if="viewState"></mmlistresults>
+      <!-- TO REMOVE -->
+      <div class="debug">
+        {{ this.$store.state.selectedElem }}
+      </div>
+
+      <!-- Folders List -->
+      <mmfolders v-if="folderState && !viewState"></mmfolders>
+
+      <!-- Results List -->
+      <mmlistresults v-if="viewState && !folderState"></mmlistresults>
 
       <!-- Results Panel -->
-      <mmresults v-if="!viewState"></mmresults>
+      <mmresults v-if="!viewState && !folderState"></mmresults>
 
       <!-- Add Button -->
       <mmaddbutton></mmaddbutton>
+
+      <!-- Carousel Panel -->
+      <mmcarousel></mmcarousel>
     </div>
 
     <!-- Slidepanel -->
@@ -30,39 +42,50 @@
     </transition>
 
     <transition name="fade">
-      <div v-if="modalState" @close="this.$store.modalState = false" class="overlay"></div>
+      <div
+        v-if="modalState"
+        @close="this.$store.modalState = false"
+        class="overlay"
+      ></div>
     </transition>
   </div>
 </template>
 
 <script>
-import mmsearch from './search/mm-search';
-import mmresults from './results/mm-results';
-import mmslidepanel from './slidepanel/mm-slidepanel';
-import mmaddbutton from './buttons/mm-add-button';
-import mmmodaladd from './modals/mm-modal-add';
-import mmlistresults from './results/mm-list-results';
+import mmsearch from "./search/mm-search";
+import mmresults from "./results/mm-results";
+import mmslidepanel from "./slidepanel/mm-slidepanel";
+import mmaddbutton from "./buttons/mm-add-button";
+import mmmodaladd from "./modals/mm-modal-add";
+import mmlistresults from "./results/mm-list-results";
+import mmfolders from "./folders/mm-folders";
+import mmcarousel from "./carousel/mm-carousel";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     mmsearch,
     mmresults,
     mmslidepanel,
     mmaddbutton,
     mmmodaladd,
-    mmlistresults
+    mmlistresults,
+    mmfolders,
+    mmcarousel,
   },
-  data () {
+  data() {
     return {};
   },
   computed: {
-    modalState () {
+    modalState() {
       return this.$store.state.modalState;
     },
-    viewState () {
+    viewState() {
       return this.$store.state.viewState;
-    }
-  }
+    },
+    folderState() {
+      return this.$store.state.folderState;
+    },
+  },
 };
 </script>

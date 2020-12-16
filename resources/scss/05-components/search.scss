@@ -104,22 +104,6 @@
                     position: relative;
                     border: 2px solid transparent;
                     transition: all 0.2s ease-in-out;
-                    &.selected {
-                        transition: all 0.2s ease-in-out;
-                        border-radius: em(5px);
-                        border: 2px solid $mm-card-selected;
-                        box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            width: em(64px);
-                            height: em(64px);
-                            display: inline-block;
-                            background: url('./../img/icon-selected.svg');
-                            top: -2em;
-                            right: -2em;
-                        }
-                    }
                 }
             }
         }

@@ -26,7 +26,7 @@
 @import '05-components/form';
 @import '05-components/modal';
 @import '05-components/table';
-
+@import '05-components/carousel';
 
 // For Demo Only
 // NOTE: This can be remove
@@ -38,4 +38,18 @@ body {
     background: #25223F;
     display: grid;
     grid-template-columns: 24% auto;
+    min-height: 100vh;
+}
+
+.debug {
+    display: none;
+    background-color: black;
+    color: white;
+    position: fixed;
+    width: 50%;
+    border: 3px solid red;
+    padding: 2em;
+    left: 0;
+    top: 0;
+    z-index: 9999;
 }

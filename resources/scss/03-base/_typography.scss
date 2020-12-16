@@ -2,7 +2,13 @@
 
 h1 {
     font-size: em-calc(30px);
-    font-family: $font-family-base;
+    font-family: $font-family-header;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: em-calc(21px);
+    font-family: $font-family-header;
     text-transform: uppercase;
 }
 

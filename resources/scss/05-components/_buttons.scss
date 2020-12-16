@@ -28,17 +28,21 @@
     &-default {
         text-transform: uppercase;
         color: white;
+        padding: em(14px) em(48px);
+        border-width: 3px;
+        border-style: solid;
     }
 
     &-default-border {
         border-width: 3px;
         border-style: solid;
         text-transform: uppercase;
-        color: white;
+        padding: em(14px) em(28px);
     }
 
     &-delete {
         font-weight: 100;
+        font-size: em-calc(12px);
         text-transform: uppercase;
         text-decoration: underline;
     }

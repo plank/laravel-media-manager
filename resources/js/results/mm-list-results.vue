@@ -18,7 +18,9 @@
           <td>
             <img src="https://via.placeholder.com/75" alt="" />
           </td>
-          <td><strong>{{ elem.filename }}</strong></td>
+          <td>
+            <strong>{{ elem.filename }}</strong>
+          </td>
           <td>{{ elem.mime_type }}</td>
           <td>{{ elem.created_at }}</td>
         </tr>
@@ -43,7 +45,7 @@ export default {
   methods: {
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
-      EventBus.$emit("openSlidepanel", id);
+      //EventBus.$emit("openSlidepanel", id);
     },
   },
   mounted() {},
