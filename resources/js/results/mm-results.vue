@@ -10,28 +10,21 @@
 </template>
 
 <script>
-import { EventBus } from "./../event-bus.js";
-import mmcard from "./mm-card";
+import { EventBus } from './../event-bus.js';
+import mmcard from './mm-card';
 
 export default {
-  name: "mmresults",
+  name: 'mmresults',
   components: {
-    mmcard,
+    mmcard
   },
-  data() {
+  data () {
     return {
-      mediaCollection: this.$store.state.mediaCollection,
+      mediaCollection: this.$store.state.mediaCollection
     };
   },
-  methods: {
-    // Set Current State And Open Slidepanel
-    // setCurrent: function (event, id) {
-    //   event.preventDefault();
-    //   EventBus.$emit("setID", id);
-    //   EventBus.$emit("openSlidepanel", id);
-    // },
-  },
-  mounted() {},
-  computed: {},
+  methods: { },
+  mounted () {},
+  computed: {}
 };
 </script>

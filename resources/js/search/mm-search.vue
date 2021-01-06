@@ -343,7 +343,6 @@ export default {
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
       event.preventDefault();
-      //EventBus.$emit("setID", id);
       EventBus.$emit("openSlidepanel", id);
     },
   },

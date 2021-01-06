@@ -49,6 +49,16 @@ export default {
       this.$store.dispatch('pushSelected', value);
     }
   },
+  watch: {
+    '$store.state.selectedElem': function () {
+      const index = this.$store.state.selectedElem.length;
+      if (index === 0) {
+        document.querySelectorAll('input').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+      }
+    }
+  },
   mounted () {
     const index = this.$store.state.selectedElem;
     for (const key in index) {
