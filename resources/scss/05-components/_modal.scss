@@ -16,6 +16,10 @@
 
     &__container {
         border: 2px dashed $mm-modal-add-border;
+
+        &-upload {
+            margin-top: em(40px);
+        }
     }
 
     &-close {

@@ -40,6 +40,7 @@ parcel index.html
 | Name | Function |
 | --- | --- |
 | [vue-dropzone](https://rowanwins.github.io/vue-dropzone/) | Upload Files |
+| [vuedraggable](https://sortablejs.github.io/Vue.Draggable/#/simple) | Drag&Drop  |
 |     |     |
 
 

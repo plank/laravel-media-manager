@@ -12,30 +12,57 @@
       </svg>
     </a>
 
-    <div class="modal__container">
-      <p>Nostrud enim Lorem laborum commodo incididunt ex proident esse. Non mollit ea aute eu incididunt nostrud. Officia nisi id fugiat dolore velit excepteur enim. Minim deserunt laborum velit reprehenderit. Ad reprehenderit pariatur ullamco consequat eiusmod et dolor ex commodo et est aliqua occaecat minim.</p>
+    <div class="modal__container modal__container-upload">
+        <vue-dropzone ref="myVueDropzone" :style="styleBtnDefault" v-on:vdropzone-success="uploadSuccess()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
     </div>
   </div>
 </template>
 
 <script>
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
-  name: "mmmodaladd",
-  data() {
-    return {};
+  name: 'mmmodaladd',
+  components: {
+    vueDropzone: vue2Dropzone
   },
-  mounted() {},
+  data () {
+    return {
+      dropzoneOptions: {
+        url: 'https://httpbin.org/post',
+        thumbnailWidth: 150,
+        maxFilesize: 4.5,
+        headers: { 'My-Awesome-Header': 'header value' }
+      }
+    };
+  },
+  mounted () {},
   methods: {
-    closeModal: function (event) {
-      event.preventDefault();
-      this.$store.dispatch("closeModal");
+    closeModal: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('closeModal');
     },
+    uploadSuccess: function () {
+      this.$store.dispatch('closeModal');
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-  },
+    styleBtnDefault () {
+      return {
+        '--bg-color': this.$store.state.mainColor
+      };
+    }
+  }
 };
 </script>
+
+<style lang="sass">
+.vue-dropzone
+    .dz-preview
+        .dz-details
+            background: var(--bg-color) !important
+</style>
