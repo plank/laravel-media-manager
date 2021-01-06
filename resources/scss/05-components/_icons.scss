@@ -8,4 +8,18 @@
         height: em-calc(38px);
         margin: 0 auto;
     }
+
+    &-minimize {
+        cursor: pointer;
+        background: url('./../img/icon-minimize.svg');
+        display: block;
+        width: em-calc(21px);
+        height: em-calc(12px);
+        margin: 0 auto;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            opacity: 0.5;
+            transition: all 0.2s ease-in-out;
+        }
+    }
 }

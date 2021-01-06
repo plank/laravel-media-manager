@@ -7,3 +7,5 @@ coverage
 .idea
 node_modules
 .cache/
+.cache
+/dist

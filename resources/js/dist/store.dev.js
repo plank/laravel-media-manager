@@ -1,19 +1,19 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
-var _vue = _interopRequireDefault(require("vue"));
+const _vue = _interopRequireDefault(require('vue'));
 
-var _vuex = _interopRequireDefault(require("vuex"));
+const _vuex = _interopRequireDefault(require('vuex'));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_vue["default"].use(_vuex["default"]);
+_vue.default.use(_vuex.default);
 
-var _default = new _vuex["default"].Store({
+const _default = new _vuex.default.Store({
   state: {
     mainColor: '#9C1820',
     totalSelected: 0,
@@ -75,37 +75,36 @@ var _default = new _vuex["default"].Store({
   },
   getters: {},
   mutations: {
-    addSelected: function addSelected(state) {
+    addSelected: function addSelected (state) {
       state.totalSelected++;
     },
-    openModal: function openModal(state) {
+    openModal: function openModal (state) {
       state.modalState = true;
     },
-    closeModal: function closeModal(state) {
+    closeModal: function closeModal (state) {
       state.modalState = false;
     },
-    viewState: function viewState(state, value) {
+    viewState: function viewState (state, value) {
       state.viewState = value;
     }
   },
   actions: {
-    addSelected: function addSelected(context) {
+    addSelected: function addSelected (context) {
       context.commit('addSelected', 1);
     },
-    openModal: function openModal(context) {
+    openModal: function openModal (context) {
       context.commit('openModal', true);
     },
-    closeModal: function closeModal(context) {
+    closeModal: function closeModal (context) {
       context.commit('closeModal', false);
     },
-    viewState: function viewState(context, value) {
-      console.log(context);
+    viewState: function viewState (context, value) {
       context.commit('viewState', value);
     },
-    gridView: function gridView(context) {
+    gridView: function gridView (context) {
       context.commit('viewState', value);
     }
   }
 });
 
-exports["default"] = _default;
+exports.default = _default;

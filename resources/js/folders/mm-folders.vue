@@ -15,31 +15,30 @@
 </template>
 
 <script>
-import { EventBus } from "./../event-bus.js";
-import mmfoldercard from "./mm-card-folder";
+import { EventBus } from './../event-bus.js';
+import mmfoldercard from './mm-card-folder';
 
 export default {
-  name: "mmfolders",
+  name: 'mmfolders',
   components: {
-    mmfoldercard,
+    mmfoldercard
   },
-  data() {
+  data () {
     return {
       current: null,
-      directoryCollection: this.$store.state.directoryCollection,
+      directoryCollection: this.$store.state.directoryCollection
     };
   },
   methods: {
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function (event, value) {
-      console.log(value);
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("activeDirectory", value);
-    },
+      this.$store.dispatch('activeDirectory', value);
+    }
   },
-  mounted() {},
-  computed: {},
+  mounted () {},
+  computed: {}
 };
 </script>

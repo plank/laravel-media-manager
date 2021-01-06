@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
 export default new Vuex.Store({
   state: {
     mainColor: '#9C1820',
@@ -59,9 +58,12 @@ export default new Vuex.Store({
     pushSelected (state, value) {
       state.selectedElem.push(value);
     },
+    resetSelected (state, value) {
+      state.selectedElem = [];
+    },
     activeDirectory (state, value) {
       state.folderState = false;
-    },
+    }
   },
 
   actions: {
@@ -85,17 +87,20 @@ export default new Vuex.Store({
     pushSelected (context, value) {
       const index = this.state.selectedElem.findIndex(item => item.id === value.id);
 
-      if (index == -1) {
+      if (index === -1) {
         this.state.selectedElem.push(value);
       } else {
         this.state.selectedElem.splice(index, 1);
       }
       // You can use this to debug purpose
       // console.log( this.state.selectedElem )
-
       this.state.totalSelected = this.state.selectedElem.length;
     },
-
+    resetSelected (context, value) {
+      context.commit('resetSelected', true);
+      // Reset totalSelected value.
+      this.state.totalSelected = this.state.selectedElem.length;
+    },
     activeDirectory (context, value) {
       context.commit('activeDirectory', value);
     }

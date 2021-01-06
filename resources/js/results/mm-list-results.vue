@@ -11,18 +11,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(elem, index) in mediaCollection" v-bind:key="index">
+        <tr v-for="(item, index) in mediaCollection" v-bind:key="index">
           <td class="mm-table__input">
-            <input v-on:click="setCurrent($event, elem)" type="checkbox" />
+            <input type="checkbox" :id="item.id" :data-index="item.id" v-on:click="pushSelected($event, item)" :checked="isSelected" />
           </td>
           <td>
             <img src="https://via.placeholder.com/75" alt="" />
           </td>
           <td>
-            <strong>{{ elem.filename }}</strong>
+            <strong>{{ item.filename }}</strong>
           </td>
-          <td>{{ elem.mime_type }}</td>
-          <td>{{ elem.created_at }}</td>
+          <td>{{ item.mime_type }}</td>
+          <td>{{ item.created_at }}</td>
         </tr>
       </tbody>
     </table>
@@ -30,29 +30,30 @@
 </template>
 
 <script>
-import { EventBus } from "./../event-bus.js";
-import mmcard from "./mm-card";
 
 export default {
-  name: "mmlistresults",
+  name: 'mmlistresults',
   components: {},
-  data() {
+  data () {
     return {
+      checked: false,
       current: null,
-      mediaCollection: this.$store.state.mediaCollection,
+      isSelected: false,
+      selectedItem: [],
+      mediaCollection: this.$store.state.mediaCollection
     };
   },
   methods: {
-    // Set Current State And Open Slidepanel
-    setCurrent: function (event, id) {
-      //EventBus.$emit("openSlidepanel", id);
-    },
+    // Push selected element to store
+    pushSelected: function (event, value) {
+      this.$store.dispatch('pushSelected', value);
+    }
   },
-  mounted() {},
-  computed: {
-    totalSelectedCount() {
-      return this.$store.state.totalSelected;
-    },
-  },
+  mounted () {
+    const index = this.$store.state.selectedElem;
+    for (const key in index) {
+      document.getElementById(index[key].id).checked = true;
+    }
+  }
 };
 </script>

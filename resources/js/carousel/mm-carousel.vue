@@ -1,27 +1,49 @@
 <template>
   <transition name="fade">
-    <div class="mm__carousel" v-if="totalSelected > 1 && !isMinimize">
-      <h2>{{ $t("carousel.title") }}</h2>
-
-      <!-- <a v-on:click="hidePanel($event)">close</a> -->
-
-      <!-- Loop  -->
-      <div class="mm__carousel-grid">
-        <div v-for="(item, index) in this.$store.state.selectedElem" :key="index">
-          <mmcarouselcard :index="index" :item="item"></mmcarouselcard>
+    <div
+      v-bind:class="{ minify: isMinify }"
+      class="mm__carousel"
+      v-if="totalSelected > 1 && !isMinimize"
+    >
+      <div class="mm__carousel-title">
+        <div>
+          <h2>{{ $t("carousel.title") }}</h2>
+        </div>
+        <div>
+          <span>{{ totalSelected }} {{ $t("carousel.selected_items") }}</span>
+        </div>
+        <div>
+          <a class="mm__carousel-minify-handler" v-on:click="minifyPanel($event)"
+            ><i class="i-minimize"></i
+          ></a>
         </div>
       </div>
 
-      <div class="mm__carousel-reorder">Drag photo to reorder</div>
+      <div class="mm__carousel-reorder">
+        {{ $t("carousel.drag_text") }}
+      </div>
+
+      <!-- Loop  -->
+      <div class="mm__carousel-grid">
+        <draggable id="draggable">
+          <div v-for="(item, index) in this.$store.state.selectedElem" :key="index">
+            <mmcarouselcard :index="index" :item="item"></mmcarouselcard>
+          </div>
+        </draggable>
+      </div>
 
       <div class="mm__carousel-btn-container">
         <div>
           <a :style="styleBtnDefault" class="btn btn-default" href="">{{
             $t("carousel.btn_create")
           }}</a>
-          <a :style="styleBtnDefault" class="btn btn-default-border" href="">{{
-            $t("carousel.btn_cancel")
-          }}</a>
+          <a
+            v-on:click="cancelCarousel"
+            :style="styleBtnDefault"
+            class="btn btn-default-border"
+            href=""
+            >{{ $t("carousel.btn_cancel") }}</a
+          >
         </div>
       </div>
     </div>
@@ -29,37 +51,52 @@
 </template>
 
 <script>
-import mmcarouselcard from "./mm-carousel-card";
+import mmcarouselcard from './mm-carousel-card';
+import draggable from 'vuedraggable';
+
 export default {
-  name: "mmcarousel",
+  name: 'mmcarousel',
   components: {
     mmcarouselcard,
+    draggable
   },
-  data() {
+  data () {
     return {
-      isMinimize: false,
+      isMinify: false,
+      isMinimize: false
     };
   },
   methods: {
-    updateHoverState(isHover) {
+    updateHoverState (isHover) {
       this.hoverState = isHover;
     },
     hidePanel: function (event) {
       event.preventDefault();
       this.isMinimize = !this.isMinimize;
     },
+    minifyPanel: function (event) {
+      event.preventDefault();
+      this.isMinify = !this.isMinify;
+    },
+    cancelCarousel: function (event) {
+      event.preventDefault();
+      // this.isMinimize = !this.isMinimize;
+      // Reset selected elements to Null.
+      this.$store.dispatch('resetSelected');
+      // Remove all selected icons on view.
+    }
   },
-  mounted() {},
+  mounted () {},
   computed: {
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
     },
-    totalSelected() {
+    totalSelected () {
       return this.$store.state.totalSelected;
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="mm__card"
-    v-bind:class="{ selected: isSelected }"
+    v-bind:class="{ selected: setSelected }"
     v-on:click="pushSelected($event, item)"
   >
     <div>
@@ -16,9 +16,9 @@
 
 <script>
 export default {
-  name: "mmcard",
-  props: ["item"],
-  data() {
+  name: 'mmcard',
+  props: ['item'],
+  data () {
     return { isSelected: false };
   },
   methods: {
@@ -26,10 +26,22 @@ export default {
     pushSelected: function (event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("pushSelected", value);
+      this.$store.dispatch('pushSelected', value);
       this.isSelected = !this.isSelected;
-    },
+    }
   },
-  mounted() {},
+  computed: {
+    setSelected: function (item) {
+      // Get all selected Elements
+      // If contain -> True ELSE False
+      const index = this.$store.state.selectedElem.findIndex(elem => elem.id === item.item.id);
+      if (index === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  },
+  mounted () {}
 };
 </script>

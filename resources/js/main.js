@@ -40,6 +40,8 @@ const messages = {
     },
     carousel: {
       title: 'Create Carousel',
+      selected_items: 'Item(s) Selected',
+      drag_text: 'Drag photo to reorder',
       btn_create: 'Create',
       btn_cancel: 'Cancel',
     }
@@ -72,6 +74,8 @@ const messages = {
     },
     carousel: {
       title: 'Créer carousel',
+      selected_items: 'Élément(s) Selectionnés',
+      drag_text: 'Faites glisser la photo pour réorganiser',
       btn_create: 'Créer',
       btn_cancel: 'Annuler',
     }

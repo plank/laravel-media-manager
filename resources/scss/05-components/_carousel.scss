@@ -12,12 +12,35 @@
     padding: em(50px);
     box-sizing: border-box;
 
-    h2 {
-        margin-bottom: em(22px);
+    &.minify {
+        bottom: em(-230px);
+        overflow: hidden;
+        padding: em(26px);
+        .mm__carousel-minify-handler {
+            .i-minimize {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &-minify-handler {
+        float: right;
+    }
+
+    &-title {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        column-gap: em(20px);
+        align-items: center;
+
+        span {
+            font-family: $font-family-base;
+            font-size: em(15px);
+        }
     }
 
     &-reorder {
-        display: none;
+        // display: none;
         overflow: hidden;
         margin: em(30px) 0;
         font-family: $font-family-base;
@@ -27,6 +50,7 @@
 
     &-card {
         position: relative;
+        cursor: move;
 
         span {
             background: $mm-card-selected;
@@ -48,15 +72,21 @@
     }
 
     &-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        margin-bottom: em(16px);
-        column-gap: em(16px);
-        row-gap: em(16px);
-
-        div {
-            text-align: center;
+        #draggable {
+            display: grid;
+            margin-bottom: em(16px);
+            column-gap: em(16px);
+            row-gap: em(16px);
+            grid-template-columns: repeat(5, 1fr);
         }
+    }
+
+    .wefwefef{
+        background: yellow;
+        display: inherit;
     }
 
     &-btn-container {

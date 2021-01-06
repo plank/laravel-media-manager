@@ -1,22 +1,21 @@
 <template>
   <div class="mm__carousel-card">
     <div>
-      <span>{{ index + 1 }}</span>
-      <img width="100%" src="https://source.unsplash.com/1600x900/?music" alt="" />
+      <img width="100%" src="https://source.unsplash.com/random/1600x900" alt="" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "mmcarouselcard",
+  name: 'mmcarouselcard',
   components: {},
-  props: ["item", "index"],
-  data() {
+  props: ['item', 'index'],
+  data () {
     return {};
   },
   methods: {},
-  mounted() {},
-  computed: {},
+  mounted () {},
+  computed: {}
 };
 </script>
