@@ -10,7 +10,7 @@
           <h2>{{ $t("carousel.title") }}</h2>
         </div>
         <div>
-          <span>{{ totalSelected }} {{ $t("carousel.selected_items") }}</span>
+          <span class="mm__carousel-items-counter">{{ totalSelected }} {{ $t("carousel.selected_items") }}</span>
         </div>
         <div>
           <a class="mm__carousel-minify-handler" v-on:click="minifyPanel($event)"

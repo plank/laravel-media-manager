@@ -23,6 +23,15 @@
         }
     }
 
+
+    &-items-counter {
+        font-family: $font-family-base;
+        font-size: em(15px);
+        background: #ede7e7;
+        border-radius: 150px;
+        padding: 0.4em 1.4em;
+    }
+
     &-minify-handler {
         float: right;
     }
@@ -33,10 +42,7 @@
         column-gap: em(20px);
         align-items: center;
 
-        span {
-            font-family: $font-family-base;
-            font-size: em(15px);
-        }
+
     }
 
     &-reorder {
