@@ -19,6 +19,11 @@
             "name": "Evan Dimopoulos",
             "email": "evan@plankdesign.com",
             "role": "Developer"
+        },
+        {
+            "name": "Jerome Devillers",
+            "email": "jerome@plankdesign.com",
+            "role": "Developer"
         }
     ],
     "require": {

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { EventBus } from './../event-bus.js';
+import { EventBus } from '../event-bus.js';
 import mmfoldercard from './mm-card-folder';
 
 export default {

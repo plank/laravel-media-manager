@@ -21,27 +21,21 @@ class MediaManagerServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'media-manager');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('media-manager.php'),
+                MANAGER_PATH.'/config/config.php' => config_path('media-manager.php'),
             ], 'config');
 
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/media-manager'),
-            ], 'views');*/
+            $this->publishes([
+                MANAGER_PATH.'/resources/js' => resource_path('assets/plank/laravel-media-manager')],
+                'vue-components');
 
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/media-manager'),
-            ], 'assets');*/
+            $this->publishes([
+                MANAGER_PATH.'/public' => public_path('vendor/laravel-media-manager'),
+            ], 'manager-assets');
 
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/media-manager'),
-            ], 'lang');*/
 
             // Registering package commands.
             // $this->commands([]);
@@ -53,6 +47,10 @@ class MediaManagerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if (!defined('MANAGER_PATH')) {
+            define('MANAGER_PATH', realpath(__DIR__.'/../'));
+        }
+
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'media-manager');
 
@@ -60,7 +58,6 @@ class MediaManagerServiceProvider extends ServiceProvider
         $this->registerMediaManager();
         $this->registerMediaManagerController();
         $this->registerMediaController();
-
     }
 
     public function registerMediaManager()
@@ -83,5 +80,4 @@ class MediaManagerServiceProvider extends ServiceProvider
             return new MediaController($app['mediable.uploader'], $app['mediable.mover']);
         });
     }
-
 }

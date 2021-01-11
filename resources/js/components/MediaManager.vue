@@ -52,17 +52,17 @@
 </template>
 
 <script>
-import mmsearch from "./search/mm-search";
-import mmresults from "./results/mm-results";
-import mmslidepanel from "./slidepanel/mm-slidepanel";
-import mmaddbutton from "./buttons/mm-add-button";
-import mmmodaladd from "./modals/mm-modal-add";
-import mmlistresults from "./results/mm-list-results";
-import mmfolders from "./folders/mm-folders";
-import mmcarousel from "./carousel/mm-carousel";
+import mmsearch from "./mm-search";
+import mmresults from "./mm-results";
+import mmslidepanel from "./mm-slidepanel";
+import mmaddbutton from "./mm-add-button";
+import mmmodaladd from "./mm-modal-add";
+import mmlistresults from "./mm-list-results";
+import mmfolders from "./mm-folders";
+import mmcarousel from "./mm-carousel";
 
 export default {
-  name: "App",
+  name: "media-manager",
   components: {
     mmsearch,
     mmresults,

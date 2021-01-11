@@ -42,8 +42,7 @@
             :style="styleBtnDefault"
             class="btn btn-default-border"
             href=""
-            >{{ $t("carousel.btn_cancel") }}</a
-          >
+            >{{ $t("carousel.btn_cancel") }}</a>
         </div>
       </div>
     </div>

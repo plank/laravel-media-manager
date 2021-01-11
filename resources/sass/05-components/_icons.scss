@@ -2,7 +2,7 @@
 
 .i {
     &-add {
-        background: url('./../img/icon-add.svg');
+        background: url('/img/icon-add.svg');
         display: block;
         width: em-calc(38px);
         height: em-calc(38px);
@@ -11,7 +11,7 @@
 
     &-minimize {
         cursor: pointer;
-        background: url('./../img/icon-minimize.svg');
+        background: url('/img/icon-minimize.svg');
         display: block;
         width: em-calc(21px);
         height: em-calc(12px);
