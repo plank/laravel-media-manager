@@ -2021,7 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "media-manager",
+  name: 'media-manager',
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2065,14 +2065,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
 //
 //
 //
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmaddbutton',
   data: function data() {
@@ -2413,9 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
-/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
+/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
 //
 //
 //
@@ -2433,13 +2429,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmfolders",
+  name: 'mmfolders',
   components: {
-    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_2__["default"]
+    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -2453,10 +2447,10 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("getDirectory", value);
+      this.$store.dispatch('getDirectory', value);
     },
     showOptions: function showOptions() {
-      console.log("Show Options");
+      console.log('Show Options');
     }
   },
   computed: {
@@ -2465,7 +2459,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch("getDirectory");
+    this.$store.dispatch('getDirectory');
   },
   getterDirectory: function getterDirectory() {
     return this.$store.getters.directoryCollection;
@@ -2749,7 +2743,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodal",
+  name: 'mmmodal',
   components: {},
   data: function data() {
     return {};
@@ -2758,10 +2752,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('closeModalCreate');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('closeModalCreate');
     }
   },
   computed: {
@@ -2771,7 +2765,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3171,10 +3165,10 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       this.$store.dispatch('viewState', value);
     },
-    // Set Current State And Open Slidepanel
+    // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('openSlidepanel', id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
@@ -3277,7 +3271,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   data: function data() {
     return {
       slideOpen: false,
@@ -3293,7 +3287,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("openSlidepanel", function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
       _this.slideOpen = true;
       _this.data = value;
     });
@@ -3301,7 +3295,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -29438,6 +29432,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -29669,12 +29666,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       this.state.totalSelected = this.state.selectedElem.length;
     },
     resetSelected: function resetSelected(context, value) {
-      context.commit('resetSelected', true); // Reset totalSelected value.
+      context.commit('resetSelected', true); // Reset totalSelected value.
 
       this.state.totalSelected = this.state.selectedElem.length;
     },
-    // Get all directory if no value passed or specific subdirectory
-    // if we receive a value
+    // Get all directory if no value passed or specific subdirectory
+    // if we receive a value
     getDirectory: function getDirectory(_ref, value) {
       var commit = _ref.commit;
       var route;
@@ -29685,7 +29682,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         route = this.state.routeGetDirectory;
       }
 
-      axios.get(route, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
         console.log(response.data.subdirectories);
         commit('SET_DIRECTORY', response.data.subdirectories);
       });
@@ -29694,7 +29691,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     createFolder: function createFolder(_ref2, value) {
       var commit = _ref2.commit;
       console.log('create directory with name :' + value);
-      axios.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
         console.log(response); // commit('SET_DIRECTORY', response.data.subdirectories);
       });
     }

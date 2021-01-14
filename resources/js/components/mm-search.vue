@@ -340,10 +340,10 @@ export default {
       event.preventDefault();
       this.$store.dispatch('viewState', value);
     },
-    // Set Current State And Open Slidepanel
+    // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
       event.preventDefault();
-      EventBus.$emit('openSlidepanel', id);
+      EventBus.$emit('open-slide-panel', id);
     },
     openModal: function ($event) {
       $event.preventDefault();

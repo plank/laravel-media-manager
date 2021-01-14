@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -116,11 +117,11 @@ export default new Vuex.Store({
     },
     resetSelected (context, value) {
       context.commit('resetSelected', true);
-      // Reset totalSelected value.
+      // Reset totalSelected value.
       this.state.totalSelected = this.state.selectedElem.length;
     },
-    // Get all directory if no value passed or specific subdirectory
-    // if we receive a value
+    // Get all directory if no value passed or specific subdirectory
+    // if we receive a value
     getDirectory ({ commit }, value) {
       let route;
       if (value) {

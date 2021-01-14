@@ -66,18 +66,18 @@
 </template>
 
 <script>
-import mmsearch from "./mm-search";
-import mmresults from "./mm-results";
-import mmslidepanel from "./mm-slidepanel";
-import mmaddbutton from "./mm-add-button";
-import mmmodaladd from "./mm-modal-add";
-import mmmodaladdfolder from "./mm-modal-add-folder";
-import mmlistresults from "./mm-list-results";
-import mmfolders from "./mm-folders";
-import mmcarousel from "./mm-carousel";
+import mmsearch from './mm-search';
+import mmresults from './mm-results';
+import mmslidepanel from './mm-slidepanel';
+import mmaddbutton from './mm-add-button';
+import mmmodaladd from './mm-modal-add';
+import mmmodaladdfolder from './mm-modal-add-folder';
+import mmlistresults from './mm-list-results';
+import mmfolders from './mm-folders';
+import mmcarousel from './mm-carousel';
 
 export default {
-  name: "media-manager",
+  name: 'media-manager',
   components: {
     mmsearch,
     mmresults,
@@ -87,26 +87,26 @@ export default {
     mmlistresults,
     mmfolders,
     mmcarousel,
-    mmmodaladdfolder,
+    mmmodaladdfolder
   },
-  data() {
+  data () {
     return {
-      info: null,
+      info: null
     };
   },
   computed: {
-    modalStateCreateFolder() {
+    modalStateCreateFolder () {
       return this.$store.state.modalState.create;
     },
-    modalStateAddMedia() {
+    modalStateAddMedia () {
       return this.$store.state.modalState.add;
     },
-    viewState() {
+    viewState () {
       return this.$store.state.viewState;
     },
-    folderState() {
+    folderState () {
       return this.$store.state.folderState;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -35,32 +35,32 @@
 
 <script>
 export default {
-  name: "mmmodal",
+  name: 'mmmodal',
   components: {},
-  data() {
+  data () {
     return {};
   },
-  mounted() {},
+  mounted () {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('closeModalCreate');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("closeModalCreate");
-    },
+      this.$store.dispatch('closeModalCreate');
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 
