@@ -1,0 +1,19 @@
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <circle id="path-1" cx="16.2500009" cy="16.2500009" r="16.2500009"></circle>
+        <filter x="-78.5%" y="-69.2%" width="256.9%" height="256.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-5" transform="translate(16.000000, 13.000000)">
+            <g id="Oval">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#2D2D2D" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <path d="M14.5950755,20.244773 C14.8439217,20.4936192 15.1699055,20.6179651 15.4958894,20.6179651 C15.8218732,20.6179651 16.147857,20.4936192 16.3967032,20.244773 L22.7667329,13.8747433 C23.2644252,13.377051 23.2644252,12.5708079 22.7667329,12.0732699 C22.2690406,11.5755776 21.4627975,11.5755776 20.9652595,12.0732699 L15.4958894,17.54264 L12.5746854,14.621436 C12.0769931,14.1237437 11.27075,14.1237437 10.773212,14.621436 C10.2756739,15.1191284 10.2755196,15.9253714 10.773212,16.4229095 L14.5950755,20.244773 Z" id="icon-check" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

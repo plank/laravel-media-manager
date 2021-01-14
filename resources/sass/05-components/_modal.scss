@@ -15,11 +15,23 @@
     z-index: 2;
 
     &__container {
-        border: 2px dashed $mm-modal-add-border;
+
+        .title {
+            margin: 2rem 0;
+        }
+        .content {}
+        .buttons-container {
+            div {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
 
         &-upload {
+            border: 2px dashed $mm-modal-add-border;
             margin-top: em(40px);
         }
+
     }
 
     &-close {

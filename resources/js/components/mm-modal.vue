@@ -1,7 +1,14 @@
 <template>
   <div class="modal">
     <a v-on:click="closeModal($event)" href="#" class="modal-close">
-      <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg
+        width="22px"
+        height="22px"
+        viewBox="0 0 22 22"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
           <g id="icon_cancel_default" :fill="getColor" fill-rule="nonzero">
             <path
@@ -12,51 +19,48 @@
       </svg>
     </a>
 
-    <div class="modal__container modal__container-upload">
-        <vue-dropzone ref="myVueDropzone" :style="styleBtnDefault" v-on:vdropzone-success="uploadSuccess()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+    <div class="modal__container">
+      <div class="title">
+        <slot name="title"></slot>
+      </div>
+      <div class="content">
+        <slot name="content"></slot>
+      </div>
+      <div class="buttons-container">
+        <slot name="buttons"></slot>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone';
-import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
-  name: 'mmmodaladd',
-  components: {
-    vueDropzone: vue2Dropzone
+  name: "mmmodal",
+  components: {},
+  data() {
+    return {};
   },
-  data () {
-    return {
-      dropzoneOptions: {
-        url: 'https://httpbin.org/post',
-        thumbnailWidth: 150,
-        maxFilesize: 4.5,
-        headers: { 'My-Awesome-Header': 'header value' }
-      }
-    };
-  },
-  mounted () {},
+  mounted() {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalAdd');
+      this.$store.dispatch("closeModalCreate");
     },
     uploadSuccess: function () {
-      this.$store.dispatch('closeModalAdd');
-    }
+      this.$store.dispatch("closeModalCreate");
+    },
   },
   computed: {
     // Get Main Color From Store
-    getColor () {
+    getColor() {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

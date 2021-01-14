@@ -6,7 +6,8 @@
         v-for="item in getDir"
         :key="item.id"
         class="mm__results-single"
-        v-on:click="openDirectory($event, item)"
+        v-on:click="showOptions()"
+        v-on:dblclick="openDirectory($event, item)"
       >
         <mmfoldercard :item="item"></mmfoldercard>
       </div>
@@ -15,18 +16,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { EventBus } from '../event-bus.js';
-import mmfoldercard from './mm-card-folder';
+import { mapState } from "vuex";
+import { EventBus } from "../event-bus.js";
+import mmfoldercard from "./mm-card-folder";
 
 export default {
-  name: 'mmfolders',
+  name: "mmfolders",
   components: {
-    mmfoldercard
+    mmfoldercard,
   },
-  data () {
+  data() {
     return {
-      current: null
+      current: null,
       // directoryCollection: this.$store.state.directoryCollection
     };
   },
@@ -36,19 +37,22 @@ export default {
     openDirectory: function (event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('getDirectory', value);
-    }
+      this.$store.dispatch("getDirectory", value);
+    },
+    showOptions: function () {
+      console.log("Show Options");
+    },
   },
   computed: {
-    getDir () {
+    getDir() {
       return this.$store.getters.getDirectory;
-    }
+    },
   },
-  mounted () {
-    this.$store.dispatch('getDirectory');
+  mounted() {
+    this.$store.dispatch("getDirectory");
   },
-  getterDirectory () {
+  getterDirectory() {
     return this.$store.getters.directoryCollection;
-  }
+  },
 };
 </script>

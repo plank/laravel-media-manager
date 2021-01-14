@@ -7,8 +7,12 @@ export default new Vuex.Store({
   state: {
     mainColor: '#9C1820',
     routeGetDirectory: '/media-api/index/',
+    routeCreateDirectory: '/media-api/directory/create',
     totalSelected: 0,
-    modalState: false,
+    modalState: {
+      add: false,
+      create: false
+    },
     folderState: true,
     viewState: false,
     selectedElem: [],
@@ -50,11 +54,17 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    openModal (state) {
-      state.modalState = true;
+    openModalCreate (state) {
+      state.modalState.create = true;
     },
-    closeModal (state) {
-      state.modalState = false;
+    closeModalCreate (state) {
+      state.modalState.create = false;
+    },
+    openModalAdd (state) {
+      state.modalState.add = true;
+    },
+    closeModalAdd (state) {
+      state.modalState.add = false;
     },
     viewState (state, value) {
       state.viewState = value;
@@ -66,8 +76,6 @@ export default new Vuex.Store({
       state.selectedElem = [];
     },
     setActiveDirectory (state, value) {
-      console.log(state);
-      console.log(value);
       state.folderState = false;
     },
     SET_DIRECTORY (state, items) {
@@ -76,11 +84,17 @@ export default new Vuex.Store({
   },
 
   actions: {
-    openModal (context) {
-      context.commit('openModal', true);
+    openModalCreate (context) {
+      context.commit('openModalCreate', true);
     },
-    closeModal (context) {
-      context.commit('closeModal', false);
+    closeModalCreate (context) {
+      context.commit('closeModalCreate', false);
+    },
+    openModalAdd (context) {
+      context.commit('openModalAdd', true);
+    },
+    closeModalAdd (context) {
+      context.commit('closeModalAdd', false);
     },
     viewState (context, value) {
       context.commit('viewState', value);
@@ -105,6 +119,8 @@ export default new Vuex.Store({
       // Reset totalSelected value.
       this.state.totalSelected = this.state.selectedElem.length;
     },
+    // Get all directory if no value passed or specific subdirectory
+    // if we receive a value
     getDirectory ({ commit }, value) {
       let route;
       if (value) {
@@ -117,6 +133,16 @@ export default new Vuex.Store({
         .then(response => {
           console.log(response.data.subdirectories);
           commit('SET_DIRECTORY', response.data.subdirectories);
+        });
+    },
+    // Create Directory
+    createFolder ({ commit }, value) {
+      console.log('create directory with name :' + value);
+      axios
+        .post(this.state.routeCreateDirectory + '?path=' + value, {})
+        .then(response => {
+          console.log(response);
+          // commit('SET_DIRECTORY', response.data.subdirectories);
         });
     }
   }

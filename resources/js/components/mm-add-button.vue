@@ -5,23 +5,23 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus.js";
+import { EventBus } from '../event-bus.js';
 
 export default {
-  name: "mmaddbutton",
-  data() {
+  name: 'mmaddbutton',
+  data () {
     return {};
   },
-  mounted() {},
+  mounted () {},
   methods: {
     openModal: function () {
-      this.$store.dispatch("openModal");
-    },
+      this.$store.dispatch('openModalAdd');
+    }
   },
   computed: {
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
-    },
-  },
+    }
+  }
 };
 </script>

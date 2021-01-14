@@ -84,7 +84,7 @@
             </a>
           </li>
           <li>
-            <a :title="$t('actions.createDirectory')" href="">
+            <a v-on:click="openModal($event)" :title="$t('actions.createDirectory')" href="">
               <!-- Directory Icon -->
               <svg
                 width="25px"
@@ -326,44 +326,48 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus.js";
+import { EventBus } from '../event-bus.js';
 export default {
-  name: "mmsearch",
-  data() {
+  name: 'mmsearch',
+  data () {
     return {
-      showInformations: false,
+      showInformations: false
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     viewState: function (event, value) {
       event.preventDefault();
-      this.$store.dispatch("viewState", value);
+      this.$store.dispatch('viewState', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
       event.preventDefault();
-      EventBus.$emit("openSlidepanel", id);
+      EventBus.$emit('openSlidepanel', id);
     },
+    openModal: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('openModalCreate');
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    getDataTypes() {
+    getDataTypes () {
       return this.$store.state.dataType;
     },
-    getSelected() {
+    getSelected () {
       return this.$store.state.selectedElem;
     },
-    showInformationsBtn(getSelected) {
+    showInformationsBtn (getSelected) {
       if (this.getSelected.length !== 1) {
         return false;
       } else {
         return true;
       }
-    },
-  },
+    }
+  }
 };
 </script>

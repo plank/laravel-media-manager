@@ -15,7 +15,7 @@
         {{ this.$store.state.selectedElem }}
       </div>
 
-        {{info}}
+      {{ info }}
 
       <!-- Folders List -->
       <mmfolders v-if="folderState && !viewState"></mmfolders>
@@ -40,13 +40,25 @@
 
     <!-- Modal -->
     <transition name="fade">
-      <mmmodaladd v-if="modalState" @close="this.$store.modalState = false"></mmmodaladd>
+      <mmmodaladd
+        v-if="modalStateAddMedia"
+        @close="this.$store.modalState.create = false"
+      >
+      </mmmodaladd>
     </transition>
 
     <transition name="fade">
+      <mmmodaladdfolder
+        v-if="modalStateCreateFolder"
+        @close="this.$store.modalState.create = false"
+      ></mmmodaladdfolder>
+    </transition>
+
+    <!-- Overlay -->
+    <transition name="fade">
       <div
-        v-if="modalState"
-        @close="this.$store.modalState = false"
+        v-if="modalStateAddMedia || modalStateCreateFolder"
+        @close="this.$store.modalState.add = false"
         class="overlay"
       ></div>
     </transition>
@@ -54,17 +66,18 @@
 </template>
 
 <script>
-import mmsearch from './mm-search';
-import mmresults from './mm-results';
-import mmslidepanel from './mm-slidepanel';
-import mmaddbutton from './mm-add-button';
-import mmmodaladd from './mm-modal-add';
-import mmlistresults from './mm-list-results';
-import mmfolders from './mm-folders';
-import mmcarousel from './mm-carousel';
+import mmsearch from "./mm-search";
+import mmresults from "./mm-results";
+import mmslidepanel from "./mm-slidepanel";
+import mmaddbutton from "./mm-add-button";
+import mmmodaladd from "./mm-modal-add";
+import mmmodaladdfolder from "./mm-modal-add-folder";
+import mmlistresults from "./mm-list-results";
+import mmfolders from "./mm-folders";
+import mmcarousel from "./mm-carousel";
 
 export default {
-  name: 'media-manager',
+  name: "media-manager",
   components: {
     mmsearch,
     mmresults,
@@ -73,23 +86,27 @@ export default {
     mmmodaladd,
     mmlistresults,
     mmfolders,
-    mmcarousel
+    mmcarousel,
+    mmmodaladdfolder,
   },
-  data () {
+  data() {
     return {
-      info: null
+      info: null,
     };
   },
   computed: {
-    modalState () {
-      return this.$store.state.modalState;
+    modalStateCreateFolder() {
+      return this.$store.state.modalState.create;
     },
-    viewState () {
+    modalStateAddMedia() {
+      return this.$store.state.modalState.add;
+    },
+    viewState() {
       return this.$store.state.viewState;
     },
-    folderState () {
+    folderState() {
       return this.$store.state.folderState;
-    }
-  }
+    },
+  },
 };
 </script>
