@@ -68,7 +68,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function registerMediaManager()
     {
         $this->app->bind('media-manager', function (Container $app) {
-            return new MediaManager;
+            return new MediaManager(config('media-manager.model'));
         });
     }
 
@@ -82,7 +82,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function registerMediaController()
     {
         $this->app->bind('MediaController', function (Container $app) {
-            return new MediaController($app['mediable.uploader'], $app['mediable.mover']);
+            return new MediaController($app['mediable.uploader']);
         });
     }
 
