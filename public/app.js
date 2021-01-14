@@ -1996,6 +1996,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2005,7 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "media-manager",
+  name: 'media-manager',
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2017,7 +2019,9 @@ __webpack_require__.r(__webpack_exports__);
     mmcarousel: _mm_carousel__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      info: null
+    };
   },
   computed: {
     modalState: function modalState() {
@@ -2168,13 +2172,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmfoldercard",
-  props: ["item"],
+  name: 'mmfoldercard',
+  props: ['item'],
   data: function data() {
     return {};
   },
-  methods: {},
-  mounted: function mounted() {}
+  methods: {}
 });
 
 /***/ }),
@@ -2392,8 +2395,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
-/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
 //
 //
 //
@@ -2410,17 +2414,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmfolders',
   components: {
-    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_1__["default"]
+    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      current: null,
-      directoryCollection: this.$store.state.directoryCollection
+      current: null // directoryCollection: this.$store.state.directoryCollection
+
     };
   },
   methods: {
@@ -2429,11 +2434,20 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('activeDirectory', value);
+      this.$store.dispatch('getDirectory', value);
     }
   },
-  mounted: function mounted() {},
-  computed: {}
+  computed: {
+    getDir: function getDir() {
+      return this.$store.getters.getDirectory;
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('getDirectory');
+  },
+  getterDirectory: function getterDirectory() {
+    return this.$store.getters.directoryCollection;
+  }
 });
 
 /***/ }),
@@ -10301,6 +10315,7 @@ var render = function() {
               "\n      " + _vm._s(this.$store.state.selectedElem) + "\n    "
             )
           ]),
+          _vm._v("\n\n      " + _vm._s(_vm.info) + "\n\n    "),
           _vm._v(" "),
           _vm.folderState && !_vm.viewState ? _c("mmfolders") : _vm._e(),
           _vm._v(" "),
@@ -10315,12 +10330,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "slide-fade" } },
-        [_c("mmslidepanel")],
-        1
-      ),
+      _c("span", { attrs: { name: "slide-fade" } }, [_c("mmslidepanel")], 1),
       _vm._v(" "),
       _c(
         "transition",
@@ -10567,7 +10577,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("h6", [_vm._v(_vm._s(_vm.item.directoryname))]),
+      _c("h6", [_vm._v(_vm._s(_vm.item))]),
       _vm._v(" "),
       _c("span", { staticClass: "date" }, [
         _vm._v(
@@ -10824,7 +10834,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "mm__results-grid" },
-      _vm._l(_vm.directoryCollection, function(item) {
+      _vm._l(_vm.getDir, function(item) {
         return _c(
           "div",
           {
@@ -27852,7 +27862,6 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
   locale: 'en',
   messages: messages
 });
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin(_components_MediaManager__WEBPACK_IMPORTED_MODULE_2__["default"]);
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   store: _store__WEBPACK_IMPORTED_MODULE_4__["default"],
   render: function render(h) {
@@ -28780,11 +28789,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     mainColor: '#9C1820',
+    routeGetDirectory: '/media-api/index/',
     totalSelected: 0,
     modalState: false,
     folderState: true,
     viewState: false,
     selectedElem: [],
+    directoryCollection: [],
     dataType: [{
       id: 1,
       name: 'image'
@@ -28792,17 +28803,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       id: 2,
       name: 'video'
     }],
-    directoryCollection: [{
-      id: 1,
-      directory: '/',
-      directoryname: 'Name of the folder',
-      created_at: 'July 31, 2020'
-    }, {
-      id: 2,
-      directory: '/s3',
-      directoryname: 'Folder Name',
-      created_at: 'July 31, 2020'
-    }],
+    // directoryCollection: [
+    //   { id: 1, directory: '/', directoryname: 'Name of the folder', created_at: 'July 31, 2020' },
+    //   { id: 2, directory: '/s3', directoryname: 'Folder Name', created_at: 'July 31, 2020' }
+    // ],
     mediaCollection: [{
       id: 1,
       disk: 's3',
@@ -28937,7 +28941,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       updated_at: 'July 31, 2020'
     }]
   },
-  getters: {},
+  getters: {
+    getDirectory: function getDirectory(state) {
+      return state.directoryCollection;
+    }
+  },
   mutations: {
     openModal: function openModal(state) {
       state.modalState = true;
@@ -28954,8 +28962,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     resetSelected: function resetSelected(state, value) {
       state.selectedElem = [];
     },
-    activeDirectory: function activeDirectory(state, value) {
+    setActiveDirectory: function setActiveDirectory(state, value) {
+      console.log(state);
+      console.log(value);
       state.folderState = false;
+    },
+    SET_DIRECTORY: function SET_DIRECTORY(state, items) {
+      state.directoryCollection = items;
     }
   },
   actions: {
@@ -28991,8 +29004,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
       this.state.totalSelected = this.state.selectedElem.length;
     },
-    activeDirectory: function activeDirectory(context, value) {
-      context.commit('activeDirectory', value);
+    getDirectory: function getDirectory(_ref, value) {
+      var commit = _ref.commit;
+      var route;
+
+      if (value) {
+        route = this.state.routeGetDirectory + value;
+      } else {
+        route = this.state.routeGetDirectory;
+      }
+
+      axios.get(route, {}).then(function (response) {
+        console.log(response.data.subdirectories);
+        commit('SET_DIRECTORY', response.data.subdirectories);
+      });
     }
   }
 }));
@@ -29017,8 +29042,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Projects/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Projects/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

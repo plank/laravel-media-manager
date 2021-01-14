@@ -3,7 +3,7 @@
     <!-- For Each Loop -->
     <div class="mm__results-grid">
       <div
-        v-for="item in directoryCollection"
+        v-for="item in getDir"
         :key="item.id"
         class="mm__results-single"
         v-on:click="openDirectory($event, item)"
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { EventBus } from '../event-bus.js';
 import mmfoldercard from './mm-card-folder';
 
@@ -25,8 +26,8 @@ export default {
   },
   data () {
     return {
-      current: null,
-      directoryCollection: this.$store.state.directoryCollection
+      current: null
+      // directoryCollection: this.$store.state.directoryCollection
     };
   },
   methods: {
@@ -35,10 +36,19 @@ export default {
     openDirectory: function (event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('activeDirectory', value);
+      this.$store.dispatch('getDirectory', value);
     }
   },
-  mounted () {},
-  computed: {}
+  computed: {
+    getDir () {
+      return this.$store.getters.getDirectory;
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getDirectory');
+  },
+  getterDirectory () {
+    return this.$store.getters.directoryCollection;
+  }
 };
 </script>

@@ -6,11 +6,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     mainColor: '#9C1820',
+    routeGetDirectory: '/media-api/index/',
     totalSelected: 0,
     modalState: false,
     folderState: true,
     viewState: false,
     selectedElem: [],
+    directoryCollection: [],
     dataType: [
       {
         id: 1,
@@ -21,10 +23,10 @@ export default new Vuex.Store({
         name: 'video'
       }
     ],
-    directoryCollection: [
-      { id: 1, directory: '/', directoryname: 'Name of the folder', created_at: 'July 31, 2020' },
-      { id: 2, directory: '/s3', directoryname: 'Folder Name', created_at: 'July 31, 2020' }
-    ],
+    // directoryCollection: [
+    //   { id: 1, directory: '/', directoryname: 'Name of the folder', created_at: 'July 31, 2020' },
+    //   { id: 2, directory: '/s3', directoryname: 'Folder Name', created_at: 'July 31, 2020' }
+    // ],
     mediaCollection: [
       { id: 1, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
       { id: 2, disk: 's3', directory: '/', filename: 'video.mp4', extension: 'mp4', mime_type: 'video', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
@@ -42,10 +44,12 @@ export default new Vuex.Store({
   },
 
   getters: {
+    getDirectory: state => {
+      return state.directoryCollection;
+    }
   },
 
   mutations: {
-
     openModal (state) {
       state.modalState = true;
     },
@@ -61,29 +65,29 @@ export default new Vuex.Store({
     resetSelected (state, value) {
       state.selectedElem = [];
     },
-    activeDirectory (state, value) {
+    setActiveDirectory (state, value) {
+      console.log(state);
+      console.log(value);
       state.folderState = false;
+    },
+    SET_DIRECTORY (state, items) {
+      state.directoryCollection = items;
     }
   },
 
   actions: {
-
     openModal (context) {
       context.commit('openModal', true);
     },
-
     closeModal (context) {
       context.commit('closeModal', false);
     },
-
     viewState (context, value) {
       context.commit('viewState', value);
     },
-
     gridView (context, value) {
       context.commit('viewState', value);
     },
-
     pushSelected (context, value) {
       const index = this.state.selectedElem.findIndex(item => item.id === value.id);
 
@@ -101,8 +105,19 @@ export default new Vuex.Store({
       // Reset totalSelected value.
       this.state.totalSelected = this.state.selectedElem.length;
     },
-    activeDirectory (context, value) {
-      context.commit('activeDirectory', value);
+    getDirectory ({ commit }, value) {
+      let route;
+      if (value) {
+        route = this.state.routeGetDirectory + value;
+      } else {
+        route = this.state.routeGetDirectory;
+      }
+      axios
+        .get(route, {})
+        .then(response => {
+          console.log(response.data.subdirectories);
+          commit('SET_DIRECTORY', response.data.subdirectories);
+        });
     }
   }
 });
