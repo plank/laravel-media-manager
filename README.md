@@ -1,19 +1,38 @@
-# Very short description of the package
+# Laravel Media Manager
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
 [![Build Status](https://img.shields.io/travis/plank/media-manager/master.svg?style=flat-square)](https://travis-ci.org/plank/media-manager)
 [![Quality Score](https://img.shields.io/scrutinizer/g/plank/media-manager.svg?style=flat-square)](https://scrutinizer-ci.com/g/plank/media-manager)
 [![Total Downloads](https://img.shields.io/packagist/dt/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package builds upon [Laravel-Mediable](https://github.com/plank/laravel-mediable) with an API implementing it, as well as a set of VueJS components that can be dropped anywhere on your site
+for an instant media manager. 
 
 ## Installation
 
 You can install the package via composer:
 
-```bash
+```shell script
 composer require plank/media-manager
 ```
+
+You'll need to publish the assets from the package for use in your project, as well as the config file
+```shell script
+php artisan vendor:publish --tag=manager-assets --tag=manager-config
+```
+
+Since this package integrates tightly with [Laravel-Mediable](https://github.com/plank/laravel-mediable), you should
+publish that config file as well.
+
+```shell script
+php artisan vendor:publish --provider="Plank\Mediable\MediableServiceProvider"
+```
+
+Run the migrations to add the required tables to your database:
+
+```shell script
+php artisan migrate
+``` 
 
 ## Usage
 
@@ -27,21 +46,16 @@ composer require plank/media-manager
 composer test
 ```
 
-## Frontend
-
-You can compile frontend with :
-
-```bash
-parcel index.html
-```
-
 ## Dependencies
 
-| Name | Function |
-| --- | --- |
-| [vue-dropzone](https://rowanwins.github.io/vue-dropzone/) | Upload Files |
-| [vuedraggable](https://sortablejs.github.io/Vue.Draggable/#/simple) | Drag&Drop  |
-|     |     |
+The Vue components included with this package have a number of dependencies that to ease development. 
+A huge thanks to their creators. 
+
+| Name | Function | Credit |
+| --- | --- | --- |
+| [vue-dropzone](https://rowanwins.github.io/vue-dropzone/) | Uploading Files | [Rowan Winsemius](https://github.com/rowanwins) |
+| [vuedraggable](https://sortablejs.github.io/Vue.Draggable/#/simple) | Drag & Drop Folders and Files | [SortableJS](https://github.com/SortableJS) |
+|     |     |      |
 
 
 ### Changelog
