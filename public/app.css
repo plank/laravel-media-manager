@@ -302,6 +302,13 @@ strong {
   transition: all 0.2s ease-in-out;
 }
 
+.mm__results-single.active {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.3125em;
+  border: 2px solid #2D2D2D;
+  box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+}
+
 .btn {
   font-family: "Barlow", sans-serif;
   text-align: center;

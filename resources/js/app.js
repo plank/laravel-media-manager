@@ -22,6 +22,8 @@ const messages = {
     },
     actions: {
       delete: 'Delete',
+      create: 'Create',
+      cancel: 'Cancel',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
       viewList: 'View List',
@@ -45,7 +47,8 @@ const messages = {
       btn_cancel: 'Cancel'
     },
     modal: {
-      title_createFolder: 'Create Folder'
+      title_createFolder: 'Create Folder',
+      folder_name: 'Folder Name',
     }
   },
   fr: {
@@ -59,6 +62,8 @@ const messages = {
     },
     actions: {
       delete: 'Effacer',
+      create: 'Creer',
+      cancel: 'Annuler',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
       viewList: 'Liste',
@@ -82,7 +87,8 @@ const messages = {
       btn_cancel: 'Annuler'
     },
     modal: {
-      title_createFolder: 'Créer un dossier'
+      title_createFolder: 'Créer un dossier',
+      folder_name: 'Nom du dossier',
     }
   }
 };

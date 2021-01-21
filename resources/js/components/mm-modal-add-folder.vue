@@ -1,6 +1,7 @@
 <template>
   <mmmodal extraClassContainer="modal-add-folder">
     <h2 slot="title">{{ $t("modal.title_createFolder") }}</h2>
+
     <div slot="content">
       <div class="content-grid">
         <div class="icon-container">
@@ -18,7 +19,7 @@
           <div class="centered">
             <div class="group">
               <input v-model="name" type="text" id="name" required="required" />
-              <label for="folder-name" class="form__label">Folder Name</label>
+              <label for="folder-name" class="form__label">{{$t('modal.folder_name')}}</label>
               <div class="bar"></div>
             </div>
           </div>
@@ -32,9 +33,9 @@
           :style="styleBtnDefault"
           v-bind:disabled="!name"
           class="btn btn-default"
-          v-on:click="createFolder($event)"
+          v-on:click="createDirectory($event)"
           href=""
-          >Create</a
+          >{{$t('actions.create')}}</a
         >
       </div>
       <div>
@@ -43,7 +44,7 @@
           class="btn btn-delete text-center"
           :style="styleBtnDefault"
           href=""
-          >Cancel</a
+          >{{$t('actions.cancel')}}</a
         >
       </div>
     </div>
@@ -69,9 +70,17 @@ export default {
   },
   mounted () {},
   methods: {
-    createFolder: function ($event) {
+    createDirectory: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('createFolder', this.name);
+      const createFolderPath = () => {
+        if (this.$store.state.currentDirectory) {
+          this.$store.dispatch('createDirectory', this.$store.state.currentDirectory + '/' + this.name);
+        } else {
+          this.$store.dispatch('createDirectory', this.name);
+        }
+      };
+
+      return createFolderPath();
     },
     closeModal: function ($event) {
       $event.preventDefault();
@@ -82,6 +91,9 @@ export default {
     }
   },
   computed: {
+    getDir () {
+      return this.$store.getters.getDirectory;
+    },
     // Get Main Color From Store
     getColor () {
       return this.$store.state.mainColor;

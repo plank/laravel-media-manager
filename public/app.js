@@ -2429,6 +2429,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmfolders',
@@ -2437,7 +2443,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      current: null // directoryCollection: this.$store.state.directoryCollection
+      current: null,
+      cardItem: null // directoryCollection: this.$store.state.directoryCollection
 
     };
   },
@@ -2446,11 +2453,26 @@ __webpack_require__.r(__webpack_exports__);
     // Set activeDirectory and open in relation
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
-      this.current = value.id;
+      this.current = value;
       this.$store.dispatch('getDirectory', value);
     },
-    showOptions: function showOptions() {
-      console.log('Show Options');
+    showOptions: function showOptions(index, item) {
+      this.cardItem = index;
+      this.$store.dispatch('setSelectedDirectory', item);
+    },
+    goBack: function goBack($event) {
+      $event.preventDefault();
+      var directoryTarget = null;
+      var directoryLevel = this.current.split('/');
+
+      if (directoryLevel.length > 1) {
+        // Get second last item on arrau
+        directoryTarget = directoryLevel[directoryLevel.length - 2];
+      } else {
+        directoryTarget = '';
+      }
+
+      this.openDirectory($event, directoryTarget);
     }
   },
   computed: {
@@ -2659,6 +2681,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2676,9 +2699,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
-    createFolder: function createFolder($event) {
+    createDirectory: function createDirectory($event) {
+      var _this = this;
+
       $event.preventDefault();
-      this.$store.dispatch('createFolder', this.name);
+
+      var createFolderPath = function createFolderPath() {
+        if (_this.$store.state.currentDirectory) {
+          _this.$store.dispatch('createDirectory', _this.$store.state.currentDirectory + '/' + _this.name);
+        } else {
+          _this.$store.dispatch('createDirectory', _this.name);
+        }
+      };
+
+      return createFolderPath();
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
@@ -2689,6 +2723,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    getDir: function getDir() {
+      return this.$store.getters.getDirectory;
+    },
     // Get Main Color From Store
     getColor: function getColor() {
       return this.$store.state.mainColor;
@@ -3047,6 +3084,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3056,7 +3094,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3075,19 +3113,26 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch("viewState", value);
+      this.$store.dispatch('viewState', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalCreate");
+      this.$store.dispatch('openModalCreate');
+    },
+    deleteElement: function deleteElement($event) {
+      //alert('delete:' + this.$store.state.selectedDirectory);
+      this.$store.dispatch('deleteDirectory', this.$store.state.selectedDirectory);
     }
   },
   computed: {
+    getCurrentFolder: function getCurrentFolder() {
+      return this.$store.state.currentDirectory;
+    },
     // Get Main Color From Store
     getColor: function getColor() {
       return this.$store.state.mainColor;
@@ -11599,18 +11644,36 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mm__results" }, [
+    this.current
+      ? _c("div", [
+          _c(
+            "a",
+            {
+              attrs: { href: "" },
+              on: {
+                click: function($event) {
+                  return _vm.goBack($event)
+                }
+              }
+            },
+            [_vm._v("BACK")]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "mm__results-grid" },
-      _vm._l(_vm.getDir, function(item) {
+      _vm._l(_vm.getDir, function(item, index) {
         return _c(
           "div",
           {
-            key: item.id,
+            key: index,
             staticClass: "mm__results-single",
+            class: [_vm.cardItem == index ? "active" : ""],
             on: {
               click: function($event) {
-                return _vm.showOptions()
+                return _vm.showOptions(index, item)
               },
               dblclick: function($event) {
                 return _vm.openDirectory($event, item)
@@ -11828,7 +11891,7 @@ var render = function() {
               _c(
                 "label",
                 { staticClass: "form__label", attrs: { for: "folder-name" } },
-                [_vm._v("Folder Name")]
+                [_vm._v(_vm._s(_vm.$t("modal.folder_name")))]
               ),
               _vm._v(" "),
               _c("div", { staticClass: "bar" })
@@ -11855,11 +11918,11 @@ var render = function() {
               attrs: { disabled: !_vm.name, href: "" },
               on: {
                 click: function($event) {
-                  return _vm.createFolder($event)
+                  return _vm.createDirectory($event)
                 }
               }
             },
-            [_vm._v("Create")]
+            [_vm._v(_vm._s(_vm.$t("actions.create")))]
           )
         ]),
         _vm._v(" "),
@@ -11876,7 +11939,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("Cancel")]
+            [_vm._v(_vm._s(_vm.$t("actions.cancel")))]
           )
         ])
       ]
@@ -12188,7 +12251,14 @@ var render = function() {
           _c("li", { staticClass: "separator" }, [
             _c(
               "a",
-              { attrs: { title: _vm.$t("actions.delete"), href: "" } },
+              {
+                attrs: { title: _vm.$t("actions.delete"), href: "" },
+                on: {
+                  click: function($event) {
+                    return _vm.deleteElement($event)
+                  }
+                }
+              },
               [
                 _c(
                   "mmiconbase",
@@ -28477,6 +28547,8 @@ var messages = {
     },
     actions: {
       "delete": 'Delete',
+      create: 'Create',
+      cancel: 'Cancel',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
       viewList: 'View List',
@@ -28500,7 +28572,8 @@ var messages = {
       btn_cancel: 'Cancel'
     },
     modal: {
-      title_createFolder: 'Create Folder'
+      title_createFolder: 'Create Folder',
+      folder_name: 'Folder Name'
     }
   },
   fr: {
@@ -28514,6 +28587,8 @@ var messages = {
     },
     actions: {
       "delete": 'Effacer',
+      create: 'Creer',
+      cancel: 'Annuler',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
       viewList: 'Liste',
@@ -28537,7 +28612,8 @@ var messages = {
       btn_cancel: 'Annuler'
     },
     modal: {
-      title_createFolder: 'Créer un dossier'
+      title_createFolder: 'Créer un dossier',
+      folder_name: 'Nom du dossier'
     }
   }
 };
@@ -30109,6 +30185,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     mainColor: '#9C1820',
     routeGetDirectory: '/media-api/index/',
     routeCreateDirectory: '/media-api/directory/create',
+    routeDeleteDirectory: '/media-api/directory/destroy',
+    currentDirectory: null,
+    selectedDirectory: null,
     totalSelected: 0,
     modalState: {
       add: false,
@@ -30295,6 +30374,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     SET_DIRECTORY: function SET_DIRECTORY(state, items) {
       state.directoryCollection = items;
+    },
+    SET_SELECTED_DIRECTORY: function SET_SELECTED_DIRECTORY(state, items) {
+      state.selectedDirectory = items;
     }
   },
   actions: {
@@ -30343,23 +30425,44 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var route;
 
       if (value) {
+        this.state.currentDirectory = value;
         route = this.state.routeGetDirectory + value;
       } else {
+        this.state.currentDirectory = '';
         route = this.state.routeGetDirectory;
       }
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
-        console.log(response.data.subdirectories);
         commit('SET_DIRECTORY', response.data.subdirectories);
       });
     },
     // Create Directory
-    createFolder: function createFolder(_ref2, value) {
+    createDirectory: function createDirectory(_ref2, value) {
       var commit = _ref2.commit;
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
         // Close Modal
         commit('closeModalCreate', true);
       });
+    },
+    deleteDirectory: function deleteDirectory(_ref3, value) {
+      var commit = _ref3.commit;
+      var route;
+
+      if (value) {
+        // this.state.currentDirectory = value;
+        route = this.state.routeDeleteDirectory + '?path=' + value;
+      } else {
+        this.state.currentDirectory = '';
+        route = this.state.routeDeleteDirectory;
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route, {}).then(function (response) {
+        console.log(response); // commit('SET_DIRECTORY', response.data.subdirectories);
+      });
+    },
+    // Set selected directory
+    setSelectedDirectory: function setSelectedDirectory(context, value) {
+      context.commit('SET_SELECTED_DIRECTORY', value);
     }
   }
 }));

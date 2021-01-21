@@ -1,12 +1,18 @@
 <template>
   <div class="mm__results">
+
+      <div v-if="this.current">
+          <a v-on:click="goBack($event)" href="">BACK</a>
+      </div>
+
     <!-- For Each Loop -->
     <div class="mm__results-grid">
       <div
-        v-for="item in getDir"
-        :key="item.id"
+        v-for="(item, index) in getDir"
+        :key="index"
         class="mm__results-single"
-        v-on:click="showOptions()"
+        v-bind:class="[cardItem == index ? 'active' : '']"
+        v-on:click="showOptions(index, item)"
         v-on:dblclick="openDirectory($event, item)"
       >
         <mmfoldercard :item="item"></mmfoldercard>
@@ -25,7 +31,8 @@ export default {
   },
   data () {
     return {
-      current: null
+      current: null,
+      cardItem: null
       // directoryCollection: this.$store.state.directoryCollection
     };
   },
@@ -34,11 +41,26 @@ export default {
     // Set activeDirectory and open in relation
     openDirectory: function (event, value) {
       event.preventDefault();
-      this.current = value.id;
+      this.current = value;
       this.$store.dispatch('getDirectory', value);
     },
-    showOptions: function () {
-      console.log('Show Options');
+    showOptions (index, item) {
+      this.cardItem = index;
+      this.$store.dispatch('setSelectedDirectory', item);
+    },
+    goBack ($event) {
+      $event.preventDefault();
+      let directoryTarget = null;
+      const directoryLevel = this.current.split('/');
+
+      if (directoryLevel.length > 1) {
+        // Get second last item on arrau
+        directoryTarget = directoryLevel[directoryLevel.length - 2];
+      } else {
+        directoryTarget = '';
+      }
+
+      this.openDirectory($event, directoryTarget);
     }
   },
   computed: {

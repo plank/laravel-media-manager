@@ -9,6 +9,9 @@ export default new Vuex.Store({
     mainColor: '#9C1820',
     routeGetDirectory: '/media-api/index/',
     routeCreateDirectory: '/media-api/directory/create',
+    routeDeleteDirectory: '/media-api/directory/destroy',
+    currentDirectory: null,
+    selectedDirectory: null,
     totalSelected: 0,
     modalState: {
       add: false,
@@ -81,6 +84,9 @@ export default new Vuex.Store({
     },
     SET_DIRECTORY (state, items) {
       state.directoryCollection = items;
+    },
+    SET_SELECTED_DIRECTORY (state, items) {
+      state.selectedDirectory = items;
     }
   },
 
@@ -125,25 +131,46 @@ export default new Vuex.Store({
     getDirectory ({ commit }, value) {
       let route;
       if (value) {
+        this.state.currentDirectory = value;
         route = this.state.routeGetDirectory + value;
       } else {
+        this.state.currentDirectory = '';
         route = this.state.routeGetDirectory;
       }
       axios
         .get(route, {})
         .then(response => {
-          console.log(response.data.subdirectories);
           commit('SET_DIRECTORY', response.data.subdirectories);
         });
     },
     // Create Directory
-    createFolder ({ commit }, value) {
+    createDirectory ({ commit }, value) {
       axios
         .post(this.state.routeCreateDirectory + '?path=' + value, {})
         .then(response => {
           // Close Modal
           commit('closeModalCreate', true);
         });
+    },
+    deleteDirectory ({ commit }, value) {
+      let route;
+      if (value) {
+        // this.state.currentDirectory = value;
+        route = this.state.routeDeleteDirectory + '?path=' + value;
+      } else {
+        this.state.currentDirectory = '';
+        route = this.state.routeDeleteDirectory;
+      }
+      axios
+        .post(route, {})
+        .then(response => {
+          console.log(response);
+          // commit('SET_DIRECTORY', response.data.subdirectories);
+        });
+    },
+    // Set selected directory
+    setSelectedDirectory (context, value) {
+      context.commit('SET_SELECTED_DIRECTORY', value);
     }
   }
 });

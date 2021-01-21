@@ -2,6 +2,7 @@
   <div class="mm__search">
     <div class="mm__search-container">
       <div class="mm__search-breadcrumb">
+        <!-- <p v-html="getCurrentFolder"></p> -->
         <p>Folders / Name of the Folder / <b>Name of the Subfolder</b></p>
       </div>
       <div class="mm__search-actions">
@@ -21,7 +22,7 @@
             </a>
           </li>
           <li class="separator">
-            <a :title="$t('actions.delete')" href="">
+            <a v-on:click="deleteElement($event)" :title="$t('actions.delete')" href="">
               <!-- Delete Icon -->
               <mmiconbase
                 icon-name="add-folder"
@@ -132,17 +133,17 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus.js";
-import mmiconbase from "./mm-icon-base.vue";
-import iconadddirectory from "./icons/icon-add-directory.vue";
-import icongrid from "./icons/icon-grid.vue";
-import iconlist from "./icons/icon-list.vue";
-import iconsearch from "./icons/icon-search.vue";
-import icondelete from "./icons/icon-delete.vue";
-import iconinfo from "./icons/icon-info.vue";
+import { EventBus } from '../event-bus.js';
+import mmiconbase from './mm-icon-base.vue';
+import iconadddirectory from './icons/icon-add-directory.vue';
+import icongrid from './icons/icon-grid.vue';
+import iconlist from './icons/icon-list.vue';
+import iconsearch from './icons/icon-search.vue';
+import icondelete from './icons/icon-delete.vue';
+import iconinfo from './icons/icon-info.vue';
 
 export default {
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase,
     iconadddirectory,
@@ -150,47 +151,54 @@ export default {
     iconlist,
     iconsearch,
     icondelete,
-    iconinfo,
+    iconinfo
   },
-  data() {
+  data () {
     return {
-      showInformations: false,
+      showInformations: false
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     viewState: function (event, value) {
       event.preventDefault();
-      this.$store.dispatch("viewState", value);
+      this.$store.dispatch('viewState', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
       event.preventDefault();
-      EventBus.$emit("open-slide-panel", id);
+      EventBus.$emit('open-slide-panel', id);
     },
     openModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalCreate");
+      this.$store.dispatch('openModalCreate');
     },
+    deleteElement: function ($event) {
+      //alert('delete:' + this.$store.state.selectedDirectory);
+      this.$store.dispatch('deleteDirectory', this.$store.state.selectedDirectory);
+    }
   },
   computed: {
+    getCurrentFolder () {
+      return this.$store.state.currentDirectory;
+    },
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    getDataTypes() {
+    getDataTypes () {
       return this.$store.state.dataType;
     },
-    getSelected() {
+    getSelected () {
       return this.$store.state.selectedElem;
     },
-    showInformationsBtn(getSelected) {
+    showInformationsBtn (getSelected) {
       if (this.getSelected.length !== 1) {
         return false;
       } else {
         return true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
