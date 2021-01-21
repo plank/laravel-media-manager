@@ -138,12 +138,11 @@ export default new Vuex.Store({
     },
     // Create Directory
     createFolder ({ commit }, value) {
-      console.log('create directory with name :' + value);
       axios
         .post(this.state.routeCreateDirectory + '?path=' + value, {})
         .then(response => {
-          console.log(response);
-          // commit('SET_DIRECTORY', response.data.subdirectories);
+          // Close Modal
+          commit('closeModalCreate', true);
         });
     }
   }

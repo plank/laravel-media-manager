@@ -30,6 +30,7 @@
       <div>
         <a
           :style="styleBtnDefault"
+          v-bind:disabled="!name"
           class="btn btn-default"
           v-on:click="createFolder($event)"
           href=""
@@ -37,54 +38,60 @@
         >
       </div>
       <div>
-        <a class="btn btn-delete text-center" :style="styleBtnDefault" href="">Cancel</a>
+        <a
+          v-on:click="closeModal($event)"
+          class="btn btn-delete text-center"
+          :style="styleBtnDefault"
+          href=""
+          >Cancel</a
+        >
       </div>
     </div>
   </mmmodal>
 </template>
 
 <script>
-import mmmodal from "./mm-modal";
-import mmiconbase from "./mm-icon-base.vue";
-import iconaddfolder from "./icons/icon-add-folder.vue";
+import mmmodal from './mm-modal';
+import mmiconbase from './mm-icon-base.vue';
+import iconaddfolder from './icons/icon-add-folder.vue';
 
 export default {
-  name: "mmmodaladdfolder",
+  name: 'mmmodaladdfolder',
   components: {
     mmmodal,
     mmiconbase,
-    iconaddfolder,
+    iconaddfolder
   },
-  data() {
+  data () {
     return {
-      name: null,
+      name: null
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     createFolder: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("createFolder", this.name);
+      this.$store.dispatch('createFolder', this.name);
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch('closeModalCreate');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("closeModalAdd");
-    },
+      this.$store.dispatch('closeModalCreate');
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

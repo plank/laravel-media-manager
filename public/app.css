@@ -309,6 +309,13 @@ strong {
   border-radius: 0.1875em;
 }
 
+.btn[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
 .btn-rounded {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.25);
   color: #FFFFFF;
