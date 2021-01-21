@@ -1,5 +1,22 @@
 // Icons
 
+.icon-container {
+    background: #ECEBEB;
+    height: 120px;
+    width: 120px;
+    border-radius: 150px;
+    margin: 0 auto;
+    display: flex;
+    svg {
+        display: flex;
+        align-self: center;
+        float: none;
+        clear: both;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
 .i {
     &-add {
         background: url('../../img/icon-add.svg');

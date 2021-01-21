@@ -1,10 +1,32 @@
 <template>
-  <mmmodal>
+  <mmmodal extraClassContainer="modal-add-folder">
     <h2 slot="title">{{ $t("modal.title_createFolder") }}</h2>
-    <p slot="content">
-      <input v-model="name" type="text" />
-    </p>
-    <div slot="buttons">
+    <div slot="content">
+      <div class="content-grid">
+        <div class="icon-container">
+          <mmiconbase
+            icon-name="add-folder"
+            current-color="#C2C2C2"
+            icon-color="#C2C2C2"
+            width="44"
+            height="40"
+            ><iconaddfolder></iconaddfolder
+          ></mmiconbase>
+        </div>
+
+        <div class="input-group">
+          <div class="centered">
+            <div class="group">
+              <input v-model="name" type="text" id="name" required="required" />
+              <label for="folder-name" class="form__label">Folder Name</label>
+              <div class="bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons__container-wrapper" slot="buttons">
       <div>
         <a
           :style="styleBtnDefault"
@@ -22,42 +44,47 @@
 </template>
 
 <script>
-import mmmodal from './mm-modal';
+import mmmodal from "./mm-modal";
+import mmiconbase from "./mm-icon-base.vue";
+import iconaddfolder from "./icons/icon-add-folder.vue";
+
 export default {
-  name: 'mmmodaladdfolder',
+  name: "mmmodaladdfolder",
   components: {
-    mmmodal
+    mmmodal,
+    mmiconbase,
+    iconaddfolder,
   },
-  data () {
+  data() {
     return {
-      name: null
+      name: null,
     };
   },
-  mounted () {},
+  mounted() {},
   methods: {
     createFolder: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('createFolder', this.name);
+      this.$store.dispatch("createFolder", this.name);
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalAdd');
+      this.$store.dispatch("closeModalAdd");
     },
     uploadSuccess: function () {
-      this.$store.dispatch('closeModalAdd');
-    }
+      this.$store.dispatch("closeModalAdd");
+    },
   },
   computed: {
     // Get Main Color From Store
-    getColor () {
+    getColor() {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

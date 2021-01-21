@@ -19,14 +19,14 @@
       </svg>
     </a>
 
-    <div class="modal__container">
+    <div class="modal__container" v-bind:class="this.extraClassContainer">
       <div class="title">
         <slot name="title"></slot>
       </div>
       <div class="content">
         <slot name="content"></slot>
       </div>
-      <div class="buttons-container">
+      <div class="buttons__container">
         <slot name="buttons"></slot>
       </div>
     </div>
@@ -40,6 +40,7 @@ export default {
   data () {
     return {};
   },
+  props: ['extraClassContainer'],
   mounted () {},
   methods: {
     closeModal: function ($event) {
