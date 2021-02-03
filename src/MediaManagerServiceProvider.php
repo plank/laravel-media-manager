@@ -20,14 +20,13 @@ class MediaManagerServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'media-manager');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(MANAGER_PATH.'/routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 MANAGER_PATH.'/config/config.php' => config_path('media-manager.php'),
 
-            ], 'config');
+            ], 'manager-config');
 
             $this->publishes([
                 MANAGER_PATH.'/resources/js' => resource_path('assets/plank/laravel-media-manager')],
@@ -53,7 +52,7 @@ class MediaManagerServiceProvider extends ServiceProvider
         }
 
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/media-manager.php', 'media-manager');
+        $this->mergeConfigFrom(MANAGER_PATH.'/config/media-manager.php', 'media-manager');
         // Make sure Mediable uses this packages model instead
         Config::set('mediable.model', config('media-manager.model'));
 
