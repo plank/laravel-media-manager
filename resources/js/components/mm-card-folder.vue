@@ -79,7 +79,7 @@
           </g>
         </g>
       </svg>
-      <h6>{{ item }}</h6>
+      <h6>{{ item | clearname }}</h6>
       <span class="date">{{ $t("actions.created_on") }} {{ item.created_at }}</span>
     </div>
   </div>
@@ -87,13 +87,17 @@
 
 <script>
 export default {
-  name: 'mmfoldercard',
-  props: ['item'],
-  data () {
+  name: "mmfoldercard",
+  props: ["item"],
+  data() {
     return {};
   },
-
-  methods: {}
-
+  filters: {
+    clearname: function (name) {
+      name = name.split(/[\s/]+/);
+      return name[name.length - 1];
+    },
+  },
+  methods: {},
 };
 </script>

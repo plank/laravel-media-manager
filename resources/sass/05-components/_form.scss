@@ -72,6 +72,7 @@ input {
         padding-top: $form-input-width/15;
         border: none;
         border-radius: 0;
+        border-bottom: 1px solid $mm-slidepanel-label-color;
         color: $mm-color-black;
         font-size: em-calc(16px);
         font-family: $font-family-base;

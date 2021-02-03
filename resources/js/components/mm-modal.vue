@@ -45,7 +45,7 @@ export default {
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalCreate');
+      this.$store.dispatch('closeModal');
     },
     uploadSuccess: function () {
       this.$store.dispatch('closeModalCreate');

@@ -1,0 +1,32 @@
+#breadcrumb {
+    li {
+        display: inline-block;
+        text-transform: capitalize;
+
+        &:first-child {
+            &:before {
+                display: none;
+            }
+        }
+
+        &:last-child {
+            a {
+                font-weight: 700;
+            }
+        }
+
+        &:before {
+            content: "/";
+            margin: 0 0.5em;
+            display: inline-block;
+            position: relative;
+        }
+
+        a {
+            font-family: $font-family-base;
+            color: $mm-breadcrumb-color;
+            font-size: em(14px);
+            text-decoration: none;
+        }
+    }
+}

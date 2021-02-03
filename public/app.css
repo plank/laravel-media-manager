@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap);@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;
 
-600&display=swap);html,
+600&display=swap);@charset "UTF-8";
+html,
 body,
 div,
 span,
@@ -222,8 +223,6 @@ strong {
 }
 
 .mm__search-breadcrumb {
-  font-family: "Open Sans", sans-serif;
-  font-size: 0.875em;
   float: right;
 }
 
@@ -281,7 +280,7 @@ strong {
   font-size: 0.875em;
   box-sizing: border-box;
   padding: 0.625em 7.5em 0.625em 0.625em;
-  border: 2px solid #DEDEDE;
+  border: 1px solid #DEDEDE;
   border-radius: 2px;
   color: #616161;
   line-height: 19px;
@@ -307,6 +306,15 @@ strong {
   border-radius: 0.3125em;
   border: 2px solid #2D2D2D;
   box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+}
+
+.mm__results-empty {
+  display: grid;
+  padding: 1.3125em 0;
+  background-color: #F5F5F5;
+  height: 400px;
+  margin-top: 1em;
+  text-align: center;
 }
 
 .btn {
@@ -361,6 +369,7 @@ strong {
 
 .btn-delete {
   font-weight: 100;
+  padding: 0.875em 3em;
   font-size: 0.75em;
   text-transform: uppercase;
   text-decoration: underline;
@@ -604,6 +613,7 @@ input {
   padding-top: 24px;
   border: none;
   border-radius: 0;
+  border-bottom: 1px solid #6D6D6D;
   color: #000000;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
@@ -667,8 +677,13 @@ input {
 
 .modal {
   background: #FFFFFF;
-  width: 400px;
-  height: 400px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-width: 400px;
   display: inline-block;
   margin: 0 auto;
   position: absolute;
@@ -685,6 +700,11 @@ input {
   margin: 2rem 0;
 }
 
+.modal__container p {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.6em;
+}
+
 .modal__container .buttons__container-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -693,6 +713,10 @@ input {
 .modal__container .buttons__container-wrapper div {
   text-align: center;
   width: 100%;
+}
+
+.modal__container .buttons__container-wrapper div .btn {
+  display: block;
 }
 
 .modal__container-upload {
@@ -721,6 +745,38 @@ input {
 .modal-add-folder .content-grid {
   display: grid;
   grid-template-rows: 1fr 1fr;
+}
+
+.modal-delete-folder {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+#breadcrumb li {
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+#breadcrumb li:first-child:before {
+  display: none;
+}
+
+#breadcrumb li:last-child a {
+  font-weight: 700;
+}
+
+#breadcrumb li:before {
+  content: "/";
+  margin: 0 0.5em;
+  display: inline-block;
+  position: relative;
+}
+
+#breadcrumb li a {
+  font-family: "Open Sans", sans-serif;
+  color: #222222;
+  font-size: 0.875em;
+  text-decoration: none;
 }
 
 table {

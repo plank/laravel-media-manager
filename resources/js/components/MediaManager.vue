@@ -38,7 +38,7 @@
       <mmslidepanel></mmslidepanel>
     </span>
 
-    <!-- Modal -->
+    <!-- Modal Add -->
     <transition name="fade">
       <mmmodaladd
         v-if="modalStateAddMedia"
@@ -47,6 +47,7 @@
       </mmmodaladd>
     </transition>
 
+    <!-- Modal Create Folder -->
     <transition name="fade">
       <mmmodaladdfolder
         v-if="modalStateCreateFolder"
@@ -54,10 +55,18 @@
       ></mmmodaladdfolder>
     </transition>
 
+    <!-- Modal Delete Folder -->
+    <transition name="fade">
+      <mmmodaldeletefolder
+        v-if="modalStateDeleteFolder"
+        @close="this.$store.modalState.delete = false"
+      ></mmmodaldeletefolder>
+    </transition>
+
     <!-- Overlay -->
     <transition name="fade">
       <div
-        v-if="modalStateAddMedia || modalStateCreateFolder"
+        v-if="modalStateAddMedia || modalStateCreateFolder || modalStateDeleteFolder"
         @close="this.$store.modalState.add = false"
         class="overlay"
       ></div>
@@ -72,6 +81,7 @@ import mmslidepanel from './mm-slidepanel';
 import mmaddbutton from './mm-add-button';
 import mmmodaladd from './mm-modal-add';
 import mmmodaladdfolder from './mm-modal-add-folder';
+import mmmodaldeletefolder from './mm-modal-delete-folder';
 import mmlistresults from './mm-list-results';
 import mmfolders from './mm-folders';
 import mmcarousel from './mm-carousel';
@@ -87,7 +97,8 @@ export default {
     mmlistresults,
     mmfolders,
     mmcarousel,
-    mmmodaladdfolder
+    mmmodaladdfolder,
+    mmmodaldeletefolder
   },
   data () {
     return {
@@ -97,6 +108,9 @@ export default {
   computed: {
     modalStateCreateFolder () {
       return this.$store.state.modalState.create;
+    },
+    modalStateDeleteFolder () {
+      return this.$store.state.modalState.delete;
     },
     modalStateAddMedia () {
       return this.$store.state.modalState.add;

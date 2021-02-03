@@ -7,8 +7,6 @@
         }
         // Breadcrumb
         &-breadcrumb {
-            font-family: $font-family-base;
-            font-size: em(14px);
             float: right;
         }
         // Actions
@@ -74,7 +72,7 @@
 
                 // Filters Dropdowns
                 &-select {
-                    background: url('../../img/icon-select.svg');
+                    background: url('./../../img/icon-select.svg');
                     background-repeat: no-repeat;
                     background-position: center right 1em;
                     -moz-appearance: none;
@@ -84,7 +82,7 @@
                     font-size: em(14px);
                     box-sizing: border-box;
                     padding: em(10px) em(120px) em(10px) em(10px);
-                    border: 2px solid $mm-form-select-border;
+                    border: 1px solid $mm-form-select-border;
                     border-radius: 2px;
                     color: #616161;
                     line-height: 19px;
@@ -112,5 +110,15 @@
                         box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
                     }
                 }
+
+                &-empty {
+                    display: grid;
+                    padding: em(21px) 0;
+                    background-color: #F5F5F5;
+                    height: 400px;
+                    margin-top: 1em;
+                    text-align: center;
+                }
             }
+
         }

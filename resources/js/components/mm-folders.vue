@@ -1,12 +1,11 @@
 <template>
   <div class="mm__results">
-
-      <div v-if="this.current">
+    <!-- <div v-if="this.current">
           <a v-on:click="goBack($event)" href="">BACK</a>
-      </div>
+      </div> -->
 
     <!-- For Each Loop -->
-    <div class="mm__results-grid">
+    <div class="mm__results-grid" v-if="getDir.length">
       <div
         v-for="(item, index) in getDir"
         :key="index"
@@ -17,6 +16,10 @@
       >
         <mmfoldercard :item="item"></mmfoldercard>
       </div>
+    </div>
+    <div class="mm__results-empty" v-else>
+
+        <h2>Empty Folder Illustration</h2>
     </div>
   </div>
 </template>

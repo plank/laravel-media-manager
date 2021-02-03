@@ -15,7 +15,8 @@ export default new Vuex.Store({
     totalSelected: 0,
     modalState: {
       add: false,
-      create: false
+      create: false,
+      delete: false
     },
     folderState: true,
     viewState: false,
@@ -52,17 +53,30 @@ export default new Vuex.Store({
   },
 
   getters: {
+    getCurrentDirectory: state => {
+      return state.currentDirectory;
+    },
     getDirectory: state => {
       return state.directoryCollection;
     }
   },
 
   mutations: {
+    closeModal (state) {
+      state.modalState.create = false;
+      state.modalState.delete = false;
+    },
     openModalCreate (state) {
       state.modalState.create = true;
     },
     closeModalCreate (state) {
       state.modalState.create = false;
+    },
+    openModalDelete (state) {
+      state.modalState.delete = true;
+    },
+    closeModalDelete (state) {
+      state.modalState.delete = false;
     },
     openModalAdd (state) {
       state.modalState.add = true;
@@ -91,11 +105,21 @@ export default new Vuex.Store({
   },
 
   actions: {
+    closeModal (context) {
+      context.commit('closeModalCreate', false);
+      context.commit('closeModalDelete', false);
+    },
     openModalCreate (context) {
       context.commit('openModalCreate', true);
     },
     closeModalCreate (context) {
       context.commit('closeModalCreate', false);
+    },
+    openModalDelete (context) {
+      context.commit('openModalDelete', true);
+    },
+    closeModalDelete (context) {
+      context.commit('closeModalDelete', false);
     },
     openModalAdd (context) {
       context.commit('openModalAdd', true);
@@ -164,7 +188,6 @@ export default new Vuex.Store({
       axios
         .post(route, {})
         .then(response => {
-          console.log(response);
           // commit('SET_DIRECTORY', response.data.subdirectories);
         });
     },

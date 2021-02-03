@@ -22,6 +22,8 @@ const messages = {
     },
     actions: {
       delete: 'Delete',
+      yes: 'Yes',
+      no: 'No',
       create: 'Create',
       cancel: 'Cancel',
       createDirectory: 'Create Directory',
@@ -48,7 +50,8 @@ const messages = {
     },
     modal: {
       title_createFolder: 'Create Folder',
-      folder_name: 'Folder Name',
+      title_deleteFolder: 'Delete Folder',
+      folder_name: 'Folder Name'
     }
   },
   fr: {
@@ -62,6 +65,8 @@ const messages = {
     },
     actions: {
       delete: 'Effacer',
+      yes: 'Oui',
+      no: 'Non',
       create: 'Creer',
       cancel: 'Annuler',
       createDirectory: 'Nouveau dossier',
@@ -88,7 +93,8 @@ const messages = {
     },
     modal: {
       title_createFolder: 'Créer un dossier',
-      folder_name: 'Nom du dossier',
+      title_deleteFolder: 'Supprimer répertoire',
+      folder_name: 'Nom du dossier'
     }
   }
 };

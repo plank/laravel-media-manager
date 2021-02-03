@@ -3,7 +3,7 @@
     <div class="mm__search-container">
       <div class="mm__search-breadcrumb">
         <!-- <p v-html="getCurrentFolder"></p> -->
-        <p>Folders / Name of the Folder / <b>Name of the Subfolder</b></p>
+        <mmbreadcrumb></mmbreadcrumb>
       </div>
       <div class="mm__search-actions">
         <ul>
@@ -22,15 +22,15 @@
             </a>
           </li>
           <li class="separator">
-            <a v-on:click="deleteElement($event)" :title="$t('actions.delete')" href="">
+            <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
               <!-- Delete Icon -->
               <mmiconbase
                 icon-name="add-folder"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
-                height="23"
-                viewBox="0 0 20 23"
+                height="26"
+                viewBox="0 0 26 26"
                 ><icondelete></icondelete
               ></mmiconbase>
             </a>
@@ -47,8 +47,8 @@
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
-                height="23"
-                viewBox="0 0 20 23"
+                height="26"
+                viewBox="0 0 26 26"
                 ><iconadddirectory></iconadddirectory
               ></mmiconbase>
             </a>
@@ -65,9 +65,9 @@
                 icon-name="icon-grid"
                 current-color="000"
                 icon-color="000"
-                width="20"
-                height="23"
-                viewBox="0 0 20 23"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
                 ><icongrid></icongrid
               ></mmiconbase>
             </a>
@@ -84,9 +84,9 @@
                 icon-name="icon-list"
                 current-color="000"
                 icon-color="000"
-                width="20"
-                height="23"
-                viewBox="0 0 20 23"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
                 ><iconlist></iconlist
               ></mmiconbase>
             </a>
@@ -98,9 +98,9 @@
                 icon-name="icon-list"
                 current-color="000"
                 icon-color="000"
-                width="20"
-                height="23"
-                viewBox="0 0 20 23"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
                 ><iconsearch></iconsearch
               ></mmiconbase>
             </a>
@@ -141,6 +141,7 @@ import iconlist from './icons/icon-list.vue';
 import iconsearch from './icons/icon-search.vue';
 import icondelete from './icons/icon-delete.vue';
 import iconinfo from './icons/icon-info.vue';
+import mmbreadcrumb from './breadcrumb/mm-breadcrumb';
 
 export default {
   name: 'mmsearch',
@@ -151,7 +152,8 @@ export default {
     iconlist,
     iconsearch,
     icondelete,
-    iconinfo
+    iconinfo,
+    mmbreadcrumb,
   },
   data () {
     return {
@@ -173,9 +175,9 @@ export default {
       $event.preventDefault();
       this.$store.dispatch('openModalCreate');
     },
-    deleteElement: function ($event) {
-      //alert('delete:' + this.$store.state.selectedDirectory);
-      this.$store.dispatch('deleteDirectory', this.$store.state.selectedDirectory);
+    openDeleteModal: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('openModalDelete');
     }
   },
   computed: {
