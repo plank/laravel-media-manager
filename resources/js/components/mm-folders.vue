@@ -46,6 +46,8 @@ export default {
       event.preventDefault();
       this.current = value;
       this.$store.dispatch('getDirectory', value);
+      // Retrieve files
+      this.$store.dispatch('getMediaInDirectory', value);
     },
     showOptions (index, item) {
       this.cardItem = index;

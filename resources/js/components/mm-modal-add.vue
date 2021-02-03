@@ -13,12 +13,13 @@
     </a>
 
     <div class="modal__container modal__container-upload">
-        <vue-dropzone ref="myVueDropzone" :style="styleBtnDefault" v-on:vdropzone-success="uploadSuccess()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+        <vue-dropzone ref="myVueDropzone" :style="styleBtnDefault" v-on:vdropzone-success="uploadSuccess()" id="dropzone" name="media" :options="dropzoneOptions"></vue-dropzone>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import vue2Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
@@ -29,10 +30,7 @@ export default {
   data () {
     return {
       dropzoneOptions: {
-        url: 'https://httpbin.org/post',
-        thumbnailWidth: 150,
-        maxFilesize: 4.5,
-        headers: { 'My-Awesome-Header': 'header value' }
+        url: 'media-api/create',
       }
     };
   },

@@ -218,7 +218,7 @@ strong {
 
 .mm__search-container {
   display: grid;
-  margin: 1.125em 0;
+  margin: 2.375em 0;
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -767,7 +767,7 @@ input {
 
 #breadcrumb li:before {
   content: "/";
-  margin: 0 0.5em;
+  margin: 0 0.2em;
   display: inline-block;
   position: relative;
 }
@@ -777,6 +777,14 @@ input {
   color: #222222;
   font-size: 0.875em;
   text-decoration: none;
+  transition: all 0.5s ease-in-out;
+  padding: 1em;
+  border-radius: 150px;
+}
+
+#breadcrumb li a:hover {
+  transition: all 0.5s ease-in-out;
+  background: #F9F9F9;
 }
 
 table {

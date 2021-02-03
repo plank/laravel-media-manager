@@ -191,6 +191,9 @@ export default new Vuex.Store({
           // commit('SET_DIRECTORY', response.data.subdirectories);
         });
     },
+    getMediaInDirectory ({ commit }, value) {
+      console.log('browse directory: ' + value);
+    },
     // Set selected directory
     setSelectedDirectory (context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);

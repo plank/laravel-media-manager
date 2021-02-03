@@ -77,7 +77,6 @@ class MediaController extends BaseController
         $media = $request->media;
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
-
         return response($this->uploader->toDestination($disk, $path)->fromSource($media)->upload());
     }
 
