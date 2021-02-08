@@ -2380,14 +2380,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcarouselcard',
+  name: "mmcarouselcard",
   components: {},
-  props: ['item', 'index'],
+  props: ["item", "index"],
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    removeFromSelected: function removeFromSelected(value) {
+      this.$store.dispatch("pushSelected", value);
+    }
+  },
   mounted: function mounted() {},
   computed: {}
 });
@@ -2457,16 +2462,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcarousel',
+  name: "mmcarousel",
   components: {
     mmcarouselcard: _mm_carousel_card__WEBPACK_IMPORTED_MODULE_0__["default"],
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
+      showCarousel: false,
       isMinify: false,
       isMinimize: false
     };
@@ -2487,14 +2496,14 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault(); // this.isMinimize = !this.isMinimize;
       // Reset selected elements to Null.
 
-      this.$store.dispatch('resetSelected'); // Remove all selected icons on view.
+      this.$store.dispatch("resetSelected"); // Remove all selected icons on view.
     }
   },
   mounted: function mounted() {},
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     },
     totalSelected: function totalSelected() {
@@ -2562,8 +2571,7 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       this.current = value;
       this.$store.dispatch("getDirectory", value); // Retrieve files
-
-      this.$store.dispatch("getMediaInDirectory", value);
+      //this.$store.dispatch("getMediaInDirectory", value);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
@@ -2627,19 +2635,19 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     iconName: {
       type: String,
-      "default": 'box'
+      "default": "box"
     },
     width: {
       type: [Number, String],
-      "default": 18
+      "default": 26
     },
     height: {
       type: [Number, String],
-      "default": 18
+      "default": 26
     },
     iconColor: {
       type: String,
-      "default": 'currentColor'
+      "default": "currentColor"
     }
   }
 });
@@ -2986,9 +2994,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodaldeletefolder',
+  name: "mmmodaldeletefolder",
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3001,11 +3027,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalDelete');
+      this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function deleteElement($event) {
       // Delete selected folder
-      this.$store.dispatch('deleteDirectory', this.$store.state.selectedDirectory);
+      this.$store.dispatch("deleteDirectory", this.$store.state.selectedDirectory);
+    },
+    deleteSelectedMedia: function deleteSelectedMedia($event) {
+      alert("delete selected");
     }
   },
   computed: {
@@ -3018,7 +3047,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -3299,6 +3328,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3340,9 +3382,14 @@ __webpack_require__.r(__webpack_exports__);
       $event.preventDefault();
       this.$store.dispatch("openModalCreate");
     },
-    openDeleteModal: function openDeleteModal($event) {
+    openDeleteModal: function openDeleteModal($event, value) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete");
+      console.log(value);
+      this.$store.dispatch("openModalDelete", value);
+    },
+    openDeleteMedia: function openDeleteMedia($event, value) {
+      $event.preventDefault();
+      this.$store.dispatch("openModalDelete", value);
     }
   },
   computed: {
@@ -3381,6 +3428,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-icon-base.vue */ "./resources/js/components/mm-icon-base.vue");
+/* harmony import */ var _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./icons/icon-close.vue */ "./resources/js/components/icons/icon-close.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3443,8 +3503,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
+  components: {
+    mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    iconclose: _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       slideOpen: false,
@@ -11041,80 +11107,58 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: {
-            id: "Media-Manager---Files-Grid-View",
-            transform: "translate(-948.000000, -146.000000)"
-          }
+          attrs: { id: "Group-4", transform: "translate(-1.400000, -4.000000)" }
         },
         [
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Group-8",
-                transform: "translate(946.000000, 142.000000)"
-              }
-            },
-            [
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  x: "0",
-                  y: "0",
-                  width: "26",
-                  height: "26"
-                }
-              }),
-              _vm._v(" "),
-              _c("path", {
-                attrs: {
-                  d:
-                    "M22.0277779,21.125 L4.00000047,21.125 C3.58628927,21.1237891 3.25121093,20.7887107 3.25,20.3749995 L3.25,8.125 L21.9375,8.125 C22.3862314,8.125 22.75,8.48876864 22.75,8.9375 L22.75,20.4027779 C22.75,20.8016501 22.4266501,21.125 22.0277779,21.125 Z",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("path", {
-                attrs: {
-                  d:
-                    "M3.25,8.125 L3.25,5.6875 C3.25,5.23876864 3.61376864,4.875 4.0625,4.875 L9.41345133,4.875 C9.62893999,4.875 9.83560279,4.96060256 9.98797617,5.11297617 L13,8.125",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "10.5625",
-                  y1: "14.625",
-                  x2: "15.4375",
-                  y2: "14.625",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "13",
-                  y1: "12.1875",
-                  x2: "13",
-                  y2: "17.0625",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              })
-            ]
-          )
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "26",
+              height: "26"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M21,8.25 L21,18.8333334 C21,19.2015232 20.7015232,19.5 20.3333334,19.5 L3.75,19.5 C3.33578644,19.5 3,19.1642136 3,18.75 L3,6 C3,5.58578644 3.33578644,5.25 3.75,5.25 L8.74999969,5.25 C8.91227735,5.25 9.07017756,5.3026334 9.19999969,5.4 L11.8000003,7.35 C11.9298224,7.4473666 12.0877227,7.5 12.2500003,7.5 L20.25,7.5 C20.6642136,7.5 21,7.83578644 21,8.25 Z",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "9.75",
+              y1: "13.503125",
+              x2: "14.25",
+              y2: "13.503125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "12.003125",
+              y1: "11.25",
+              x2: "12.003125",
+              y2: "15.75",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          })
         ]
       )
     ]
@@ -11217,6 +11261,61 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "g",
+    {
+      attrs: {
+        id: "Page-1",
+        stroke: "none",
+        "stroke-width": "1",
+        fill: "none",
+        "fill-rule": "evenodd"
+      }
+    },
+    [
+      _c(
+        "g",
+        {
+          attrs: {
+            id: "icon_cancel_default",
+            fill: "#2C1E8F",
+            "fill-rule": "nonzero"
+          }
+        },
+        [
+          _c("path", {
+            attrs: {
+              d:
+                "M21.5976567,0.402297444 C21.0611867,-0.134099148 20.2008278,-0.134099148 19.66437,0.402297444 L11,9.06567624 L2.33563,0.402297444 C1.79917222,-0.134099148 0.938813333,-0.134099148 0.402343333,0.402297444 C-0.134114444,0.938706259 -0.134114444,1.79896725 0.402343333,2.33536384 L9.06671333,10.9987304 L0.402343333,19.6621092 C-0.134114444,20.1985058 -0.134114444,21.0587668 0.402343333,21.5951756 C0.665512222,21.8583078 1.01978556,22 1.36392667,22 C1.70808,22 2.06234111,21.8684278 2.32551,21.5951756 L10.98988,12.9317968 L19.65425,21.5951756 C19.9174189,21.8583078 20.27168,22 20.6158211,22 C20.9700944,22 21.3142356,21.8684278 21.5774044,21.5951756 C22.1138744,21.0587668 22.1138744,20.1985058 21.5774044,19.6621092 L12.9332867,10.9987304 L21.5976567,2.33536384 C22.1341144,1.79896725 22.1341144,0.938706259 21.5976567,0.402297444 Z"
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-delete.vue?vue&type=template&id=00e5aa4f&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/icons/icon-delete.vue?vue&type=template&id=00e5aa4f& ***!
@@ -11247,93 +11346,84 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: {
-            id: "Media-Manager---Files-Grid-View",
-            transform: "translate(-921.000000, -143.000000)"
-          }
+          attrs: { id: "Group-3", transform: "translate(-2.200000, -1.000000)" }
         },
         [
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Group-4",
-                transform: "translate(918.000000, 142.000000)"
-              }
-            },
-            [
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  x: "0",
-                  y: "0",
-                  width: "26",
-                  height: "26"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "21.6666667",
-                  y1: "5.78116049",
-                  x2: "3.61111111",
-                  y2: "5.7811659",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("path", {
-                attrs: {
-                  d:
-                    "M20.2222222,5.77777778 L20.2222222,21.5583333 C20.2222222,22.0170365 19.8629446,22.3888889 19.4197531,22.3888889 L6.58024691,22.3888889 C6.13705545,22.3888889 5.77777778,22.0170365 5.77777778,21.5583333 L5.77777778,5.77777778",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("path", {
-                attrs: {
-                  d:
-                    "M16.6111111,5.77777778 L16.6111111,3.97222222 C16.6111111,2.97504142 15.8997413,2.16666667 15.0222222,2.16666667 L10.2555556,2.16666667 C9.37803645,2.16666667 8.66666667,2.97504142 8.66666667,3.97222222 L8.66666667,5.77777778",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "10.8367188",
-                  y1: "10.8333333",
-                  x2: "10.8367188",
-                  y2: "17.3333333",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "15.1700521",
-                  y1: "10.8333333",
-                  x2: "15.1700521",
-                  y2: "17.3333333",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              })
-            ]
-          )
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "24",
+              height: "24"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "20.2496334",
+              y1: "5.25312484",
+              x2: "3.74963344",
+              y2: "5.25312984",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "9.753125",
+              y1: "9.75",
+              x2: "9.753125",
+              y2: "15.75",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "14.253125",
+              y1: "9.75",
+              x2: "14.253125",
+              y2: "15.75",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M18.7496334,5.25 L18.7496334,19.5 C18.7496334,19.9142136 18.413847,20.25 17.9996334,20.25 L5.99963344,20.25 C5.58541988,20.25 5.24963344,19.9142136 5.24963344,19.5 L5.24963344,5.25",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M15.75,5.25 L15.75,3.75 C15.75,2.92157288 15.0784271,2.25 14.25,2.25 L9.75,2.25 C8.92157288,2.25 8.25,2.92157288 8.25,3.75 L8.25,5.25",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          })
         ]
       )
     ]
@@ -11376,84 +11466,74 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: {
-            id: "Media-Manager---Files-Grid-View",
-            transform: "translate(-994.000000, -147.000000)"
-          }
+          attrs: { id: "Group-5", transform: "translate(-2.600000, -3.000000)" }
         },
         [
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Group-9",
-                transform: "translate(990.000000, 143.000000)"
-              }
-            },
-            [
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  x: "0",
-                  y: "0",
-                  width: "26",
-                  height: "26"
-                }
-              }),
-              _vm._v(" "),
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  x: "4.875",
-                  y: "4.875",
-                  width: "6.5",
-                  height: "6.5"
-                }
-              }),
-              _vm._v(" "),
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  x: "14.625",
-                  y: "4.875",
-                  width: "6.5",
-                  height: "6.5"
-                }
-              }),
-              _vm._v(" "),
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  x: "4.875",
-                  y: "14.625",
-                  width: "6.5",
-                  height: "6.5"
-                }
-              }),
-              _vm._v(" "),
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  x: "14.625",
-                  y: "14.625",
-                  width: "6.5",
-                  height: "6.5"
-                }
-              })
-            ]
-          )
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "24",
+              height: "24"
+            }
+          }),
+          _vm._v(" "),
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              x: "4.5",
+              y: "4.5",
+              width: "6",
+              height: "6"
+            }
+          }),
+          _vm._v(" "),
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              x: "13.5",
+              y: "4.5",
+              width: "6",
+              height: "6"
+            }
+          }),
+          _vm._v(" "),
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              x: "4.5",
+              y: "13.5",
+              width: "6",
+              height: "6"
+            }
+          }),
+          _vm._v(" "),
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              x: "13.5",
+              y: "13.5",
+              width: "6",
+              height: "6"
+            }
+          })
         ]
       )
     ]
@@ -11496,7 +11576,7 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: { id: "Group", transform: "translate(-2.000000, -2.000000)" }
+          attrs: { id: "Group-2", transform: "translate(-2.000000, -2.000000)" }
         },
         [
           _c("rect", {
@@ -11504,8 +11584,8 @@ var render = function() {
               id: "Rectangle",
               x: "0",
               y: "0",
-              width: "26",
-              height: "26"
+              width: "24",
+              height: "24"
             }
           }),
           _vm._v(" "),
@@ -11513,11 +11593,12 @@ var render = function() {
             attrs: {
               id: "Oval",
               stroke: "#000000",
+              "stroke-width": "2",
               "stroke-linecap": "round",
               "stroke-linejoin": "round",
-              cx: "13",
-              cy: "13",
-              r: "9.75"
+              cx: "12",
+              cy: "12",
+              r: "9"
             }
           }),
           _vm._v(" "),
@@ -11525,9 +11606,10 @@ var render = function() {
             attrs: {
               id: "Path",
               stroke: "#000000",
+              "stroke-width": "2",
               "stroke-linecap": "round",
               "stroke-linejoin": "round",
-              points: "12.1875 12.1875 13 12.1875 13 17.875 13.8125 17.875"
+              points: "11.25 11.25 12 11.25 12 16.5 12.75 16.5"
             }
           }),
           _vm._v(" "),
@@ -11536,9 +11618,9 @@ var render = function() {
               id: "Oval",
               fill: "#000000",
               "fill-rule": "nonzero",
-              cx: "13",
-              cy: "8.53125",
-              r: "1.21875"
+              cx: "12",
+              cy: "7.875",
+              r: "1.125"
             }
           })
         ]
@@ -11583,77 +11665,102 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: {
-            id: "Media-Manager---Files-Grid-View",
-            transform: "translate(-1031.000000, -147.000000)"
-          }
+          attrs: { id: "Group-6", transform: "translate(-2.800000, -5.000000)" }
         },
         [
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Group-10",
-                transform: "translate(1028.000000, 141.000000)"
-              }
-            },
-            [
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  x: "0",
-                  y: "0",
-                  width: "26",
-                  height: "26"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "4.0625",
-                  y1: "13",
-                  x2: "21.9375",
-                  y2: "13",
-                  id: "Path",
-                  stroke: "#000000",
-                  fill: "#000000",
-                  "fill-rule": "nonzero",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "4.0625",
-                  y1: "6.5",
-                  x2: "21.9375",
-                  y2: "6.5",
-                  id: "Path",
-                  stroke: "#000000",
-                  fill: "#000000",
-                  "fill-rule": "nonzero",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "4.0625",
-                  y1: "19.5",
-                  x2: "21.9375",
-                  y2: "19.5",
-                  id: "Path",
-                  stroke: "#000000",
-                  fill: "#000000",
-                  "fill-rule": "nonzero",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              })
-            ]
-          )
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "24",
+              height: "24"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "9",
+              y1: "6.003125",
+              x2: "20.25",
+              y2: "6.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "9.00057563",
+              y1: "12.003125",
+              x2: "20.25",
+              y2: "12.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "9.00057563",
+              y1: "18.003125",
+              x2: "20.25",
+              y2: "18.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "3.75",
+              y1: "6.003125",
+              x2: "5.25",
+              y2: "6.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "3.75057563",
+              y1: "12.003125",
+              x2: "5.25",
+              y2: "12.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "3.75057563",
+              y1: "18.003125",
+              x2: "5.25",
+              y2: "18.003125",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          })
         ]
       )
     ]
@@ -11696,57 +11803,45 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: {
-            id: "Media-Manager---Files-Grid-View",
-            transform: "translate(-1066.000000, -143.000000)"
-          }
+          attrs: { id: "Group-7", transform: "translate(-2.000000, -2.000000)" }
         },
         [
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Group-11",
-                transform: "translate(1064.000000, 141.000000)"
-              }
-            },
-            [
-              _c("rect", {
-                attrs: {
-                  id: "Rectangle",
-                  x: "0",
-                  y: "0",
-                  width: "26",
-                  height: "26"
-                }
-              }),
-              _vm._v(" "),
-              _c("circle", {
-                attrs: {
-                  id: "Oval",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round",
-                  cx: "11.78125",
-                  cy: "11.78125",
-                  r: "8.53125"
-                }
-              }),
-              _vm._v(" "),
-              _c("line", {
-                attrs: {
-                  x1: "17.8134084",
-                  y1: "17.8141021",
-                  x2: "22.7494048",
-                  y2: "22.7500995",
-                  id: "Path",
-                  stroke: "#000000",
-                  "stroke-linecap": "round",
-                  "stroke-linejoin": "round"
-                }
-              })
-            ]
-          )
+          _c("rect", {
+            attrs: {
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "24",
+              height: "24"
+            }
+          }),
+          _vm._v(" "),
+          _c("circle", {
+            attrs: {
+              id: "Oval",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              cx: "10.875",
+              cy: "10.875",
+              r: "7.875"
+            }
+          }),
+          _vm._v(" "),
+          _c("line", {
+            attrs: {
+              x1: "16.4431462",
+              y1: "16.4437866",
+              x2: "20.9994506",
+              y2: "21.0000919",
+              id: "Path",
+              stroke: "#000000",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round"
+            }
+          })
         ]
       )
     ]
@@ -12075,26 +12170,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mm__carousel-card" }, [
-      _c("div", [
-        _c("img", {
-          attrs: {
-            width: "100%",
-            src: "https://source.unsplash.com/random/1600x900",
-            alt: ""
+  return _c("div", { staticClass: "mm__carousel-card" }, [
+    _c("div", [
+      _c(
+        "span",
+        {
+          on: {
+            click: function($event) {
+              return _vm.removeFromSelected(_vm.item)
+            }
           }
-        })
-      ])
+        },
+        [_vm._v("x")]
+      ),
+      _vm._v(" "),
+      _c("img", {
+        attrs: {
+          width: "100%",
+          src: "https://source.unsplash.com/random/1600x900",
+          alt: ""
+        }
+      })
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -12117,7 +12217,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("transition", { attrs: { name: "fade" } }, [
-    _vm.totalSelected > 1 && !_vm.isMinimize
+    _vm.totalSelected > 1 && !_vm.isMinimize && _vm.showCarousel
       ? _c(
           "div",
           { staticClass: "mm__carousel", class: { minify: _vm.isMinify } },
@@ -12659,15 +12759,29 @@ var render = function() {
       _vm._v(" "),
       _c("div", { attrs: { slot: "content" }, slot: "content" }, [
         _c("div", { staticClass: "content-grid" }, [
-          _c("div", [
-            _c("p", [
-              _vm._v("Are you sure that you want to delete "),
-              _c("strong", [
-                _vm._v(_vm._s(this.$store.state.selectedDirectory))
-              ]),
-              _vm._v(" folder ?")
-            ])
-          ])
+          this.$store.state.modalState.modal_type == "folder"
+            ? _c("div", [
+                _c("p", [
+                  _vm._v(
+                    "\n          Are you sure that you want to delete\n          "
+                  ),
+                  _c("strong", [
+                    _vm._v(_vm._s(this.$store.state.selectedDirectory))
+                  ]),
+                  _vm._v(" folder ?\n        ")
+                ])
+              ])
+            : _c("div", [
+                _c("p", [
+                  _vm._v(
+                    "\n          Are you sure that you want to delete\n          "
+                  ),
+                  _c("strong", [
+                    _vm._v(_vm._s(this.$store.state.selectedElem.length))
+                  ]),
+                  _vm._v(" medias ?\n        ")
+                ])
+              ])
         ])
       ]),
       _vm._v(" "),
@@ -12680,20 +12794,35 @@ var render = function() {
         },
         [
           _c("div", [
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-default",
-                style: _vm.styleBtnDefault,
-                attrs: { href: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.deleteElement($event)
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.$t("actions.yes")))]
-            )
+            this.$store.state.modalState.modal_type == "folder"
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default",
+                    style: _vm.styleBtnDefault,
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteElement($event)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("actions.yes")))]
+                )
+              : _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default",
+                    style: _vm.styleBtnDefault,
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteSelectedMedia($event)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("actions.yes")))]
+                )
           ]),
           _vm._v(" "),
           _c("div", [
@@ -12927,7 +13056,7 @@ var render = function() {
                 attrs: { title: _vm.$t("actions.delete"), href: "" },
                 on: {
                   click: function($event) {
-                    return _vm.openDeleteModal($event)
+                    return _vm.openDeleteModal($event, "folder")
                   }
                 }
               },
@@ -12949,6 +13078,21 @@ var render = function() {
                 )
               ],
               1
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "separator" }, [
+            _c(
+              "a",
+              {
+                attrs: { title: _vm.$t("actions.delete"), href: "" },
+                on: {
+                  click: function($event) {
+                    return _vm.openDeleteModal($event, "media")
+                  }
+                }
+              },
+              [_vm._v("\n            delete media\n          ")]
             )
           ]),
           _vm._v(" "),
@@ -13050,7 +13194,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("li", [
+          _c("li", { staticClass: "mm__search-icon-search" }, [
             _c(
               "a",
               { attrs: { title: _vm.$t("actions.search"), href: "" } },
@@ -13151,7 +13295,24 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Close")]
+          [
+            _c(
+              "mmiconbase",
+              {
+                attrs: {
+                  "icon-name": "add-folder",
+                  "current-color": "#8B8B8B",
+                  "icon-color": "#8B8B8B",
+                  width: "26",
+                  height: "23",
+                  viewBox: "0 0 20 23"
+                }
+              },
+              [_c("iconclose")],
+              1
+            )
+          ],
+          1
         ),
         _vm._v(" "),
         _vm._m(0),
@@ -29594,6 +29755,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/icons/icon-close.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/icons/icon-close.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-close.vue?vue&type=template&id=7cb77384& */ "./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/icons/icon-close.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./icon-close.vue?vue&type=template&id=7cb77384& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-close.vue?vue&type=template&id=7cb77384&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_close_vue_vue_type_template_id_7cb77384___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/icons/icon-delete.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/icons/icon-delete.vue ***!
@@ -31067,7 +31281,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     modalState: {
       add: false,
       create: false,
-      "delete": false
+      "delete": false,
+      modal_type: null
     },
     folderState: true,
     viewState: false,
@@ -31119,8 +31334,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     closeModalCreate: function closeModalCreate(state) {
       state.modalState.create = false;
     },
-    openModalDelete: function openModalDelete(state) {
-      state.modalState["delete"] = true;
+    openModalDelete: function openModalDelete(state, value) {
+      console.log({
+        state: state,
+        value: value
+      });
+      state.modalState.modal_type = value.type;
+      state.modalState["delete"] = value.modal_state;
     },
     closeModalDelete: function closeModalDelete(state) {
       state.modalState["delete"] = false;
@@ -31144,10 +31364,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.folderState = false;
     },
     SET_MEDIA: function SET_MEDIA(state, items) {
-      console.log({
-        state: state,
-        items: items
-      });
+      //   console.log({state, items});
       state.mediaCollection = items;
     },
     SET_DIRECTORY: function SET_DIRECTORY(state, items) {
@@ -31168,8 +31385,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     closeModalCreate: function closeModalCreate(context) {
       context.commit('closeModalCreate', false);
     },
-    openModalDelete: function openModalDelete(context) {
-      context.commit('openModalDelete', true);
+    openModalDelete: function openModalDelete(context, value) {
+      console.log('open modal:' + value);
+      context.commit('openModalDelete', {
+        'modal_state': true,
+        'type': value
+      });
     },
     closeModalDelete: function closeModalDelete(context) {
       context.commit('closeModalDelete', false);

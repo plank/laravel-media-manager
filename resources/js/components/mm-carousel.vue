@@ -3,14 +3,16 @@
     <div
       v-bind:class="{ minify: isMinify }"
       class="mm__carousel"
-      v-if="totalSelected > 1 && !isMinimize"
+      v-if="totalSelected > 1 && !isMinimize && showCarousel"
     >
       <div class="mm__carousel-title">
         <div>
           <h2>{{ $t("carousel.title") }}</h2>
         </div>
         <div>
-          <span class="mm__carousel-items-counter">{{ totalSelected }} {{ $t("carousel.selected_items") }}</span>
+          <span class="mm__carousel-items-counter"
+            >{{ totalSelected }} {{ $t("carousel.selected_items") }}</span
+          >
         </div>
         <div>
           <a class="mm__carousel-minify-handler" v-on:click="minifyPanel($event)"
@@ -42,7 +44,8 @@
             :style="styleBtnDefault"
             class="btn btn-default-border"
             href=""
-            >{{ $t("carousel.btn_cancel") }}</a>
+            >{{ $t("carousel.btn_cancel") }}</a
+          >
         </div>
       </div>
     </div>
@@ -50,23 +53,24 @@
 </template>
 
 <script>
-import mmcarouselcard from './mm-carousel-card';
-import draggable from 'vuedraggable';
+import mmcarouselcard from "./mm-carousel-card";
+import draggable from "vuedraggable";
 
 export default {
-  name: 'mmcarousel',
+  name: "mmcarousel",
   components: {
     mmcarouselcard,
-    draggable
+    draggable,
   },
-  data () {
+  data() {
     return {
+      showCarousel: false,
       isMinify: false,
-      isMinimize: false
+      isMinimize: false,
     };
   },
   methods: {
-    updateHoverState (isHover) {
+    updateHoverState(isHover) {
       this.hoverState = isHover;
     },
     hidePanel: function (event) {
@@ -81,21 +85,21 @@ export default {
       event.preventDefault();
       // this.isMinimize = !this.isMinimize;
       // Reset selected elements to Null.
-      this.$store.dispatch('resetSelected');
+      this.$store.dispatch("resetSelected");
       // Remove all selected icons on view.
-    }
+    },
   },
-  mounted () {},
+  mounted() {},
   computed: {
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
     },
-    totalSelected () {
+    totalSelected() {
       return this.$store.state.totalSelected;
-    }
-  }
+    },
+  },
 };
 </script>
 

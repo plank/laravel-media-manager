@@ -16,7 +16,8 @@ export default new Vuex.Store({
     modalState: {
       add: false,
       create: false,
-      delete: false
+      delete: false,
+      modal_type: null,
     },
     folderState: true,
     viewState: false,
@@ -73,8 +74,10 @@ export default new Vuex.Store({
     closeModalCreate (state) {
       state.modalState.create = false;
     },
-    openModalDelete (state) {
-      state.modalState.delete = true;
+    openModalDelete (state, value) {
+      console.log({state, value});
+      state.modalState.modal_type = value.type
+      state.modalState.delete = value.modal_state;
     },
     closeModalDelete (state) {
       state.modalState.delete = false;
@@ -98,7 +101,7 @@ export default new Vuex.Store({
       state.folderState = false;
     },
     SET_MEDIA (state, items) {
-      console.log({state, items});
+    //   console.log({state, items});
       state.mediaCollection = items;
     },
     SET_DIRECTORY (state, items) {
@@ -120,8 +123,12 @@ export default new Vuex.Store({
     closeModalCreate (context) {
       context.commit('closeModalCreate', false);
     },
-    openModalDelete (context) {
-      context.commit('openModalDelete', true);
+    openModalDelete (context, value) {
+      console.log('open modal:' + value);
+      context.commit('openModalDelete', {
+          'modal_state' : true,
+          'type' : value
+        });
     },
     closeModalDelete (context) {
       context.commit('closeModalDelete', false);

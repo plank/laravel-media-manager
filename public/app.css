@@ -216,6 +216,11 @@ strong {
   padding: 2.5em 0;
 }
 
+.mm__search-icon-search {
+  position: relative;
+  top: -4px;
+}
+
 .mm__search-container {
   display: grid;
   margin: 2.375em 0;
@@ -496,20 +501,11 @@ strong {
 
 .mm__slidepanel-close {
   float: right;
-  text-indent: -9999px;
-  background: url("/img/icon-close.svg");
   background-repeat: no-repeat;
   display: inline-block;
   width: 1.375em;
   height: 1.375em;
-  margin: 1.25em 1.25em 1.25em 0;
-  transition: all 0.2s ease-in-out;
-}
-
-.mm__slidepanel-close:hover {
-  transition: all 0.2s ease-in-out;
-  opacity: 0.5;
-  transform: scale(1.1);
+  margin: 1.25em;
 }
 
 .mm__slidepanel-infos {
@@ -899,6 +895,7 @@ table tr {
   top: -1em;
   right: -1em;
   font-weight: 900;
+  cursor: pointer;
 }
 
 .mm__carousel-grid {

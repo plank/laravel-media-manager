@@ -22,7 +22,11 @@
             </a>
           </li>
           <li class="separator">
-            <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
+            <a
+              v-on:click="openDeleteModal($event, 'folder')"
+              :title="$t('actions.delete')"
+              href=""
+            >
               <!-- Delete Icon -->
               <mmiconbase
                 icon-name="add-folder"
@@ -33,6 +37,15 @@
                 viewBox="0 0 26 26"
                 ><icondelete></icondelete
               ></mmiconbase>
+            </a>
+          </li>
+          <li class="separator">
+            <a
+              v-on:click="openDeleteModal($event, 'media')"
+              :title="$t('actions.delete')"
+              href=""
+            >
+              delete media
             </a>
           </li>
           <li>
@@ -91,7 +104,7 @@
               ></mmiconbase>
             </a>
           </li>
-          <li>
+          <li class="mm__search-icon-search">
             <a :title="$t('actions.search')" href="">
               <!-- Search Icon -->
               <mmiconbase
@@ -175,9 +188,14 @@ export default {
       $event.preventDefault();
       this.$store.dispatch("openModalCreate");
     },
-    openDeleteModal: function ($event) {
+    openDeleteModal: function ($event, value) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete");
+      console.log(value);
+      this.$store.dispatch("openModalDelete", value);
+    },
+    openDeleteMedia: function ($event, value) {
+      $event.preventDefault();
+      this.$store.dispatch("openModalDelete", value);
     },
   },
   computed: {

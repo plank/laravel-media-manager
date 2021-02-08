@@ -1,6 +1,17 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
-    <a href="" class="mm__slidepanel-close" v-on:click="close($event)">Close</a>
+    <a href="" class="mm__slidepanel-close" v-on:click="close($event)">
+      <!-- Info -->
+      <mmiconbase
+        icon-name="add-folder"
+        current-color="#8B8B8B"
+        icon-color="#8B8B8B"
+        width="26"
+        height="23"
+        viewBox="0 0 20 23"
+        ><iconclose></iconclose
+      ></mmiconbase>
+    </a>
 
     <!-- Image Container -->
     <div>
@@ -61,9 +72,15 @@
 
 <script>
 import { EventBus } from "../event-bus.js";
+import mmiconbase from "./mm-icon-base.vue";
+import iconclose from "./icons/icon-close.vue";
 
 export default {
   name: "mmslidepanel",
+  components: {
+    mmiconbase,
+    iconclose,
+  },
   data() {
     return {
       slideOpen: false,

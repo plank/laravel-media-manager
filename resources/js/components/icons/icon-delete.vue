@@ -1,56 +1,56 @@
 <template>
   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g
-      id="Media-Manager---Files-Grid-View"
-      transform="translate(-921.000000, -143.000000)"
-    >
-      <g id="Group-4" transform="translate(918.000000, 142.000000)">
-        <rect id="Rectangle" x="0" y="0" width="26" height="26"></rect>
-        <line
-          x1="21.6666667"
-          y1="5.78116049"
-          x2="3.61111111"
-          y2="5.7811659"
-          id="Path"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></line>
-        <path
-          d="M20.2222222,5.77777778 L20.2222222,21.5583333 C20.2222222,22.0170365 19.8629446,22.3888889 19.4197531,22.3888889 L6.58024691,22.3888889 C6.13705545,22.3888889 5.77777778,22.0170365 5.77777778,21.5583333 L5.77777778,5.77777778"
-          id="Path"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-        <path
-          d="M16.6111111,5.77777778 L16.6111111,3.97222222 C16.6111111,2.97504142 15.8997413,2.16666667 15.0222222,2.16666667 L10.2555556,2.16666667 C9.37803645,2.16666667 8.66666667,2.97504142 8.66666667,3.97222222 L8.66666667,5.77777778"
-          id="Path"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
-        <line
-          x1="10.8367188"
-          y1="10.8333333"
-          x2="10.8367188"
-          y2="17.3333333"
-          id="Path"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></line>
-        <line
-          x1="15.1700521"
-          y1="10.8333333"
-          x2="15.1700521"
-          y2="17.3333333"
-          id="Path"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></line>
-      </g>
+    <g id="Group-3" transform="translate(-2.200000, -1.000000)">
+      <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+      <line
+        x1="20.2496334"
+        y1="5.25312484"
+        x2="3.74963344"
+        y2="5.25312984"
+        id="Path"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></line>
+      <line
+        x1="9.753125"
+        y1="9.75"
+        x2="9.753125"
+        y2="15.75"
+        id="Path"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></line>
+      <line
+        x1="14.253125"
+        y1="9.75"
+        x2="14.253125"
+        y2="15.75"
+        id="Path"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></line>
+      <path
+        d="M18.7496334,5.25 L18.7496334,19.5 C18.7496334,19.9142136 18.413847,20.25 17.9996334,20.25 L5.99963344,20.25 C5.58541988,20.25 5.24963344,19.9142136 5.24963344,19.5 L5.24963344,5.25"
+        id="Path"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+      <path
+        d="M15.75,5.25 L15.75,3.75 C15.75,2.92157288 15.0784271,2.25 14.25,2.25 L9.75,2.25 C8.92157288,2.25 8.25,2.92157288 8.25,3.75 L8.25,5.25"
+        id="Path"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
     </g>
   </g>
 </template>

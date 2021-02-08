@@ -4,18 +4,36 @@
 
     <div slot="content">
       <div class="content-grid">
-          <div>
-            <p>Are you sure that you want to delete <strong>{{ this.$store.state.selectedDirectory }}</strong> folder ?</p>
-          </div>
+        <div v-if="this.$store.state.modalState.modal_type == 'folder'">
+          <p>
+            Are you sure that you want to delete
+            <strong>{{ this.$store.state.selectedDirectory }}</strong> folder ?
+          </p>
+        </div>
+        <div v-else>
+          <p>
+            Are you sure that you want to delete
+            <strong>{{ this.$store.state.selectedElem.length }}</strong> medias ?
+          </p>
+        </div>
       </div>
     </div>
 
     <div class="buttons__container-wrapper" slot="buttons">
       <div>
         <a
+          v-if="this.$store.state.modalState.modal_type == 'folder'"
           :style="styleBtnDefault"
           class="btn btn-default"
           v-on:click="deleteElement($event)"
+          href=""
+          >{{ $t("actions.yes") }}</a
+        >
+        <a
+          v-else
+          :style="styleBtnDefault"
+          class="btn btn-default"
+          v-on:click="deleteSelectedMedia($event)"
           href=""
           >{{ $t("actions.yes") }}</a
         >
@@ -34,43 +52,46 @@
 </template>
 
 <script>
-import mmmodal from './mm-modal';
+import mmmodal from "./mm-modal";
 
 export default {
-  name: 'mmmodaldeletefolder',
+  name: "mmmodaldeletefolder",
   components: {
-    mmmodal
+    mmmodal,
   },
-  data () {
+  data() {
     return {
-      name: null
+      name: null,
     };
   },
-  mounted () {},
+  mounted() {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalDelete');
+      this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function ($event) {
       // Delete selected folder
-      this.$store.dispatch('deleteDirectory', this.$store.state.selectedDirectory);
-    }
+      this.$store.dispatch("deleteDirectory", this.$store.state.selectedDirectory);
+    },
+    deleteSelectedMedia: function ($event) {
+      alert("delete selected");
+    },
   },
   computed: {
-    getDir () {
+    getDir() {
       return this.$store.getters.getDirectory;
     },
     // Get Main Color From Store
-    getColor () {
+    getColor() {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

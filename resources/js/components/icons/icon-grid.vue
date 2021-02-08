@@ -1,52 +1,51 @@
 <template>
   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g
-      id="Media-Manager---Files-Grid-View"
-      transform="translate(-994.000000, -147.000000)"
-    >
-      <g id="Group-9" transform="translate(990.000000, 143.000000)">
-        <rect id="Rectangle" x="0" y="0" width="26" height="26"></rect>
-        <rect
-          id="Rectangle"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          x="4.875"
-          y="4.875"
-          width="6.5"
-          height="6.5"
-        ></rect>
-        <rect
-          id="Rectangle"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          x="14.625"
-          y="4.875"
-          width="6.5"
-          height="6.5"
-        ></rect>
-        <rect
-          id="Rectangle"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          x="4.875"
-          y="14.625"
-          width="6.5"
-          height="6.5"
-        ></rect>
-        <rect
-          id="Rectangle"
-          stroke="#000000"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          x="14.625"
-          y="14.625"
-          width="6.5"
-          height="6.5"
-        ></rect>
-      </g>
+    <g id="Group-5" transform="translate(-2.600000, -3.000000)">
+      <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+      <rect
+        id="Rectangle"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        x="4.5"
+        y="4.5"
+        width="6"
+        height="6"
+      ></rect>
+      <rect
+        id="Rectangle"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        x="13.5"
+        y="4.5"
+        width="6"
+        height="6"
+      ></rect>
+      <rect
+        id="Rectangle"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        x="4.5"
+        y="13.5"
+        width="6"
+        height="6"
+      ></rect>
+      <rect
+        id="Rectangle"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        x="13.5"
+        y="13.5"
+        width="6"
+        height="6"
+      ></rect>
     </g>
   </g>
 </template>
