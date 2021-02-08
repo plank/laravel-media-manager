@@ -74,7 +74,7 @@ class MediaController extends BaseController
      */
     public function create(Request $request)
     {
-        $media = $request->media;
+        $media = $request->file;
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
         return response($this->uploader->toDestination($disk, $path)->fromSource($media)->upload());

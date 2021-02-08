@@ -2541,9 +2541,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmfolders',
+  name: "mmfolders",
   components: {
     mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2560,24 +2561,24 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value;
-      this.$store.dispatch('getDirectory', value); // Retrieve files
+      this.$store.dispatch("getDirectory", value); // Retrieve files
 
-      this.$store.dispatch('getMediaInDirectory', value);
+      this.$store.dispatch("getMediaInDirectory", value);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch('setSelectedDirectory', item);
+      this.$store.dispatch("setSelectedDirectory", item);
     },
     goBack: function goBack($event) {
       $event.preventDefault();
       var directoryTarget = null;
-      var directoryLevel = this.current.split('/');
+      var directoryLevel = this.current.split("/");
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = '';
+        directoryTarget = "";
       }
 
       this.openDirectory($event, directoryTarget);
@@ -2589,7 +2590,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch('getDirectory');
+    this.$store.dispatch("getDirectory");
   },
   getterDirectory: function getterDirectory() {
     return this.$store.getters.directoryCollection;
@@ -2883,29 +2884,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodaladd',
+  name: "mmmodaladd",
   components: {
     vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
       dropzoneOptions: {
-        url: 'media-api/create'
+        url: this.getUploadURL()
       }
     };
   },
   mounted: function mounted() {},
   methods: {
+    getUploadURL: function getUploadURL() {
+      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+    },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalAdd');
+      this.$store.dispatch("closeModalAdd");
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch('closeModalAdd');
+      this.$store.dispatch("closeModalAdd");
     }
   },
   computed: {
@@ -2915,7 +2933,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -3109,7 +3127,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmresults',
+  name: "mmresults",
   components: {
     mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
@@ -3120,7 +3138,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {},
   mounted: function mounted() {},
-  computed: {}
+  computed: {
+    getMedia: function getMedia() {
+      return this.$store.state.mediaCollection;
+    }
+  }
 });
 
 /***/ }),
@@ -3287,7 +3309,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmsearch',
+  name: "mmsearch",
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3307,20 +3329,20 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch('viewState', value);
+      this.$store.dispatch("viewState", value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('openModalCreate');
+      this.$store.dispatch("openModalCreate");
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('openModalDelete');
+      this.$store.dispatch("openModalDelete");
     }
   },
   computed: {
@@ -3422,7 +3444,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmslidepanel',
+  name: "mmslidepanel",
   data: function data() {
     return {
       slideOpen: false,
@@ -3438,7 +3460,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
       _this.slideOpen = true;
       _this.data = value;
     });
@@ -3446,7 +3468,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -10836,7 +10858,7 @@ var render = function() {
           _vm._v(" "),
           _vm.viewState && !_vm.folderState ? _c("mmlistresults") : _vm._e(),
           _vm._v(" "),
-          !_vm.viewState && !_vm.folderState ? _c("mmresults") : _vm._e(),
+          _c("mmresults"),
           _vm._v(" "),
           _c("mmaddbutton"),
           _vm._v(" "),
@@ -11474,31 +11496,49 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: { id: "information", fill: "#8B8B8B", "fill-rule": "nonzero" }
+          attrs: { id: "Group", transform: "translate(-2.000000, -2.000000)" }
         },
         [
-          _c("path", {
+          _c("rect", {
             attrs: {
-              d:
-                "M12.7999992,0 C5.72484966,0 0,5.72534966 0,12.7999992 C0,19.8751488 5.72534966,25.5999985 12.7999992,25.5999985 C19.8751488,25.5999985 25.5999985,19.8746488 25.5999985,12.7999992 C25.5999985,5.72484966 19.8745988,0 12.7999992,0 Z M12.7999992,23.5999986 C6.83034959,23.5999986 1.99999988,18.7692489 1.99999988,12.7999992 C1.99999988,6.83034959 6.83074959,1.99999988 12.7999992,1.99999988 C18.7696489,1.99999988 23.5999986,6.83074959 23.5999986,12.7999992 C23.5999986,18.7696489 18.7691989,23.5999986 12.7999992,23.5999986 Z",
-              id: "Shape"
-            }
-          }),
-          _vm._v(" "),
-          _c("path", {
-            attrs: {
-              d:
-                "M12.7999993,10.7164994 C12.2476993,10.7164994 11.7999993,11.1641993 11.7999993,11.7164994 L11.7999993,18.1561489 C11.7999993,18.7084489 12.2476993,19.1561489 12.7999993,19.1561489 C13.3522992,19.1561489 13.7999993,18.7083989 13.7999993,18.1560989 L13.7999993,11.7164994 C13.7999993,11.1641993 13.3522992,10.7164994 12.7999993,10.7164994 Z",
-              id: "Path"
+              id: "Rectangle",
+              x: "0",
+              y: "0",
+              width: "26",
+              height: "26"
             }
           }),
           _vm._v(" "),
           _c("circle", {
             attrs: {
               id: "Oval",
-              cx: "12.7999992",
-              cy: "8.14199951",
-              r: "1.34999992"
+              stroke: "#000000",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              cx: "13",
+              cy: "13",
+              r: "9.75"
+            }
+          }),
+          _vm._v(" "),
+          _c("polyline", {
+            attrs: {
+              id: "Path",
+              stroke: "#000000",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              points: "12.1875 12.1875 13 12.1875 13 17.875 13.8125 17.875"
+            }
+          }),
+          _vm._v(" "),
+          _c("circle", {
+            attrs: {
+              id: "Oval",
+              fill: "#000000",
+              "fill-rule": "nonzero",
+              cx: "13",
+              cy: "8.53125",
+              r: "1.21875"
             }
           })
         ]
@@ -12194,35 +12234,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mm__results" }, [
-    _vm.getDir.length
-      ? _c(
+    _c(
+      "div",
+      { staticClass: "mm__results-grid" },
+      _vm._l(_vm.getDir, function(item, index) {
+        return _c(
           "div",
-          { staticClass: "mm__results-grid" },
-          _vm._l(_vm.getDir, function(item, index) {
-            return _c(
-              "div",
-              {
-                key: index,
-                staticClass: "mm__results-single",
-                class: [_vm.cardItem == index ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showOptions(index, item)
-                  },
-                  dblclick: function($event) {
-                    return _vm.openDirectory($event, item)
-                  }
-                }
+          {
+            key: index,
+            staticClass: "mm__results-single",
+            class: [_vm.cardItem == index ? "active" : ""],
+            on: {
+              click: function($event) {
+                return _vm.showOptions(index, item)
               },
-              [_c("mmfoldercard", { attrs: { item: item } })],
-              1
-            )
-          }),
-          0
+              dblclick: function($event) {
+                return _vm.openDirectory($event, item)
+              }
+            }
+          },
+          [_c("mmfoldercard", { attrs: { item: item } })],
+          1
         )
-      : _c("div", { staticClass: "mm__results-empty" }, [
-          _c("h2", [_vm._v("Empty Folder Illustration")])
-        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []
@@ -12805,7 +12841,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "mm__results-grid" },
-      _vm._l(_vm.mediaCollection, function(item) {
+      _vm._l(_vm.getMedia, function(item) {
         return _c(
           "div",
           { key: item.id, staticClass: "mm__results-single" },
@@ -31048,139 +31084,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     //   { id: 1, directory: '/', directoryname: 'Name of the folder', created_at: 'July 31, 2020' },
     //   { id: 2, directory: '/s3', directoryname: 'Folder Name', created_at: 'July 31, 2020' }
     // ],
-    mediaCollection: [{
-      id: 1,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 2,
-      disk: 's3',
-      directory: '/',
-      filename: 'video.mp4',
-      extension: 'mp4',
-      mime_type: 'video',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 3,
-      disk: 's3',
-      directory: '/',
-      filename: 'audio.mp3',
-      extension: 'mp3',
-      mime_type: 'audio',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 4,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 5,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 6,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 7,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 8,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 9,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 10,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 11,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }, {
-      id: 12,
-      disk: 's3',
-      directory: '/',
-      filename: 'london_street.jpg',
-      extension: 'jpg',
-      mime_type: 'image',
-      aggregate_type: '',
-      size: '5676',
-      created_at: 'July 31, 2020',
-      updated_at: 'July 31, 2020'
-    }]
+    mediaCollection: [] // mediaCollection: [
+    //   { id: 1, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 2, disk: 's3', directory: '/', filename: 'video.mp4', extension: 'mp4', mime_type: 'video', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 3, disk: 's3', directory: '/', filename: 'audio.mp3', extension: 'mp3', mime_type: 'audio', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 4, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 5, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 6, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 7, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 8, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 9, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 10, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 11, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
+    //   { id: 12, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' }
+    // ]
+
   },
   getters: {
     getCurrentDirectory: function getCurrentDirectory(state) {
@@ -31224,6 +31142,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setActiveDirectory: function setActiveDirectory(state, value) {
       state.folderState = false;
+    },
+    SET_MEDIA: function SET_MEDIA(state, items) {
+      console.log({
+        state: state,
+        items: items
+      });
+      state.mediaCollection = items;
     },
     SET_DIRECTORY: function SET_DIRECTORY(state, items) {
       state.directoryCollection = items;
@@ -31296,6 +31221,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       }
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
+        // if we have some media
+        if (response.data.media) {
+          commit('SET_MEDIA', response.data.media);
+        }
+
         commit('SET_DIRECTORY', response.data.subdirectories);
       });
     },
@@ -31322,10 +31252,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route, {}).then(function (response) {// commit('SET_DIRECTORY', response.data.subdirectories);
       });
     },
-    getMediaInDirectory: function getMediaInDirectory(_ref4, value) {
-      var commit = _ref4.commit;
-      console.log('browse directory: ' + value);
-    },
+    // getMediaInDirectory ({ commit }, value) {
+    // },
     // Set selected directory
     setSelectedDirectory: function setSelectedDirectory(context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);

@@ -60,35 +60,35 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
+import { EventBus } from "../event-bus.js";
 
 export default {
-  name: 'mmslidepanel',
-  data () {
+  name: "mmslidepanel",
+  data() {
     return {
       slideOpen: false,
-      data: []
+      data: [],
     };
   },
   methods: {
     close: function (event) {
       event.preventDefault();
       this.slideOpen = false;
-    }
+    },
   },
-  mounted () {
-    EventBus.$on('open-slide-panel', (value) => {
+  mounted() {
+    EventBus.$on("open-slide-panel", (value) => {
       this.slideOpen = true;
       this.data = value;
     });
   },
   computed: {
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

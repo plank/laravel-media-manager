@@ -2,7 +2,7 @@
   <div class="mm__results">
     <!-- For Each Loop -->
     <div class="mm__results-grid">
-      <div v-for="item in mediaCollection" :key="item.id" class="mm__results-single">
+      <div v-for="item in getMedia" :key="item.id" class="mm__results-single">
         <mmcard :item="item"></mmcard>
       </div>
     </div>
@@ -10,21 +10,25 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
-import mmcard from './mm-card';
+import { EventBus } from "../event-bus.js";
+import mmcard from "./mm-card";
 
 export default {
-  name: 'mmresults',
+  name: "mmresults",
   components: {
-    mmcard
+    mmcard,
   },
-  data () {
+  data() {
     return {
-      mediaCollection: this.$store.state.mediaCollection
+      mediaCollection: this.$store.state.mediaCollection,
     };
   },
-  methods: { },
-  mounted () {},
-  computed: {}
+  methods: {},
+  mounted() {},
+  computed: {
+    getMedia() {
+      return this.$store.state.mediaCollection;
+    },
+  },
 };
 </script>

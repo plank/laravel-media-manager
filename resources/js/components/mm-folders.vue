@@ -5,7 +5,9 @@
       </div> -->
 
     <!-- For Each Loop -->
-    <div class="mm__results-grid" v-if="getDir.length">
+
+    <!-- <div class="mm__results-grid" v-if="getDir.length"> -->
+    <div class="mm__results-grid">
       <div
         v-for="(item, index) in getDir"
         :key="index"
@@ -17,25 +19,24 @@
         <mmfoldercard :item="item"></mmfoldercard>
       </div>
     </div>
-    <div class="mm__results-empty" v-else>
-
-        <h2>Empty Folder Illustration</h2>
-    </div>
+    <!-- <div class="mm__results-empty" v-else>
+      <h2>Empty Folder Illustration</h2>
+    </div> -->
   </div>
 </template>
 
 <script>
-import mmfoldercard from './mm-card-folder';
+import mmfoldercard from "./mm-card-folder";
 
 export default {
-  name: 'mmfolders',
+  name: "mmfolders",
   components: {
-    mmfoldercard
+    mmfoldercard,
   },
-  data () {
+  data() {
     return {
       current: null,
-      cardItem: null
+      cardItem: null,
       // directoryCollection: this.$store.state.directoryCollection
     };
   },
@@ -45,39 +46,39 @@ export default {
     openDirectory: function (event, value) {
       event.preventDefault();
       this.current = value;
-      this.$store.dispatch('getDirectory', value);
+      this.$store.dispatch("getDirectory", value);
       // Retrieve files
-      this.$store.dispatch('getMediaInDirectory', value);
+      this.$store.dispatch("getMediaInDirectory", value);
     },
-    showOptions (index, item) {
+    showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch('setSelectedDirectory', item);
+      this.$store.dispatch("setSelectedDirectory", item);
     },
-    goBack ($event) {
+    goBack($event) {
       $event.preventDefault();
       let directoryTarget = null;
-      const directoryLevel = this.current.split('/');
+      const directoryLevel = this.current.split("/");
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = '';
+        directoryTarget = "";
       }
 
       this.openDirectory($event, directoryTarget);
-    }
+    },
   },
   computed: {
-    getDir () {
+    getDir() {
       return this.$store.getters.getDirectory;
-    }
+    },
   },
-  mounted () {
-    this.$store.dispatch('getDirectory');
+  mounted() {
+    this.$store.dispatch("getDirectory");
   },
-  getterDirectory () {
+  getterDirectory() {
     return this.$store.getters.directoryCollection;
-  }
+  },
 };
 </script>

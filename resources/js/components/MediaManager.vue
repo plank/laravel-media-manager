@@ -24,7 +24,7 @@
       <mmlistresults v-if="viewState && !folderState"></mmlistresults>
 
       <!-- Results Panel -->
-      <mmresults v-if="!viewState && !folderState"></mmresults>
+      <mmresults></mmresults>
 
       <!-- Add Button -->
       <mmaddbutton></mmaddbutton>
