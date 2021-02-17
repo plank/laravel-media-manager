@@ -27,6 +27,11 @@ trait Convertible
         $this->conversions = collect(config("media-manager.conversions"))->sortKeys();
     }
 
+    public function getConversionUrlsAttribute()
+    {
+        return $this->getConversions();
+    }
+
     public function getConversionName(string $tag): string
     {
         return "{$this->id}-{$tag}.{$this->extension}";
