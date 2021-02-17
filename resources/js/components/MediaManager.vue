@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <div class="wrapper">
+    <div class="wrapper" v-on:click="triggerClick($event)">
       <!-- Search Panel -->
       <mmsearch></mmsearch>
 
@@ -66,7 +66,7 @@
     <!-- Overlay -->
     <transition name="fade">
       <div
-        v-if="modalStateAddMedia || modalStateCreateFolder || modalStateDeleteFolder"
+        v-if="modalStateAddMedia || modalStateCreateFolder || modalStateDeleteFolder"
         @close="this.$store.modalState.add = false"
         class="overlay"
       ></div>
@@ -75,19 +75,19 @@
 </template>
 
 <script>
-import mmsearch from './mm-search';
-import mmresults from './mm-results';
-import mmslidepanel from './mm-slidepanel';
-import mmaddbutton from './mm-add-button';
-import mmmodaladd from './mm-modal-add';
-import mmmodaladdfolder from './mm-modal-add-folder';
-import mmmodaldeletefolder from './mm-modal-delete-folder';
-import mmlistresults from './mm-list-results';
-import mmfolders from './mm-folders';
-import mmcarousel from './mm-carousel';
+import mmsearch from "./mm-search";
+import mmresults from "./mm-results";
+import mmslidepanel from "./mm-slidepanel";
+import mmaddbutton from "./mm-add-button";
+import mmmodaladd from "./mm-modal-add";
+import mmmodaladdfolder from "./mm-modal-add-folder";
+import mmmodaldeletefolder from "./mm-modal-delete-folder";
+import mmlistresults from "./mm-list-results";
+import mmfolders from "./mm-folders";
+import mmcarousel from "./mm-carousel";
 
 export default {
-  name: 'media-manager',
+  name: "media-manager",
   components: {
     mmsearch,
     mmresults,
@@ -98,29 +98,43 @@ export default {
     mmfolders,
     mmcarousel,
     mmmodaladdfolder,
-    mmmodaldeletefolder
+    mmmodaldeletefolder,
   },
-  data () {
+  data() {
     return {
-      info: null
+      info: null,
     };
   },
+  methods: {
+    triggerClick: function ($event) {
+      console.log($event.target);
+
+      if ($event.target.classList.contains("mm__results-grid")) {
+        this.$store.dispatch("setSelectedDirectory", null);
+        console.log("Test");
+        var card = document.getElementsByClassName("mm__results-single");
+        for (var i = 0; i < card.length; i++) {
+          card.item(i).classList.remove("active");
+        }
+      }
+    },
+  },
   computed: {
-    modalStateCreateFolder () {
+    modalStateCreateFolder() {
       return this.$store.state.modalState.create;
     },
-    modalStateDeleteFolder () {
+    modalStateDeleteFolder() {
       return this.$store.state.modalState.delete;
     },
-    modalStateAddMedia () {
+    modalStateAddMedia() {
       return this.$store.state.modalState.add;
     },
-    viewState () {
+    viewState() {
       return this.$store.state.viewState;
     },
-    folderState () {
+    folderState() {
       return this.$store.state.folderState;
-    }
-  }
+    },
+  },
 };
 </script>

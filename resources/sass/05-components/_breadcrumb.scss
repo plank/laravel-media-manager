@@ -10,15 +10,15 @@
             }
         }
 
-        &:last-child {
-            a {
-                font-weight: 700;
-            }
-        }
+        // &:last-child {
+        //     a {
+        //         font-weight: 700;
+        //     }
+        // }
 
         &:before {
             content: "/";
-            margin: 0 0.2em;
+            margin: 0 0.6em;
             display: inline-block;
             position: relative;
         }
@@ -30,7 +30,7 @@
             text-decoration: none;
             transition: all 0.5s ease-in-out;
 
-            padding: 1em;
+            padding: 0.5em 0.6em;
             border-radius: 150px;
             &:hover {
                 transition: all 0.5s ease-in-out;

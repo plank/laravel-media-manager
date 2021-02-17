@@ -42,7 +42,10 @@ class MediaManagerController extends BaseController
         }
 
         Storage::disk($disk)->makeDirectory($path);
-        return response(['success' => true]);
+        return response([
+            'success' => true,
+            'path'  =>  $path,
+        ]);
     }
 
     /**

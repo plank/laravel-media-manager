@@ -71,7 +71,22 @@
     grid-template-rows: repeat(3, auto);
     .content-grid {
         display: grid;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    .icon-container {
+        height: inherit;
+        width: inherit;
+    }
+
+    input {
+        margin: 1em 0;
+        width: 100%;
+        min-height: 30px;
+        box-shadow: none !important;
+        border: 2px solid #999 !important;
+        border-radius: 4px;
+        text-indent: 1em;
+        font-size: em-calc(16px);
     }
 }
 

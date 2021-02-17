@@ -3,7 +3,7 @@
     <!-- For Each Loop -->
     <div class="mm__results-grid">
       <div v-for="item in getMedia" :key="item.id" class="mm__results-single">
-        <mmcard :item="item"></mmcard>
+        <mmcard :data-type="item.aggregate_type" :item="item"></mmcard>
       </div>
     </div>
   </div>

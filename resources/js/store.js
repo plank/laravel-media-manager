@@ -23,6 +23,7 @@ export default new Vuex.Store({
     viewState: false,
     selectedElem: [],
     directoryCollection: [],
+    mediaTypeArray: [],
     dataType: [
       {
         id: 1,
@@ -76,7 +77,7 @@ export default new Vuex.Store({
     },
     openModalDelete (state, value) {
       console.log({state, value});
-      state.modalState.modal_type = value.type
+      state.modalState.modal_type = value.type;
       state.modalState.delete = value.modal_state;
     },
     closeModalDelete (state) {
@@ -101,8 +102,16 @@ export default new Vuex.Store({
       state.folderState = false;
     },
     SET_MEDIA (state, items) {
-    //   console.log({state, items});
       state.mediaCollection = items;
+    },
+    SET_MEDIATYPES(state, items) {
+      for (let i = 0; i < items.length; i++) {
+        const index = this.state.mediaTypeArray.findIndex(item => item === items[i].aggregate_type);
+        if (index === -1) {
+          this.state.mediaTypeArray.push(items[i].aggregate_type);
+        }
+      }
+      console.log(this.state.mediaTypeArray);
     },
     SET_DIRECTORY (state, items) {
       state.directoryCollection = items;
@@ -126,9 +135,9 @@ export default new Vuex.Store({
     openModalDelete (context, value) {
       console.log('open modal:' + value);
       context.commit('openModalDelete', {
-          'modal_state' : true,
-          'type' : value
-        });
+        modal_state: true,
+        type: value
+      });
     },
     closeModalDelete (context) {
       context.commit('closeModalDelete', false);
@@ -166,6 +175,8 @@ export default new Vuex.Store({
     // if we receive a value
     getDirectory ({ commit }, value) {
       let route;
+      // Reset Selected Directory
+      this.state.selectedElem = [];
       if (value) {
         this.state.currentDirectory = value;
         route = this.state.routeGetDirectory + value;
@@ -179,6 +190,8 @@ export default new Vuex.Store({
           // if we have some media
           if (response.data.media) {
             commit('SET_MEDIA', response.data.media);
+            // Create Media Types List
+            commit('SET_MEDIATYPES', response.data.media);
           }
           commit('SET_DIRECTORY', response.data.subdirectories);
         });
@@ -190,6 +203,8 @@ export default new Vuex.Store({
         .then(response => {
           // Close Modal
           commit('closeModalCreate', true);
+          // Refresh Current View With New Folder
+          this.dispatch('getDirectory', this.state.currentDirectory);
         });
     },
     deleteDirectory ({ commit }, value) {

@@ -6,4 +6,11 @@
     color: #000000;
     letter-spacing: 2px;
     text-align: center;
+
+    .upload__illustration {
+        background: red; // TODO: Replace with illustration
+        height: 200px;
+        width: 100%;
+        display: block;
+    }
 }

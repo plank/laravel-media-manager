@@ -275,7 +275,6 @@ strong {
 }
 
 .mm__search-select {
-  background: url(/images/icon-select.svg?6fbfd83b5d4ddcd55fbeb1e4f56e8146);
   background-repeat: no-repeat;
   background-position: center right 1em;
   -moz-appearance: none;
@@ -304,6 +303,10 @@ strong {
   position: relative;
   border: 2px solid transparent;
   transition: all 0.2s ease-in-out;
+}
+
+.mm__results-single.hide {
+  display: none;
 }
 
 .mm__results-single.active {
@@ -381,7 +384,6 @@ strong {
 }
 
 .icon-container {
-  background: #ECEBEB;
   height: 120px;
   width: 120px;
   border-radius: 150px;
@@ -447,7 +449,6 @@ strong {
   width: 4em;
   height: 4em;
   display: inline-block;
-  background: url(/images/icon-selected.svg?2c7d3f1283d545d66fd81150888ddd2a);
   top: -2em;
   right: -2em;
 }
@@ -538,6 +539,17 @@ strong {
   color: #222222;
 }
 
+.mm__slidepanel .video-player,
+.mm__slidepanel .audio-player {
+  margin-top: 4em;
+}
+
+.mm__slidepanel .video-player audio,
+.mm__slidepanel .audio-player audio {
+  margin: 0 auto;
+  display: block;
+}
+
 form {
   margin-top: 1.25em;
   border-top: 1px solid #E2E2E2;
@@ -575,100 +587,12 @@ input {
   cursor: pointer;
 }
 
-.input-group .centered {
-  width: 360px;
-  height: 72px;
-  margin: auto;
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.input-group .group {
-  width: 100%;
-  height: 72px;
-  overflow: hidden;
-  position: relative;
-}
-
-.input-group label {
-  position: absolute;
-  top: 24px;
+label {
   color: rgba(0, 0, 0, 0.5);
   font-size: 1.125em;
   font-family: "Open Sans", sans-serif;
   cursor: text;
   transition: 0.25s ease;
-}
-
-.input-group input {
-  display: block;
-  width: 100%;
-  padding-top: 24px;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #6D6D6D;
-  color: #000000;
-  font-size: 1em;
-  font-family: "Open Sans", sans-serif;
-  transition: 0.3s ease;
-}
-
-.input-group input:valid ~ label {
-  top: 0;
-  font-size: 1em;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.input-group input:focus {
-  outline: none;
-}
-
-.input-group input:focus ~ label {
-  top: 0;
-  font-size: 1em;
-  font-weight: 700;
-  font-family: "Open Sans", sans-serif;
-  color: #6D6D6D;
-}
-
-.input-group input:focus ~ .bar:before {
-  transform: translateX(0);
-}
-
-.input-group input:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px #000000 inset;
-  -webkit-box-shadow: 0 0 0px 1000px #000000 inset;
-  -webkit-text-fill-color: white !important;
-}
-
-.input-group .bar {
-  background: rgba(255, 255, 255, 0.5);
-  content: "";
-  width: 360px;
-  height: 2.4px;
-  transition: 0.3s ease;
-  position: relative;
-}
-
-.input-group .bar:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 150%;
-  background: #6D6D6D;
-  transform: translateX(-100%);
-}
-
-.input-group ::-moz-selection {
-  background: rgba(109, 109, 109, 0.3);
-}
-
-.input-group ::selection {
-  background: rgba(109, 109, 109, 0.3);
 }
 
 .modal {
@@ -740,7 +664,23 @@ input {
 
 .modal-add-folder .content-grid {
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
+}
+
+.modal-add-folder .icon-container {
+  height: inherit;
+  width: inherit;
+}
+
+.modal-add-folder input {
+  margin: 1em 0;
+  width: 100%;
+  min-height: 30px;
+  box-shadow: none !important;
+  border: 2px solid #999 !important;
+  border-radius: 4px;
+  text-indent: 1em;
+  font-size: 1em;
 }
 
 .modal-delete-folder {
@@ -757,13 +697,9 @@ input {
   display: none;
 }
 
-#breadcrumb li:last-child a {
-  font-weight: 700;
-}
-
 #breadcrumb li:before {
   content: "/";
-  margin: 0 0.2em;
+  margin: 0 0.6em;
   display: inline-block;
   position: relative;
 }
@@ -774,7 +710,7 @@ input {
   font-size: 0.875em;
   text-decoration: none;
   transition: all 0.5s ease-in-out;
-  padding: 1em;
+  padding: 0.5em 0.6em;
   border-radius: 150px;
 }
 
@@ -932,6 +868,13 @@ table tr {
   color: #000000;
   letter-spacing: 2px;
   text-align: center;
+}
+
+#dropzone .upload__illustration {
+  background: red;
+  height: 200px;
+  width: 100%;
+  display: block;
 }
 
 body {

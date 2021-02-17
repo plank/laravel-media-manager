@@ -2032,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'media-manager',
+  name: "media-manager",
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2049,6 +2049,21 @@ __webpack_require__.r(__webpack_exports__);
     return {
       info: null
     };
+  },
+  methods: {
+    triggerClick: function triggerClick($event) {
+      console.log($event.target);
+
+      if ($event.target.classList.contains("mm__results-grid")) {
+        this.$store.dispatch("setSelectedDirectory", null);
+        console.log("Test");
+        var card = document.getElementsByClassName("mm__results-single");
+
+        for (var i = 0; i < card.length; i++) {
+          card.item(i).classList.remove("active");
+        }
+      }
+    }
   },
   computed: {
     modalStateCreateFolder: function modalStateCreateFolder() {
@@ -2093,9 +2108,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmbreadcrumb',
-  props: ['item'],
+  name: "mmbreadcrumb",
+  props: ["item"],
   data: function data() {
     return {
       isSelected: false,
@@ -2107,7 +2127,7 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value;
-      this.$store.dispatch('getDirectory', value);
+      this.$store.dispatch("getDirectory", value);
     }
   },
   computed: {
@@ -2115,7 +2135,7 @@ __webpack_require__.r(__webpack_exports__);
       var entryArray = null;
 
       if (this.$store.getters.getCurrentDirectory) {
-        entryArray = this.$store.getters.getCurrentDirectory.split('/');
+        entryArray = this.$store.getters.getCurrentDirectory.split("/");
       } else {
         entryArray = [];
       }
@@ -2292,7 +2312,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     clearname: function clearname(name) {
-      name = name.split(/[\s/]+/);
+      name = name.split("/");
       return name[name.length - 1];
     }
   },
@@ -2327,8 +2347,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcard',
-  props: ['item'],
+  name: "mmcard",
+  props: ["item"],
   data: function data() {
     return {
       isSelected: false
@@ -2339,7 +2359,7 @@ __webpack_require__.r(__webpack_exports__);
     pushSelected: function pushSelected(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('pushSelected', value);
+      this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
     }
   },
@@ -2358,7 +2378,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {//console.log(this.$props.item);
+  }
 });
 
 /***/ }),
@@ -2799,11 +2820,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodaladdfolder',
+  name: "mmmodaladdfolder",
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2823,9 +2879,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var createFolderPath = function createFolderPath() {
         if (_this.$store.state.currentDirectory) {
-          _this.$store.dispatch('createDirectory', _this.$store.state.currentDirectory + '/' + _this.name);
+          _this.$store.dispatch("createDirectory", _this.$store.state.currentDirectory + "/" + _this.name);
         } else {
-          _this.$store.dispatch('createDirectory', _this.name);
+          _this.$store.dispatch("createDirectory", _this.name);
         }
       };
 
@@ -2833,10 +2889,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModalCreate');
+      this.$store.dispatch("closeModalCreate");
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch('closeModalCreate');
+      this.$store.dispatch("closeModalCreate");
     }
   },
   computed: {
@@ -2849,7 +2905,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -2917,7 +2973,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       dropzoneOptions: {
-        url: this.getUploadURL()
+        url: this.getUploadURL(),
+        dictDefaultMessage: '<span class="upload__illustration"></span>'
       }
     };
   },
@@ -2931,7 +2988,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("closeModalAdd");
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch("closeModalAdd"); // Refresh current folder
+
+      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
     }
   },
   computed: {
@@ -3341,6 +3400,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3364,7 +3431,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showInformations: false
+      showInformations: false,
+      selectedFilterType: ""
     };
   },
   mounted: function mounted() {},
@@ -3390,6 +3458,26 @@ __webpack_require__.r(__webpack_exports__);
     openDeleteMedia: function openDeleteMedia($event, value) {
       $event.preventDefault();
       this.$store.dispatch("openModalDelete", value);
+    },
+    applyFilter: function applyFilter($event) {
+      $event.preventDefault(); //   console.log(this.selectedFilterType);
+      //   console.log(this.$store.state.mediaCollection);
+
+      var card = document.getElementsByClassName("mm__card");
+
+      for (var i = 0; i < card.length; i++) {
+        card.item(i).parentNode.classList.remove("hide");
+
+        if (this.selectedFilterType !== "all") {
+          console.log(card.item(i).dataset.type);
+
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
+            card.item(i).parentNode.classList.add("hide");
+          }
+        } else {
+          card.item(i).parentNode.classList.remove("hide");
+        }
+      }
     }
   },
   computed: {
@@ -3413,6 +3501,13 @@ __webpack_require__.r(__webpack_exports__);
         return true;
       }
     }
+  },
+  filters: {
+    capitalize: function capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   }
 });
 
@@ -3430,6 +3525,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-icon-base.vue */ "./resources/js/components/mm-icon-base.vue");
 /* harmony import */ var _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./icons/icon-close.vue */ "./resources/js/components/icons/icon-close.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10909,7 +11023,14 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "wrapper" },
+        {
+          staticClass: "wrapper",
+          on: {
+            click: function($event) {
+              return _vm.triggerClick($event)
+            }
+          }
+        },
         [
           _c("mmsearch"),
           _vm._v(" "),
@@ -11050,18 +11171,24 @@ var render = function() {
         _vm._l(this.createBreadcrumb, function(elem, index) {
           return elem
             ? _c("li", { key: index }, [
-                _c(
-                  "a",
-                  {
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.openDirectory($event, elem)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(elem))]
-                )
+                index != Object.keys(_vm.createBreadcrumb).length - 1
+                  ? _c("span", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openDirectory($event, elem)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(elem))]
+                      )
+                    ])
+                  : _c("span", [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(elem))])
+                    ])
               ])
             : _vm._e()
         })
@@ -11921,171 +12048,177 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mm__card" }, [
-    _c("div", { staticClass: "mm__card-infos" }, [
-      _c(
-        "svg",
-        {
-          attrs: {
-            width: "36px",
-            height: "32px",
-            viewBox: "0 0 36 32",
-            version: "1.1",
-            xmlns: "http://www.w3.org/2000/svg",
-            "xmlns:xlink": "http://www.w3.org/1999/xlink"
-          }
-        },
-        [
-          _c("defs", [
-            _c(
-              "filter",
-              {
-                attrs: {
-                  x: "-87.5%",
-                  y: "-109.4%",
-                  width: "275.0%",
-                  height: "318.8%",
-                  filterUnits: "objectBoundingBox",
-                  id: "filter-3"
-                }
-              },
-              [
-                _c("feOffset", {
-                  attrs: {
-                    dx: "0",
-                    dy: "1",
-                    in: "SourceAlpha",
-                    result: "shadowOffsetOuter1"
-                  }
-                }),
-                _vm._v(" "),
-                _c("feGaussianBlur", {
-                  attrs: {
-                    stdDeviation: "4",
-                    in: "shadowOffsetOuter1",
-                    result: "shadowBlurOuter1"
-                  }
-                }),
-                _vm._v(" "),
-                _c("feColorMatrix", {
-                  attrs: {
-                    values: "0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0",
-                    type: "matrix",
-                    in: "shadowBlurOuter1",
-                    result: "shadowMatrixOuter1"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "feMerge",
-                  [
-                    _c("feMergeNode", { attrs: { in: "shadowMatrixOuter1" } }),
-                    _vm._v(" "),
-                    _c("feMergeNode", { attrs: { in: "SourceGraphic" } })
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "g",
-            {
-              attrs: {
-                id: "Page-1",
-                stroke: "none",
-                "stroke-width": "1",
-                fill: "none",
-                "fill-rule": "evenodd"
-              }
-            },
-            [
+  return _c(
+    "div",
+    { staticClass: "mm__card", attrs: { "data-type": "folder" } },
+    [
+      _c("div", { staticClass: "mm__card-infos" }, [
+        _c(
+          "svg",
+          {
+            attrs: {
+              width: "36px",
+              height: "32px",
+              viewBox: "0 0 36 32",
+              version: "1.1",
+              xmlns: "http://www.w3.org/2000/svg",
+              "xmlns:xlink": "http://www.w3.org/1999/xlink"
+            }
+          },
+          [
+            _c("defs", [
               _c(
-                "g",
+                "filter",
                 {
                   attrs: {
-                    id: "Media-Manager---Grid-View---Folder-Selected",
-                    transform: "translate(-296.000000, -234.000000)"
+                    x: "-87.5%",
+                    y: "-109.4%",
+                    width: "275.0%",
+                    height: "318.8%",
+                    filterUnits: "objectBoundingBox",
+                    id: "filter-3"
                   }
                 },
                 [
-                  _c("g", { attrs: { id: "Intro" } }, [
-                    _c("g", { attrs: { id: "Concentric-circles" } }, [
-                      _c("mask", { attrs: { id: "mask-2", fill: "white" } }, [
-                        _c("use", { attrs: { "xlink:href": "#path-1" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("use", {
-                        attrs: {
-                          id: "Mask",
-                          fill: "#2D2D2D",
-                          "xlink:href": "#path-1"
-                        }
-                      })
-                    ])
-                  ]),
+                  _c("feOffset", {
+                    attrs: {
+                      dx: "0",
+                      dy: "1",
+                      in: "SourceAlpha",
+                      result: "shadowOffsetOuter1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feGaussianBlur", {
+                    attrs: {
+                      stdDeviation: "4",
+                      in: "shadowOffsetOuter1",
+                      result: "shadowBlurOuter1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("feColorMatrix", {
+                    attrs: {
+                      values: "0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0",
+                      type: "matrix",
+                      in: "shadowBlurOuter1",
+                      result: "shadowMatrixOuter1"
+                    }
+                  }),
                   _vm._v(" "),
                   _c(
-                    "g",
-                    {
-                      attrs: {
-                        id: "Group",
-                        transform: "translate(304.000000, 194.000000)",
-                        "fill-rule": "nonzero"
-                      }
-                    },
+                    "feMerge",
                     [
-                      _c(
-                        "g",
-                        {
-                          attrs: {
-                            id: "folder",
-                            filter: "url(#filter-3)",
-                            transform: "translate(0.000000, 47.000000)"
-                          }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z",
-                              id: "Path",
-                              fill: "#AAAAAA"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M1.05263431,15.5054518 L18.683964,15.5054518 C19.2653236,15.5054518 19.7365983,15.0341771 19.7365983,14.4528175 L19.7365983,3.51159076 C19.7365983,2.93023115 19.2653236,2.45895645 18.683964,2.45895645 L11.0751661,2.45895645 C10.6948843,2.45895645 10.3441467,2.66408022 10.1576935,2.99555719 L9.57721897,4.02758219 C9.39080795,4.35905916 9.04007034,4.56418293 8.65974634,4.56418293 L1.05263431,4.56418293 C0.471274699,4.56418293 -4.5518551e-14,5.03545763 -4.5518551e-14,5.61681724 L-4.5518551e-14,14.4528175 C-4.5518551e-14,15.0341771 0.471274699,15.5054518 1.05263431,15.5054518 Z",
-                              id: "Path",
-                              fill: "#808080"
-                            }
-                          })
-                        ]
-                      )
-                    ]
+                      _c("feMergeNode", {
+                        attrs: { in: "shadowMatrixOuter1" }
+                      }),
+                      _vm._v(" "),
+                      _c("feMergeNode", { attrs: { in: "SourceGraphic" } })
+                    ],
+                    1
                   )
-                ]
+                ],
+                1
               )
-            ]
+            ]),
+            _vm._v(" "),
+            _c(
+              "g",
+              {
+                attrs: {
+                  id: "Page-1",
+                  stroke: "none",
+                  "stroke-width": "1",
+                  fill: "none",
+                  "fill-rule": "evenodd"
+                }
+              },
+              [
+                _c(
+                  "g",
+                  {
+                    attrs: {
+                      id: "Media-Manager---Grid-View---Folder-Selected",
+                      transform: "translate(-296.000000, -234.000000)"
+                    }
+                  },
+                  [
+                    _c("g", { attrs: { id: "Intro" } }, [
+                      _c("g", { attrs: { id: "Concentric-circles" } }, [
+                        _c("mask", { attrs: { id: "mask-2", fill: "white" } }, [
+                          _c("use", { attrs: { "xlink:href": "#path-1" } })
+                        ]),
+                        _vm._v(" "),
+                        _c("use", {
+                          attrs: {
+                            id: "Mask",
+                            fill: "#2D2D2D",
+                            "xlink:href": "#path-1"
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "g",
+                      {
+                        attrs: {
+                          id: "Group",
+                          transform: "translate(304.000000, 194.000000)",
+                          "fill-rule": "nonzero"
+                        }
+                      },
+                      [
+                        _c(
+                          "g",
+                          {
+                            attrs: {
+                              id: "folder",
+                              filter: "url(#filter-3)",
+                              transform: "translate(0.000000, 47.000000)"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z",
+                                id: "Path",
+                                fill: "#AAAAAA"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M1.05263431,15.5054518 L18.683964,15.5054518 C19.2653236,15.5054518 19.7365983,15.0341771 19.7365983,14.4528175 L19.7365983,3.51159076 C19.7365983,2.93023115 19.2653236,2.45895645 18.683964,2.45895645 L11.0751661,2.45895645 C10.6948843,2.45895645 10.3441467,2.66408022 10.1576935,2.99555719 L9.57721897,4.02758219 C9.39080795,4.35905916 9.04007034,4.56418293 8.65974634,4.56418293 L1.05263431,4.56418293 C0.471274699,4.56418293 -4.5518551e-14,5.03545763 -4.5518551e-14,5.61681724 L-4.5518551e-14,14.4528175 C-4.5518551e-14,15.0341771 0.471274699,15.5054518 1.05263431,15.5054518 Z",
+                                id: "Path",
+                                fill: "#808080"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("h6", [_vm._v(_vm._s(_vm._f("clearname")(_vm.item)))]),
+        _vm._v(" "),
+        _c("span", { staticClass: "date" }, [
+          _vm._v(
+            _vm._s(_vm.$t("actions.created_on")) +
+              " " +
+              _vm._s(_vm.item.created_at)
           )
-        ]
-      ),
-      _vm._v(" "),
-      _c("h6", [_vm._v(_vm._s(_vm._f("clearname")(_vm.item)))]),
-      _vm._v(" "),
-      _c("span", { staticClass: "date" }, [
-        _vm._v(
-          _vm._s(_vm.$t("actions.created_on")) +
-            " " +
-            _vm._s(_vm.item.created_at)
-        )
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12121,34 +12254,23 @@ var render = function() {
       }
     },
     [
-      _vm._m(0),
+      _c("div", [
+        _vm.item.aggregate_type != "audio"
+          ? _c("img", { attrs: { width: "100%", src: _vm.item.url, alt: "" } })
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "mm__card-infos" }, [
         _c("h6", [_vm._v(_vm._s(_vm.item.filename))]),
         _vm._v(" "),
         _c("span", { staticClass: "type" }, [
-          _vm._v(_vm._s(_vm.item.mime_type))
+          _vm._v(_vm._s(_vm.item.aggregate_type))
         ])
       ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("img", {
-        attrs: {
-          width: "100%",
-          src: "https://via.placeholder.com/200",
-          alt: ""
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -12515,31 +12637,379 @@ var render = function() {
     _vm._v(" "),
     _c("div", { attrs: { slot: "content" }, slot: "content" }, [
       _c("div", { staticClass: "content-grid" }, [
-        _c(
-          "div",
-          { staticClass: "icon-container" },
-          [
-            _c(
-              "mmiconbase",
-              {
-                attrs: {
-                  "icon-name": "add-folder",
-                  "current-color": "#C2C2C2",
-                  "icon-color": "#C2C2C2",
-                  width: "44",
-                  height: "40"
-                }
-              },
-              [_c("iconaddfolder")],
-              1
-            )
-          ],
-          1
-        ),
+        _c("div", { staticClass: "icon-container" }, [
+          _c(
+            "svg",
+            {
+              attrs: {
+                width: "278px",
+                height: "244px",
+                viewBox: "0 0 278 244",
+                version: "1.1",
+                xmlns: "http://www.w3.org/2000/svg",
+                "xmlns:xlink": "http://www.w3.org/1999/xlink"
+              }
+            },
+            [
+              _c(
+                "g",
+                {
+                  attrs: {
+                    id: "Page-1",
+                    stroke: "none",
+                    "stroke-width": "1",
+                    fill: "none",
+                    "fill-rule": "evenodd"
+                  }
+                },
+                [
+                  _c(
+                    "g",
+                    {
+                      attrs: {
+                        id: "icon-upload",
+                        transform: "translate(-11.000000, 0.000000)"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M217.686,9.337 C184.308,-13.672 140.321,7.307 119.439,56.195 L119.423,56.231 C118.44,58.533 116.771,60.307 114.569,61.361 C103.924,66.457 93.635,73.272 84.178,81.788 C40.295,121.3 30.91,182.416 63.215,218.295 C95.52,254.173 157.283,251.228 201.165,211.715 C223.679,191.444 237.112,165.485 240.494,140.166 C240.620392,139.179711 240.871049,138.213373 241.24,137.29 C260.882,88.872 250.56,31.998 217.686,9.337",
+                          id: "Path",
+                          "fill-opacity": "0.04",
+                          fill: "#000000",
+                          "fill-rule": "nonzero"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "g",
+                        {
+                          attrs: {
+                            id: "Group",
+                            transform: "translate(0.000000, 47.000000)"
+                          }
+                        },
+                        [
+                          _c(
+                            "g",
+                            {
+                              attrs: {
+                                transform:
+                                  "translate(236.943757, 86.154320) rotate(18.000000) translate(-236.943757, -86.154320) translate(189.943757, 30.654320)",
+                                "fill-rule": "nonzero",
+                                id: "Path",
+                                stroke: "#000000",
+                                "stroke-width": "2"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M92.4,35.654 L57.694,0.949 C57.0866378,0.341623938 56.2629496,3.5971226e-16 55.404,3.5971226e-16 L12.024,3.5971226e-16 C5.454,3.5971226e-16 0.108,5.346 0.108,11.916 L0.108,78.73 C0.108996509,80.0402247 0.898781818,81.2209676 2.10938255,81.7221021 C3.31998327,82.2232365 4.71323506,81.9461731 5.64,81.02 L24.17,62.488 L39.233,77.55 C40.4982928,78.8152641 42.5497072,78.8152641 43.815,77.55 L64.08,57.282 L87.817,81.02 C88.743858,81.9454593 90.1366462,82.2220688 91.3468097,81.7210249 C92.5569731,81.2199809 93.3466005,80.0397858 93.348,78.73 L93.348,37.944 C93.348,37.0850504 93.0063761,36.2613622 92.399,35.654 L92.4,35.654 Z",
+                                  fill: "#FFFFFF"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M92.4,35.654 L57.694,0.949 C56.7673674,0.0223884082 55.373804,-0.254802077 54.1631127,0.246679345 C52.9524214,0.748160767 52.163,1.92955847 52.163,3.24 L52.163,29.268 C52.163,35.838 57.508,41.184 64.079,41.184 L90.107,41.184 C91.4170023,41.1835749 92.5978513,40.3943323 93.099242,39.1840788 C93.6006327,37.9738253 93.3238968,36.5807261 92.398,35.654 L92.4,35.654 Z",
+                                  fill: "#EDECEC"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M12.024,110.592 C5.454,110.592 0.108,105.246 0.108,98.676 L0.108,78.729 C0.108,77.869 0.45,77.045 1.058,76.438 L21.88,55.615 C23.1452928,54.3497359 25.1967072,54.3497359 26.462,55.615 L41.522,70.675 L61.79,50.41 C62.3974435,49.8020122 63.2215603,49.46 64.081,49.46 L64.295,49.468 C65.076,49.519 65.815,49.853 66.372,50.41 L92.4,76.438 C93.0077428,77.0451985 93.35,77.8689069 93.35,78.728 L93.35,98.676 C93.35,103.73 90.186,108.06 85.735,109.789 L85.467,109.889 C84.207,110.344 82.848,110.592 81.433,110.592 L12.024,110.592 Z",
+                                  fill: "#DADADA"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M29.376,19.947 C22.806,19.947 17.461,25.292 17.461,31.863 C17.461,38.433 22.806,43.779 29.376,43.779 C35.946,43.779 41.292,38.434 41.292,31.863 C41.292,25.293 35.946,19.947 29.376,19.947 Z",
+                                  fill: "#EDECEC"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "g",
+                            {
+                              attrs: {
+                                transform:
+                                  "translate(62.656257, 85.554357) scale(-1, 1) rotate(18.000000) translate(-62.656257, -85.554357) translate(15.656257, 30.054357)",
+                                "fill-rule": "nonzero"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M93.348,98.676 C93.348,103.124 90.898,107.01 87.278,109.057 L87.029,109.194 C85.307088,110.114224 83.3843797,110.594471 81.432,110.592009 L12.024,110.592009 C5.454,110.592009 0.108,105.246 0.108,98.676 L0.108,11.916 C0.108,5.346 5.454,0 12.024,0 L55.404,0 C56.2630931,0 57.0868015,0.342257206 57.694,0.95 L92.4,35.652 C93.0079878,36.2594435 93.35,37.0835603 93.35,37.943 L93.348,98.676 Z",
+                                  id: "Path",
+                                  stroke: "#000000",
+                                  "stroke-width": "2",
+                                  fill: "#FFFFFF"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "g",
+                                {
+                                  attrs: {
+                                    transform:
+                                      "translate(38.117000, 61.387000) scale(-1, 1) translate(-38.117000, -61.387000) translate(19.617000, 43.387000)"
+                                  }
+                                },
+                                [
+                                  _c("circle", {
+                                    attrs: {
+                                      id: "Oval",
+                                      fill: "#D8D8D8",
+                                      cx: "6.98",
+                                      cy: "29.784",
+                                      r: "4.5"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("circle", {
+                                    attrs: {
+                                      id: "Oval",
+                                      fill: "#D8D8D8",
+                                      cx: "30.351",
+                                      cy: "25.812",
+                                      r: "4.5"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M36.081,0.342 C35.8421226,0.142656216 35.5271402,0.0595155084 35.221,0.115 L11.981,4.315 C11.481,4.405 11.118,4.84 11.118,5.348 L11.118,24.946 C9.96475861,23.9094881 8.46858724,23.3366682 6.918,23.338 C3.44020528,23.3418578 0.62185779,26.1602053 0.618,29.638 C0.618,33.112 3.444,35.938 6.918,35.938 C10.392,35.938 13.218,33.112 13.218,29.638 L13.218,13.925 L34.358,10.105 L34.358,21.797 C33.2051064,20.7596799 31.7088694,20.1861224 30.158,20.187 C26.6802053,20.1908578 23.8618578,23.0092053 23.858,26.487 C23.858,29.962 26.684,32.787 30.158,32.787 C33.632,32.787 36.458,29.962 36.458,26.487 L36.458,1.148 C36.458,0.837084268 36.3196531,0.542282132 36.081,0.343 L36.081,0.342 Z M6.918,33.838 C4.59954623,33.8352449 2.72075515,31.9564538 2.718,29.638 C2.718,27.322 4.602,25.438 6.918,25.438 C9.234,25.438 11.118,27.322 11.118,29.638 C11.118,31.954 9.234,33.838 6.918,33.838 L6.918,33.838 Z M13.218,11.791 L13.218,6.225 L34.358,2.405 L34.358,7.97 L13.218,11.79 L13.218,11.791 Z M30.158,30.688 C27.8395462,30.6852449 25.9607551,28.8064538 25.958,26.488 C25.958,24.172 27.842,22.288 30.158,22.288 C32.474,22.288 34.358,24.172 34.358,26.488 C34.358,28.804 32.474,30.688 30.158,30.688 L30.158,30.688 Z",
+                                      id: "Shape",
+                                      fill: "#000000"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M92.4,35.654 L57.694,0.949 C56.7673674,0.0223884082 55.373804,-0.254802077 54.1631127,0.246679345 C52.9524214,0.748160767 52.163,1.92955847 52.163,3.24 L52.163,29.268 C52.163,35.838 57.508,41.184 64.079,41.184 L90.107,41.184 C91.4170023,41.1835749 92.5978513,40.3943323 93.099242,39.1840788 C93.6006327,37.9738253 93.3238968,36.5807261 92.398,35.654 L92.4,35.654 Z",
+                                  id: "Path",
+                                  stroke: "#000000",
+                                  "stroke-width": "2",
+                                  fill: "#EDECEC"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "g",
+                            {
+                              attrs: {
+                                transform: "translate(90.400000, 0.000000)",
+                                stroke: "#000000",
+                                "stroke-width": "2"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M129.5,137.05 C129.5,146.175 122.075,153.6 112.95,153.6 L16.55,153.6 C7.424,153.6 0,146.175 0,137.05 L0,16.55 C0,7.425 7.425,0 16.55,0 L76.8,0 C77.9934782,0 79.1380783,0.474088668 79.982,1.318 L128.182,49.518 C129.026004,50.3618594 129.5,51.5065 129.5,52.7 L129.5,137.05 Z",
+                                  id: "Path",
+                                  fill: "#FFFFFF",
+                                  "fill-rule": "nonzero"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "20",
+                                  width: "47",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "33",
+                                  width: "47",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "46",
+                                  width: "47",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "66",
+                                  width: "100",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "79",
+                                  width: "100",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "92",
+                                  width: "100",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "106",
+                                  width: "100",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("rect", {
+                                attrs: {
+                                  id: "Rectangle",
+                                  x: "14.6",
+                                  y: "119",
+                                  width: "100",
+                                  height: "5",
+                                  rx: "2.5"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M128.032,49.519 L79.832,1.319 C78.545137,0.0321211977 76.6098355,-0.352950912 74.9283811,0.343313891 C73.2469268,1.03957869 72.15,2.68008979 72.15,4.5 L72.15,40.65 C72.15,49.775 79.574,57.2 88.7,57.2 L124.85,57.2 C126.669653,57.2 128.309985,56.1033794 129.006416,54.4222722 C129.702846,52.741165 129.318293,50.8060853 128.032,49.519 L128.032,49.519 Z",
+                                  id: "Path",
+                                  fill: "#ECEBEB",
+                                  "fill-rule": "nonzero"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("circle", {
+                            attrs: {
+                              id: "Oval",
+                              stroke: "#000000",
+                              "stroke-width": "2",
+                              fill: "#FFFFFF",
+                              "fill-rule": "nonzero",
+                              cx: "154.75",
+                              cy: "150.75",
+                              r: "18.75"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M156.107,149.86 C155.959377,149.860001 155.839551,149.740622 155.839,149.593 L155.839,143.7 L153.161,143.7 L153.161,149.593 C153.161,149.741 153.041,149.861 152.893,149.861 L147,149.861 L147,152.539 L152.893,152.539 C153.041,152.539 153.161,152.659 153.161,152.807 L153.161,158.7 L155.839,158.7 L155.839,152.807 C155.839,152.659 155.959,152.539 156.107,152.539 L162,152.539 L162,149.861 L156.107,149.861 L156.107,149.86 Z",
+                              id: "Path",
+                              stroke: "#000000",
+                              "stroke-width": "1.1",
+                              fill: "#000000",
+                              "fill-rule": "nonzero",
+                              "stroke-linejoin": "round"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("circle", {
+                        attrs: {
+                          id: "Oval",
+                          fill: "#DADADA",
+                          "fill-rule": "nonzero",
+                          cx: "76.975",
+                          cy: "46.478",
+                          r: "3.5"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("circle", {
+                        attrs: {
+                          id: "Oval",
+                          fill: "#DADADA",
+                          "fill-rule": "nonzero",
+                          cx: "110.975",
+                          cy: "22.478",
+                          r: "7.5"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("circle", {
+                        attrs: {
+                          id: "Oval",
+                          fill: "#DADADA",
+                          "fill-rule": "nonzero",
+                          cx: "228.975",
+                          cy: "217.478",
+                          r: "7.5"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "input-group" }, [
           _c("div", { staticClass: "centered" }, [
             _c("div", { staticClass: "group" }, [
+              _c(
+                "label",
+                { staticClass: "form__label", attrs: { for: "folder-name" } },
+                [_vm._v(_vm._s(_vm.$t("modal.folder_name")))]
+              ),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -12560,12 +13030,6 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form__label", attrs: { for: "folder-name" } },
-                [_vm._v(_vm._s(_vm.$t("modal.folder_name")))]
-              ),
               _vm._v(" "),
               _c("div", { staticClass: "bar" })
             ])
@@ -12974,7 +13438,11 @@ var render = function() {
         return _c(
           "div",
           { key: item.id, staticClass: "mm__results-single" },
-          [_c("mmcard", { attrs: { item: item } })],
+          [
+            _c("mmcard", {
+              attrs: { "data-type": item.aggregate_type, item: item }
+            })
+          ],
           1
         )
       }),
@@ -13128,72 +13596,6 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                class: { active: this.$store.state.viewState === false },
-                attrs: { title: _vm.$t("actions.viewGrid"), href: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.viewState($event, false)
-                  }
-                }
-              },
-              [
-                _c(
-                  "mmiconbase",
-                  {
-                    attrs: {
-                      "icon-name": "icon-grid",
-                      "current-color": "000",
-                      "icon-color": "000",
-                      width: "26",
-                      height: "26",
-                      viewBox: "0 0 26 26"
-                    }
-                  },
-                  [_c("icongrid")],
-                  1
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c(
-              "a",
-              {
-                class: { active: this.$store.state.viewState === true },
-                attrs: { title: _vm.$t("actions.viewList"), href: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.viewState($event, true)
-                  }
-                }
-              },
-              [
-                _c(
-                  "mmiconbase",
-                  {
-                    attrs: {
-                      "icon-name": "icon-list",
-                      "current-color": "000",
-                      "icon-color": "000",
-                      width: "26",
-                      height: "26",
-                      viewBox: "0 0 26 26"
-                    }
-                  },
-                  [_c("iconlist")],
-                  1
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
           _c("li", { staticClass: "mm__search-icon-search" }, [
             _c(
               "a",
@@ -13225,15 +13627,54 @@ var render = function() {
     _c("div", [
       _c(
         "select",
-        { staticClass: "mm__search-select", attrs: { name: "", id: "" } },
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectedFilterType,
+              expression: "selectedFilterType"
+            }
+          ],
+          staticClass: "mm__search-select",
+          attrs: { name: "", id: "" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedFilterType = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                return _vm.applyFilter($event)
+              }
+            ]
+          }
+        },
         [
-          _c("option", { attrs: { value: "" } }, [
+          _c("option", { attrs: { disabled: "", value: "" } }, [
             _vm._v(_vm._s(_vm.$t("search.by_type")))
           ]),
           _vm._v(" "),
-          _vm._l(_vm.getDataTypes, function(item, index) {
-            return _c("option", { key: index, attrs: { value: "" } }, [
-              _vm._v("\n        " + _vm._s(item.name) + "\n      ")
+          _c("option", { attrs: { value: "all" } }, [_vm._v("All")]),
+          _vm._v(" "),
+          _vm._l(this.$store.state.mediaTypeArray, function(item, index) {
+            return _c("option", { key: index }, [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm._f("capitalize")(item.name)) +
+                  " " +
+                  _vm._s(item) +
+                  "\n      "
+              )
             ])
           })
         ],
@@ -13315,7 +13756,51 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", [
+          this.data[0].aggregate_type === "image"
+            ? _c("img", {
+                attrs: { width: "100%", src: this.data[0].url, alt: "" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          this.data[0].aggregate_type === "video"
+            ? _c("div", { staticClass: "video-player" }, [
+                _c(
+                  "video",
+                  { attrs: { width: "100%", height: "240", controls: "" } },
+                  [
+                    _c("source", {
+                      attrs: { src: this.data[0].url, type: "video/mp4" }
+                    }),
+                    _vm._v(" "),
+                    _c("source", {
+                      attrs: { src: this.data[0].url, type: "video/ogg" }
+                    }),
+                    _vm._v(
+                      "\n        Your browser does not support the video tag.\n      "
+                    )
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          this.data[0].aggregate_type === "audio"
+            ? _c("div", { staticClass: "audio-player" }, [
+                _c("audio", { attrs: { controls: "" } }, [
+                  _c("source", {
+                    attrs: { src: this.data[0].url, type: "audio/ogg" }
+                  }),
+                  _vm._v(" "),
+                  _c("source", {
+                    attrs: { src: this.data[0].url, type: "audio/mpeg" }
+                  }),
+                  _vm._v(
+                    "\n        Your browser does not support the audio element.\n      "
+                  )
+                ])
+              ])
+            : _vm._e()
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
           _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),
@@ -13405,22 +13890,7 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("img", {
-        attrs: {
-          width: "100%",
-          src: "https://source.unsplash.com/1600x900/?music",
-          alt: ""
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -31288,6 +31758,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     viewState: false,
     selectedElem: [],
     directoryCollection: [],
+    mediaTypeArray: [],
     dataType: [{
       id: 1,
       name: 'image'
@@ -31364,8 +31835,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.folderState = false;
     },
     SET_MEDIA: function SET_MEDIA(state, items) {
-      //   console.log({state, items});
       state.mediaCollection = items;
+    },
+    SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
+      var _this = this;
+
+      var _loop = function _loop(i) {
+        var index = _this.state.mediaTypeArray.findIndex(function (item) {
+          return item === items[i].aggregate_type;
+        });
+
+        if (index === -1) {
+          _this.state.mediaTypeArray.push(items[i].aggregate_type);
+        }
+      };
+
+      for (var i = 0; i < items.length; i++) {
+        _loop(i);
+      }
+
+      console.log(this.state.mediaTypeArray);
     },
     SET_DIRECTORY: function SET_DIRECTORY(state, items) {
       state.directoryCollection = items;
@@ -31388,8 +31877,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     openModalDelete: function openModalDelete(context, value) {
       console.log('open modal:' + value);
       context.commit('openModalDelete', {
-        'modal_state': true,
-        'type': value
+        modal_state: true,
+        type: value
       });
     },
     closeModalDelete: function closeModalDelete(context) {
@@ -31431,7 +31920,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     // if we receive a value
     getDirectory: function getDirectory(_ref, value) {
       var commit = _ref.commit;
-      var route;
+      var route; // Reset Selected Directory
+
+      this.state.selectedElem = [];
 
       if (value) {
         this.state.currentDirectory = value;
@@ -31444,7 +31935,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
         // if we have some media
         if (response.data.media) {
-          commit('SET_MEDIA', response.data.media);
+          commit('SET_MEDIA', response.data.media); // Create Media Types List
+
+          commit('SET_MEDIATYPES', response.data.media);
         }
 
         commit('SET_DIRECTORY', response.data.subdirectories);
@@ -31452,10 +31945,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     // Create Directory
     createDirectory: function createDirectory(_ref2, value) {
+      var _this2 = this;
+
       var commit = _ref2.commit;
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
         // Close Modal
-        commit('closeModalCreate', true);
+        commit('closeModalCreate', true); // Refresh Current View With New Folder
+
+        _this2.dispatch('getDirectory', _this2.state.currentDirectory);
       });
     },
     deleteDirectory: function deleteDirectory(_ref3, value) {

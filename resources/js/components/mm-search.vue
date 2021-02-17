@@ -66,14 +66,13 @@
               ></mmiconbase>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a
               :title="$t('actions.viewGrid')"
               v-on:click="viewState($event, false)"
               v-bind:class="{ active: this.$store.state.viewState === false }"
               href=""
             >
-              <!-- Grid Icon -->
               <mmiconbase
                 icon-name="icon-grid"
                 current-color="000"
@@ -92,7 +91,6 @@
               v-bind:class="{ active: this.$store.state.viewState === true }"
               href=""
             >
-              <!-- List Icon -->
               <mmiconbase
                 icon-name="icon-list"
                 current-color="000"
@@ -103,7 +101,7 @@
                 ><iconlist></iconlist
               ></mmiconbase>
             </a>
-          </li>
+          </li> -->
           <li class="mm__search-icon-search">
             <a :title="$t('actions.search')" href="">
               <!-- Search Icon -->
@@ -128,11 +126,21 @@
     </div>
     -->
     <div>
-      <select class="mm__search-select" name="" id="">
-        <option value="">{{ $t("search.by_type") }}</option>
+      <select
+        v-on:change="applyFilter($event)"
+        v-model="selectedFilterType"
+        class="mm__search-select"
+        name=""
+        id=""
+      >
+        <option disabled value="">{{ $t("search.by_type") }}</option>
+        <option value="all">All</option>
         <!-- Loop Here -->
-        <option v-for="(item, index) in getDataTypes" v-bind:key="index" value="">
-          {{ item.name }}
+        <option
+          v-for="(item, index) in this.$store.state.mediaTypeArray"
+          v-bind:key="index"
+        >
+          {{ item.name | capitalize }} {{ item }}
         </option>
       </select>
 
@@ -171,6 +179,7 @@ export default {
   data() {
     return {
       showInformations: false,
+      selectedFilterType: "",
     };
   },
   mounted() {},
@@ -197,6 +206,26 @@ export default {
       $event.preventDefault();
       this.$store.dispatch("openModalDelete", value);
     },
+    applyFilter: function ($event) {
+      $event.preventDefault();
+      //   console.log(this.selectedFilterType);
+      //   console.log(this.$store.state.mediaCollection);
+      var card = document.getElementsByClassName("mm__card");
+      for (var i = 0; i < card.length; i++) {
+        card.item(i).parentNode.classList.remove("hide");
+        if (this.selectedFilterType !== "all") {
+          console.log(card.item(i).dataset.type);
+          if (
+            card.item(i).dataset.type !== this.selectedFilterType &&
+            card.item(i).dataset.type !== "folder"
+          ) {
+            card.item(i).parentNode.classList.add("hide");
+          }
+        } else {
+          card.item(i).parentNode.classList.remove("hide");
+        }
+      }
+    },
   },
   computed: {
     getCurrentFolder() {
@@ -218,6 +247,13 @@ export default {
       } else {
         return true;
       }
+    },
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
     },
   },
 };

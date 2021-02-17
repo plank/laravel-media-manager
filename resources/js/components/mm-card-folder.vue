@@ -1,5 +1,5 @@
 <template>
-  <div class="mm__card">
+  <div data-type="folder" class="mm__card">
     <div class="mm__card-infos">
       <svg
         width="36px"
@@ -94,7 +94,7 @@ export default {
   },
   filters: {
     clearname: function (name) {
-      name = name.split(/[\s/]+/);
+      name = name.split("/");
       return name[name.length - 1];
     },
   },

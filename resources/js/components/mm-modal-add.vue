@@ -45,6 +45,7 @@ export default {
     return {
       dropzoneOptions: {
         url: this.getUploadURL(),
+        dictDefaultMessage: '<span class="upload__illustration"></span>',
       },
     };
   },
@@ -59,6 +60,8 @@ export default {
     },
     uploadSuccess: function () {
       this.$store.dispatch("closeModalAdd");
+      // Refresh current folder
+      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
     },
   },
   computed: {

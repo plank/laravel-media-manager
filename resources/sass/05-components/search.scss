@@ -78,7 +78,7 @@
 
                 // Filters Dropdowns
                 &-select {
-                    background: url('./../../img/icon-select.svg');
+                    //background: url('./../../img/icon-select.svg');
                     background-repeat: no-repeat;
                     background-position: center right 1em;
                     -moz-appearance: none;
@@ -108,6 +108,11 @@
                     position: relative;
                     border: 2px solid transparent;
                     transition: all 0.2s ease-in-out;
+
+                    &.hide {
+                        display: none;
+                    }
+
                     // Active Directory
                     &.active {
                         transition: all 0.2s ease-in-out;

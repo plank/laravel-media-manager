@@ -13,9 +13,28 @@
       ></mmiconbase>
     </a>
 
-    <!-- Image Container -->
+    <!-- Media Container -->
     <div>
-      <img width="100%" src="https://source.unsplash.com/1600x900/?music" alt="" />
+      <img
+        v-if="this.data[0].aggregate_type === 'image'"
+        width="100%"
+        :src="this.data[0].url"
+        alt=""
+      />
+      <div v-if="this.data[0].aggregate_type === 'video'" class="video-player">
+        <video width="100%" height="240" controls>
+          <source :src="this.data[0].url" type="video/mp4" />
+          <source :src="this.data[0].url" type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div v-if="this.data[0].aggregate_type === 'audio'" class="audio-player">
+        <audio controls>
+          <source :src="this.data[0].url" type="audio/ogg" />
+          <source :src="this.data[0].url" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
     <!-- Container Slidepanel -->
     <div class="mm__slidepanel-infos">
