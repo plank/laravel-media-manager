@@ -7,9 +7,10 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     mainColor: '#9C1820',
-    routeGetDirectory: '/media-api/index/',
-    routeCreateDirectory: '/media-api/directory/create',
-    routeDeleteDirectory: '/media-api/directory/destroy',
+    routeGetDirectory: '/media-api/index/' /* Get All Directory */,
+    routeCreateDirectory: '/media-api/directory/create' /* Create Folder */,
+    routeDeleteDirectory: '/media-api/directory/destroy' /* Delete Folder */,
+    routeDeleteMedia: '/media-api/destroy' /* Delete Media */,
     currentDirectory: null,
     selectedDirectory: null,
     totalSelected: 0,
@@ -17,42 +18,14 @@ export default new Vuex.Store({
       add: false,
       create: false,
       delete: false,
-      modal_type: null,
+      modal_type: null
     },
     folderState: true,
     viewState: false,
     selectedElem: [],
     directoryCollection: [],
     mediaTypeArray: [],
-    dataType: [
-      {
-        id: 1,
-        name: 'image'
-      },
-      {
-        id: 2,
-        name: 'video'
-      }
-    ],
-    // directoryCollection: [
-    //   { id: 1, directory: '/', directoryname: 'Name of the folder', created_at: 'July 31, 2020' },
-    //   { id: 2, directory: '/s3', directoryname: 'Folder Name', created_at: 'July 31, 2020' }
-    // ],
-    mediaCollection: [],
-    // mediaCollection: [
-    //   { id: 1, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 2, disk: 's3', directory: '/', filename: 'video.mp4', extension: 'mp4', mime_type: 'video', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 3, disk: 's3', directory: '/', filename: 'audio.mp3', extension: 'mp3', mime_type: 'audio', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 4, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 5, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 6, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 7, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 8, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 9, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 10, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 11, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' },
-    //   { id: 12, disk: 's3', directory: '/', filename: 'london_street.jpg', extension: 'jpg', mime_type: 'image', aggregate_type: '', size: '5676', created_at: 'July 31, 2020', updated_at: 'July 31, 2020' }
-    // ]
+    mediaCollection: []
   },
 
   getters: {
@@ -76,7 +49,7 @@ export default new Vuex.Store({
       state.modalState.create = false;
     },
     openModalDelete (state, value) {
-      console.log({state, value});
+      console.log({ state, value });
       state.modalState.modal_type = value.type;
       state.modalState.delete = value.modal_state;
     },
@@ -104,9 +77,11 @@ export default new Vuex.Store({
     SET_MEDIA (state, items) {
       state.mediaCollection = items;
     },
-    SET_MEDIATYPES(state, items) {
+    SET_MEDIATYPES (state, items) {
       for (let i = 0; i < items.length; i++) {
-        const index = this.state.mediaTypeArray.findIndex(item => item === items[i].aggregate_type);
+        const index = this.state.mediaTypeArray.findIndex(
+          item => item === items[i].aggregate_type
+        );
         if (index === -1) {
           this.state.mediaTypeArray.push(items[i].aggregate_type);
         }
@@ -118,9 +93,11 @@ export default new Vuex.Store({
     },
     SET_SELECTED_DIRECTORY (state, items) {
       state.selectedDirectory = items;
+    },
+    DELETE_SELECTED_MEDIAS (state, items) {
+      console.log(items);
     }
   },
-
   actions: {
     closeModal (context) {
       context.commit('closeModalCreate', false);
@@ -155,7 +132,9 @@ export default new Vuex.Store({
       context.commit('viewState', value);
     },
     pushSelected (context, value) {
-      const index = this.state.selectedElem.findIndex(item => item.id === value.id);
+      const index = this.state.selectedElem.findIndex(
+        item => item.id === value.id
+      );
 
       if (index === -1) {
         this.state.selectedElem.push(value);
@@ -184,17 +163,15 @@ export default new Vuex.Store({
         this.state.currentDirectory = '';
         route = this.state.routeGetDirectory;
       }
-      axios
-        .get(route, {})
-        .then(response => {
-          // if we have some media
-          if (response.data.media) {
-            commit('SET_MEDIA', response.data.media);
-            // Create Media Types List
-            commit('SET_MEDIATYPES', response.data.media);
-          }
-          commit('SET_DIRECTORY', response.data.subdirectories);
-        });
+      axios.get(route, {}).then(response => {
+        // if we have some media
+        if (response.data.media) {
+          commit('SET_MEDIA', response.data.media);
+          // Create Media Types List
+          commit('SET_MEDIATYPES', response.data.media);
+        }
+        commit('SET_DIRECTORY', response.data.subdirectories);
+      });
     },
     // Create Directory
     createDirectory ({ commit }, value) {
@@ -216,17 +193,42 @@ export default new Vuex.Store({
         this.state.currentDirectory = '';
         route = this.state.routeDeleteDirectory;
       }
-      axios
-        .post(route, {})
-        .then(response => {
-          // commit('SET_DIRECTORY', response.data.subdirectories);
-        });
+      axios.post(route, {}).then(response => {
+        // commit('SET_DIRECTORY', response.data.subdirectories);
+      });
     },
     // getMediaInDirectory ({ commit }, value) {
     // },
     // Set selected directory
     setSelectedDirectory (context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);
+    },
+    deleteSelectedMedias ({ commit,context }, value) {
+      const users = [];
+      const promises = [];
+      for (let i = 0; i < value.length; i++) {
+        console.log(value[i].id);
+        promises.push(
+          axios
+            .post(this.state.routeDeleteMedia, { id: value[i].id })
+            .then(response => {
+              // do something with response
+              users.push(response);
+              console.log(response);
+            })
+        );
+      }
+
+      commit('closeModal');
+      this.dispatch('getDirectory', this.state.currentDirectory);
+
+      Promise.all(promises).then(() => console.log(users));
+
+      //   axios.post(this.state.routeDeleteMedia, {}).then(response => {
+      //       console.log(response);
+      //     // commit('SET_DIRECTORY', response.data.subdirectories);
+      //   });
+      //   context.commit('DELETE_SELECTED_MEDIAS', value);
     }
   }
 });

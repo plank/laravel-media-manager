@@ -12,18 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.options({
-    terser: {
-        terserOptions: {
-            compress: {
-                drop_console: true,
+        terser: {
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                },
             },
         },
-    },
-})
-    .setPublicPath('public')
-    .js('resources/js/app.js', 'public')
-    .sass('resources/sass/app.scss', 'public')
-    .version()
+    })
+
     .webpackConfig({
         resolve: {
             symlinks: false,
@@ -32,3 +29,8 @@ mix.options({
             },
         }
     });
+
+    .setPublicPath('public')
+    .js('resources/js/app.js', 'public')
+    .sass('resources/sass/app.scss', 'public')
+    .version()

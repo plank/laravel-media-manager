@@ -47,6 +47,10 @@
       </mmmodaladd>
     </transition>
 
+    <div v-if="isEmpty">
+      <mmempty></mmempty>
+    </div>
+
     <!-- Modal Create Folder -->
     <transition name="fade">
       <mmmodaladdfolder
@@ -77,14 +81,15 @@
 <script>
 import mmsearch from "./mm-search";
 import mmresults from "./mm-results";
-import mmslidepanel from "./mm-slidepanel";
+import mmslidepanel from "./slidepanel/mm-slidepanel";
 import mmaddbutton from "./mm-add-button";
-import mmmodaladd from "./mm-modal-add";
-import mmmodaladdfolder from "./mm-modal-add-folder";
-import mmmodaldeletefolder from "./mm-modal-delete-folder";
+import mmmodaladd from "./modals/files/mm-modal-add";
+import mmmodaladdfolder from "./modals/folders/mm-modal-add-folder";
+import mmmodaldeletefolder from "./modals/folders/mm-modal-delete-folder";
 import mmlistresults from "./mm-list-results";
 import mmfolders from "./mm-folders";
-import mmcarousel from "./mm-carousel";
+import mmcarousel from "./carousel/mm-carousel";
+import mmempty from "./mm-empty";
 
 export default {
   name: "media-manager",
@@ -99,6 +104,7 @@ export default {
     mmcarousel,
     mmmodaladdfolder,
     mmmodaldeletefolder,
+    mmempty,
   },
   data() {
     return {
@@ -107,11 +113,8 @@ export default {
   },
   methods: {
     triggerClick: function ($event) {
-      console.log($event.target);
-
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);
-        console.log("Test");
         var card = document.getElementsByClassName("mm__results-single");
         for (var i = 0; i < card.length; i++) {
           card.item(i).classList.remove("active");
@@ -134,6 +137,16 @@ export default {
     },
     folderState() {
       return this.$store.state.folderState;
+    },
+    isEmpty() {
+      if (
+        this.$store.state.directoryCollection.length === 0 &&
+        this.$store.state.mediaCollection.length === 0
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 };

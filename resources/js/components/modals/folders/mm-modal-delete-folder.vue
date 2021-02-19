@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import mmmodal from "./mm-modal";
+import mmmodal from "./../mm-modal";
 
 export default {
   name: "mmmodaldeletefolder",
@@ -75,7 +75,9 @@ export default {
       this.$store.dispatch("deleteDirectory", this.$store.state.selectedDirectory);
     },
     deleteSelectedMedia: function ($event) {
-      alert("delete selected");
+      console.log("go here");
+      $event.preventDefault();
+      this.$store.dispatch("deleteSelectedMedias", this.$store.state.selectedElem);
     },
   },
   computed: {

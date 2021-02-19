@@ -211,6 +211,11 @@ strong {
   background: #FFFFFF;
 }
 
+.mm__empty {
+  text-align: center;
+  opacity: 0.5;
+}
+
 .mm__header {
   background: #E3E2ED;
   padding: 2.5em 0;
@@ -426,6 +431,7 @@ strong {
 .mm__card {
   overflow: hidden;
   border-radius: 5px;
+  border: 2px solid transparent;
   box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
   transition: all 0.2s ease-in-out;
 }
@@ -871,8 +877,8 @@ table tr {
 }
 
 #dropzone .upload__illustration {
-  background: red;
-  height: 200px;
+  background: url(/images/illustration-upload.svg?6d65bf9ec5ab9a1c63f0e2a2d78752d2) center center no-repeat;
+  height: 244px;
   width: 100%;
   display: block;
 }

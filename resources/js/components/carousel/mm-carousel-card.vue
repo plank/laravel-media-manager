@@ -2,7 +2,7 @@
   <div class="mm__carousel-card">
     <div>
       <span v-on:click="removeFromSelected(item)">x</span>
-      <img width="100%" src="https://source.unsplash.com/random/1600x900" alt="" />
+      <img width="100%" :src="item.url" alt="" />
     </div>
   </div>
 </template>

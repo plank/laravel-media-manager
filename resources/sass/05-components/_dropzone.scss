@@ -8,8 +8,9 @@
     text-align: center;
 
     .upload__illustration {
-        background: red; // TODO: Replace with illustration
-        height: 200px;
+        // background: blue; // TODO: Replace with illustration
+        background: url('./../../img/illustration-upload.svg') center center no-repeat;
+        height: 244px;
         width: 100%;
         display: block;
     }

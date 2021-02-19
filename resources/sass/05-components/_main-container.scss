@@ -7,4 +7,9 @@
 
 .mm {
     background: $mm-bg-color;
+
+    &__empty {
+        text-align: center;
+        opacity: 0.5;
+    }
 }

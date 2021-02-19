@@ -90,9 +90,9 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus.js";
-import mmiconbase from "./mm-icon-base.vue";
-import iconclose from "./icons/icon-close.vue";
+import { EventBus } from "../../event-bus.js";
+import mmiconbase from "./../mm-icon-base.vue";
+import iconclose from "./../icons/icon-close.vue";
 
 export default {
   name: "mmslidepanel",

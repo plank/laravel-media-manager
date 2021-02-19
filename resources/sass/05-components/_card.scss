@@ -8,6 +8,7 @@
 .mm__card {
     overflow: hidden;
     border-radius: 5px;
+    border: 2px solid transparent;
     box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
     transition: all 0.2s ease-in-out;
     &:hover {
