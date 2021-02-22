@@ -5,7 +5,19 @@
     v-on:click="pushSelected($event, item)"
   >
     <div>
-      <img v-if="item.aggregate_type != 'audio'" width="100%" :src="item.url" alt="" />
+      <div class="mm__card-placeholder" v-if="item.aggregate_type === 'document'">
+        {{ item.extension }}
+      </div>
+      <div class="mm__card-placeholder" v-if="item.aggregate_type === 'video'">
+        {{ item.extension }}
+      </div>
+      <img
+        class="mm__card-placeholder"
+        v-if="item.aggregate_type != 'audio'"
+        width="100%"
+        :src="item.url"
+        alt=""
+      />
     </div>
     <div class="mm__card-infos">
       <h6>{{ item.filename }}</h6>
@@ -46,8 +58,6 @@ export default {
       }
     },
   },
-  mounted() {
-    //console.log(this.$props.item);
-  },
+  mounted() {},
 };
 </script>

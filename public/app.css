@@ -280,6 +280,7 @@ strong {
 }
 
 .mm__search-select {
+  background: url("/img/icon-select.svg");
   background-repeat: no-repeat;
   background-position: center right 1em;
   -moz-appearance: none;
@@ -287,12 +288,18 @@ strong {
   appearance: none;
   font-family: "Open Sans", sans-serif;
   font-size: 0.875em;
+  font-weight: 100;
   box-sizing: border-box;
   padding: 0.625em 7.5em 0.625em 0.625em;
   border: 1px solid #DEDEDE;
-  border-radius: 2px;
+  border-radius: 4px;
   color: #616161;
   line-height: 19px;
+  cursor: pointer;
+}
+
+.mm__search-select:last-child {
+  margin-left: 1em;
 }
 
 .mm__results-grid {
@@ -459,6 +466,16 @@ strong {
   right: -2em;
 }
 
+.mm__card-placeholder {
+  display: grid;
+  background: #333333;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Barlow", sans-serif;
+  align-content: center;
+  text-align: center;
+}
+
 .mm__card-infos {
   padding: 0.5625em;
 }
@@ -469,7 +486,7 @@ strong {
   font-size: 0.75em;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 1.0625em;
+  line-height: 1.5em;
 }
 
 .mm__card-infos .type,

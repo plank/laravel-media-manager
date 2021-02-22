@@ -2,11 +2,11 @@
   <div id="breadcrumb">
     <ul>
       <li v-if="this.createBreadcrumb.length > 0">
-        <a v-on:click="openDirectory($event, '/')" href="#">...</a>
+        <a v-on:click="openRootDirectory($event, '/')" href="#">...</a>
       </li>
       <li v-for="(elem, index) in this.createBreadcrumb" :key="index" v-if="elem">
         <span v-if="index != Object.keys(createBreadcrumb).length - 1">
-          <a v-on:click="openDirectory($event, elem)" href="#">{{ elem }}</a>
+          <a v-on:click="openDirectory($event, { index, elem })" href="#">{{ elem }}</a>
         </span>
         <span v-else>
           <a href="#">{{ elem }}</a>
@@ -23,15 +23,22 @@ export default {
   data() {
     return {
       isSelected: false,
-      breadcrumbElem: null,
       breadcrumbMarkup: null,
     };
   },
   methods: {
-    openDirectory: function (event, value) {
-      event.preventDefault();
-      this.current = value;
+    openRootDirectory: function ($event, value) {
+      $event.preventDefault();
       this.$store.dispatch("getDirectory", value);
+    },
+    openDirectory: function ($event, value) {
+      $event.preventDefault();
+      const newBreadcrumbArray = this.createBreadcrumb;
+      newBreadcrumbArray.length = value.index + 1;
+      const qs = Object.keys(newBreadcrumbArray)
+        .map((key) => `${newBreadcrumbArray[key]}`)
+        .join("/");
+      this.$store.dispatch("getDirectory", qs);
     },
   },
   computed: {
@@ -42,12 +49,11 @@ export default {
       } else {
         entryArray = [];
       }
+      console.log(typeof entryArray);
       return entryArray;
     },
   },
   watch: {},
-  mounted() {
-    this.breadcrumbElem = this.$store.state.getCurrentDirectory;
-  },
+  mounted() {},
 };
 </script>

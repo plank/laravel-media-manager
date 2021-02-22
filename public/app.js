@@ -2106,6 +2106,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -2130,15 +2132,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isSelected: false,
-      breadcrumbElem: null,
       breadcrumbMarkup: null
     };
   },
   methods: {
-    openDirectory: function openDirectory(event, value) {
-      event.preventDefault();
-      this.current = value;
+    openRootDirectory: function openRootDirectory($event, value) {
+      $event.preventDefault();
       this.$store.dispatch("getDirectory", value);
+    },
+    openDirectory: function openDirectory($event, value) {
+      $event.preventDefault();
+      var newBreadcrumbArray = this.createBreadcrumb;
+      newBreadcrumbArray.length = value.index + 1;
+      var qs = Object.keys(newBreadcrumbArray).map(function (key) {
+        return "".concat(newBreadcrumbArray[key]);
+      }).join("/");
+      this.$store.dispatch("getDirectory", qs);
     }
   },
   computed: {
@@ -2151,13 +2160,12 @@ __webpack_require__.r(__webpack_exports__);
         entryArray = [];
       }
 
+      console.log(_typeof(entryArray));
       return entryArray;
     }
   },
   watch: {},
-  mounted: function mounted() {
-    this.breadcrumbElem = this.$store.state.getCurrentDirectory;
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2508,6 +2516,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmcard",
   props: ["item"],
@@ -2540,8 +2560,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  mounted: function mounted() {//console.log(this.$props.item);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2714,6 +2733,7 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value;
+      this.$store.dispatch("setSelectedDirectory", null);
       this.$store.dispatch("getDirectory", value); // Retrieve files
       //this.$store.dispatch("getMediaInDirectory", value);
     },
@@ -3087,15 +3107,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3140,7 +3151,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     openDeleteModal: function openDeleteModal($event, value) {
       $event.preventDefault();
-      console.log(value);
       this.$store.dispatch("openModalDelete", value);
     },
     openDeleteMedia: function openDeleteMedia($event, value) {
@@ -3148,17 +3158,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("openModalDelete", value);
     },
     applyFilter: function applyFilter($event) {
-      $event.preventDefault(); //   console.log(this.selectedFilterType);
-      //   console.log(this.$store.state.mediaCollection);
-
+      $event.preventDefault();
       var card = document.getElementsByClassName("mm__card");
 
       for (var i = 0; i < card.length; i++) {
         card.item(i).parentNode.classList.remove("hide");
 
         if (this.selectedFilterType !== "all") {
-          console.log(card.item(i).dataset.type);
-
           if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
             card.item(i).parentNode.classList.add("hide");
           }
@@ -3674,21 +3680,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmmodaldeletefolder",
@@ -3708,12 +3699,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteElement: function deleteElement($event) {
       // Delete selected folder
-      this.$store.dispatch("deleteDirectory", this.$store.state.selectedDirectory);
-    },
-    deleteSelectedMedia: function deleteSelectedMedia($event) {
-      console.log("go here");
       $event.preventDefault();
-      this.$store.dispatch("deleteSelectedMedias", this.$store.state.selectedElem);
+      this.$store.dispatch("deleteSelected", {
+        folder: this.$store.state.selectedDirectory,
+        mediaCollection: this.$store.state.selectedElem
+      });
     }
   },
   computed: {
@@ -11458,7 +11448,7 @@ var render = function() {
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
-                      return _vm.openDirectory($event, "/")
+                      return _vm.openRootDirectory($event, "/")
                     }
                   }
                 },
@@ -11478,7 +11468,10 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.openDirectory($event, elem)
+                              return _vm.openDirectory($event, {
+                                index: index,
+                                elem: elem
+                              })
                             }
                           }
                         },
@@ -12711,8 +12704,23 @@ var render = function() {
     },
     [
       _c("div", [
+        _vm.item.aggregate_type === "document"
+          ? _c("div", { staticClass: "mm__card-placeholder" }, [
+              _vm._v("\n      " + _vm._s(_vm.item.extension) + "\n    ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.item.aggregate_type === "video"
+          ? _c("div", { staticClass: "mm__card-placeholder" }, [
+              _vm._v("\n      " + _vm._s(_vm.item.extension) + "\n    ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _vm.item.aggregate_type != "audio"
-          ? _c("img", { attrs: { width: "100%", src: _vm.item.url, alt: "" } })
+          ? _c("img", {
+              staticClass: "mm__card-placeholder",
+              attrs: { width: "100%", src: _vm.item.url, alt: "" }
+            })
           : _vm._e()
       ]),
       _vm._v(" "),
@@ -13253,21 +13261,6 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "separator" }, [
-            _c(
-              "a",
-              {
-                attrs: { title: _vm.$t("actions.delete"), href: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.openDeleteModal($event, "media")
-                  }
-                }
-              },
-              [_vm._v("\n            delete media\n          ")]
-            )
-          ]),
-          _vm._v(" "),
           _c("li", [
             _c(
               "a",
@@ -13328,7 +13321,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", [
+    _c("div", { staticClass: "mm__search-filters" }, [
       _c(
         "select",
         {
@@ -14020,29 +14013,15 @@ var render = function() {
       _vm._v(" "),
       _c("div", { attrs: { slot: "content" }, slot: "content" }, [
         _c("div", { staticClass: "content-grid" }, [
-          this.$store.state.modalState.modal_type == "folder"
-            ? _c("div", [
-                _c("p", [
-                  _vm._v(
-                    "\n          Are you sure that you want to delete\n          "
-                  ),
-                  _c("strong", [
-                    _vm._v(_vm._s(this.$store.state.selectedDirectory))
-                  ]),
-                  _vm._v(" folder ?\n        ")
-                ])
-              ])
-            : _c("div", [
-                _c("p", [
-                  _vm._v(
-                    "\n          Are you sure that you want to delete\n          "
-                  ),
-                  _c("strong", [
-                    _vm._v(_vm._s(this.$store.state.selectedElem.length))
-                  ]),
-                  _vm._v(" medias ?\n        ")
-                ])
-              ])
+          _c("div", [
+            _c("p", [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.$t("modal.confirmation_msg")) +
+                  "\n        "
+              )
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -14055,35 +14034,20 @@ var render = function() {
         },
         [
           _c("div", [
-            this.$store.state.modalState.modal_type == "folder"
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-default",
-                    style: _vm.styleBtnDefault,
-                    attrs: { href: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteElement($event)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.$t("actions.yes")))]
-                )
-              : _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-default",
-                    style: _vm.styleBtnDefault,
-                    attrs: { href: "" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteSelectedMedia($event)
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.$t("actions.yes")))]
-                )
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-default",
+                style: _vm.styleBtnDefault,
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    return _vm.deleteElement($event)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(_vm.$t("actions.yes")))]
+            )
           ]),
           _vm._v(" "),
           _c("div", [
@@ -30371,6 +30335,7 @@ var messages = {
     modal: {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
+      confirmation_msg: 'Are you sure you want to delete these items?',
       folder_name: 'Folder Name'
     }
   },
@@ -30414,6 +30379,7 @@ var messages = {
     modal: {
       title_createFolder: 'Créer un dossier',
       title_deleteFolder: 'Supprimer répertoire',
+      confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
       folder_name: 'Nom du dossier'
     }
   }
@@ -32363,10 +32329,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.modalState.create = false;
     },
     openModalDelete: function openModalDelete(state, value) {
-      console.log({
-        state: state,
-        value: value
-      });
       state.modalState.modal_type = value.type;
       state.modalState["delete"] = value.modal_state;
     },
@@ -32410,8 +32372,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       for (var i = 0; i < items.length; i++) {
         _loop(i);
       }
-
-      console.log(this.state.mediaTypeArray);
     },
     SET_DIRECTORY: function SET_DIRECTORY(state, items) {
       state.directoryCollection = items;
@@ -32420,7 +32380,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.selectedDirectory = items;
     },
     DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
-      console.log(items);
+      console.log('delete selected medias');
     }
   },
   actions: {
@@ -32435,7 +32395,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       context.commit('closeModalCreate', false);
     },
     openModalDelete: function openModalDelete(context, value) {
-      console.log('open modal:' + value);
       context.commit('openModalDelete', {
         modal_state: true,
         type: value
@@ -32510,25 +32469,39 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref2.commit;
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
         // Close Modal
-        commit('closeModalCreate', true); // Refresh Current View With New Folder
+        commit('closeModalCreate', true); // Refresh Current View With New Folder
 
         _this2.dispatch('getDirectory', _this2.state.currentDirectory);
       });
     },
-    deleteDirectory: function deleteDirectory(_ref3, value) {
+    deleteSelected: function deleteSelected(_ref3, value) {
+      var _this3 = this;
+
       var commit = _ref3.commit;
-      var route;
 
-      if (value) {
-        // this.state.currentDirectory = value;
-        route = this.state.routeDeleteDirectory + '?path=' + value;
-      } else {
-        this.state.currentDirectory = '';
-        route = this.state.routeDeleteDirectory;
+      // If We Have Directory -> Delete
+      if (value.folder) {
+        var route;
+
+        if (value.folder) {
+          this.state.currentDirectory = value.folder;
+          route = this.state.routeDeleteDirectory + '?path=' + value.folder;
+        } else {
+          this.state.currentDirectory = '';
+          route = this.state.routeDeleteDirectory;
+        }
+
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route, {}).then(function (response) {
+          commit('closeModal');
+
+          _this3.dispatch('getDirectory', response.data.parentFolder);
+        });
+      } // If We Have Media Collection -> Delete
+
+
+      if (value.mediaCollection) {
+        this.dispatch('deleteSelectedMedias', value.mediaCollection);
       }
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route, {}).then(function (response) {// commit('SET_DIRECTORY', response.data.subdirectories);
-      });
     },
     // getMediaInDirectory ({ commit }, value) {
     // },
@@ -32543,13 +32516,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var promises = [];
 
       for (var i = 0; i < value.length; i++) {
-        console.log(value[i].id);
         promises.push(axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeDeleteMedia, {
           id: value[i].id
         }).then(function (response) {
           // do something with response
           users.push(response);
-          console.log(response);
         }));
       }
 
@@ -32557,11 +32528,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       this.dispatch('getDirectory', this.state.currentDirectory);
       Promise.all(promises).then(function () {
         return console.log(users);
-      }); //   axios.post(this.state.routeDeleteMedia, {}).then(response => {
-      //       console.log(response);
-      //     // commit('SET_DIRECTORY', response.data.subdirectories);
-      //   });
-      //   context.commit('DELETE_SELECTED_MEDIAS', value);
+      });
     }
   }
 }));

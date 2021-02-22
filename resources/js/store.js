@@ -49,7 +49,6 @@ export default new Vuex.Store({
       state.modalState.create = false;
     },
     openModalDelete (state, value) {
-      console.log({ state, value });
       state.modalState.modal_type = value.type;
       state.modalState.delete = value.modal_state;
     },
@@ -86,7 +85,6 @@ export default new Vuex.Store({
           this.state.mediaTypeArray.push(items[i].aggregate_type);
         }
       }
-      console.log(this.state.mediaTypeArray);
     },
     SET_DIRECTORY (state, items) {
       state.directoryCollection = items;
@@ -95,7 +93,7 @@ export default new Vuex.Store({
       state.selectedDirectory = items;
     },
     DELETE_SELECTED_MEDIAS (state, items) {
-      console.log(items);
+      console.log('delete selected medias');
     }
   },
   actions: {
@@ -110,7 +108,6 @@ export default new Vuex.Store({
       context.commit('closeModalCreate', false);
     },
     openModalDelete (context, value) {
-      console.log('open modal:' + value);
       context.commit('openModalDelete', {
         modal_state: true,
         type: value
@@ -180,22 +177,31 @@ export default new Vuex.Store({
         .then(response => {
           // Close Modal
           commit('closeModalCreate', true);
-          // Refresh Current View With New Folder
+          // Refresh Current View With New Folder
           this.dispatch('getDirectory', this.state.currentDirectory);
         });
     },
-    deleteDirectory ({ commit }, value) {
-      let route;
-      if (value) {
-        // this.state.currentDirectory = value;
-        route = this.state.routeDeleteDirectory + '?path=' + value;
-      } else {
-        this.state.currentDirectory = '';
-        route = this.state.routeDeleteDirectory;
+    deleteSelected ({ commit }, value) {
+      // If We Have Directory -> Delete
+      if (value.folder) {
+        let route;
+        if (value.folder) {
+          this.state.currentDirectory = value.folder;
+          route = this.state.routeDeleteDirectory + '?path=' + value.folder;
+        } else {
+          this.state.currentDirectory = '';
+          route = this.state.routeDeleteDirectory;
+        }
+        axios.post(route, {}).then(response => {
+          commit('closeModal');
+          this.dispatch('getDirectory', response.data.parentFolder);
+        });
       }
-      axios.post(route, {}).then(response => {
-        // commit('SET_DIRECTORY', response.data.subdirectories);
-      });
+
+      // If We Have Media Collection -> Delete
+      if (value.mediaCollection) {
+        this.dispatch('deleteSelectedMedias', value.mediaCollection);
+      }
     },
     // getMediaInDirectory ({ commit }, value) {
     // },
@@ -203,18 +209,16 @@ export default new Vuex.Store({
     setSelectedDirectory (context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);
     },
-    deleteSelectedMedias ({ commit,context }, value) {
+    deleteSelectedMedias ({ commit, context }, value) {
       const users = [];
       const promises = [];
       for (let i = 0; i < value.length; i++) {
-        console.log(value[i].id);
         promises.push(
           axios
             .post(this.state.routeDeleteMedia, { id: value[i].id })
             .then(response => {
               // do something with response
               users.push(response);
-              console.log(response);
             })
         );
       }
@@ -223,12 +227,6 @@ export default new Vuex.Store({
       this.dispatch('getDirectory', this.state.currentDirectory);
 
       Promise.all(promises).then(() => console.log(users));
-
-      //   axios.post(this.state.routeDeleteMedia, {}).then(response => {
-      //       console.log(response);
-      //     // commit('SET_DIRECTORY', response.data.subdirectories);
-      //   });
-      //   context.commit('DELETE_SELECTED_MEDIAS', value);
     }
   }
 });

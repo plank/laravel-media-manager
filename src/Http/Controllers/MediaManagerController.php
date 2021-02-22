@@ -1,4 +1,5 @@
 <?php
+
 namespace Plank\MediaManager\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class MediaManagerController extends BaseController
 
         $filesystem->move($source, $destination);
         $moved = collect();
-        Media::inOrUnderDirectory($disk, $source)->get()->each(function($media) use($source, $destination, $moved){
+        Media::inOrUnderDirectory($disk, $source)->get()->each(function ($media) use ($source, $destination, $moved) {
             $media->directory = trim(str_replace($source, $destination, $media->directory), '/');
             $media->save();
             $moved[] = $media->fresh();
@@ -92,8 +93,10 @@ class MediaManagerController extends BaseController
     {
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
+        $string = $request->path;
+        $string = substr($string, 0, strrpos($string, "/"));
         Storage::disk($disk)->deleteDirectory($path);
         Media::where('directory', $path)->delete();
-        return response(["success" => true]);
+        return response(["success" => true, 'parentFolder' => $string]);
     }
 }

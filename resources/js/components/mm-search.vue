@@ -39,15 +39,6 @@
               ></mmiconbase>
             </a>
           </li>
-          <li class="separator">
-            <a
-              v-on:click="openDeleteModal($event, 'media')"
-              :title="$t('actions.delete')"
-              href=""
-            >
-              delete media
-            </a>
-          </li>
           <li>
             <a
               v-on:click="openModal($event)"
@@ -125,7 +116,7 @@
       <button class="mm__search-send" type="send">Send</button>
     </div>
     -->
-    <div>
+    <div class="mm__search-filters">
       <select
         v-on:change="applyFilter($event)"
         v-model="selectedFilterType"
@@ -199,7 +190,6 @@ export default {
     },
     openDeleteModal: function ($event, value) {
       $event.preventDefault();
-      console.log(value);
       this.$store.dispatch("openModalDelete", value);
     },
     openDeleteMedia: function ($event, value) {
@@ -208,13 +198,10 @@ export default {
     },
     applyFilter: function ($event) {
       $event.preventDefault();
-      //   console.log(this.selectedFilterType);
-      //   console.log(this.$store.state.mediaCollection);
-      var card = document.getElementsByClassName("mm__card");
-      for (var i = 0; i < card.length; i++) {
+      const card = document.getElementsByClassName("mm__card");
+      for (let i = 0; i < card.length; i++) {
         card.item(i).parentNode.classList.remove("hide");
         if (this.selectedFilterType !== "all") {
-          console.log(card.item(i).dataset.type);
           if (
             card.item(i).dataset.type !== this.selectedFilterType &&
             card.item(i).dataset.type !== "folder"

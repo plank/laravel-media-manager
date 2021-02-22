@@ -51,6 +51,7 @@ const messages = {
     modal: {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
+      confirmation_msg: 'Are you sure you want to delete these items?',
       folder_name: 'Folder Name'
     }
   },
@@ -94,6 +95,7 @@ const messages = {
     modal: {
       title_createFolder: 'Créer un dossier',
       title_deleteFolder: 'Supprimer répertoire',
+      confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
       folder_name: 'Nom du dossier'
     }
   }

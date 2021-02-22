@@ -4,16 +4,9 @@
 
     <div slot="content">
       <div class="content-grid">
-        <div v-if="this.$store.state.modalState.modal_type == 'folder'">
+        <div>
           <p>
-            Are you sure that you want to delete
-            <strong>{{ this.$store.state.selectedDirectory }}</strong> folder ?
-          </p>
-        </div>
-        <div v-else>
-          <p>
-            Are you sure that you want to delete
-            <strong>{{ this.$store.state.selectedElem.length }}</strong> medias ?
+            {{ $t("modal.confirmation_msg") }}
           </p>
         </div>
       </div>
@@ -21,19 +14,11 @@
 
     <div class="buttons__container-wrapper" slot="buttons">
       <div>
+        <!-- v-on:click="deleteSelectedMedia($event)" -->
         <a
-          v-if="this.$store.state.modalState.modal_type == 'folder'"
           :style="styleBtnDefault"
           class="btn btn-default"
           v-on:click="deleteElement($event)"
-          href=""
-          >{{ $t("actions.yes") }}</a
-        >
-        <a
-          v-else
-          :style="styleBtnDefault"
-          class="btn btn-default"
-          v-on:click="deleteSelectedMedia($event)"
           href=""
           >{{ $t("actions.yes") }}</a
         >
@@ -72,12 +57,11 @@ export default {
     },
     deleteElement: function ($event) {
       // Delete selected folder
-      this.$store.dispatch("deleteDirectory", this.$store.state.selectedDirectory);
-    },
-    deleteSelectedMedia: function ($event) {
-      console.log("go here");
       $event.preventDefault();
-      this.$store.dispatch("deleteSelectedMedias", this.$store.state.selectedElem);
+      this.$store.dispatch("deleteSelected", {
+        folder: this.$store.state.selectedDirectory,
+        mediaCollection: this.$store.state.selectedElem,
+      });
     },
   },
   computed: {

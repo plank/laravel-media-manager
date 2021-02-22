@@ -46,6 +46,7 @@ export default {
     openDirectory: function (event, value) {
       event.preventDefault();
       this.current = value;
+      this.$store.dispatch("setSelectedDirectory", null);
       this.$store.dispatch("getDirectory", value);
       // Retrieve files
       //this.$store.dispatch("getMediaInDirectory", value);
