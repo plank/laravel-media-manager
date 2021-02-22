@@ -49,7 +49,6 @@ export default {
       } else {
         entryArray = [];
       }
-      console.log(typeof entryArray);
       return entryArray;
     },
   },

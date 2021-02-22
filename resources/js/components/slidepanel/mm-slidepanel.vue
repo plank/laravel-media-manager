@@ -80,7 +80,7 @@
           >
         </div>
         <div class="columns__1">
-          <a class="btn btn-delete text-center" :style="styleBtnDefault" href="@"
+          <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" class="btn btn-delete text-center" :style="styleBtnDefault" href="#"
             >Delete file</a
           >
         </div>
@@ -90,20 +90,20 @@
 </template>
 
 <script>
-import { EventBus } from "../../event-bus.js";
-import mmiconbase from "./../mm-icon-base.vue";
-import iconclose from "./../icons/icon-close.vue";
+import { EventBus } from '../../event-bus.js';
+import mmiconbase from './../mm-icon-base.vue';
+import iconclose from './../icons/icon-close.vue';
 
 export default {
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   components: {
     mmiconbase,
-    iconclose,
+    iconclose
   },
-  data() {
+  data () {
     return {
       slideOpen: false,
-      data: [],
+      data: []
     };
   },
   methods: {
@@ -111,20 +111,25 @@ export default {
       event.preventDefault();
       this.slideOpen = false;
     },
+    openDeleteModal: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('openModalDelete');
+      this.slideOpen = false;
+    }
   },
-  mounted() {
-    EventBus.$on("open-slide-panel", (value) => {
+  mounted () {
+    EventBus.$on('open-slide-panel', (value) => {
       this.slideOpen = true;
       this.data = value;
     });
   },
   computed: {
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

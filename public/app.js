@@ -2106,8 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 //
 //
 //
@@ -2160,7 +2158,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         entryArray = [];
       }
 
-      console.log(_typeof(entryArray));
       return entryArray;
     }
   },
@@ -2716,7 +2713,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmfolders",
+  name: 'mmfolders',
   components: {
     mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2733,24 +2730,25 @@ __webpack_require__.r(__webpack_exports__);
     openDirectory: function openDirectory(event, value) {
       event.preventDefault();
       this.current = value;
-      this.$store.dispatch("setSelectedDirectory", null);
-      this.$store.dispatch("getDirectory", value); // Retrieve files
-      //this.$store.dispatch("getMediaInDirectory", value);
+      this.cardItem = null;
+      this.$store.dispatch('setSelectedDirectory', null);
+      this.$store.dispatch('getDirectory', value); // Retrieve files
+      // this.$store.dispatch("getMediaInDirectory", value);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch("setSelectedDirectory", item);
+      this.$store.dispatch('setSelectedDirectory', item);
     },
     goBack: function goBack($event) {
       $event.preventDefault();
       var directoryTarget = null;
-      var directoryLevel = this.current.split("/");
+      var directoryLevel = this.current.split('/');
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = "";
+        directoryTarget = '';
       }
 
       this.openDirectory($event, directoryTarget);
@@ -2762,7 +2760,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch("getDirectory");
+    this.$store.dispatch('getDirectory');
   },
   getterDirectory: function getterDirectory() {
     return this.$store.getters.directoryCollection;
@@ -3103,10 +3101,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -3149,13 +3143,13 @@ __webpack_require__.r(__webpack_exports__);
       $event.preventDefault();
       this.$store.dispatch("openModalCreate");
     },
-    openDeleteModal: function openDeleteModal($event, value) {
+    openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete", value);
+      this.$store.dispatch("openModalDelete");
     },
-    openDeleteMedia: function openDeleteMedia($event, value) {
+    openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete", value);
+      this.$store.dispatch("openModalDelete");
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
@@ -3907,7 +3901,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconclose: _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -3922,12 +3916,17 @@ __webpack_require__.r(__webpack_exports__);
     close: function close(event) {
       event.preventDefault();
       this.slideOpen = false;
+    },
+    openDeleteModal: function openDeleteModal($event) {
+      $event.preventDefault();
+      this.$store.dispatch('openModalDelete');
+      this.slideOpen = false;
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
       _this.slideOpen = true;
       _this.data = value;
     });
@@ -3935,7 +3934,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -13236,7 +13235,7 @@ var render = function() {
                 attrs: { title: _vm.$t("actions.delete"), href: "" },
                 on: {
                   click: function($event) {
-                    return _vm.openDeleteModal($event, "folder")
+                    return _vm.openDeleteModal($event)
                   }
                 }
               },
@@ -14348,7 +14347,12 @@ var render = function() {
                 {
                   staticClass: "btn btn-delete text-center",
                   style: _vm.styleBtnDefault,
-                  attrs: { href: "@" }
+                  attrs: { title: _vm.$t("actions.delete"), href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openDeleteModal($event)
+                    }
+                  }
                 },
                 [_vm._v("Delete file")]
               )
@@ -32299,8 +32303,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     modalState: {
       add: false,
       create: false,
-      "delete": false,
-      modal_type: null
+      "delete": false
     },
     folderState: true,
     viewState: false,
@@ -32328,9 +32331,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     closeModalCreate: function closeModalCreate(state) {
       state.modalState.create = false;
     },
-    openModalDelete: function openModalDelete(state, value) {
-      state.modalState.modal_type = value.type;
-      state.modalState["delete"] = value.modal_state;
+    openModalDelete: function openModalDelete(state) {
+      state.modalState["delete"] = state;
     },
     closeModalDelete: function closeModalDelete(state) {
       state.modalState["delete"] = false;
@@ -32394,10 +32396,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     closeModalCreate: function closeModalCreate(context) {
       context.commit('closeModalCreate', false);
     },
-    openModalDelete: function openModalDelete(context, value) {
+    openModalDelete: function openModalDelete(context) {
       context.commit('openModalDelete', {
-        modal_state: true,
-        type: value
+        modal_state: true
       });
     },
     closeModalDelete: function closeModalDelete(context) {
@@ -32527,7 +32528,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       commit('closeModal');
       this.dispatch('getDirectory', this.state.currentDirectory);
       Promise.all(promises).then(function () {
-        return console.log(users);
+        return console.log();
       });
     }
   }

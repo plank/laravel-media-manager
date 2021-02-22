@@ -22,11 +22,7 @@
             </a>
           </li>
           <li class="separator">
-            <a
-              v-on:click="openDeleteModal($event, 'folder')"
-              :title="$t('actions.delete')"
-              href=""
-            >
+            <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
               <!-- Delete Icon -->
               <mmiconbase
                 icon-name="add-folder"
@@ -188,13 +184,13 @@ export default {
       $event.preventDefault();
       this.$store.dispatch("openModalCreate");
     },
-    openDeleteModal: function ($event, value) {
+    openDeleteModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete", value);
+      this.$store.dispatch("openModalDelete");
     },
-    openDeleteMedia: function ($event, value) {
+    openDeleteMedia: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete", value);
+      this.$store.dispatch("openModalDelete");
     },
     applyFilter: function ($event) {
       $event.preventDefault();
