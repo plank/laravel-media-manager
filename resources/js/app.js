@@ -27,6 +27,8 @@ const messages = {
       no: 'No',
       create: 'Create',
       cancel: 'Cancel',
+      move: 'Move',
+      back: 'Back',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
       viewList: 'View List',
@@ -52,6 +54,7 @@ const messages = {
     modal: {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
+      title_moveFolder: 'Move Folder To :',
       confirmation_msg: 'Are you sure you want to delete these items?',
       folder_name: 'Folder Name'
     }
@@ -71,6 +74,8 @@ const messages = {
       no: 'Non',
       create: 'Creer',
       cancel: 'Annuler',
+      move: 'Déplacer',
+      back: 'Retour',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
       viewList: 'Liste',
@@ -96,6 +101,7 @@ const messages = {
     modal: {
       title_createFolder: 'Créer un dossier',
       title_deleteFolder: 'Supprimer répertoire',
+      title_moveFolder: 'Déplacer répertoire vers :',
       confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
       folder_name: 'Nom du dossier'
     }

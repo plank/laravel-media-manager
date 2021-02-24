@@ -365,6 +365,7 @@ strong {
   position: fixed;
   right: 0.625em;
   bottom: 0.625em;
+  z-index: 999;
 }
 
 .btn-add:hover {
@@ -902,6 +903,92 @@ table tr {
   height: 244px;
   width: 100%;
   display: block;
+}
+
+.mm__move-container {
+  margin-bottom: 2em;
+}
+
+.mm__move-single {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+  align-items: center;
+}
+
+.mm__move-folder-list li {
+  border-radius: 4px;
+}
+
+.mm__move-folder-list li a {
+  font-size: 15px;
+}
+
+.mm__move-folder-list li:hover {
+  background-color: #F9F9F9;
+}
+
+.mm__move-folder-list li.mm__move-back {
+  background-image: url(/images/icon-arrow-back.svg?963a92661eaa72c7bfd36b1a677b9a1b);
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat;
+  position: relative;
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+.mm__move-folder-list li.mm__move-back a {
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+  color: #222222;
+  font-weight: 600;
+}
+
+.mm__move-folder-list li.mm__move-back a:hover {
+  text-decoration: underline;
+}
+
+.mm__move-folder-list li.mm__move-back:hover {
+  background-color: inherit !important;
+}
+
+.mm__move-folder-list li.active {
+  background: #f3f3f3;
+}
+
+.mm__move-folder-list li.active .mm__move-folder-title a :hover {
+  transition: all 0.2s ease-in-out;
+}
+
+.mm__move-folder-title a {
+  text-decoration: none;
+  color: #222222;
+  display: inline-block;
+  padding: 0.8em 0.4em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mm__move-folder-handler a {
+  background: url(/images/icon-arrow-next.svg?eccda1148183083ccdd9f3f64615cde9) center center no-repeat;
+  background-size: 100%;
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  text-indent: -99999px;
+}
+
+.mm__move-folder-handler a:hover {
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  background-image: url(/images/icon-arrow-next.svg?eccda1148183083ccdd9f3f64615cde9) center center no-repeat;
+  background-color: #e0e0e0;
 }
 
 body {

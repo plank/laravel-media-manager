@@ -26,6 +26,7 @@
         position: fixed;
         right: em-calc(10px);
         bottom: em-calc(10px);
+        z-index: 999;
         &:hover {
             transform: scale(1.1);
             transition: all 0.2s ease-in-out;

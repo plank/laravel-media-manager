@@ -1,0 +1,98 @@
+.mm__move {
+    &-container {
+        margin-bottom: 2em;
+    }
+
+    &-single {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 20px;
+        font-family: $font-family-base;
+        text-decoration: none;
+        align-items: center;
+    }
+
+    &-folder-list {
+        li {
+            border-radius: 4px;
+
+            a {
+                font-size: 15px;
+            }
+
+            &:hover {
+                background-color: $mm-move-hover-bg;
+            }
+
+            &.mm__move-back {
+                background-image: url('./../../img/icon-arrow-back.svg');
+                background-size: contain;
+                background-position: center left;
+                background-repeat: no-repeat;
+                position: relative;
+                padding-left: 2em;
+                margin-bottom: 1em;
+                a {
+                    text-transform: uppercase;
+                    font-family: $font-family-base;
+                    text-decoration: none;
+                    color: $mm-move-color;
+                    font-weight: 600;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                &:hover {
+                    background-color: inherit !important;
+                }
+            }
+
+
+            &.active {
+                background: $mm-move-active-bg;
+                .mm__move-folder-title {
+                    a {
+                        &:hover {
+                            transition: all 0.2s ease-in-out;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-folder-title {
+        a {
+            text-decoration: none;
+            color: $mm-move-color;
+            display: inline-block;
+            padding: 0.8em 0.4em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        // &:hover {
+        //     background: $mm-move-hover-bg;
+        //     transition: all 0.2s ease-in-out;
+        // }
+    }
+
+    &-folder-handler {
+        a {
+            background: url('./../../img/icon-arrow-next.svg') center center no-repeat;
+            background-size: 100%;
+            display: inline-block;
+            position: relative;
+            width: 36px;
+            height: 36px;
+            text-indent: -99999px;
+
+            &:hover {
+                border-radius: 4px;
+                transition: all 0.2s ease-in-out;
+                background-image: url('./../../img/icon-arrow-next.svg') center center no-repeat;
+                background-color: darken($mm-move-hover-bg, 10);
+            }
+        }
+    }
+}

@@ -28,15 +28,20 @@ $mm-table-head-color    :   #222222;
 $mm-table-head-bg       :   #F9F9F9;
 
 // Slidepanel
-$mm-slidepanel-bg       :      #FFFFFF;
-$mm-slidepanel-label-color   :  #6D6D6D;
-$mm-slidepanel-strong-color   :   #222222;
+$mm-slidepanel-bg               :       #FFFFFF;
+$mm-slidepanel-label-color      :       #6D6D6D;
+$mm-slidepanel-strong-color     :       #222222;
 
 // Breadcrum
-$mm-breadcrumb-color         : #222222;
+$mm-breadcrumb-color            :   #222222;
 $mm-breadcrumb-link-hover       :   #F9F9F9;
 // Carousel
 $mm-carousel-bg         :   #F9F9F9;
+
+// Move
+$mm-move-color          :   #222222;
+$mm-move-hover-bg       :   #F9F9F9;
+$mm-move-active-bg      :   #f3f3f3;
 
 // Fonts
 // ------------------------------------------------------
@@ -47,8 +52,11 @@ $base-font-size         :     16px;
 
 // Dimensions
 // ------------------------------------------------------
+
+// Grid
 $grid-gutter-results       :        20px;
 
+// Buttons
 $button-add-dimension      :        98px;
 
 // Form

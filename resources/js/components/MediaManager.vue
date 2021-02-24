@@ -59,6 +59,14 @@
       ></mmmodaladdfolder>
     </transition>
 
+    <!-- Modal Move Folder -->
+    <transition name="fade">
+      <mmmodalmovefolder
+        v-if="modalStateMoveFolder"
+        @close="this.$store.modalState.create = false"
+      ></mmmodalmovefolder>
+    </transition>
+
     <!-- Modal Delete Folder -->
     <transition name="fade">
       <mmmodaldeletefolder
@@ -86,6 +94,7 @@ import mmaddbutton from './mm-add-button';
 import mmmodaladd from './modals/files/mm-modal-add';
 import mmmodaladdfolder from './modals/folders/mm-modal-add-folder';
 import mmmodaldeletefolder from './modals/folders/mm-modal-delete-folder';
+import mmmodalmovefolder from './modals/folders/mm-modal-move-folder';
 import mmlistresults from './mm-list-results';
 import mmfolders from './mm-folders';
 import mmcarousel from './carousel/mm-carousel';
@@ -104,6 +113,7 @@ export default {
     mmcarousel,
     mmmodaladdfolder,
     mmmodaldeletefolder,
+    mmmodalmovefolder,
     mmempty
   },
   data () {
@@ -123,6 +133,9 @@ export default {
     }
   },
   computed: {
+    modalStateMoveFolder () {
+      return this.$store.state.modalState.move;
+    },
     modalStateCreateFolder () {
       return this.$store.state.modalState.create;
     },

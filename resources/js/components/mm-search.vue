@@ -53,6 +53,9 @@
               ></mmiconbase>
             </a>
           </li>
+          <li v-if="this.$store.state.selectedDirectory">
+            <a v-on:click="openMoveModal($event)" href="">Move</a>
+          </li>
           <!-- <li>
             <a
               :title="$t('actions.viewGrid')"
@@ -191,6 +194,10 @@ export default {
     openDeleteMedia: function ($event) {
       $event.preventDefault();
       this.$store.dispatch("openModalDelete");
+    },
+    openMoveModal: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch("openMoveModal");
     },
     applyFilter: function ($event) {
       $event.preventDefault();

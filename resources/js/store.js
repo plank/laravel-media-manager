@@ -11,18 +11,21 @@ export default new Vuex.Store({
     routeCreateDirectory: '/media-api/directory/create' /* Create Folder */,
     routeDeleteDirectory: '/media-api/directory/destroy' /* Delete Folder */,
     routeDeleteMedia: '/media-api/destroy' /* Delete Media */,
+    routeMoveDirectory: '/media-api/directory/update' /* Move Folder */,
     currentDirectory: null,
     selectedDirectory: null,
     totalSelected: 0,
     modalState: {
       add: false,
       create: false,
-      delete: false
+      delete: false,
+      move: false
     },
     folderState: true,
     viewState: false,
     selectedElem: [],
     directoryCollection: [],
+    moveDirectoryCollection: [],
     mediaTypeArray: [],
     mediaCollection: []
   },
@@ -33,6 +36,9 @@ export default new Vuex.Store({
     },
     getDirectory: state => {
       return state.directoryCollection;
+    },
+    getMoveDirectory: state => {
+      return state.moveDirectoryCollection;
     }
   },
 
@@ -40,6 +46,7 @@ export default new Vuex.Store({
     closeModal (state) {
       state.modalState.create = false;
       state.modalState.delete = false;
+      state.modalState.move = false;
     },
     openModalCreate (state) {
       state.modalState.create = true;
@@ -58,6 +65,12 @@ export default new Vuex.Store({
     },
     closeModalAdd (state) {
       state.modalState.add = false;
+    },
+    openModalMove (state) {
+      state.modalState.move = true;
+    },
+    closeModalMove (state) {
+      state.modalState.move = false;
     },
     viewState (state, value) {
       state.viewState = value;
@@ -87,6 +100,9 @@ export default new Vuex.Store({
     SET_DIRECTORY (state, items) {
       state.directoryCollection = items;
     },
+    SET_MOVE_DIRECTORY (state, items) {
+      state.moveDirectoryCollection = items;
+    },
     SET_SELECTED_DIRECTORY (state, items) {
       state.selectedDirectory = items;
     },
@@ -98,6 +114,7 @@ export default new Vuex.Store({
     closeModal (context) {
       context.commit('closeModalCreate', false);
       context.commit('closeModalDelete', false);
+      context.commit('closeModalMove', false);
     },
     openModalCreate (context) {
       context.commit('openModalCreate', true);
@@ -118,6 +135,12 @@ export default new Vuex.Store({
     },
     closeModalAdd (context) {
       context.commit('closeModalAdd', false);
+    },
+    openMoveModal (context) {
+      context.commit('openModalMove', true);
+    },
+    closeMoveModal (context) {
+      context.commit('closeModalMove', false);
     },
     viewState (context, value) {
       context.commit('viewState', value);
@@ -158,7 +181,6 @@ export default new Vuex.Store({
         route = this.state.routeGetDirectory;
       }
       axios.get(route, {}).then(response => {
-          console.log(response);
         // if we have some media
         if (response.data.media) {
           console.log(response.data.media);
@@ -167,6 +189,18 @@ export default new Vuex.Store({
           commit('SET_MEDIATYPES', response.data.media);
         }
         commit('SET_DIRECTORY', response.data.subdirectories);
+      });
+    },
+    // Get Directory For Moving Files
+    getMoveDirectory ({ commit }, value) {
+      let route;
+      if (value) {
+        route = this.state.routeGetDirectory + value;
+      } else {
+        route = this.state.routeGetDirectory;
+      }
+      axios.get(route, {}).then(response => {
+        commit('SET_MOVE_DIRECTORY', response.data.subdirectories);
       });
     },
     // Create Directory
