@@ -148,7 +148,7 @@ export default new Vuex.Store({
     // if we receive a value
     getDirectory ({ commit }, value) {
       let route;
-      // Reset Selected Directory
+      // Reset Selected Directory
       this.state.selectedElem = [];
       if (value) {
         this.state.currentDirectory = value;
@@ -158,8 +158,10 @@ export default new Vuex.Store({
         route = this.state.routeGetDirectory;
       }
       axios.get(route, {}).then(response => {
+          console.log(response);
         // if we have some media
         if (response.data.media) {
+          console.log(response.data.media);
           commit('SET_MEDIA', response.data.media);
           // Create Media Types List
           commit('SET_MEDIATYPES', response.data.media);

@@ -10,25 +10,25 @@
 </template>
 
 <script>
-import { EventBus } from "../event-bus.js";
-import mmcard from "./mm-card";
+import { EventBus } from '../event-bus.js';
+import mmcard from './mm-card';
 
 export default {
-  name: "mmresults",
+  name: 'mmresults',
   components: {
-    mmcard,
+    mmcard
   },
-  data() {
+  data () {
     return {
-      mediaCollection: this.$store.state.mediaCollection,
+      mediaCollection: this.$store.state.mediaCollection
     };
   },
   methods: {},
-  mounted() {},
+  mounted () {},
   computed: {
-    getMedia() {
+    getMedia () {
       return this.$store.state.mediaCollection;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -49,8 +49,6 @@ export default {
       this.cardItem = null;
       this.$store.dispatch('setSelectedDirectory', null);
       this.$store.dispatch('getDirectory', value);
-      // Retrieve files
-      // this.$store.dispatch("getMediaInDirectory", value);
     },
     showOptions (index, item) {
       this.cardItem = index;
@@ -78,9 +76,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch('getDirectory');
-  },
-  getterDirectory () {
-    return this.$store.getters.directoryCollection;
   }
 };
 </script>

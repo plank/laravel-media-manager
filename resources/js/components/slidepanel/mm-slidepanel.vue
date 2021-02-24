@@ -54,7 +54,7 @@
       </p>
       <!-- Upload Date -->
       <p>
-        Upload Date: <strong>{{ this.data[0].created_at }}</strong>
+        Upload Date: <strong>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</strong>
       </p>
       <!-- Form -->
       <form action="">

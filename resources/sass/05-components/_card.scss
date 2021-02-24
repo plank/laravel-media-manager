@@ -44,6 +44,10 @@
         text-align: center;
     }
 
+    &-default-placeholder {
+        min-height: 174px;
+    }
+
     &-infos {
         padding: em(9px);
         h6 {

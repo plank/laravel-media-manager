@@ -5,10 +5,7 @@
     v-on:click="pushSelected($event, item)"
   >
     <div>
-      <div class="mm__card-placeholder" v-if="item.aggregate_type === 'document'">
-        {{ item.extension }}
-      </div>
-      <div class="mm__card-placeholder" v-if="item.aggregate_type === 'video'">
+      <div class="mm__card-placeholder mm__card-default-placeholder" v-if="item.aggregate_type === 'document' || item.aggregate_type === 'pdf' || item.aggregate_type === 'video'">
         {{ item.extension }}
       </div>
       <img

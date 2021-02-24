@@ -8,6 +8,7 @@ import '../sass/app.scss';
 
 Vue.prototype.$http = axios.create();
 Vue.use(VueI18n);
+Vue.use(require('vue-moment'));
 
 // To Externalize In The Future
 const messages = {

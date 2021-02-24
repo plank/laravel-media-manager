@@ -44,6 +44,7 @@
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.27.0",
         "sass-loader": "^8.0.2",
+        "vue-moment": "^4.1.0",
         "vue-template-compiler": "^2.6.12",
         "vue2-dropzone": "^3.6.0",
         "vuedraggable": "^2.24.3",
