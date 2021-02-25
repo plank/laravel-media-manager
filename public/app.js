@@ -37997,8 +37997,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         this.dispatch('deleteSelectedMedias', value.mediaCollection);
       }
     },
-    // getMediaInDirectory ({ commit }, value) {
-    // },
     // Set selected directory
     setSelectedDirectory: function setSelectedDirectory(context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);

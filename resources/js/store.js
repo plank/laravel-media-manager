@@ -236,8 +236,6 @@ export default new Vuex.Store({
         this.dispatch('deleteSelectedMedias', value.mediaCollection);
       }
     },
-    // getMediaInDirectory ({ commit }, value) {
-    // },
     // Set selected directory
     setSelectedDirectory (context, value) {
       context.commit('SET_SELECTED_DIRECTORY', value);
