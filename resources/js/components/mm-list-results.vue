@@ -46,7 +46,7 @@ export default {
   methods: {
     // Push selected element to store
     pushSelected: function (event, value) {
-      this.$store.dispatch('pushSelected', value);
+      this.$store.dispatch('PUSH_SELECTED', value);
     }
   },
   watch: {

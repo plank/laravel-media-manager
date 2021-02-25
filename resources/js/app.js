@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import MediaManager from './components/MediaManager';
 import axios from 'axios';
-import store from './store';
+import store from './store/store';
 
 import '../sass/app.scss';
 

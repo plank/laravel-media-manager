@@ -18,18 +18,18 @@
 
 <script>
 export default {
-  name: "mmbreadcrumb",
-  props: ["item"],
-  data() {
+  name: 'mmbreadcrumb',
+  props: ['item'],
+  data () {
     return {
       isSelected: false,
-      breadcrumbMarkup: null,
+      breadcrumbMarkup: null
     };
   },
   methods: {
     openRootDirectory: function ($event, value) {
       $event.preventDefault();
-      this.$store.dispatch("getDirectory", value);
+      this.$store.dispatch('GET_DIRECTORY', value);
     },
     openDirectory: function ($event, value) {
       $event.preventDefault();
@@ -37,22 +37,22 @@ export default {
       newBreadcrumbArray.length = value.index + 1;
       const qs = Object.keys(newBreadcrumbArray)
         .map((key) => `${newBreadcrumbArray[key]}`)
-        .join("/");
-      this.$store.dispatch("getDirectory", qs);
-    },
+        .join('/');
+      this.$store.dispatch('GET_DIRECTORY', qs);
+    }
   },
   computed: {
-    createBreadcrumb() {
+    createBreadcrumb () {
       let entryArray = null;
-      if (this.$store.getters.getCurrentDirectory) {
-        entryArray = this.$store.getters.getCurrentDirectory.split("/");
+      if (this.$store.getters.GET_CURRENT_DIRECTORY) {
+        entryArray = this.$store.getters.GET_CURRENT_DIRECTORY.split('/');
       } else {
         entryArray = [];
       }
       return entryArray;
-    },
+    }
   },
   watch: {},
-  mounted() {},
+  mounted () {}
 };
 </script>

@@ -1935,18 +1935,20 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mm_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-search */ "./resources/js/components/mm-search.vue");
-/* harmony import */ var _mm_results__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-results */ "./resources/js/components/mm-results.vue");
-/* harmony import */ var _slidepanel_mm_slidepanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slidepanel/mm-slidepanel */ "./resources/js/components/slidepanel/mm-slidepanel.vue");
-/* harmony import */ var _mm_add_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mm-add-button */ "./resources/js/components/mm-add-button.vue");
-/* harmony import */ var _modals_files_mm_modal_add__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modals/files/mm-modal-add */ "./resources/js/components/modals/files/mm-modal-add.vue");
-/* harmony import */ var _modals_folders_mm_modal_add_folder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modals/folders/mm-modal-add-folder */ "./resources/js/components/modals/folders/mm-modal-add-folder.vue");
-/* harmony import */ var _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/folders/mm-modal-delete-folder */ "./resources/js/components/modals/folders/mm-modal-delete-folder.vue");
-/* harmony import */ var _modals_folders_mm_modal_move_folder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals/folders/mm-modal-move-folder */ "./resources/js/components/modals/folders/mm-modal-move-folder.vue");
-/* harmony import */ var _mm_list_results__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mm-list-results */ "./resources/js/components/mm-list-results.vue");
-/* harmony import */ var _mm_folders__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mm-folders */ "./resources/js/components/mm-folders.vue");
-/* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
-/* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store_store_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/store.js */ "./resources/js/store/store.js");
+/* harmony import */ var _mm_search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-search */ "./resources/js/components/mm-search.vue");
+/* harmony import */ var _mm_results__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mm-results */ "./resources/js/components/mm-results.vue");
+/* harmony import */ var _slidepanel_mm_slidepanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slidepanel/mm-slidepanel */ "./resources/js/components/slidepanel/mm-slidepanel.vue");
+/* harmony import */ var _mm_add_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mm-add-button */ "./resources/js/components/mm-add-button.vue");
+/* harmony import */ var _modals_files_mm_modal_add__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modals/files/mm-modal-add */ "./resources/js/components/modals/files/mm-modal-add.vue");
+/* harmony import */ var _modals_folders_mm_modal_add_folder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modals/folders/mm-modal-add-folder */ "./resources/js/components/modals/folders/mm-modal-add-folder.vue");
+/* harmony import */ var _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modals/folders/mm-modal-delete-folder */ "./resources/js/components/modals/folders/mm-modal-delete-folder.vue");
+/* harmony import */ var _modals_folders_mm_modal_move_folder__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modals/folders/mm-modal-move-folder */ "./resources/js/components/modals/folders/mm-modal-move-folder.vue");
+/* harmony import */ var _mm_list_results__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./mm-list-results */ "./resources/js/components/mm-list-results.vue");
+/* harmony import */ var _mm_folders__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-folders */ "./resources/js/components/mm-folders.vue");
+/* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
+/* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
 //
 //
 //
@@ -2035,6 +2037,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -2050,18 +2054,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'media-manager',
   components: {
-    mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
-    mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
-    mmslidepanel: _slidepanel_mm_slidepanel__WEBPACK_IMPORTED_MODULE_2__["default"],
-    mmaddbutton: _mm_add_button__WEBPACK_IMPORTED_MODULE_3__["default"],
-    mmmodaladd: _modals_files_mm_modal_add__WEBPACK_IMPORTED_MODULE_4__["default"],
-    mmlistresults: _mm_list_results__WEBPACK_IMPORTED_MODULE_8__["default"],
-    mmfolders: _mm_folders__WEBPACK_IMPORTED_MODULE_9__["default"],
-    mmcarousel: _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__["default"],
-    mmmodaladdfolder: _modals_folders_mm_modal_add_folder__WEBPACK_IMPORTED_MODULE_5__["default"],
-    mmmodaldeletefolder: _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_6__["default"],
-    mmmodalmovefolder: _modals_folders_mm_modal_move_folder__WEBPACK_IMPORTED_MODULE_7__["default"],
-    mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"]
+    mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_2__["default"],
+    mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_3__["default"],
+    mmslidepanel: _slidepanel_mm_slidepanel__WEBPACK_IMPORTED_MODULE_4__["default"],
+    mmaddbutton: _mm_add_button__WEBPACK_IMPORTED_MODULE_5__["default"],
+    mmmodaladd: _modals_files_mm_modal_add__WEBPACK_IMPORTED_MODULE_6__["default"],
+    mmlistresults: _mm_list_results__WEBPACK_IMPORTED_MODULE_10__["default"],
+    mmfolders: _mm_folders__WEBPACK_IMPORTED_MODULE_11__["default"],
+    mmcarousel: _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_12__["default"],
+    mmmodaladdfolder: _modals_folders_mm_modal_add_folder__WEBPACK_IMPORTED_MODULE_7__["default"],
+    mmmodaldeletefolder: _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_8__["default"],
+    mmmodalmovefolder: _modals_folders_mm_modal_move_folder__WEBPACK_IMPORTED_MODULE_9__["default"],
+    mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   data: function data() {
     return {
@@ -2071,7 +2075,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains('mm__results-grid')) {
-        this.$store.dispatch('setSelectedDirectory', null);
+        this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
         var card = document.getElementsByClassName('mm__results-single');
 
         for (var i = 0; i < card.length; i++) {
@@ -2139,8 +2143,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmbreadcrumb",
-  props: ["item"],
+  name: 'mmbreadcrumb',
+  props: ['item'],
   data: function data() {
     return {
       isSelected: false,
@@ -2150,7 +2154,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openRootDirectory: function openRootDirectory($event, value) {
       $event.preventDefault();
-      this.$store.dispatch("getDirectory", value);
+      this.$store.dispatch('GET_DIRECTORY', value);
     },
     openDirectory: function openDirectory($event, value) {
       $event.preventDefault();
@@ -2158,16 +2162,16 @@ __webpack_require__.r(__webpack_exports__);
       newBreadcrumbArray.length = value.index + 1;
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
-      }).join("/");
-      this.$store.dispatch("getDirectory", qs);
+      }).join('/');
+      this.$store.dispatch('GET_DIRECTORY', qs);
     }
   },
   computed: {
     createBreadcrumb: function createBreadcrumb() {
       var entryArray = null;
 
-      if (this.$store.getters.getCurrentDirectory) {
-        entryArray = this.$store.getters.getCurrentDirectory.split("/");
+      if (this.$store.getters.GET_CURRENT_DIRECTORY) {
+        entryArray = this.$store.getters.GET_CURRENT_DIRECTORY.split('/');
       } else {
         entryArray = [];
       }
@@ -2208,7 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     removeFromSelected: function removeFromSelected(value) {
-      this.$store.dispatch("pushSelected", value);
+      this.$store.dispatch("PUSH_SELECTED", value);
     }
   },
   mounted: function mounted() {},
@@ -2286,7 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmcarousel",
+  name: 'mmcarousel',
   components: {
     mmcarouselcard: _mm_carousel_card__WEBPACK_IMPORTED_MODULE_0__["default"],
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -2314,14 +2318,14 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault(); // this.isMinimize = !this.isMinimize;
       // Reset selected elements to Null.
 
-      this.$store.dispatch("resetSelected"); // Remove all selected icons on view.
+      this.$store.dispatch('RESET_SELECTED'); // Remove all selected icons on view.
     }
   },
   mounted: function mounted() {},
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     },
     totalSelected: function totalSelected() {
@@ -2377,7 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     openModal: function openModal() {
-      this.$store.dispatch('openModalAdd');
+      this.$store.dispatch('OPEN_MODAL_ADD');
     }
   },
   computed: {
@@ -2537,8 +2541,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmcard",
-  props: ["item"],
+  name: 'mmcard',
+  props: ['item'],
   data: function data() {
     return {
       isSelected: false
@@ -2549,7 +2553,7 @@ __webpack_require__.r(__webpack_exports__);
     pushSelected: function pushSelected(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("pushSelected", value);
+      this.$store.dispatch('PUSH_SELECTED', value);
       this.isSelected = !this.isSelected;
     }
   },
@@ -2675,7 +2679,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmempty",
+  name: 'mmempty',
   components: {},
   data: function data() {
     return {};
@@ -2742,12 +2746,12 @@ __webpack_require__.r(__webpack_exports__);
       event.preventDefault();
       this.current = value;
       this.cardItem = null;
-      this.$store.dispatch('setSelectedDirectory', null);
-      this.$store.dispatch('getDirectory', value);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+      this.$store.dispatch('GET_DIRECTORY', value);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch('setSelectedDirectory', item);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', item);
     },
     goBack: function goBack($event) {
       $event.preventDefault();
@@ -2766,11 +2770,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getDir: function getDir() {
-      return this.$store.getters.getDirectory;
+      return this.$store.getters.GET_DIRECTORY;
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch('getDirectory');
+    this.$store.dispatch('GET_DIRECTORY');
   }
 });
 
@@ -2804,7 +2808,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     iconName: {
       type: String,
-      "default": "box"
+      "default": 'box'
     },
     width: {
       type: [Number, String],
@@ -2816,7 +2820,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     iconColor: {
       type: String,
-      "default": "currentColor"
+      "default": 'currentColor'
     }
   }
 });
@@ -2878,7 +2882,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     // Push selected element to store
     pushSelected: function pushSelected(event, value) {
-      this.$store.dispatch('pushSelected', value);
+      this.$store.dispatch('PUSH_SELECTED', value);
     }
   },
   watch: {
@@ -2912,8 +2916,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
-/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
+/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
 //
 //
 //
@@ -2925,12 +2928,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmresults',
   components: {
-    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_1__["default"]
+    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -3121,7 +3123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3135,49 +3137,49 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: ""
+      selectedFilterType: ''
     };
   },
   mounted: function mounted() {},
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch("viewState", value);
+      this.$store.dispatch('VIEW_STATE', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalCreate");
+      this.$store.dispatch('OPEN_MODAL_CREATE');
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openMoveModal");
+      this.$store.dispatch('OPEN_MOVE_MODAL');
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName("mm__card");
+      var card = document.getElementsByClassName('mm__card');
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove("hide");
+        card.item(i).parentNode.classList.remove('hide');
 
-        if (this.selectedFilterType !== "all") {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
-            card.item(i).parentNode.classList.add("hide");
+        if (this.selectedFilterType !== 'all') {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
+            card.item(i).parentNode.classList.add('hide');
           }
         } else {
-          card.item(i).parentNode.classList.remove("hide");
+          card.item(i).parentNode.classList.remove('hide');
         }
       }
     }
@@ -3206,7 +3208,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return "";
+      if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -3268,7 +3270,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaladd",
+  name: 'mmmodaladd',
   components: {
     vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default.a
   },
@@ -3283,16 +3285,16 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     getUploadURL: function getUploadURL() {
-      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+      return 'media-api/create?path=' + this.$store.state.currentDirectory + '';
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("closeModalAdd"); // Refresh current folder
+      this.$store.dispatch('CLOSE_MODAL_ADD'); // Refresh current folder
 
-      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
+      this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     }
   },
   computed: {
@@ -3302,7 +3304,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3586,7 +3588,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaladdfolder",
+  name: 'mmmodaladdfolder',
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmiconbase: _mm_icon_base__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3606,9 +3608,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var createFolderPath = function createFolderPath() {
         if (_this.$store.state.currentDirectory) {
-          _this.$store.dispatch("createDirectory", _this.$store.state.currentDirectory + "/" + _this.name);
+          _this.$store.dispatch('CREATE_DIRECTORY', _this.$store.state.currentDirectory + '/' + _this.name);
         } else {
-          _this.$store.dispatch("createDirectory", _this.name);
+          _this.$store.dispatch('CREATE_DIRECTORY', _this.name);
         }
       };
 
@@ -3616,10 +3618,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     }
   },
   computed: {
@@ -3632,7 +3634,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3690,7 +3692,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaldeletefolder",
+  name: 'mmmodaldeletefolder',
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3703,12 +3705,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalDelete");
+      this.$store.dispatch('CLOSE_MODAL_DELETE');
     },
     deleteElement: function deleteElement($event) {
       // Delete selected folder
       $event.preventDefault();
-      this.$store.dispatch("deleteSelected", {
+      this.$store.dispatch('DELETE_SELECTED', {
         folder: this.$store.state.selectedDirectory,
         mediaCollection: this.$store.state.selectedElem
       });
@@ -3724,7 +3726,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3819,15 +3821,15 @@ __webpack_require__.r(__webpack_exports__);
         source: this.$store.state.selectedDirectory,
         destination: this.selectedFolder
       }).then(function (response) {
-        _this2.$store.dispatch('closeModal'); // Reload Current Directory
+        _this2.$store.dispatch('CLOSE_MODAL'); // Reload Current Directory
 
 
-        _this2.$store.dispatch('getDirectory', _this2.$store.state.currentDirectory);
+        _this2.$store.dispatch('GET_DIRECTORY', _this2.$store.state.currentDirectory);
       });
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeMoveModal');
+      this.$store.dispatch('CLOSE_MOVE_MODAL');
     }
   },
   computed: {
@@ -3896,10 +3898,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeModal');
+      this.$store.dispatch('CLOSE_MODAL');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch('closeModalCreate');
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     }
   },
   computed: {
@@ -3957,7 +3959,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmovemain",
+  name: 'mmmovemain',
   components: {},
   data: function data() {
     return {
@@ -3969,31 +3971,31 @@ __webpack_require__.r(__webpack_exports__);
     goBack: function goBack($event) {
       $event.preventDefault();
       var directoryTarget = null;
-      var directoryLevel = this.current.split("/");
+      var directoryLevel = this.current.split('/');
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = "";
+        directoryTarget = '';
       }
 
       this.current = directoryTarget;
-      this.$store.dispatch("getMoveDirectory", directoryTarget);
+      this.$store.dispatch('GET_MOVE_DIRECTORY', directoryTarget);
     },
     selectElement: function selectElement($event, value, index) {
       $event.preventDefault();
       this.folderIndex = index;
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("allowMove", value);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('allowMove', value);
     },
     goDeeper: function goDeeper($event, value) {
       $event.preventDefault();
       this.current = value;
-      this.$store.dispatch("getMoveDirectory", value);
+      this.$store.dispatch('GET_MOVE_DIRECTORY', value);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch("getMoveDirectory");
+    this.$store.dispatch('GET_MOVE_DIRECTORY');
   },
   computed: {
     getDir: function getDir() {
@@ -35575,7 +35577,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_MediaManager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/MediaManager */ "./resources/js/components/MediaManager.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_5__);
 
@@ -35689,7 +35691,7 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
   messages: messages
 });
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _store__WEBPACK_IMPORTED_MODULE_4__["default"],
+  store: _store_store__WEBPACK_IMPORTED_MODULE_4__["default"],
   render: function render(h) {
     return h(_components_MediaManager__WEBPACK_IMPORTED_MODULE_2__["default"]);
   },
@@ -37716,10 +37718,353 @@ var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ }),
 
-/***/ "./resources/js/store.js":
-/*!*******************************!*\
-  !*** ./resources/js/store.js ***!
-  \*******************************/
+/***/ "./resources/js/store/actions.js":
+/*!***************************************!*\
+  !*** ./resources/js/store/actions.js ***!
+  \***************************************/
+/*! exports provided: actions */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var actions = {
+  CLOSE_MODAL: function CLOSE_MODAL(context) {
+    context.commit('CLOSE_MODAL_CREATE', false);
+    context.commit('CLOSE_MODAL_DELETE', false);
+    context.commit('CLOSE_MODAL_MOVE', false);
+  },
+  OPEN_MODAL_CREATE: function OPEN_MODAL_CREATE(context) {
+    context.commit('OPEN_MODAL_CREATE', true);
+  },
+  CLOSE_MODAL_CREATE: function CLOSE_MODAL_CREATE(context) {
+    context.commit('CLOSE_MODAL_CREATE', false);
+  },
+  OPEN_MODAL_DELETE: function OPEN_MODAL_DELETE(context) {
+    context.commit('OPEN_MODAL_DELETE', {
+      modal_state: true
+    });
+  },
+  CLOSE_MODAL_DELETE: function CLOSE_MODAL_DELETE(context) {
+    context.commit('CLOSE_MODAL_DELETE', false);
+  },
+  OPEN_MODAL_ADD: function OPEN_MODAL_ADD(context) {
+    context.commit('OPEN_MODAL_ADD', true);
+  },
+  CLOSE_MODAL_ADD: function CLOSE_MODAL_ADD(context) {
+    context.commit('CLOSE_MODAL_ADD', false);
+  },
+  OPEN_MOVE_MODAL: function OPEN_MOVE_MODAL(context) {
+    context.commit('OPEN_MODAL_MOVE', true);
+  },
+  CLOSE_MOVE_MODAL: function CLOSE_MOVE_MODAL(context) {
+    context.commit('CLOSE_MODAL_MOVE', false);
+  },
+  VIEW_STATE: function VIEW_STATE(context, value) {
+    context.commit('VIEW_STATE', value);
+  },
+  GRID_VIEW: function GRID_VIEW(context, value) {
+    context.commit('VIEW_STATE', value);
+  },
+  PUSH_SELECTED: function PUSH_SELECTED(context, value) {
+    var index = this.state.selectedElem.findIndex(function (item) {
+      return item.id === value.id;
+    });
+
+    if (index === -1) {
+      this.state.selectedElem.push(value);
+    } else {
+      this.state.selectedElem.splice(index, 1);
+    } // You can use this to debug purpose
+    // console.log( this.state.selectedElem )
+
+
+    this.state.totalSelected = this.state.selectedElem.length;
+  },
+  RESET_SELECTED: function RESET_SELECTED(context, value) {
+    context.commit('resetSelected', true); // Reset totalSelected value.
+
+    this.state.totalSelected = this.state.selectedElem.length;
+  },
+  // Get all directory if no value passed or specific subdirectory
+  // if we receive a value
+  GET_DIRECTORY: function GET_DIRECTORY(_ref, value) {
+    var commit = _ref.commit;
+    var route; // Reset Selected Directory
+
+    this.state.selectedElem = [];
+
+    if (value) {
+      this.state.currentDirectory = value;
+      route = this.state.routeGetDirectory + value;
+    } else {
+      this.state.currentDirectory = '';
+      route = this.state.routeGetDirectory;
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+      // if we have some media
+      if (response.data.media) {
+        console.log(response.data.media);
+        commit('SET_MEDIA', response.data.media); // Create Media Types List
+
+        commit('SET_MEDIATYPES', response.data.media);
+      }
+
+      commit('SET_DIRECTORY', response.data.subdirectories);
+    });
+  },
+  // Get Directory For Moving Files
+  GET_MOVE_DIRECTORY: function GET_MOVE_DIRECTORY(_ref2, value) {
+    var commit = _ref2.commit;
+    var route;
+
+    if (value) {
+      route = this.state.routeGetDirectory + value;
+    } else {
+      route = this.state.routeGetDirectory;
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+      commit('SET_MOVE_DIRECTORY', response.data.subdirectories);
+    });
+  },
+  // Create Directory
+  CREATE_DIRECTORY: function CREATE_DIRECTORY(_ref3, value) {
+    var _this = this;
+
+    var commit = _ref3.commit;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
+      // Close Modal
+      commit('CLOSE_MODAL_CREATE', true); // Refresh Current View With New Folder
+
+      _this.dispatch('GET_DIRECTORY', _this.state.currentDirectory);
+    });
+  },
+  DELETE_SELECTED: function DELETE_SELECTED(_ref4, value) {
+    var _this2 = this;
+
+    var commit = _ref4.commit;
+
+    // If We Have Directory -> Delete
+    if (value.folder) {
+      var route;
+
+      if (value.folder) {
+        this.state.currentDirectory = value.folder;
+        route = this.state.routeDeleteDirectory + '?path=' + value.folder;
+      } else {
+        this.state.currentDirectory = '';
+        route = this.state.routeDeleteDirectory;
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
+        commit('CLOSE_MODAL');
+
+        _this2.dispatch('GET_DIRECTORY', response.data.parentFolder);
+      });
+    } // If We Have Media Collection -> Delete
+
+
+    if (value.mediaCollection) {
+      this.dispatch('DELETE_SELECTED_MEDIAS', value.mediaCollection);
+    }
+  },
+  // Set selected directory
+  SET_SELECTED_DIRECTORY: function SET_SELECTED_DIRECTORY(context, value) {
+    context.commit('SET_SELECTED_DIRECTORY', value);
+  },
+  DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(_ref5, value) {
+    var commit = _ref5.commit,
+        context = _ref5.context;
+    var users = [];
+    var promises = [];
+
+    for (var i = 0; i < value.length; i++) {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeDeleteMedia, {
+        id: value[i].id
+      }).then(function (response) {
+        // do something with response
+        users.push(response);
+      }));
+    }
+
+    commit('CLOSE_MODAL');
+    this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
+    Promise.all(promises).then(function () {
+      return console.log();
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/getters.js":
+/*!***************************************!*\
+  !*** ./resources/js/store/getters.js ***!
+  \***************************************/
+/*! exports provided: getters */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getters", function() { return getters; });
+var getters = {
+  GET_CURRENT_DIRECTORY: function GET_CURRENT_DIRECTORY(state) {
+    return state.currentDirectory;
+  },
+  GET_DIRECTORY: function GET_DIRECTORY(state) {
+    return state.directoryCollection;
+  },
+  getMoveDirectory: function getMoveDirectory(state) {
+    return state.moveDirectoryCollection;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/mutations.js":
+/*!*****************************************!*\
+  !*** ./resources/js/store/mutations.js ***!
+  \*****************************************/
+/*! exports provided: mutations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+var mutations = {
+  CLOSE_MODAL: function CLOSE_MODAL(state) {
+    state.modalState.create = false;
+    state.modalState["delete"] = false;
+    state.modalState.move = false;
+  },
+  OPEN_MODAL_CREATE: function OPEN_MODAL_CREATE(state) {
+    state.modalState.create = true;
+  },
+  CLOSE_MODAL_CREATE: function CLOSE_MODAL_CREATE(state) {
+    state.modalState.create = false;
+  },
+  OPEN_MODAL_DELETE: function OPEN_MODAL_DELETE(state) {
+    state.modalState["delete"] = state;
+  },
+  CLOSE_MODAL_DELETE: function CLOSE_MODAL_DELETE(state) {
+    state.modalState["delete"] = false;
+  },
+  OPEN_MODAL_ADD: function OPEN_MODAL_ADD(state) {
+    state.modalState.add = true;
+  },
+  CLOSE_MODAL_ADD: function CLOSE_MODAL_ADD(state) {
+    state.modalState.add = false;
+  },
+  OPEN_MODAL_MOVE: function OPEN_MODAL_MOVE(state) {
+    state.modalState.move = true;
+  },
+  CLOSE_MODAL_MOVE: function CLOSE_MODAL_MOVE(state) {
+    state.modalState.move = false;
+  },
+  VIEW_STATE: function VIEW_STATE(state, value) {
+    state.viewState = value;
+  },
+  PUSH_SELECTED: function PUSH_SELECTED(state, value) {
+    state.selectedElem.push(value);
+  },
+  RESET_SELECTED: function RESET_SELECTED(state, value) {
+    state.selectedElem = [];
+  },
+  SET_ACTIVE_DIRECTORY: function SET_ACTIVE_DIRECTORY(state, value) {
+    state.folderState = false;
+  },
+  SET_MEDIA: function SET_MEDIA(state, items) {
+    state.mediaCollection = items;
+  },
+  SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
+    var _this = this;
+
+    var _loop = function _loop(i) {
+      var index = _this.state.mediaTypeArray.findIndex(function (item) {
+        return item === items[i].aggregate_type;
+      });
+
+      if (index === -1) {
+        _this.state.mediaTypeArray.push(items[i].aggregate_type);
+      }
+    };
+
+    for (var i = 0; i < items.length; i++) {
+      _loop(i);
+    }
+  },
+  SET_DIRECTORY: function SET_DIRECTORY(state, items) {
+    state.directoryCollection = items;
+  },
+  SET_MOVE_DIRECTORY: function SET_MOVE_DIRECTORY(state, items) {
+    state.moveDirectoryCollection = items;
+  },
+  SET_SELECTED_DIRECTORY: function SET_SELECTED_DIRECTORY(state, items) {
+    state.selectedDirectory = items;
+  },
+  DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
+    console.log('delete selected medias');
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/state.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/state.js ***!
+  \*************************************/
+/*! exports provided: state */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+var state = {
+  mainColor: '#9C1820',
+  routeGetDirectory: '/media-api/index/'
+  /* Get All Directory */
+  ,
+  routeCreateDirectory: '/media-api/directory/create'
+  /* Create Folder */
+  ,
+  routeDeleteDirectory: '/media-api/directory/destroy'
+  /* Delete Folder */
+  ,
+  routeDeleteMedia: '/media-api/destroy'
+  /* Delete Media */
+  ,
+  routeMoveDirectory: '/media-api/directory/update'
+  /* Move Folder */
+  ,
+  currentDirectory: null,
+  selectedDirectory: null,
+  totalSelected: 0,
+  modalState: {
+    add: false,
+    create: false,
+    "delete": false,
+    move: false
+  },
+  folderState: true,
+  viewState: false,
+  selectedElem: [],
+  directoryCollection: [],
+  moveDirectoryCollection: [],
+  mediaTypeArray: [],
+  mediaCollection: []
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/store.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/store.js ***!
+  \*************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -37728,301 +38073,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
+
+
+
 
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: {
-    mainColor: '#9C1820',
-    routeGetDirectory: '/media-api/index/'
-    /* Get All Directory */
-    ,
-    routeCreateDirectory: '/media-api/directory/create'
-    /* Create Folder */
-    ,
-    routeDeleteDirectory: '/media-api/directory/destroy'
-    /* Delete Folder */
-    ,
-    routeDeleteMedia: '/media-api/destroy'
-    /* Delete Media */
-    ,
-    routeMoveDirectory: '/media-api/directory/update'
-    /* Move Folder */
-    ,
-    currentDirectory: null,
-    selectedDirectory: null,
-    totalSelected: 0,
-    modalState: {
-      add: false,
-      create: false,
-      "delete": false,
-      move: false
-    },
-    folderState: true,
-    viewState: false,
-    selectedElem: [],
-    directoryCollection: [],
-    moveDirectoryCollection: [],
-    mediaTypeArray: [],
-    mediaCollection: []
-  },
-  getters: {
-    getCurrentDirectory: function getCurrentDirectory(state) {
-      return state.currentDirectory;
-    },
-    getDirectory: function getDirectory(state) {
-      return state.directoryCollection;
-    },
-    getMoveDirectory: function getMoveDirectory(state) {
-      return state.moveDirectoryCollection;
-    }
-  },
-  mutations: {
-    closeModal: function closeModal(state) {
-      state.modalState.create = false;
-      state.modalState["delete"] = false;
-      state.modalState.move = false;
-    },
-    openModalCreate: function openModalCreate(state) {
-      state.modalState.create = true;
-    },
-    closeModalCreate: function closeModalCreate(state) {
-      state.modalState.create = false;
-    },
-    openModalDelete: function openModalDelete(state) {
-      state.modalState["delete"] = state;
-    },
-    closeModalDelete: function closeModalDelete(state) {
-      state.modalState["delete"] = false;
-    },
-    openModalAdd: function openModalAdd(state) {
-      state.modalState.add = true;
-    },
-    closeModalAdd: function closeModalAdd(state) {
-      state.modalState.add = false;
-    },
-    openModalMove: function openModalMove(state) {
-      state.modalState.move = true;
-    },
-    closeModalMove: function closeModalMove(state) {
-      state.modalState.move = false;
-    },
-    viewState: function viewState(state, value) {
-      state.viewState = value;
-    },
-    pushSelected: function pushSelected(state, value) {
-      state.selectedElem.push(value);
-    },
-    resetSelected: function resetSelected(state, value) {
-      state.selectedElem = [];
-    },
-    setActiveDirectory: function setActiveDirectory(state, value) {
-      state.folderState = false;
-    },
-    SET_MEDIA: function SET_MEDIA(state, items) {
-      state.mediaCollection = items;
-    },
-    SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
-      var _this = this;
-
-      var _loop = function _loop(i) {
-        var index = _this.state.mediaTypeArray.findIndex(function (item) {
-          return item === items[i].aggregate_type;
-        });
-
-        if (index === -1) {
-          _this.state.mediaTypeArray.push(items[i].aggregate_type);
-        }
-      };
-
-      for (var i = 0; i < items.length; i++) {
-        _loop(i);
-      }
-    },
-    SET_DIRECTORY: function SET_DIRECTORY(state, items) {
-      state.directoryCollection = items;
-    },
-    SET_MOVE_DIRECTORY: function SET_MOVE_DIRECTORY(state, items) {
-      state.moveDirectoryCollection = items;
-    },
-    SET_SELECTED_DIRECTORY: function SET_SELECTED_DIRECTORY(state, items) {
-      state.selectedDirectory = items;
-    },
-    DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
-      console.log('delete selected medias');
-    }
-  },
-  actions: {
-    closeModal: function closeModal(context) {
-      context.commit('closeModalCreate', false);
-      context.commit('closeModalDelete', false);
-      context.commit('closeModalMove', false);
-    },
-    openModalCreate: function openModalCreate(context) {
-      context.commit('openModalCreate', true);
-    },
-    closeModalCreate: function closeModalCreate(context) {
-      context.commit('closeModalCreate', false);
-    },
-    openModalDelete: function openModalDelete(context) {
-      context.commit('openModalDelete', {
-        modal_state: true
-      });
-    },
-    closeModalDelete: function closeModalDelete(context) {
-      context.commit('closeModalDelete', false);
-    },
-    openModalAdd: function openModalAdd(context) {
-      context.commit('openModalAdd', true);
-    },
-    closeModalAdd: function closeModalAdd(context) {
-      context.commit('closeModalAdd', false);
-    },
-    openMoveModal: function openMoveModal(context) {
-      context.commit('openModalMove', true);
-    },
-    closeMoveModal: function closeMoveModal(context) {
-      context.commit('closeModalMove', false);
-    },
-    viewState: function viewState(context, value) {
-      context.commit('viewState', value);
-    },
-    gridView: function gridView(context, value) {
-      context.commit('viewState', value);
-    },
-    pushSelected: function pushSelected(context, value) {
-      var index = this.state.selectedElem.findIndex(function (item) {
-        return item.id === value.id;
-      });
-
-      if (index === -1) {
-        this.state.selectedElem.push(value);
-      } else {
-        this.state.selectedElem.splice(index, 1);
-      } // You can use this to debug purpose
-      // console.log( this.state.selectedElem )
-
-
-      this.state.totalSelected = this.state.selectedElem.length;
-    },
-    resetSelected: function resetSelected(context, value) {
-      context.commit('resetSelected', true); // Reset totalSelected value.
-
-      this.state.totalSelected = this.state.selectedElem.length;
-    },
-    // Get all directory if no value passed or specific subdirectory
-    // if we receive a value
-    getDirectory: function getDirectory(_ref, value) {
-      var commit = _ref.commit;
-      var route; // Reset Selected Directory
-
-      this.state.selectedElem = [];
-
-      if (value) {
-        this.state.currentDirectory = value;
-        route = this.state.routeGetDirectory + value;
-      } else {
-        this.state.currentDirectory = '';
-        route = this.state.routeGetDirectory;
-      }
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
-        // if we have some media
-        if (response.data.media) {
-          console.log(response.data.media);
-          commit('SET_MEDIA', response.data.media); // Create Media Types List
-
-          commit('SET_MEDIATYPES', response.data.media);
-        }
-
-        commit('SET_DIRECTORY', response.data.subdirectories);
-      });
-    },
-    // Get Directory For Moving Files
-    getMoveDirectory: function getMoveDirectory(_ref2, value) {
-      var commit = _ref2.commit;
-      var route;
-
-      if (value) {
-        route = this.state.routeGetDirectory + value;
-      } else {
-        route = this.state.routeGetDirectory;
-      }
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route, {}).then(function (response) {
-        commit('SET_MOVE_DIRECTORY', response.data.subdirectories);
-      });
-    },
-    // Create Directory
-    createDirectory: function createDirectory(_ref3, value) {
-      var _this2 = this;
-
-      var commit = _ref3.commit;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
-        // Close Modal
-        commit('closeModalCreate', true); // Refresh Current View With New Folder
-
-        _this2.dispatch('getDirectory', _this2.state.currentDirectory);
-      });
-    },
-    deleteSelected: function deleteSelected(_ref4, value) {
-      var _this3 = this;
-
-      var commit = _ref4.commit;
-
-      // If We Have Directory -> Delete
-      if (value.folder) {
-        var route;
-
-        if (value.folder) {
-          this.state.currentDirectory = value.folder;
-          route = this.state.routeDeleteDirectory + '?path=' + value.folder;
-        } else {
-          this.state.currentDirectory = '';
-          route = this.state.routeDeleteDirectory;
-        }
-
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(route, {}).then(function (response) {
-          commit('closeModal');
-
-          _this3.dispatch('getDirectory', response.data.parentFolder);
-        });
-      } // If We Have Media Collection -> Delete
-
-
-      if (value.mediaCollection) {
-        this.dispatch('deleteSelectedMedias', value.mediaCollection);
-      }
-    },
-    // Set selected directory
-    setSelectedDirectory: function setSelectedDirectory(context, value) {
-      context.commit('SET_SELECTED_DIRECTORY', value);
-    },
-    deleteSelectedMedias: function deleteSelectedMedias(_ref5, value) {
-      var commit = _ref5.commit,
-          context = _ref5.context;
-      var users = [];
-      var promises = [];
-
-      for (var i = 0; i < value.length; i++) {
-        promises.push(axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(this.state.routeDeleteMedia, {
-          id: value[i].id
-        }).then(function (response) {
-          // do something with response
-          users.push(response);
-        }));
-      }
-
-      commit('closeModal');
-      this.dispatch('getDirectory', this.state.currentDirectory);
-      Promise.all(promises).then(function () {
-        return console.log();
-      });
-    }
-  }
+  state: _state__WEBPACK_IMPORTED_MODULE_2__["state"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_4__["mutations"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__["actions"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_5__["getters"]
 }));
 
 /***/ }),

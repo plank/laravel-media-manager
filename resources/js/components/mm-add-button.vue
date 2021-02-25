@@ -34,7 +34,7 @@ export default {
   mounted () {},
   methods: {
     openModal: function () {
-      this.$store.dispatch('openModalAdd');
+      this.$store.dispatch('OPEN_MODAL_ADD');
     }
   },
   computed: {

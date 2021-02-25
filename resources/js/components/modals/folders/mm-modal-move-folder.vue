@@ -70,14 +70,14 @@ export default {
           destination: this.selectedFolder
         })
         .then((response) => {
-          this.$store.dispatch('closeModal');
+          this.$store.dispatch('CLOSE_MODAL');
           // Reload Current Directory
-          this.$store.dispatch('getDirectory', this.$store.state.currentDirectory);
+          this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
         });
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('closeMoveModal');
+      this.$store.dispatch('CLOSE_MOVE_MODAL');
     }
   },
   computed: {

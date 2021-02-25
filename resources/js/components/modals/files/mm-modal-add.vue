@@ -33,48 +33,48 @@
 </template>
 
 <script>
-import axios from "axios";
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import axios from 'axios';
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
-  name: "mmmodaladd",
+  name: 'mmmodaladd',
   components: {
-    vueDropzone: vue2Dropzone,
+    vueDropzone: vue2Dropzone
   },
-  data() {
+  data () {
     return {
       dropzoneOptions: {
         url: this.getUploadURL(),
-        dictDefaultMessage: '<span class="upload__illustration"></span>',
-      },
+        dictDefaultMessage: '<span class="upload__illustration"></span>'
+      }
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     getUploadURL: function () {
-      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+      return 'media-api/create?path=' + this.$store.state.currentDirectory + '';
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
       // Refresh current folder
-      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
-    },
+      this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

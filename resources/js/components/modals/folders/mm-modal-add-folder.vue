@@ -259,34 +259,34 @@
 </template>
 
 <script>
-import mmmodal from "./../mm-modal";
-import mmiconbase from "./../../mm-icon-base";
-import iconaddfolder from "./../../icons/icon-add-folder.vue";
+import mmmodal from './../mm-modal';
+import mmiconbase from './../../mm-icon-base';
+import iconaddfolder from './../../icons/icon-add-folder.vue';
 
 export default {
-  name: "mmmodaladdfolder",
+  name: 'mmmodaladdfolder',
   components: {
     mmmodal,
     mmiconbase,
-    iconaddfolder,
+    iconaddfolder
   },
-  data() {
+  data () {
     return {
-      name: null,
+      name: null
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     createDirectory: function ($event) {
       $event.preventDefault();
       const createFolderPath = () => {
         if (this.$store.state.currentDirectory) {
           this.$store.dispatch(
-            "createDirectory",
-            this.$store.state.currentDirectory + "/" + this.name
+            'CREATE_DIRECTORY',
+            this.$store.state.currentDirectory + '/' + this.name
           );
         } else {
-          this.$store.dispatch("createDirectory", this.name);
+          this.$store.dispatch('CREATE_DIRECTORY', this.name);
         }
       };
 
@@ -294,26 +294,26 @@ export default {
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("closeModalCreate");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("closeModalCreate");
-    },
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
+    }
   },
   computed: {
-    getDir() {
+    getDir () {
       return this.$store.getters.getDirectory;
     },
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     removeFromSelected: function (value) {
-      this.$store.dispatch("pushSelected", value);
+      this.$store.dispatch("PUSH_SELECTED", value);
     },
   },
   mounted() {},

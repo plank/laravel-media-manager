@@ -92,11 +92,11 @@
 
 <script>
 export default {
-  name: "mmempty",
+  name: 'mmempty',
   components: {},
-  data() {
+  data () {
     return {};
   },
-  methods: {},
+  methods: {}
 };
 </script>

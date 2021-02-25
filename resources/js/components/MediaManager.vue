@@ -87,6 +87,8 @@
 </template>
 
 <script>
+import {mapState , mapGetters} from 'vuex';
+import store from '../store/store.js';
 import mmsearch from './mm-search';
 import mmresults from './mm-results';
 import mmslidepanel from './slidepanel/mm-slidepanel';
@@ -124,7 +126,7 @@ export default {
   methods: {
     triggerClick: function ($event) {
       if ($event.target.classList.contains('mm__results-grid')) {
-        this.$store.dispatch('setSelectedDirectory', null);
+        this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
         const card = document.getElementsByClassName('mm__results-single');
         for (let i = 0; i < card.length; i++) {
           card.item(i).classList.remove('active');

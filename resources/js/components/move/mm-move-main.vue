@@ -27,49 +27,49 @@
 </template>
 
 <script>
-import { EventBus } from "../../event-bus.js";
+import { EventBus } from '../../event-bus.js';
 export default {
-  name: "mmmovemain",
+  name: 'mmmovemain',
   components: {},
-  data() {
+  data () {
     return {
       current: null,
-      folderIndex: null,
+      folderIndex: null
     };
   },
   methods: {
-    goBack($event) {
+    goBack ($event) {
       $event.preventDefault();
       let directoryTarget = null;
-      const directoryLevel = this.current.split("/");
+      const directoryLevel = this.current.split('/');
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = "";
+        directoryTarget = '';
       }
       this.current = directoryTarget;
-      this.$store.dispatch("getMoveDirectory", directoryTarget);
+      this.$store.dispatch('GET_MOVE_DIRECTORY', directoryTarget);
     },
     selectElement: function ($event, value, index) {
       $event.preventDefault();
       this.folderIndex = index;
-      EventBus.$emit("allowMove", value);
+      EventBus.$emit('allowMove', value);
     },
     goDeeper: function ($event, value) {
       $event.preventDefault();
       this.current = value;
-      this.$store.dispatch("getMoveDirectory", value);
-    },
+      this.$store.dispatch('GET_MOVE_DIRECTORY', value);
+    }
   },
-  mounted() {
-    this.$store.dispatch("getMoveDirectory");
+  mounted () {
+    this.$store.dispatch('GET_MOVE_DIRECTORY');
   },
   computed: {
-    getDir() {
+    getDir () {
       return this.$store.getters.getMoveDirectory;
-    },
-  },
+    }
+  }
 };
 </script>

@@ -47,12 +47,12 @@ export default {
       event.preventDefault();
       this.current = value;
       this.cardItem = null;
-      this.$store.dispatch('setSelectedDirectory', null);
-      this.$store.dispatch('getDirectory', value);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+      this.$store.dispatch('GET_DIRECTORY', value);
     },
     showOptions (index, item) {
       this.cardItem = index;
-      this.$store.dispatch('setSelectedDirectory', item);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', item);
     },
     goBack ($event) {
       $event.preventDefault();
@@ -71,11 +71,11 @@ export default {
   },
   computed: {
     getDir () {
-      return this.$store.getters.getDirectory;
+      return this.$store.getters.GET_DIRECTORY;
     }
   },
   mounted () {
-    this.$store.dispatch('getDirectory');
+    this.$store.dispatch('GET_DIRECTORY');
   }
 };
 </script>

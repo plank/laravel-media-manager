@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
 import mmcard from './mm-card';
 
 export default {

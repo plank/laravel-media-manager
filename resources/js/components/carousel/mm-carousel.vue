@@ -53,24 +53,24 @@
 </template>
 
 <script>
-import mmcarouselcard from "./mm-carousel-card";
-import draggable from "vuedraggable";
+import mmcarouselcard from './mm-carousel-card';
+import draggable from 'vuedraggable';
 
 export default {
-  name: "mmcarousel",
+  name: 'mmcarousel',
   components: {
     mmcarouselcard,
-    draggable,
+    draggable
   },
-  data() {
+  data () {
     return {
       showCarousel: false,
       isMinify: false,
-      isMinimize: false,
+      isMinimize: false
     };
   },
   methods: {
-    updateHoverState(isHover) {
+    updateHoverState (isHover) {
       this.hoverState = isHover;
     },
     hidePanel: function (event) {
@@ -85,21 +85,21 @@ export default {
       event.preventDefault();
       // this.isMinimize = !this.isMinimize;
       // Reset selected elements to Null.
-      this.$store.dispatch("resetSelected");
+      this.$store.dispatch('RESET_SELECTED');
       // Remove all selected icons on view.
-    },
+    }
   },
-  mounted() {},
+  mounted () {},
   computed: {
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
     },
-    totalSelected() {
+    totalSelected () {
       return this.$store.state.totalSelected;
-    },
-  },
+    }
+  }
 };
 </script>
 
