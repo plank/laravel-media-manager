@@ -57,7 +57,7 @@ export default {
     };
   },
   mounted () {
-    EventBus.$on('allowMove', (value) => {
+    EventBus.$on('allow-move', (value) => {
       this.selectedFolder = value;
     });
   },

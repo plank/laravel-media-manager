@@ -4,7 +4,7 @@
       <li v-if="this.createBreadcrumb.length > 0">
         <a v-on:click="openRootDirectory($event, '/')" href="#">...</a>
       </li>
-      <li v-for="(elem, index) in this.createBreadcrumb" :key="index" v-if="elem">
+      <li v-for="(elem, index) in breadCrumb" :key="index" v-if="elem">
         <span v-if="index != Object.keys(createBreadcrumb).length - 1">
           <a v-on:click="openDirectory($event, { index, elem })" href="#">{{ elem }}</a>
         </span>
@@ -42,6 +42,13 @@ export default {
     }
   },
   computed: {
+    breadCrumb () {
+      if (this.createBreadcrumb.length > 0) {
+        return this.createBreadcrumb;
+      } else {
+        return false;
+      }
+    },
     createBreadcrumb () {
       let entryArray = null;
       if (this.$store.getters.GET_CURRENT_DIRECTORY) {

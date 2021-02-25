@@ -9,18 +9,18 @@
 
 <script>
 export default {
-  name: "mmcarouselcard",
+  name: 'mmcarouselcard',
   components: {},
-  props: ["item", "index"],
-  data() {
+  props: ['item', 'index'],
+  data () {
     return {};
   },
   methods: {
     removeFromSelected: function (value) {
-      this.$store.dispatch("PUSH_SELECTED", value);
-    },
+      this.$store.dispatch('PUSH_SELECTED', value);
+    }
   },
-  mounted() {},
-  computed: {},
+  mounted () {},
+  computed: {}
 };
 </script>

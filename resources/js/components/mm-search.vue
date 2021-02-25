@@ -147,8 +147,6 @@
 import { EventBus } from '../event-bus.js';
 import mmiconbase from './mm-icon-base.vue';
 import iconadddirectory from './icons/icon-add-directory.vue';
-import icongrid from './icons/icon-grid.vue';
-import iconlist from './icons/icon-list.vue';
 import iconsearch from './icons/icon-search.vue';
 import icondelete from './icons/icon-delete.vue';
 import iconinfo from './icons/icon-info.vue';
@@ -159,8 +157,6 @@ export default {
   components: {
     mmiconbase,
     iconadddirectory,
-    icongrid,
-    iconlist,
     iconsearch,
     icondelete,
     iconinfo,

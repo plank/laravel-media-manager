@@ -260,15 +260,11 @@
 
 <script>
 import mmmodal from './../mm-modal';
-import mmiconbase from './../../mm-icon-base';
-import iconaddfolder from './../../icons/icon-add-folder.vue';
 
 export default {
   name: 'mmmodaladdfolder',
   components: {
     mmmodal,
-    mmiconbase,
-    iconaddfolder
   },
   data () {
     return {

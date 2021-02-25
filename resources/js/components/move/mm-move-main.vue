@@ -55,7 +55,7 @@ export default {
     selectElement: function ($event, value, index) {
       $event.preventDefault();
       this.folderIndex = index;
-      EventBus.$emit('allowMove', value);
+      EventBus.$emit('allow-move', value);
     },
     goDeeper: function ($event, value) {
       $event.preventDefault();
