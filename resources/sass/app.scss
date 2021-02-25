@@ -35,6 +35,12 @@
 // NOTE: This can be remove
 body {
     background: $mm-bg-color;
+
+    &.mm__carousel-open {
+        .btn-add {
+            bottom: 6em;
+        }
+    }
 }
 
 .app-container {

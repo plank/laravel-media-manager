@@ -2304,7 +2304,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showCarousel: false,
+      showCarousel: true,
       isMinify: false,
       isMinimize: false
     };
@@ -2336,6 +2336,13 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     totalSelected: function totalSelected() {
+      // Add Class To Prevent Buttons Overlap
+      if (this.$store.state.totalSelected > 1 && this.isMinify && this.showCarousel) {
+        document.body.classList.add('mm__carousel-open');
+      } else {
+        document.body.classList.remove('mm__carousel-open');
+      }
+
       return this.$store.state.totalSelected;
     }
   }

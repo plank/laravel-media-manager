@@ -64,7 +64,7 @@ export default {
   },
   data () {
     return {
-      showCarousel: false,
+      showCarousel: true,
       isMinify: false,
       isMinimize: false
     };
@@ -97,6 +97,12 @@ export default {
       };
     },
     totalSelected () {
+      // Add Class To Prevent Buttons Overlap
+      if (this.$store.state.totalSelected > 1 && this.isMinify && this.showCarousel) {
+        document.body.classList.add('mm__carousel-open');
+      } else {
+        document.body.classList.remove('mm__carousel-open');
+      }
       return this.$store.state.totalSelected;
     }
   }

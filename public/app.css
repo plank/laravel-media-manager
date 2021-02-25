@@ -1002,6 +1002,10 @@ body {
   background: #FFFFFF;
 }
 
+body.mm__carousel-open .btn-add {
+  bottom: 6em;
+}
+
 .app-container {
   background: #25223F;
   display: grid;
