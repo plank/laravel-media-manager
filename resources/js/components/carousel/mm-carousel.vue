@@ -65,7 +65,7 @@ export default {
   },
   data () {
     return {
-      showCarousel: true,
+      showCarousel: false,
       isMinify: false,
       isMinimize: false
     };

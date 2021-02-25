@@ -2307,7 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showCarousel: true,
+      showCarousel: false,
       isMinify: false,
       isMinimize: false
     };
