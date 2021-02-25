@@ -921,6 +921,10 @@ table tr {
 
 .mm__move-folder-list li {
   border-radius: 4px;
+  background-image: url(/images/icon-folder.svg?d58c09fa66008574e5b33725ff40b76b);
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 2em;
 }
 
 .mm__move-folder-list li a {
@@ -958,7 +962,10 @@ table tr {
 }
 
 .mm__move-folder-list li.active {
-  background: #f3f3f3;
+  background-color: #f3f3f3;
+  background-image: url(/images/icon-folder.svg?d58c09fa66008574e5b33725ff40b76b);
+  background-position: left center;
+  background-repeat: no-repeat;
 }
 
 .mm__move-folder-list li.active .mm__move-folder-title a :hover {
