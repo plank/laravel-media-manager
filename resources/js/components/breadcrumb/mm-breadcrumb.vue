@@ -30,6 +30,7 @@ export default {
     openRootDirectory: function ($event, value) {
       $event.preventDefault();
       this.$store.dispatch('GET_DIRECTORY', value);
+      this.$store.dispatch('RESET_SELECTED');
     },
     openDirectory: function ($event, value) {
       $event.preventDefault();
@@ -39,6 +40,7 @@ export default {
         .map((key) => `${newBreadcrumbArray[key]}`)
         .join('/');
       this.$store.dispatch('GET_DIRECTORY', qs);
+      this.$store.dispatch('RESET_SELECTED');
     }
   },
   computed: {

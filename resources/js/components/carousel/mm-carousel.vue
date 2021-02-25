@@ -5,6 +5,7 @@
       class="mm__carousel"
       v-if="totalSelected > 1 && !isMinimize && showCarousel"
     >
+    {{ totalSelected }}
       <div class="mm__carousel-title">
         <div>
           <h2>{{ $t("carousel.title") }}</h2>

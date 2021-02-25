@@ -2155,6 +2155,7 @@ __webpack_require__.r(__webpack_exports__);
     openRootDirectory: function openRootDirectory($event, value) {
       $event.preventDefault();
       this.$store.dispatch('GET_DIRECTORY', value);
+      this.$store.dispatch('RESET_SELECTED');
     },
     openDirectory: function openDirectory($event, value) {
       $event.preventDefault();
@@ -2164,6 +2165,7 @@ __webpack_require__.r(__webpack_exports__);
         return "".concat(newBreadcrumbArray[key]);
       }).join('/');
       this.$store.dispatch('GET_DIRECTORY', qs);
+      this.$store.dispatch('RESET_SELECTED');
     }
   },
   computed: {
@@ -2240,6 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_carousel_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-carousel-card */ "./resources/js/components/carousel/mm-carousel-card.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -11839,6 +11842,7 @@ var render = function() {
           "div",
           { staticClass: "mm__carousel", class: { minify: _vm.isMinify } },
           [
+            _vm._v("\n  " + _vm._s(_vm.totalSelected) + "\n    "),
             _c("div", { staticClass: "mm__carousel-title" }, [
               _c("div", [_c("h2", [_vm._v(_vm._s(_vm.$t("carousel.title")))])]),
               _vm._v(" "),
@@ -37343,7 +37347,7 @@ var actions = {
     this.state.totalSelected = this.state.selectedElem.length;
   },
   RESET_SELECTED: function RESET_SELECTED(context, value) {
-    context.commit('resetSelected', true); // Reset totalSelected value.
+    context.commit('RESET_SELECTED', true); // Reset totalSelected value.
 
     this.state.totalSelected = this.state.selectedElem.length;
   },

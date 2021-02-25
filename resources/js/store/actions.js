@@ -53,7 +53,7 @@ export const actions = {
     this.state.totalSelected = this.state.selectedElem.length;
   },
   RESET_SELECTED (context, value) {
-    context.commit('resetSelected', true);
+    context.commit('RESET_SELECTED', true);
     // Reset totalSelected value.
     this.state.totalSelected = this.state.selectedElem.length;
   },
