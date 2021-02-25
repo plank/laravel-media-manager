@@ -3986,6 +3986,12 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('GET_MOVE_DIRECTORY', value);
     }
   },
+  filters: {
+    clearname: function clearname(name) {
+      name = name.split('/');
+      return name[name.length - 1];
+    }
+  },
   mounted: function mounted() {
     this.$store.dispatch('GET_MOVE_DIRECTORY');
   },
@@ -14323,7 +14329,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(item))]
+                    [_vm._v(_vm._s(_vm._f("clearname")(item)))]
                   )
                 ]),
                 _vm._v(" "),
@@ -37353,7 +37359,6 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
       // if we have some media
       if (response.data.media) {
-        console.log(response.data.media);
         commit('SET_MEDIA', response.data.media); // Create Media Types List
 
         commit('SET_MEDIATYPES', response.data.media);
@@ -37362,7 +37367,7 @@ var actions = {
       commit('SET_DIRECTORY', response.data.subdirectories);
     });
   },
-  // Get Directory For Moving Files
+  // Get Directory For Moving Files
   GET_MOVE_DIRECTORY: function GET_MOVE_DIRECTORY(_ref2, value) {
     var commit = _ref2.commit;
     var route;

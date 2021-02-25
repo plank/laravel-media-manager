@@ -73,7 +73,6 @@ export const actions = {
     axios.get(route, {}).then(response => {
       // if we have some media
       if (response.data.media) {
-        console.log(response.data.media);
         commit('SET_MEDIA', response.data.media);
         // Create Media Types List
         commit('SET_MEDIATYPES', response.data.media);
@@ -81,7 +80,7 @@ export const actions = {
       commit('SET_DIRECTORY', response.data.subdirectories);
     });
   },
-  // Get Directory For Moving Files
+  // Get Directory For Moving Files
   GET_MOVE_DIRECTORY ({ commit }, value) {
     let route;
     if (value) {

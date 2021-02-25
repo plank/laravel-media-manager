@@ -15,7 +15,7 @@
       >
         <div class="mm__move-single">
           <div class="mm__move-folder-title">
-            <a v-on:click="selectElement($event, item, index)" href="#">{{ item }}</a>
+            <a v-on:click="selectElement($event, item, index)" href="#">{{ item | clearname }}</a>
           </div>
           <div class="mm__move-folder-handler">
             <a v-on:click="goDeeper($event, item)" href="#">Enter</a>
@@ -61,6 +61,12 @@ export default {
       $event.preventDefault();
       this.current = value;
       this.$store.dispatch('GET_MOVE_DIRECTORY', value);
+    }
+  },
+  filters: {
+    clearname: function (name) {
+      name = name.split('/');
+      return name[name.length - 1];
     }
   },
   mounted () {
