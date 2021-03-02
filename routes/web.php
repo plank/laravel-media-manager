@@ -2,17 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Plank\MediaManager\Http\Controllers\MediaManagerController;
-use Plank\MediaManager\Http\Controllers\MediaController;
-use Plank\MediaManager\Http\Controllers\MediaSearchController;
 
 // =============================================================
 // View Routes
 // =============================================================
 
-//Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
-//    Route::get('index', [MediaManagerController::class, 'index'])->name('index');
-//});
+Route::group(['prefix' => 'media', 'as' => 'media.', 'namespace' => 'Plank\MediaManager\Http\Controllers'], function () {
+    Route::get('index', 'MediaManagerController@index')->name('index');
+});
 
 // =============================================================
 // Json Routes
