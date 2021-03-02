@@ -2,6 +2,7 @@
 
 namespace Plank\MediaManager\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,7 @@ class MediaController extends BaseController
     }
 
     /**
-     * Retrieve details about a specific piece of media
+     * Retrieve details about a specific piece of media.
      *
      * @param $id
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
@@ -49,14 +50,23 @@ class MediaController extends BaseController
      */
     public function index(Request $request, $path = "")
     {
-        $disk = $this->manager->verifyDisk($request->disk);
-        $path = $this->manager->verifyDirectory($disk, $path);
+        $diskString = $this->manager->verifyDisk($request->disk);
+        $disk = Storage::disk($diskString);
+        $path = $this->manager->verifyDirectory($diskString, $path);
         $page = $request->page;
 
-        $media = Media::inDirectory($disk, $path)->get()->forPage($page, 20);
-        $subdirectories = Storage::disk($disk)->directories($path);
+        $media = Media::inDirectory($diskString, $path)->get()->forPage($page, 20);
+        $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
-        return response(['subdirectories' => array_diff($subdirectories, $this->ignore), 'media' => $media]);
+        // Get the timestamp for each directory. This can probably be improved later.
+        foreach ($subdirectories as $index => $subdirectory) {
+            $timestamp = $disk->lastModified($subdirectory);
+            $subdirectories[$index] = [
+                'name' => $subdirectory,
+                'timestamp' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s')];
+        }
+
+        return response(['subdirectories' => $subdirectories, 'media' => $media]);
     }
 
     /**
