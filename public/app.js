@@ -2506,6 +2506,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmfoldercard',
   props: ['item'],
@@ -2743,6 +2746,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmfolders',
@@ -2752,11 +2763,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       current: null,
-      cardItem: null // directoryCollection: this.$store.state.directoryCollection
+      cardItem: null,
+      optionsArray1: [{
+        name: this.$i18n.t('actions.delete'),
+        slug: 'delete',
+        "class": 'delete-class'
+      }, {
+        type: 'divider'
+      }, {
+        name: 'Move',
+        slug: 'move'
+      }] // directoryCollection: this.$store.state.directoryCollection
 
     };
   },
   methods: {
+    handleClick: function handleClick(event, item) {
+      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+    },
+    optionClicked: function optionClicked(event) {
+      this.$store.state.selectedElem.push(event.item);
+
+      if (JSON.stringify(event.option.slug) === '"delete"') {
+        this.$store.dispatch('OPEN_MODAL_DELETE');
+      } else if (JSON.stringify(event.option.slug) === '"move"') {
+        this.$store.state.selectedDirectory = event.item;
+        this.$store.dispatch('OPEN_MOVE_MODAL'); // EventBus.$emit('open-slide-panel', [event.item]);
+      }
+    },
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function openDirectory(event, value) {
@@ -2931,7 +2965,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2947,17 +2996,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmresults",
+  name: 'mmresults',
   components: {
-    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_0__["default"]
+    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      mediaCollection: this.$store.state.mediaCollection
+      mediaCollection: this.$store.state.mediaCollection,
+      optionsArray1: [{
+        name: this.$i18n.t('actions.delete'),
+        slug: 'delete',
+        "class": 'delete-class'
+      }, {
+        type: 'divider'
+      }, {
+        name: 'See details',
+        slug: 'details'
+      }]
     };
   },
-  methods: {},
+  methods: {
+    handleClick: function handleClick(event, item) {
+      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+    },
+    optionClicked: function optionClicked(event) {
+      this.$store.state.selectedElem.push(event.item);
+
+      if (JSON.stringify(event.option.slug) === '"delete"') {
+        this.$store.dispatch('OPEN_MODAL_DELETE');
+      } else if (JSON.stringify(event.option.slug) === '"details"') {
+        _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', [event.item]);
+      }
+    }
+  },
   mounted: function mounted() {},
   computed: {
     getMedia: function getMedia() {
@@ -3167,7 +3240,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3179,7 +3252,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: "",
+      selectedFilterType: '',
       isSearch: false,
       searchTerm: null
     };
@@ -3188,48 +3261,48 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch("VIEW_STATE", value);
+      this.$store.dispatch('VIEW_STATE', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_CREATE");
+      this.$store.dispatch('OPEN_MODAL_CREATE');
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MOVE_MODAL");
+      this.$store.dispatch('OPEN_MOVE_MODAL');
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName("mm__card");
+      var card = document.getElementsByClassName('mm__card');
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove("hide");
+        card.item(i).parentNode.classList.remove('hide');
 
-        if (this.selectedFilterType !== "all") {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
-            card.item(i).parentNode.classList.add("hide");
+        if (this.selectedFilterType !== 'all') {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
+            card.item(i).parentNode.classList.add('hide');
           }
         } else {
-          card.item(i).parentNode.classList.remove("hide");
+          card.item(i).parentNode.classList.remove('hide');
         }
       }
     },
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
-      this.$store.dispatch("RESET_SELECTED");
+      this.$store.dispatch('RESET_SELECTED');
     },
     openSearch: function openSearch($event) {
       $event.preventDefault();
@@ -3237,7 +3310,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.isSearch) {
         // Reset State
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
       }
 
       this.isSearch = !this.isSearch;
@@ -3245,7 +3318,7 @@ __webpack_require__.r(__webpack_exports__);
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
 
-      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
     }
   },
   computed: {
@@ -3272,7 +3345,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return "";
+      if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -3873,8 +3946,8 @@ __webpack_require__.r(__webpack_exports__);
 
       $event.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post(this.$store.state.routeMoveDirectory, {
-        source: this.$store.state.selectedDirectory,
-        destination: this.selectedFolder
+        source: this.$store.state.selectedDirectory.name,
+        destination: this.selectedFolder.name
       }).then(function (response) {
         _this2.$store.dispatch('CLOSE_MODAL'); // Reload Current Directory
 
@@ -4175,7 +4248,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconclose: _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -4193,14 +4266,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("openModalDelete");
+      this.$store.dispatch('openModalDelete');
       this.slideOpen = false;
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
       _this.slideOpen = true;
       _this.data = value;
     });
@@ -4208,7 +4281,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -9406,6 +9479,19 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/v-click-outside/dist/v-click-outside.min.umd.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/v-click-outside/dist/v-click-outside.min.umd.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,n){ true?module.exports=n():undefined}(this,function(){var e="__v-click-outside",n="undefined"!=typeof window,t="undefined"!=typeof navigator,i=n&&("ontouchstart"in window||t&&navigator.msMaxTouchPoints>0)?["touchstart"]:["click"];function r(n,t){var r=function(e){var n="function"==typeof e;if(!n&&"object"!=typeof e)throw new Error("v-click-outside: Binding value must be a function or an object");return{handler:n?e:e.handler,middleware:e.middleware||function(e){return e},events:e.events||i,isActive:!(!1===e.isActive)}}(t.value),o=r.handler,d=r.middleware;r.isActive&&(n[e]=r.events.map(function(e){return{event:e,handler:function(e){return function(e){var n=e.el,t=e.event,i=e.handler,r=e.middleware;t.target!==n&&!n.contains(t.target)&&r(t,n)&&i(t,n)}({event:e,el:n,handler:o,middleware:d})}}}),n[e].forEach(function(e){var n=e.event,t=e.handler;return setTimeout(function(){return document.documentElement.addEventListener(n,t,!1)},0)}))}function o(n){(n[e]||[]).forEach(function(e){return document.documentElement.removeEventListener(e.event,e.handler,!1)}),delete n[e]}var d={bind:r,update:function(e,n){var t=n.value,i=n.oldValue;JSON.stringify(t)!==JSON.stringify(i)&&(o(e),r(e,{value:t}))},unbind:o};return{install:function(e){e.directive("click-outside",d)},directive:d}});
+//# sourceMappingURL=v-click-outside.min.min.umd.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-i18n/dist/vue-i18n.esm.js":
 /*!****************************************************!*\
   !*** ./node_modules/vue-i18n/dist/vue-i18n.esm.js ***!
@@ -12696,7 +12782,7 @@ var render = function() {
         _c("span", { staticClass: "date" }, [
           _vm._v(
             _vm._s(_vm.$t("actions.created_on")) +
-              " " +
+              "\n      " +
               _vm._s(_vm._f("moment")(_vm.item.timestamp, "MMMM Do, YYYY"))
           )
         ])
@@ -13002,35 +13088,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mm__results" }, [
-    this.$store.state.hideDirectory == false
-      ? _c(
-          "div",
-          { staticClass: "mm__results-grid" },
-          _vm._l(_vm.getDir, function(item, index) {
-            return _c(
-              "div",
-              {
-                key: index,
-                staticClass: "mm__results-single",
-                class: [_vm.cardItem == index ? "active" : ""],
-                on: {
-                  click: function($event) {
-                    return _vm.showOptions(index, item)
-                  },
-                  dblclick: function($event) {
-                    return _vm.openDirectory($event, item)
+  return _c(
+    "div",
+    { staticClass: "mm__results" },
+    [
+      this.$store.state.hideDirectory == false
+        ? _c(
+            "div",
+            { staticClass: "mm__results-grid" },
+            _vm._l(_vm.getDir, function(item, index) {
+              return _c(
+                "div",
+                {
+                  key: index,
+                  staticClass: "mm__results-single",
+                  class: [_vm.cardItem == index ? "active" : ""],
+                  on: {
+                    click: function($event) {
+                      return _vm.showOptions(index, item)
+                    },
+                    dblclick: function($event) {
+                      return _vm.openDirectory($event, item)
+                    },
+                    contextmenu: function($event) {
+                      $event.preventDefault()
+                      $event.stopPropagation()
+                      return _vm.handleClick($event, item)
+                    }
                   }
-                }
-              },
-              [_c("mmfoldercard", { attrs: { item: item } })],
-              1
-            )
-          }),
-          0
-        )
-      : _vm._e()
-  ])
+                },
+                [_c("mmfoldercard", { attrs: { item: item } })],
+                1
+              )
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("vue-simple-context-menu", {
+        ref: "vueSimpleContextMenu",
+        attrs: { elementId: "myUniqueId", options: _vm.optionsArray1 },
+        on: { "option-clicked": _vm.optionClicked }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13179,33 +13281,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mm__results" }, [
-    _c(
-      "div",
-      { staticClass: "mm__results-grid" },
-      [
-        _vm._l(_vm.getMedia, function(item) {
-          return _c(
-            "div",
-            { key: item.id, staticClass: "mm__results-single" },
-            [
-              _c("mmcard", {
-                attrs: { "data-type": item.aggregate_type, item: item }
-              })
-            ],
-            1
-          )
-        }),
-        _vm._v(" "),
-        _vm.getMedia.length == 0 && this.$store.state.hideDirectory
-          ? _c("div", { staticClass: "mm__search-no-result" }, [
-              _c("h3", [_vm._v(_vm._s(_vm.$t("search.no_result")))])
-            ])
-          : _vm._e()
-      ],
-      2
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "mm__results" },
+    [
+      _c(
+        "div",
+        { staticClass: "mm__results-grid" },
+        [
+          _vm._l(_vm.getMedia, function(item) {
+            return _c(
+              "div",
+              {
+                key: item.id,
+                staticClass: "mm__results-single",
+                on: {
+                  contextmenu: function($event) {
+                    $event.preventDefault()
+                    $event.stopPropagation()
+                    return _vm.handleClick($event, item)
+                  }
+                }
+              },
+              [
+                _c("mmcard", {
+                  attrs: { "data-type": item.aggregate_type, item: item }
+                })
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _vm.getMedia.length == 0 && this.$store.state.hideDirectory
+            ? _c("div", { staticClass: "mm__search-no-result" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.$t("search.no_result")))])
+              ])
+            : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("vue-simple-context-menu", {
+        ref: "vueSimpleContextMenu",
+        attrs: { elementId: "CardElement", options: _vm.optionsArray1 },
+        on: { "option-clicked": _vm.optionClicked }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19621,6 +19744,297 @@ exports.install = vueMoment_1;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.esm.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.esm.js ***!
+  \**********************************************************************************/
+/*! exports provided: default, install */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! v-click-outside */ "./node_modules/v-click-outside/dist/v-click-outside.min.umd.js");
+/* harmony import */ var v_click_outside__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(v_click_outside__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+//
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_click_outside__WEBPACK_IMPORTED_MODULE_1___default.a);
+
+var script = {
+  name: 'VueSimpleContextMenu',
+  props: {
+    elementId: {
+      type: String,
+      required: true
+    },
+    options: {
+      type: Array,
+      required: true
+    }
+  },
+  data: function data () {
+    return {
+      item: null,
+      menuWidth: null,
+      menuHeight: null
+    }
+  },
+  methods: {
+    showMenu: function showMenu (event, item) {
+      this.item = item;
+
+      var menu = document.getElementById(this.elementId);
+      if (!menu) {
+        return
+      }
+
+      if (!this.menuWidth || !this.menuHeight) {
+        menu.style.visibility = "hidden";
+        menu.style.display = "block";
+        this.menuWidth = menu.offsetWidth;
+        this.menuHeight = menu.offsetHeight;
+        menu.removeAttribute("style");
+      }
+
+      if ((this.menuWidth + event.pageX) >= window.innerWidth) {
+        menu.style.left = (event.pageX - this.menuWidth + 2) + "px";
+      } else {
+        menu.style.left = (event.pageX - 2) + "px";
+      }
+
+      if ((this.menuHeight + event.pageY) >= window.innerHeight) {
+        menu.style.top = (event.pageY - this.menuHeight + 2) + "px";
+      } else {
+        menu.style.top = (event.pageY - 2) + "px";
+      }
+
+      menu.classList.add('vue-simple-context-menu--active');
+    },
+    hideContextMenu: function hideContextMenu () {
+      var element = document.getElementById(this.elementId);
+      if (element) {
+        element.classList.remove('vue-simple-context-menu--active');
+      }
+    },
+    onClickOutside: function onClickOutside () {
+      this.hideContextMenu();
+    },
+    optionClicked: function optionClicked (option) {
+      this.hideContextMenu();
+      this.$emit('option-clicked', {
+        item: this.item,
+        option: option
+      });
+    },
+    onEscKeyRelease: function onEscKeyRelease (event) {
+      if (event.keyCode === 27) {
+        this.hideContextMenu();
+      }
+    }
+  },
+  mounted: function mounted () {
+    document.body.addEventListener('keyup', this.onEscKeyRelease);
+  },
+  beforeDestroy: function beforeDestroy () {
+    document.removeEventListener('keyup', this.onEscKeyRelease);
+  }
+};
+
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+        createInjectorSSR = createInjector;
+        createInjector = shadowMode;
+        shadowMode = false;
+    }
+    // Vue.extend constructor export interop.
+    var options = typeof script === 'function' ? script.options : script;
+    // render functions
+    if (template && template.render) {
+        options.render = template.render;
+        options.staticRenderFns = template.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
+        }
+    }
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (style) {
+                style.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (style) {
+        hook = shadowMode
+            ? function (context) {
+                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                style.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            var originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            var existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return script;
+}
+
+/* script */
+var __vue_script__ = script;
+/* template */
+var __vue_render__ = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c("div", [
+    _c(
+      "ul",
+      {
+        directives: [
+          {
+            name: "click-outside",
+            rawName: "v-click-outside",
+            value: _vm.onClickOutside,
+            expression: "onClickOutside"
+          }
+        ],
+        staticClass: "vue-simple-context-menu",
+        attrs: { id: _vm.elementId }
+      },
+      _vm._l(_vm.options, function(option, index) {
+        return _c(
+          "li",
+          {
+            key: index,
+            staticClass: "vue-simple-context-menu__item",
+            class: [
+              option.class,
+              option.type === "divider"
+                ? "vue-simple-context-menu__divider"
+                : ""
+            ],
+            on: {
+              click: function($event) {
+                $event.stopPropagation();
+                return _vm.optionClicked(option)
+              }
+            }
+          },
+          [_c("span", { domProps: { innerHTML: _vm._s(option.name) } })]
+        )
+      }),
+      0
+    )
+  ])
+};
+var __vue_staticRenderFns__ = [];
+__vue_render__._withStripped = true;
+
+  /* style */
+  var __vue_inject_styles__ = undefined;
+  /* scoped */
+  var __vue_scope_id__ = undefined;
+  /* module identifier */
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
+  var __vue_is_functional_template__ = false;
+  /* style inject */
+  
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  var __vue_component__ = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+    __vue_inject_styles__,
+    __vue_script__,
+    __vue_scope_id__,
+    __vue_is_functional_template__,
+    __vue_module_identifier__,
+    false,
+    undefined,
+    undefined,
+    undefined
+  );
+
+// Import vue component
+
+// install function executed by Vue.use()
+function install (Vue) {
+  if (install.installed) { return; }
+  install.installed = true;
+  Vue.component('VueSimpleContextMenu', __vue_component__);
+}
+
+// Create module definition for Vue.use()
+var plugin = {
+  install: install,
+};
+
+// To auto-install when vue is found
+var GlobalVue = null;
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
+
+// It's possible to expose named exports when writing components that can
+// also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
+// export const RollupDemoDirective = component;
+
+/* harmony default export */ __webpack_exports__["default"] = (__vue_component__);
+
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -35432,13 +35846,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
-/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
-/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-simple-context-menu */ "./node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.esm.js");
+/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
+/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
 
+ // Context Menu
 
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simple-context-menu', vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create();
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -37533,7 +37951,7 @@ var actions = {
     var _this = this;
 
     var commit = _ref3.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeSearchMedia + '?path=' + value, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
       // Close Modal
       commit('CLOSE_MODAL_CREATE', true); // Refresh Current View With New Folder
 
@@ -37551,7 +37969,7 @@ var actions = {
 
       if (value.folder) {
         this.state.currentDirectory = value.folder;
-        route = this.state.routeDeleteDirectory + '?path=' + value.folder;
+        route = this.state.routeDeleteDirectory + '?path=' + value.folder.name;
       } else {
         this.state.currentDirectory = '';
         route = this.state.routeDeleteDirectory;

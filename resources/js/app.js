@@ -4,6 +4,10 @@ import MediaManager from './components/MediaManager';
 import axios from 'axios';
 import store from './store/store';
 
+// Context Menu
+import VueSimpleContextMenu from 'vue-simple-context-menu';
+Vue.component('vue-simple-context-menu', VueSimpleContextMenu);
+
 import '../sass/app.scss';
 
 Vue.prototype.$http = axios.create();

@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import {mapState , mapGetters} from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import store from '../store/store.js';
 import mmsearch from './mm-search';
 import mmresults from './mm-results';

@@ -66,8 +66,8 @@ export default {
       $event.preventDefault();
       axios
         .post(this.$store.state.routeMoveDirectory, {
-          source: this.$store.state.selectedDirectory,
-          destination: this.selectedFolder
+          source: this.$store.state.selectedDirectory.name,
+          destination: this.selectedFolder.name
         })
         .then((response) => {
           this.$store.dispatch('CLOSE_MODAL');

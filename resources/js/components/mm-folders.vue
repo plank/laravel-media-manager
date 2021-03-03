@@ -15,6 +15,7 @@
         v-bind:class="[cardItem == index ? 'active' : '']"
         v-on:click="showOptions(index, item)"
         v-on:dblclick="openDirectory($event, item)"
+        @contextmenu.prevent.stop="handleClick($event, item)"
       >
         <mmfoldercard :item="item"></mmfoldercard>
       </div>
@@ -22,6 +23,13 @@
     <!-- <div class="mm__results-empty" v-else>
       <h2>Empty Folder Illustration</h2>
     </div> -->
+
+    <vue-simple-context-menu
+      :elementId="'myUniqueId'"
+      :options="optionsArray1"
+      :ref="'vueSimpleContextMenu'"
+      @option-clicked="optionClicked"
+    />
   </div>
 </template>
 
@@ -36,11 +44,38 @@ export default {
   data () {
     return {
       current: null,
-      cardItem: null
+      cardItem: null,
+      optionsArray1: [
+        {
+          name: this.$i18n.t('actions.delete'),
+          slug: 'delete',
+          class: 'delete-class'
+        },
+        {
+          type: 'divider'
+        },
+        {
+          name: 'Move',
+          slug: 'move'
+        }
+      ]
       // directoryCollection: this.$store.state.directoryCollection
     };
   },
   methods: {
+    handleClick (event, item) {
+      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+    },
+    optionClicked (event) {
+      this.$store.state.selectedElem.push(event.item);
+      if (JSON.stringify(event.option.slug) === '"delete"') {
+        this.$store.dispatch('OPEN_MODAL_DELETE');
+      } else if (JSON.stringify(event.option.slug) === '"move"') {
+        this.$store.state.selectedDirectory = event.item;
+        this.$store.dispatch('OPEN_MOVE_MODAL');
+        // EventBus.$emit('open-slide-panel', [event.item]);
+      }
+    },
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function (event, value) {

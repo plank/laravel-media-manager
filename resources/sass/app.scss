@@ -1,3 +1,4 @@
+// @import './../../node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.css';
 
 // 01-settings
 @import '01-settings/reset';
@@ -20,6 +21,7 @@
 @import '05-components/header';
 @import '05-components/search';
 @import '05-components/buttons';
+@import '05-components/context';
 @import '05-components/icons';
 @import '05-components/card';
 @import '05-components/slidepanel';

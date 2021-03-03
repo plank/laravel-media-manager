@@ -95,7 +95,7 @@ export const actions = {
   // Create Directory
   CREATE_DIRECTORY ({ commit }, value) {
     axios
-      .post(this.state.routeSearchMedia + '?path=' + value, {})
+      .post(this.state.routeCreateDirectory + '?path=' + value, {})
       .then(response => {
         // Close Modal
         commit('CLOSE_MODAL_CREATE', true);
@@ -109,7 +109,7 @@ export const actions = {
       let route;
       if (value.folder) {
         this.state.currentDirectory = value.folder;
-        route = this.state.routeDeleteDirectory + '?path=' + value.folder;
+        route = this.state.routeDeleteDirectory + '?path=' + value.folder.name;
       } else {
         this.state.currentDirectory = '';
         route = this.state.routeDeleteDirectory;
