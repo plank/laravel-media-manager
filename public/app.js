@@ -3128,6 +3128,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3193,6 +3196,10 @@ __webpack_require__.r(__webpack_exports__);
           card.item(i).parentNode.classList.remove('hide');
         }
       }
+    },
+    deselectAll: function deselectAll($event) {
+      $event.preventDefault();
+      this.$store.dispatch('RESET_SELECTED');
     }
   },
   computed: {
@@ -13290,6 +13297,23 @@ var render = function() {
               1
             )
           ]),
+          _vm._v(" "),
+          this.$store.state.totalSelected > 1
+            ? _c("li", [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deselectAll($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Deselect All")]
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           this.$store.state.selectedDirectory
             ? _c("li", [

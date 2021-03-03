@@ -53,6 +53,9 @@
               ></mmiconbase>
             </a>
           </li>
+          <li v-if="this.$store.state.totalSelected > 1">
+              <a v-on:click="deselectAll($event)" href="#">Deselect All</a>
+          </li>
           <li v-if="this.$store.state.selectedDirectory">
             <a v-on:click="openMoveModal($event)" href="">Move</a>
           </li>
@@ -211,6 +214,10 @@ export default {
           card.item(i).parentNode.classList.remove('hide');
         }
       }
+    },
+    deselectAll: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('RESET_SELECTED');
     }
   },
   computed: {
