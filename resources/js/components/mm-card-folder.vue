@@ -79,8 +79,8 @@
           </g>
         </g>
       </svg>
-      <h6>{{ item | clearname }}</h6>
-      <span class="date">{{ $t("actions.created_on") }} {{ item.created_at }}</span>
+      <h6>{{ item.name | clearname }}</h6>
+      <span class="date">{{ $t("actions.created_on") }} {{ item.timestamp | moment("MMMM Do, YYYY") }}</span>
     </div>
   </div>
 </template>

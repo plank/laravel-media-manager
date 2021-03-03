@@ -2760,11 +2760,9 @@ __webpack_require__.r(__webpack_exports__);
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function openDirectory(event, value) {
-      event.preventDefault();
-      this.current = value;
-      this.cardItem = null;
+      this.current = value.name;
       this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
-      this.$store.dispatch('GET_DIRECTORY', value);
+      this.$store.dispatch('GET_DIRECTORY', value.name);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
@@ -12661,13 +12659,13 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("h6", [_vm._v(_vm._s(_vm._f("clearname")(_vm.item)))]),
+        _c("h6", [_vm._v(_vm._s(_vm._f("clearname")(_vm.item.name)))]),
         _vm._v(" "),
         _c("span", { staticClass: "date" }, [
           _vm._v(
             _vm._s(_vm.$t("actions.created_on")) +
               " " +
-              _vm._s(_vm.item.created_at)
+              _vm._s(_vm._f("moment")(_vm.item.timestamp, "MMMM Do, YYYY"))
           )
         ])
       ])
@@ -14364,7 +14362,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v(_vm._s(_vm._f("clearname")(item)))]
+                    [_vm._v(_vm._s(_vm._f("clearname")(item.name)))]
                   )
                 ]),
                 _vm._v(" "),

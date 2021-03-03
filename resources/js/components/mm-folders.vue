@@ -44,11 +44,9 @@ export default {
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function (event, value) {
-      event.preventDefault();
-      this.current = value;
-      this.cardItem = null;
+      this.current = value.name;
       this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
-      this.$store.dispatch('GET_DIRECTORY', value);
+      this.$store.dispatch('GET_DIRECTORY', value.name);
     },
     showOptions (index, item) {
       this.cardItem = index;
