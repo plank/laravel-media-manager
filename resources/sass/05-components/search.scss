@@ -4,12 +4,29 @@
         &-icon-search {
             position: relative;
             top: -4px;
+            svg {
+                top: 4px;
+                position: relative;
+            }
+        }
+
+        &-no-result {
+            h3 {
+                font-size: em(24px);
+                font-family: $font-family-base;
+                font-weight: 400;
+            }
         }
 
         &-container {
             display: grid;
-            margin: em(38px) 0;
-            grid-template-columns: repeat(2, 1fr);
+            margin: em(38px) 0 0 0;
+            grid-template-columns: 3fr 1fr;
+            column-gap: 4em;
+            box-sizing: border-box;
+            width: 100%;
+            align-items: center;
+            height: 4em;
         }
 
         // Breadcrumb
@@ -48,20 +65,35 @@
             }
         }
 
-        // Send button
-        &-send {
-            cursor: pointer;
-            position: absolute;
-            right: 2em;
-            top: 1.8em;
-            background: url('/img/icon-search.svg');
-            border: none;
-            display: block;
-            text-indent: -9999px;
-            width: em(30px);
-            height: em(30px);
-            background-repeat: no-repeat;
-            background-position: center center;
+        &-term {
+            position: relative;
+
+            input {
+                width: 100%;
+                display: inline-block;
+                background: $mm-form-input-bg;
+                border-radius: 24px;
+                border: none;
+                padding: 12px;
+                min-height: em(30px);
+                box-sizing: border-box;
+                &::placeholder {
+                    font-family: $font-family-base;
+                    font-size: em(16px);
+                    color: $mm-form-placeholder;
+                }
+            }
+
+            svg {
+                right: 1em;
+                position: relative;
+            }
+
+            div {
+                position: absolute;
+                top: 0.5em;
+                right: 0;
+            }
         }
 
         // Filters Dropdowns

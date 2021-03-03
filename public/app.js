@@ -2943,9 +2943,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmresults',
+  name: "mmresults",
   components: {
     mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3129,6 +3132,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3137,7 +3167,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmsearch',
+  name: "mmsearch",
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3149,55 +3179,73 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: ''
+      selectedFilterType: "",
+      isSearch: false,
+      searchTerm: null
     };
   },
   mounted: function mounted() {},
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch('VIEW_STATE', value);
+      this.$store.dispatch("VIEW_STATE", value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_CREATE');
+      this.$store.dispatch("OPEN_MODAL_CREATE");
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MOVE_MODAL');
+      this.$store.dispatch("OPEN_MOVE_MODAL");
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName('mm__card');
+      var card = document.getElementsByClassName("mm__card");
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove('hide');
+        card.item(i).parentNode.classList.remove("hide");
 
-        if (this.selectedFilterType !== 'all') {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
-            card.item(i).parentNode.classList.add('hide');
+        if (this.selectedFilterType !== "all") {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
+            card.item(i).parentNode.classList.add("hide");
           }
         } else {
-          card.item(i).parentNode.classList.remove('hide');
+          card.item(i).parentNode.classList.remove("hide");
         }
       }
     },
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
-      this.$store.dispatch('RESET_SELECTED');
+      this.$store.dispatch("RESET_SELECTED");
+    },
+    openSearch: function openSearch($event) {
+      $event.preventDefault();
+
+      if (this.isSearch) {
+        // Reset State
+        this.$store.state.hideDirectory = false;
+        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      }
+
+      this.isSearch = !this.isSearch;
+    },
+    makeSearch: function makeSearch($event) {
+      $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
+
+      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
     }
   },
   computed: {
@@ -3224,7 +3272,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return '';
+      if (!value) return "";
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -4122,11 +4170,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmslidepanel',
+  name: "mmslidepanel",
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconclose: _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -4144,14 +4193,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('openModalDelete');
+      this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
       _this.slideOpen = true;
       _this.data = value;
     });
@@ -4159,7 +4208,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -11967,65 +12016,61 @@ var render = function() {
         stroke: "none",
         "stroke-width": "1",
         fill: "none",
-        "fill-rule": "evenodd"
+        "fill-rule": "evenodd",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
       }
     },
     [
       _c(
         "g",
         {
-          attrs: { id: "Group-4", transform: "translate(-1.400000, -4.000000)" }
+          attrs: {
+            id: "Media-Manager---Files-One-File-Selected",
+            transform: "translate(-1181.000000, -146.000000)",
+            stroke: "#808080",
+            "stroke-width": "1.86010732"
+          }
         },
         [
-          _c("rect", {
-            attrs: {
-              id: "Rectangle",
-              x: "0",
-              y: "0",
-              width: "26",
-              height: "26"
-            }
-          }),
-          _vm._v(" "),
-          _c("path", {
-            attrs: {
-              d:
-                "M21,8.25 L21,18.8333334 C21,19.2015232 20.7015232,19.5 20.3333334,19.5 L3.75,19.5 C3.33578644,19.5 3,19.1642136 3,18.75 L3,6 C3,5.58578644 3.33578644,5.25 3.75,5.25 L8.74999969,5.25 C8.91227735,5.25 9.07017756,5.3026334 9.19999969,5.4 L11.8000003,7.35 C11.9298224,7.4473666 12.0877227,7.5 12.2500003,7.5 L20.25,7.5 C20.6642136,7.5 21,7.83578644 21,8.25 Z",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "9.75",
-              y1: "13.503125",
-              x2: "14.25",
-              y2: "13.503125",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "12.003125",
-              y1: "11.25",
-              x2: "12.003125",
-              y2: "15.75",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          })
+          _c(
+            "g",
+            {
+              attrs: {
+                id: "icon-add-folder",
+                transform: "translate(1182.000000, 147.000000)"
+              }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d:
+                    "M22.3212878,3.72021464 L22.3212878,16.8443053 C22.3212878,17.300887 21.9511553,17.6710195 21.4945736,17.6710195 L0.93005366,17.6710195 C0.416399207,17.6710195 0,17.2546203 0,16.7409659 L0,0.93005366 C0,0.416399207 0.416399207,0 0.93005366,0 L7.130411,0 C7.33164691,0 7.52745447,0.0652691866 7.6884432,0.186010732 L10.91263,2.60415025 C11.0736187,2.72489179 11.2694263,2.79016098 11.4706622,2.79016098 L21.3912342,2.79016098 C21.9048886,2.79016098 22.3212878,3.20656019 22.3212878,3.72021464 Z",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                attrs: {
+                  x1: "8.37048294",
+                  y1: "10.2305903",
+                  x2: "13.9508049",
+                  y2: "10.2305903",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                attrs: {
+                  x1: "11.1606439",
+                  y1: "7.44042928",
+                  x2: "11.1606439",
+                  y2: "13.0207512",
+                  id: "Path"
+                }
+              })
+            ]
+          )
         ]
       )
     ]
@@ -12166,91 +12211,79 @@ var render = function() {
         stroke: "none",
         "stroke-width": "1",
         fill: "none",
-        "fill-rule": "evenodd"
+        "fill-rule": "evenodd",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
       }
     },
     [
       _c(
         "g",
         {
-          attrs: { id: "Group-3", transform: "translate(-2.200000, -1.000000)" }
+          attrs: {
+            id: "Media-Manager---Files-One-File-Selected",
+            transform: "translate(-1142.000000, -146.000000)",
+            stroke: "#808080",
+            "stroke-width": "1.86"
+          }
         },
         [
-          _c("rect", {
-            attrs: {
-              id: "Rectangle",
-              x: "0",
-              y: "0",
-              width: "24",
-              height: "24"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "20.2496334",
-              y1: "5.25312484",
-              x2: "3.74963344",
-              y2: "5.25312984",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "9.753125",
-              y1: "9.75",
-              x2: "9.753125",
-              y2: "15.75",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "14.253125",
-              y1: "9.75",
-              x2: "14.253125",
-              y2: "15.75",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("path", {
-            attrs: {
-              d:
-                "M18.7496334,5.25 L18.7496334,19.5 C18.7496334,19.9142136 18.413847,20.25 17.9996334,20.25 L5.99963344,20.25 C5.58541988,20.25 5.24963344,19.9142136 5.24963344,19.5 L5.24963344,5.25",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          }),
-          _vm._v(" "),
-          _c("path", {
-            attrs: {
-              d:
-                "M15.75,5.25 L15.75,3.75 C15.75,2.92157288 15.0784271,2.25 14.25,2.25 L9.75,2.25 C8.92157288,2.25 8.25,2.92157288 8.25,3.75 L8.25,5.25",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          })
+          _c(
+            "g",
+            {
+              attrs: {
+                id: "icon-delete",
+                transform: "translate(1143.000000, 147.000000)"
+              }
+            },
+            [
+              _c("line", {
+                attrs: {
+                  x1: "17.1596188",
+                  y1: "3.12124994",
+                  x2: "-0.000381225",
+                  y2: "3.12125494",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                attrs: {
+                  x1: "6.24125",
+                  y1: "7.8",
+                  x2: "6.24125",
+                  y2: "14.04",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                attrs: {
+                  x1: "10.92125",
+                  y1: "7.8",
+                  x2: "10.92125",
+                  y2: "14.04",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("path", {
+                attrs: {
+                  d:
+                    "M15.5996188,3.12 L15.5996188,17.94 C15.5996188,18.3707821 15.2504009,18.72 14.8196188,18.72 L2.33961878,18.72 C1.90883667,18.72 1.55961878,18.3707821 1.55961878,17.94 L1.55961878,3.12",
+                  id: "Path"
+                }
+              }),
+              _vm._v(" "),
+              _c("path", {
+                attrs: {
+                  d:
+                    "M12.48,3.12 L12.48,1.56 C12.48,0.69843579 11.7815642,0 10.92,0 L6.24,0 C5.37843579,0 4.68,0.69843579 4.68,1.56 L4.68,3.12",
+                  id: "Path"
+                }
+              })
+            ]
+          )
         ]
       )
     ]
@@ -12293,53 +12326,57 @@ var render = function() {
       _c(
         "g",
         {
-          attrs: { id: "Group-2", transform: "translate(-2.000000, -2.000000)" }
+          attrs: {
+            id: "Media-Manager---Files-One-File-Selected",
+            transform: "translate(-1109.000000, -145.000000)"
+          }
         },
         [
-          _c("rect", {
-            attrs: {
-              id: "Rectangle",
-              x: "0",
-              y: "0",
-              width: "24",
-              height: "24"
-            }
-          }),
-          _vm._v(" "),
-          _c("circle", {
-            attrs: {
-              id: "Oval",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              cx: "12",
-              cy: "12",
-              r: "9"
-            }
-          }),
-          _vm._v(" "),
-          _c("polyline", {
-            attrs: {
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              points: "11.25 11.25 12 11.25 12 16.5 12.75 16.5"
-            }
-          }),
-          _vm._v(" "),
-          _c("circle", {
-            attrs: {
-              id: "Oval",
-              fill: "#000000",
-              "fill-rule": "nonzero",
-              cx: "12",
-              cy: "7.875",
-              r: "1.125"
-            }
-          })
+          _c(
+            "g",
+            {
+              attrs: {
+                id: "icon-info",
+                transform: "translate(1110.000000, 146.000000)"
+              }
+            },
+            [
+              _c("circle", {
+                attrs: {
+                  id: "Oval",
+                  stroke: "#808080",
+                  "stroke-width": "1.953",
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  cx: "9.828",
+                  cy: "9.828",
+                  r: "9.828"
+                }
+              }),
+              _vm._v(" "),
+              _c("polyline", {
+                attrs: {
+                  id: "Path",
+                  stroke: "#808080",
+                  "stroke-width": "1.953",
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  points: "9.009 9.009 9.828 9.009 9.828 14.742 10.647 14.742"
+                }
+              }),
+              _vm._v(" "),
+              _c("circle", {
+                attrs: {
+                  id: "Oval",
+                  fill: "#808080",
+                  "fill-rule": "nonzero",
+                  cx: "9.828",
+                  cy: "5.3235",
+                  r: "1.2285"
+                }
+              })
+            ]
+          )
         ]
       )
     ]
@@ -12375,52 +12412,47 @@ var render = function() {
         stroke: "none",
         "stroke-width": "1",
         fill: "none",
-        "fill-rule": "evenodd"
+        "fill-rule": "evenodd",
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
       }
     },
     [
       _c(
         "g",
         {
-          attrs: { id: "Group-7", transform: "translate(-2.000000, -2.000000)" }
+          attrs: {
+            id: "Media-Manager---Files-One-File-Selected",
+            transform: "translate(-1303.000000, -145.000000)",
+            stroke: "#808080",
+            "stroke-width": "2.06"
+          }
         },
         [
-          _c("rect", {
-            attrs: {
-              id: "Rectangle",
-              x: "0",
-              y: "0",
-              width: "24",
-              height: "24"
-            }
-          }),
-          _vm._v(" "),
-          _c("circle", {
-            attrs: {
-              id: "Oval",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              cx: "10.875",
-              cy: "10.875",
-              r: "7.875"
-            }
-          }),
-          _vm._v(" "),
-          _c("line", {
-            attrs: {
-              x1: "16.4431462",
-              y1: "16.4437866",
-              x2: "20.9994506",
-              y2: "21.0000919",
-              id: "Path",
-              stroke: "#000000",
-              "stroke-width": "2",
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round"
-            }
-          })
+          _c(
+            "g",
+            {
+              attrs: {
+                id: "icon-search",
+                transform: "translate(1305.000000, 147.000000)"
+              }
+            },
+            [
+              _c("circle", {
+                attrs: { id: "Oval", cx: "7.7868", cy: "7.7868", r: "7.7868" }
+              }),
+              _vm._v(" "),
+              _c("line", {
+                attrs: {
+                  x1: "13.292583",
+                  y1: "13.2932162",
+                  x2: "17.7978568",
+                  y2: "17.7984908",
+                  id: "Path"
+                }
+              })
+            ]
+          )
         ]
       )
     ]
@@ -12971,31 +13003,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mm__results" }, [
-    _c(
-      "div",
-      { staticClass: "mm__results-grid" },
-      _vm._l(_vm.getDir, function(item, index) {
-        return _c(
+    this.$store.state.hideDirectory == false
+      ? _c(
           "div",
-          {
-            key: index,
-            staticClass: "mm__results-single",
-            class: [_vm.cardItem == index ? "active" : ""],
-            on: {
-              click: function($event) {
-                return _vm.showOptions(index, item)
+          { staticClass: "mm__results-grid" },
+          _vm._l(_vm.getDir, function(item, index) {
+            return _c(
+              "div",
+              {
+                key: index,
+                staticClass: "mm__results-single",
+                class: [_vm.cardItem == index ? "active" : ""],
+                on: {
+                  click: function($event) {
+                    return _vm.showOptions(index, item)
+                  },
+                  dblclick: function($event) {
+                    return _vm.openDirectory($event, item)
+                  }
+                }
               },
-              dblclick: function($event) {
-                return _vm.openDirectory($event, item)
-              }
-            }
-          },
-          [_c("mmfoldercard", { attrs: { item: item } })],
-          1
+              [_c("mmfoldercard", { attrs: { item: item } })],
+              1
+            )
+          }),
+          0
         )
-      }),
-      0
-    )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -13149,19 +13183,27 @@ var render = function() {
     _c(
       "div",
       { staticClass: "mm__results-grid" },
-      _vm._l(_vm.getMedia, function(item) {
-        return _c(
-          "div",
-          { key: item.id, staticClass: "mm__results-single" },
-          [
-            _c("mmcard", {
-              attrs: { "data-type": item.aggregate_type, item: item }
-            })
-          ],
-          1
-        )
-      }),
-      0
+      [
+        _vm._l(_vm.getMedia, function(item) {
+          return _c(
+            "div",
+            { key: item.id, staticClass: "mm__results-single" },
+            [
+              _c("mmcard", {
+                attrs: { "data-type": item.aggregate_type, item: item }
+              })
+            ],
+            1
+          )
+        }),
+        _vm._v(" "),
+        _vm.getMedia.length == 0 && this.$store.state.hideDirectory
+          ? _c("div", { staticClass: "mm__search-no-result" }, [
+              _c("h3", [_vm._v(_vm._s(_vm.$t("search.no_result")))])
+            ])
+          : _vm._e()
+      ],
+      2
     )
   ])
 }
@@ -13189,24 +13231,88 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mm__search" }, [
     _c("div", { staticClass: "mm__search-container" }, [
-      _c(
-        "div",
-        { staticClass: "mm__search-breadcrumb" },
-        [_c("mmbreadcrumb")],
-        1
-      ),
+      this.isSearch
+        ? _c("div", { staticClass: "mm__search-term" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.searchTerm,
+                  expression: "searchTerm"
+                }
+              ],
+              attrs: {
+                type: "text",
+                placeholder: _vm.$t("search.input_placeholder")
+              },
+              domProps: { value: _vm.searchTerm },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.searchTerm = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            this.isSearch
+              ? _c("div", [
+                  _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.makeSearch($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "mmiconbase",
+                        {
+                          attrs: {
+                            "icon-name": "icon-list",
+                            "current-color": "000",
+                            "icon-color": "000",
+                            width: "26",
+                            height: "26",
+                            viewBox: "0 0 26 26"
+                          }
+                        },
+                        [_c("iconsearch")],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      !this.isSearch
+        ? _c(
+            "div",
+            { staticClass: "mm__search-breadcrumb" },
+            [_c("mmbreadcrumb")],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "mm__search-actions" }, [
         _c("ul", [
-          _vm.showInformationsBtn
-            ? _c("li", [
-                _c(
+          _c("li", { staticClass: "mm__search-icon-search" }, [
+            !this.isSearch
+              ? _c(
                   "a",
                   {
-                    attrs: { href: "" },
+                    attrs: { title: _vm.$t("actions.search"), href: "#" },
                     on: {
                       click: function($event) {
-                        return _vm.setCurrent($event, _vm.getSelected)
+                        return _vm.openSearch($event)
                       }
                     }
                   },
@@ -13215,22 +13321,33 @@ var render = function() {
                       "mmiconbase",
                       {
                         attrs: {
-                          "icon-name": "add-folder",
-                          "current-color": "#8B8B8B",
-                          "icon-color": "#8B8B8B",
+                          "icon-name": "icon-list",
+                          "current-color": "000",
+                          "icon-color": "000",
                           width: "26",
-                          height: "23",
-                          viewBox: "0 0 20 23"
+                          height: "26",
+                          viewBox: "0 0 26 26"
                         }
                       },
-                      [_c("iconinfo")],
+                      [_c("iconsearch")],
                       1
                     )
                   ],
                   1
                 )
-              ])
-            : _vm._e(),
+              : _c(
+                  "a",
+                  {
+                    attrs: { title: _vm.$t("actions.search"), href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.openSearch($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                )
+          ]),
           _vm._v(" "),
           _c("li", { staticClass: "separator" }, [
             _c(
@@ -13330,30 +13447,39 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("li", { staticClass: "mm__search-icon-search" }, [
-            _c(
-              "a",
-              { attrs: { title: _vm.$t("actions.search"), href: "" } },
-              [
+          _vm.showInformationsBtn
+            ? _c("li", [
                 _c(
-                  "mmiconbase",
+                  "a",
                   {
-                    attrs: {
-                      "icon-name": "icon-list",
-                      "current-color": "000",
-                      "icon-color": "000",
-                      width: "26",
-                      height: "26",
-                      viewBox: "0 0 26 26"
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.setCurrent($event, _vm.getSelected)
+                      }
                     }
                   },
-                  [_c("iconsearch")],
+                  [
+                    _c(
+                      "mmiconbase",
+                      {
+                        attrs: {
+                          "icon-name": "add-folder",
+                          "current-color": "#8B8B8B",
+                          "icon-color": "#8B8B8B",
+                          width: "26",
+                          height: "23",
+                          viewBox: "0 0 20 23"
+                        }
+                      },
+                      [_c("iconinfo")],
+                      1
+                    )
+                  ],
                   1
                 )
-              ],
-              1
-            )
-          ])
+              ])
+            : _vm._e()
         ])
       ])
     ]),
@@ -14509,7 +14635,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v("\n      Upload Date: "),
+            _vm._v("\n      Upload Date:\n      "),
             _c("strong", [
               _vm._v(
                 _vm._s(
@@ -14568,22 +14694,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "columns__1" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-delete text-center",
-                  style: _vm.styleBtnDefault,
-                  attrs: { title: _vm.$t("actions.delete"), href: "#" },
-                  on: {
-                    click: function($event) {
-                      return _vm.openDeleteModal($event)
-                    }
-                  }
-                },
-                [_vm._v("Delete file")]
-              )
-            ])
+            _c("div", { staticClass: "columns__1" })
           ])
         ])
       ])
@@ -35339,9 +35450,10 @@ var messages = {
       title: 'Media Manager'
     },
     search: {
-      input_placeholder: 'What are you looking for? ',
+      input_placeholder: 'What are you looking for ? ',
       by_type: 'Filter by type',
-      by_date: 'Filter by date'
+      by_date: 'Filter by date',
+      no_result: 'Sorry, no result'
     },
     actions: {
       "delete": 'Delete',
@@ -35388,7 +35500,8 @@ var messages = {
     search: {
       input_placeholder: 'Que cherchez-vous?',
       by_type: 'Filtrer par type',
-      by_date: 'Filtrer par date'
+      by_date: 'Filtrer par date',
+      no_result: 'Désolé, aucun résultat'
     },
     actions: {
       "delete": 'Effacer',
@@ -37420,7 +37533,7 @@ var actions = {
     var _this = this;
 
     var commit = _ref3.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + '?path=' + value, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeSearchMedia + '?path=' + value, {}).then(function (response) {
       // Close Modal
       commit('CLOSE_MODAL_CREATE', true); // Refresh Current View With New Folder
 
@@ -37479,6 +37592,16 @@ var actions = {
     this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
     Promise.all(promises).then(function () {
       return console.log();
+    });
+  },
+  MAKE_SEARCH: function MAKE_SEARCH(_ref6, value) {
+    var _this3 = this;
+
+    var commit = _ref6.commit;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + '?q=' + value, {}).then(function (response) {
+      // Replace Medias Collection With Results
+      _this3.state.mediaCollection = response.data;
+      _this3.state.hideDirectory = true; // Hide Folders
     });
   }
 };
@@ -37624,8 +37747,13 @@ var state = {
   routeMoveDirectory: '/media-api/directory/update'
   /* Move Folder */
   ,
+  routeSearchMedia: '/media-api/search'
+  /* Search Media */
+  ,
+  hideDirectory: false,
   currentDirectory: null,
   selectedDirectory: null,
+  searchResults: null,
   totalSelected: 0,
   modalState: {
     add: false,

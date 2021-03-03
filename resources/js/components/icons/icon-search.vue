@@ -1,28 +1,29 @@
 <template>
-  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <g id="Group-7" transform="translate(-2.000000, -2.000000)">
-      <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
-      <circle
-        id="Oval"
-        stroke="#000000"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        cx="10.875"
-        cy="10.875"
-        r="7.875"
-      ></circle>
-      <line
-        x1="16.4431462"
-        y1="16.4437866"
-        x2="20.9994506"
-        y2="21.0000919"
-        id="Path"
-        stroke="#000000"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></line>
+  <g
+    id="Page-1"
+    stroke="none"
+    stroke-width="1"
+    fill="none"
+    fill-rule="evenodd"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <g
+      id="Media-Manager---Files-One-File-Selected"
+      transform="translate(-1303.000000, -145.000000)"
+      stroke="#808080"
+      stroke-width="2.06"
+    >
+      <g id="icon-search" transform="translate(1305.000000, 147.000000)">
+        <circle id="Oval" cx="7.7868" cy="7.7868" r="7.7868"></circle>
+        <line
+          x1="13.292583"
+          y1="13.2932162"
+          x2="17.7978568"
+          y2="17.7984908"
+          id="Path"
+        ></line>
+      </g>
     </g>
   </g>
 </template>

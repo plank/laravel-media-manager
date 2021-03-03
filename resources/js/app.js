@@ -17,9 +17,10 @@ const messages = {
       title: 'Media Manager'
     },
     search: {
-      input_placeholder: 'What are you looking for? ',
+      input_placeholder: 'What are you looking for ? ',
       by_type: 'Filter by type',
-      by_date: 'Filter by date'
+      by_date: 'Filter by date',
+      no_result: 'Sorry, no result'
     },
     actions: {
       delete: 'Delete',
@@ -66,7 +67,8 @@ const messages = {
     search: {
       input_placeholder: 'Que cherchez-vous?',
       by_type: 'Filtrer par type',
-      by_date: 'Filtrer par date'
+      by_date: 'Filtrer par date',
+      no_result: 'Désolé, aucun résultat'
     },
     actions: {
       delete: 'Effacer',

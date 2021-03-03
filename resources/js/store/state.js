@@ -5,8 +5,11 @@ export const state = {
   routeDeleteDirectory: '/media-api/directory/destroy' /* Delete Folder */,
   routeDeleteMedia: '/media-api/destroy' /* Delete Media */,
   routeMoveDirectory: '/media-api/directory/update' /* Move Folder */,
+  routeSearchMedia: '/media-api/search' /* Search Media */,
+  hideDirectory: false,
   currentDirectory: null,
   selectedDirectory: null,
+  searchResults: null,
   totalSelected: 0,
   modalState: {
     add: false,

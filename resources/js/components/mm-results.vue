@@ -5,29 +5,32 @@
       <div v-for="item in getMedia" :key="item.id" class="mm__results-single">
         <mmcard :data-type="item.aggregate_type" :item="item"></mmcard>
       </div>
+      <div class="mm__search-no-result" v-if="getMedia.length == 0 && this.$store.state.hideDirectory">
+        <h3>{{ $t('search.no_result') }}</h3>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import mmcard from './mm-card';
+import mmcard from "./mm-card";
 
 export default {
-  name: 'mmresults',
+  name: "mmresults",
   components: {
-    mmcard
+    mmcard,
   },
-  data () {
+  data() {
     return {
-      mediaCollection: this.$store.state.mediaCollection
+      mediaCollection: this.$store.state.mediaCollection,
     };
   },
   methods: {},
-  mounted () {},
+  mounted() {},
   computed: {
-    getMedia () {
+    getMedia() {
       return this.$store.state.mediaCollection;
-    }
-  }
+    },
+  },
 };
 </script>

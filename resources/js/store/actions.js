@@ -95,7 +95,7 @@ export const actions = {
   // Create Directory
   CREATE_DIRECTORY ({ commit }, value) {
     axios
-      .post(this.state.routeCreateDirectory + '?path=' + value, {})
+      .post(this.state.routeSearchMedia + '?path=' + value, {})
       .then(response => {
         // Close Modal
         commit('CLOSE_MODAL_CREATE', true);
@@ -147,6 +147,16 @@ export const actions = {
     this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
 
     Promise.all(promises).then(() => console.log());
+  },
+  MAKE_SEARCH ({ commit }, value) {
+    axios
+      .get(this.state.routeSearchMedia + '?q=' + value, {})
+      .then(response => {
+        // Replace Medias Collection With Results
+        this.state.mediaCollection = response.data;
+        this.state.hideDirectory = true;
+        // Hide Folders
+      });
   }
 
 };

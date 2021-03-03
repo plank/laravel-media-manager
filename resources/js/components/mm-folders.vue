@@ -7,7 +7,7 @@
     <!-- For Each Loop -->
 
     <!-- <div class="mm__results-grid" v-if="getDir.length"> -->
-    <div class="mm__results-grid">
+    <div v-if="this.$store.state.hideDirectory == false" class="mm__results-grid">
       <div
         v-for="(item, index) in getDir"
         :key="index"
