@@ -3012,7 +3012,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         type: 'divider'
       }, {
-        name: 'See details',
+        name: this.$i18n.t('actions.more_details'),
         slug: 'details'
       }]
     };
@@ -35856,8 +35856,8 @@ __webpack_require__.r(__webpack_exports__);
  // Context Menu
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simple-context-menu', vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simple-context-menu', vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create();
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js")); // To Externalize In The Future
@@ -35881,6 +35881,7 @@ var messages = {
       cancel: 'Cancel',
       move: 'Move',
       back: 'Back',
+      more_details: 'More Details',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
       viewList: 'View List',
@@ -35929,6 +35930,7 @@ var messages = {
       cancel: 'Annuler',
       move: 'Déplacer',
       back: 'Retour',
+      more_details: 'Details',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
       viewList: 'Liste',

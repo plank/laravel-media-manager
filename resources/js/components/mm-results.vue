@@ -48,7 +48,7 @@ export default {
           type: 'divider'
         },
         {
-          name: 'See details',
+          name: this.$i18n.t('actions.more_details'),
           slug: 'details'
         }
       ]

@@ -6,9 +6,9 @@ import store from './store/store';
 
 // Context Menu
 import VueSimpleContextMenu from 'vue-simple-context-menu';
-Vue.component('vue-simple-context-menu', VueSimpleContextMenu);
 
 import '../sass/app.scss';
+Vue.component('vue-simple-context-menu', VueSimpleContextMenu);
 
 Vue.prototype.$http = axios.create();
 Vue.use(VueI18n);
@@ -34,6 +34,7 @@ const messages = {
       cancel: 'Cancel',
       move: 'Move',
       back: 'Back',
+      more_details: 'More Details',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
       viewList: 'View List',
@@ -82,6 +83,7 @@ const messages = {
       cancel: 'Annuler',
       move: 'Déplacer',
       back: 'Retour',
+      more_details: 'Details',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
       viewList: 'Liste',
