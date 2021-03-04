@@ -2,18 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 // =============================================================
 // View Routes
 // =============================================================
 
-Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
+Route::group(['prefix' => 'media', 'as' => 'media.', 'namespace' => 'Plank\MediaManager\Http\Controllers'], function () {
     Route::get('index', 'MediaManagerController@index')->name('index');
 });
 
 // =============================================================
 // Json Routes
 // =============================================================
-Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
+Route::group(['prefix' => 'media-api', 'as' => 'media-api.', 'namespace' => 'Plank\MediaManager\Http\Controllers'], function () {
 
     Route::post('create', 'MediaController@create')->name('create');
     Route::post('directory/create', 'MediaManagerController@create')->name('directory.create');
@@ -25,6 +26,7 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.'], function () {
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
 
     Route::get('show/{id}', 'MediaController@show')->name('show');
+    Route::get('/search', 'MediaSearchController@index')->name('search.index');
     Route::get('index/{path?}', 'MediaController@index')->name('index')
         ->where(['path' => '.*']);
 });
