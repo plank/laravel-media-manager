@@ -42,12 +42,13 @@ trait Convertible
         return Storage::disk($disk)->url(config('media-manager.conversions-directory').$this->getConversionName($tag));
     }
 
-    public function getConversions($disk = null)
+    public function getConversions($diskName = null)
     {
-        return collect(File::glob($this->getConversionsDirectory($disk)."{$this->id}-*"))->mapWithKeys(function ($path, $count) use ($disk) {
+        $disk = Storage::disk($diskName);
+        return collect(File::glob($this->getConversionsDirectory($diskName)."{$this->id}-*"))->mapWithKeys(function ($path, $count) use ($disk) {
             $parts = explode('/', $path);
             $tags = $this->conversions->keys();
-            return [$tags[$count] => Storage::disk($disk)->url(config('media-manager.conversions-directory').end($parts))];
+            return [$tags[$count] => $disk->url(config('media-manager.conversions-directory').end($parts))];
         });
     }
 
