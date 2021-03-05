@@ -3255,6 +3255,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3265,7 +3271,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3279,57 +3285,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: "",
+      selectedFilterType: '',
       isSearch: false,
-      searchTerm: null
+      searchTerm: null,
+      sortOrder: ''
     };
   },
   mounted: function mounted() {},
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch("VIEW_STATE", value);
+      this.$store.dispatch('VIEW_STATE', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_CREATE");
+      this.$store.dispatch('OPEN_MODAL_CREATE');
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MOVE_MODAL");
+      this.$store.dispatch('OPEN_MOVE_MODAL');
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName("mm__card");
+      var card = document.getElementsByClassName('mm__card');
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove("hide");
+        card.item(i).parentNode.classList.remove('hide');
 
-        if (this.selectedFilterType !== "all") {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
-            card.item(i).parentNode.classList.add("hide");
+        if (this.selectedFilterType !== 'all') {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
+            card.item(i).parentNode.classList.add('hide');
           }
         } else {
-          card.item(i).parentNode.classList.remove("hide");
+          card.item(i).parentNode.classList.remove('hide');
         }
       }
     },
+    applyFilterDate: function applyFilterDate($event) {
+      $event.preventDefault();
+      this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder);
+    },
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
-      this.$store.dispatch("RESET_SELECTED");
+      this.$store.dispatch('RESET_SELECTED');
     },
     openSearch: function openSearch($event) {
       $event.preventDefault();
@@ -3337,7 +3348,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.isSearch) {
         // Reset State
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
       }
 
       this.isSearch = !this.isSearch;
@@ -3345,7 +3356,7 @@ __webpack_require__.r(__webpack_exports__);
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
 
-      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
     }
   },
   computed: {
@@ -3372,7 +3383,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return "";
+      if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -13843,17 +13854,48 @@ var render = function() {
       _vm._v(" "),
       _c(
         "select",
-        { staticClass: "mm__search-select", attrs: { name: "", id: "" } },
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.sortOrder,
+              expression: "sortOrder"
+            }
+          ],
+          staticClass: "mm__search-select",
+          attrs: { name: "", id: "" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.sortOrder = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                return _vm.applyFilterDate($event)
+              }
+            ]
+          }
+        },
         [
-          _c("option", { attrs: { value: "" } }, [
+          _c("option", { attrs: { disabled: "", value: "" } }, [
             _vm._v(_vm._s(_vm.$t("search.by_date")))
           ]),
           _vm._v(" "),
-          _c("option", { attrs: { value: "" } }, [
+          _c("option", { attrs: { value: "asc" } }, [
             _vm._v(_vm._s(_vm.$t("actions.sort.oldest")))
           ]),
           _vm._v(" "),
-          _c("option", { attrs: { value: "" } }, [
+          _c("option", { attrs: { value: "desc" } }, [
             _vm._v(_vm._s(_vm.$t("actions.sort.newest")))
           ])
         ]
@@ -38306,6 +38348,49 @@ var actions = {
       _this3.state.mediaCollection = response.data;
       _this3.state.hideDirectory = true; // Hide Folders
     });
+  },
+  UPDATE_ORDERBY: function UPDATE_ORDERBY(_ref7, data) {
+    var commit = _ref7.commit,
+        state = _ref7.state,
+        dispatch = _ref7.dispatch;
+    var directoryArray = Object.values(this.state.directoryCollection);
+    var mediasArray = Object.values(this.state.mediaCollection); // Sort Medias
+
+    this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
+      if (data === 'desc') {
+        if (value1.timestamp > value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      if (data === 'asc') {
+        if (value1.timestamp < value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    }); // Sort Directories
+
+    this.state.directoryCollection = directoryArray.sort(function (value1, value2) {
+      if (data === 'desc') {
+        if (value1.timestamp > value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      if (data === 'asc') {
+        if (value1.timestamp < value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    });
   }
 };
 
@@ -38418,6 +38503,10 @@ var mutations = {
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
     console.log('delete selected medias');
+  },
+  SET_ORDERBY: function SET_ORDERBY(state, orderBy) {
+    console.log(state.orderBy);
+    state.orderBy = orderBy;
   }
 };
 
@@ -38470,7 +38559,10 @@ var state = {
   directoryCollection: [],
   moveDirectoryCollection: [],
   mediaTypeArray: [],
-  mediaCollection: []
+  mediaCollection: [],
+  // Ordering
+  orderBy: 'created_at',
+  orderDirection: 'asc'
 };
 
 /***/ }),

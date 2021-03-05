@@ -23,5 +23,8 @@ export const state = {
   directoryCollection: [],
   moveDirectoryCollection: [],
   mediaTypeArray: [],
-  mediaCollection: []
+  mediaCollection: [],
+  // Ordering
+  orderBy: 'created_at',
+  orderDirection: 'asc'
 };

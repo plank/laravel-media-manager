@@ -157,6 +157,48 @@ export const actions = {
         this.state.hideDirectory = true;
         // Hide Folders
       });
+  },
+  UPDATE_ORDERBY ({ commit, state, dispatch }, data) {
+    const directoryArray = Object.values(this.state.directoryCollection);
+    const mediasArray = Object.values(this.state.mediaCollection);
+
+    // Sort Medias
+    this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
+      if (data === 'desc') {
+        if (value1.timestamp > value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      if (data === 'asc') {
+        if (value1.timestamp < value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    });
+
+    // Sort Directories
+    this.state.directoryCollection = directoryArray.sort(function (value1, value2) {
+      if (data === 'desc') {
+        if (value1.timestamp > value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      if (data === 'asc') {
+        if (value1.timestamp < value2.timestamp) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    });
   }
 
 };
