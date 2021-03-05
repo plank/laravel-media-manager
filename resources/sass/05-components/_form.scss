@@ -21,11 +21,13 @@ form {
             min-height: em(40px);
             border: 1px solid $mm-form-border-color;
             border-radius: 3px;
+            text-indent: 1em;
         }
 
         textarea {
             padding: em-calc(10px);
             font-family: $font-family-base;
+            text-indent: 0em;
         }
     }
 

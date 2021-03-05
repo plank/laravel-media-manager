@@ -58,24 +58,24 @@
         <strong>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</strong>
       </p>
       <!-- Form -->
-      <form action="">
+      <form id="media__update" action="">
         <div>
           <label for="">{{ $t("slidepanel.alt_text") }}</label>
-          <input type="text" />
+          <input v-model="alt" value="" id="alt" type="text" />
         </div>
         <div>
           <label for="">{{ $t("slidepanel.credit") }}</label>
-          <input type="text" />
+          <input v-model="credit" id="credit" type="text" />
         </div>
         <div>
           <label for="">{{ $t("slidepanel.caption") }}</label>
-          <textarea />
+          <textarea v-model="caption" id="caption" />
         </div>
       </form>
 
       <div class="mm__slidepanel-btn-container">
         <div class="columns columns__2">
-          <a :style="styleBtnDefault" class="btn btn-default" href="">Save</a>
+          <a :style="styleBtnDefault" class="btn btn-default" v-on:click="updateMedia($event)" href="">Save</a>
           <a :style="styleBtnDefault" class="btn btn-default-border" href=""
             >Add Details</a
           >
@@ -104,7 +104,12 @@ export default {
   data () {
     return {
       slideOpen: false,
-      data: []
+      data: [],
+      disk: '',
+      id: '',
+      alt: '',
+      credit: '',
+      caption: ''
     };
   },
   methods: {
@@ -114,14 +119,30 @@ export default {
     },
     openDeleteModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('openModalDelete');
+      this.$store.dispatch('OPEN_MODAL_DELETE');
       this.slideOpen = false;
+    },
+    updateMedia: function ($event) {
+      $event.preventDefault();
+      this.$store.dispatch('UPDATE_MEDIA', {
+        disk: this.disk,
+        id: this.id,
+        alt: this.alt,
+        credit: this.credit,
+        caption: this.caption
+      });
     }
   },
   mounted () {
     EventBus.$on('open-slide-panel', (value) => {
+      console.log(value);
       this.slideOpen = true;
       this.data = value;
+      this.disk = this.data[0].disk;
+      this.id = this.data[0].id;
+      this.alt = this.data[0].alt;
+      this.credit = this.data[0].credit;
+      this.caption = this.data[0].credit;
     });
   },
   computed: {

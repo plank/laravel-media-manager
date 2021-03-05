@@ -64,9 +64,5 @@ export const mutations = {
   },
   DELETE_SELECTED_MEDIAS (state, items) {
     console.log('delete selected medias');
-  },
-  SET_ORDERBY (state, orderBy) {
-      console.log(state.orderBy);
-    state.orderBy = orderBy;
   }
 };

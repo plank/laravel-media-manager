@@ -701,11 +701,13 @@ form div input {
   min-height: 2.5em;
   border: 1px solid #CACACA;
   border-radius: 3px;
+  text-indent: 1em;
 }
 
 form div textarea {
   padding: 0.625em;
   font-family: "Open Sans", sans-serif;
+  text-indent: 0em;
 }
 
 input {

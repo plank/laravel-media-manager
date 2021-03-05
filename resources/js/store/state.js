@@ -6,6 +6,7 @@ export const state = {
   routeDeleteMedia: '/media-api/destroy' /* Delete Media */,
   routeMoveDirectory: '/media-api/directory/update' /* Move Folder */,
   routeSearchMedia: '/media-api/search' /* Search Media */,
+  routeUpdateMedia: '/media-api/update' /* Update Media */,
   hideDirectory: false,
   currentDirectory: null,
   selectedDirectory: null,

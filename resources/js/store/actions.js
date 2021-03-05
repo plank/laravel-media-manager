@@ -161,7 +161,6 @@ export const actions = {
   UPDATE_ORDERBY ({ commit, state, dispatch }, data) {
     const directoryArray = Object.values(this.state.directoryCollection);
     const mediasArray = Object.values(this.state.mediaCollection);
-
     // Sort Medias
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
       if (data === 'desc') {
@@ -198,6 +197,17 @@ export const actions = {
           return -1;
         }
       }
+    });
+  },
+  UPDATE_MEDIA (context, value) {
+    axios.post(this.state.routeUpdateMedia, {
+      disk: value.disk,
+      id: value.id,
+      alt: value.alt,
+      credit: value.credit,
+      caption: value.caption
+    }).then(response => {
+      console.log(response);
     });
   }
 

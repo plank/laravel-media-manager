@@ -85,9 +85,16 @@ class MediaController extends BaseController
     public function create(Request $request)
     {
         $media = $request->file;
+        $data = $request->only(['title', 'alt', 'caption', 'credit']);
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
-        return response($this->uploader->toDestination($disk, $path)->fromSource($media)->upload());
+        $model = $this->uploader
+            ->toDestination($disk, $path)
+            ->fromSource($media)
+            ->beforeSave(function (Media $m) use ($data) {
+                $m->fill($data);
+            });
+        return response($model->upload());
     }
 
     /**
@@ -103,16 +110,22 @@ class MediaController extends BaseController
         $valid = $request->validate([
             'id' => "required|exists:{$model}",
             'disk' => "string",
-            'path' => "string|required",
-            'rename' => "string|nullable"
+            'path' => "string|nullable",
+            'rename' => "string|nullable",
         ]);
 
-        $disk = $this->manager->verifyDisk($valid['disk']);
-        $path = $this->manager->verifyDirectory($disk, $valid['path']);
-
         $media = Media::find($valid['id']);
-        $media->move($path, $valid['rename'] ?? null);
+        $disk = $this->manager->verifyDisk($valid['disk']);
+        $path = $this->manager->verifyDirectory($disk, $valid['path'] ?? $media->directory);
+        $details = $request->only(['title', 'alt', 'caption', 'credit']);
 
+        $media->fill($details);
+
+        if ($path != $media->directory) {
+            $media->move($path, $valid['rename'] ?? null);
+        }
+
+        $media->save();
         return response($media->fresh());
     }
 

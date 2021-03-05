@@ -4294,7 +4294,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       slideOpen: false,
-      data: []
+      data: [],
+      disk: '',
+      id: '',
+      alt: '',
+      credit: '',
+      caption: ''
     };
   },
   methods: {
@@ -4304,16 +4309,32 @@ __webpack_require__.r(__webpack_exports__);
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('openModalDelete');
+      this.$store.dispatch('OPEN_MODAL_DELETE');
       this.slideOpen = false;
+    },
+    updateMedia: function updateMedia($event) {
+      $event.preventDefault();
+      this.$store.dispatch('UPDATE_MEDIA', {
+        disk: this.disk,
+        id: this.id,
+        alt: this.alt,
+        credit: this.credit,
+        caption: this.caption
+      });
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
+      console.log(value);
       _this.slideOpen = true;
       _this.data = value;
+      _this.disk = _this.data[0].disk;
+      _this.id = _this.data[0].id;
+      _this.alt = _this.data[0].alt;
+      _this.credit = _this.data[0].credit;
+      _this.caption = _this.data[0].credit;
     });
   },
   computed: {
@@ -14987,13 +15008,32 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("form", { attrs: { action: "" } }, [
+          _c("form", { attrs: { id: "media__update", action: "" } }, [
             _c("div", [
               _c("label", { attrs: { for: "" } }, [
                 _vm._v(_vm._s(_vm.$t("slidepanel.alt_text")))
               ]),
               _vm._v(" "),
-              _c("input", { attrs: { type: "text" } })
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.alt,
+                    expression: "alt"
+                  }
+                ],
+                attrs: { value: "", id: "alt", type: "text" },
+                domProps: { value: _vm.alt },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.alt = $event.target.value
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
             _c("div", [
@@ -15001,7 +15041,26 @@ var render = function() {
                 _vm._v(_vm._s(_vm.$t("slidepanel.credit")))
               ]),
               _vm._v(" "),
-              _c("input", { attrs: { type: "text" } })
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.credit,
+                    expression: "credit"
+                  }
+                ],
+                attrs: { id: "credit", type: "text" },
+                domProps: { value: _vm.credit },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.credit = $event.target.value
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
             _c("div", [
@@ -15009,7 +15068,26 @@ var render = function() {
                 _vm._v(_vm._s(_vm.$t("slidepanel.caption")))
               ]),
               _vm._v(" "),
-              _c("textarea")
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.caption,
+                    expression: "caption"
+                  }
+                ],
+                attrs: { id: "caption" },
+                domProps: { value: _vm.caption },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.caption = $event.target.value
+                  }
+                }
+              })
             ])
           ]),
           _vm._v(" "),
@@ -15020,7 +15098,12 @@ var render = function() {
                 {
                   staticClass: "btn btn-default",
                   style: _vm.styleBtnDefault,
-                  attrs: { href: "" }
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.updateMedia($event)
+                    }
+                  }
                 },
                 [_vm._v("Save")]
               ),
@@ -38391,6 +38474,17 @@ var actions = {
         }
       }
     });
+  },
+  UPDATE_MEDIA: function UPDATE_MEDIA(context, value) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
+      disk: value.disk,
+      id: value.id,
+      alt: value.alt,
+      credit: value.credit,
+      caption: value.caption
+    }).then(function (response) {
+      console.log(response);
+    });
   }
 };
 
@@ -38503,10 +38597,6 @@ var mutations = {
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
     console.log('delete selected medias');
-  },
-  SET_ORDERBY: function SET_ORDERBY(state, orderBy) {
-    console.log(state.orderBy);
-    state.orderBy = orderBy;
   }
 };
 
@@ -38541,6 +38631,9 @@ var state = {
   ,
   routeSearchMedia: '/media-api/search'
   /* Search Media */
+  ,
+  routeUpdateMedia: '/media-api/update'
+  /* Update Media */
   ,
   hideDirectory: false,
   currentDirectory: null,
