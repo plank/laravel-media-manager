@@ -23,7 +23,8 @@
       <vue-dropzone
         ref="myVueDropzone"
         :style="styleBtnDefault"
-        v-on:vdropzone-success="uploadSuccess()"
+        v-on:vdropzone-success="uploadSuccess($event)"
+        v-on:vdropzone-error="showError($event)"
         id="dropzone"
         name="media"
         :options="dropzoneOptions"
@@ -57,10 +58,27 @@ export default {
       $event.preventDefault();
       this.$store.dispatch('CLOSE_MODAL_ADD');
     },
-    uploadSuccess: function () {
+    uploadSuccess: function ($event) {
+      console.log($event);
+      //   console.log(file);
+      //   console.log(response);
       this.$store.dispatch('CLOSE_MODAL_ADD');
       // Refresh current folder
+      this.$toast.open({
+        type: 'success',
+        position: 'bottom-left',
+        message: $event.name + ' File Uploaded'
+      });
       this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
+    },
+    showError: function ($event) {
+      if ($event.status) {
+        this.$toast.open({
+          type: 'error',
+          position: 'bottom-left',
+          message: 'Error'
+        });
+      }
     }
   },
   computed: {

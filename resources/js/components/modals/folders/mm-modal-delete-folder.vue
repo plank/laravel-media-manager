@@ -59,6 +59,7 @@ export default {
       // Delete selected folder
       $event.preventDefault();
       this.$store.dispatch('DELETE_SELECTED', {
+        vm: this,
         folder: this.$store.state.selectedDirectory,
         mediaCollection: this.$store.state.selectedElem
       });

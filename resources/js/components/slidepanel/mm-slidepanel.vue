@@ -125,6 +125,7 @@ export default {
     updateMedia: function ($event) {
       $event.preventDefault();
       this.$store.dispatch('UPDATE_MEDIA', {
+        vm: this,
         disk: this.disk,
         id: this.id,
         alt: this.alt,

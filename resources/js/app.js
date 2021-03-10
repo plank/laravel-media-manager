@@ -3,6 +3,8 @@ import VueI18n from 'vue-i18n';
 import MediaManager from './components/MediaManager';
 import axios from 'axios';
 import store from './store/store';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 // Context Menu
 import VueSimpleContextMenu from 'vue-simple-context-menu';
@@ -12,6 +14,7 @@ Vue.component('vue-simple-context-menu', VueSimpleContextMenu);
 
 Vue.prototype.$http = axios.create();
 Vue.use(VueI18n);
+Vue.use(VueToast);
 Vue.use(require('vue-moment'));
 
 // To Externalize In The Future
@@ -123,6 +126,7 @@ const i18n = new VueI18n({
 
 new Vue({
   store,
+  VueToast,
   render: h => h(MediaManager),
   i18n
 }).$mount('#media-manager');

@@ -54,7 +54,8 @@ export default {
     createBreadcrumb () {
       let entryArray = null;
       if (this.$store.getters.GET_CURRENT_DIRECTORY) {
-        entryArray = this.$store.getters.GET_CURRENT_DIRECTORY.split('/');
+        const currentDirectory = this.$store.getters.GET_CURRENT_DIRECTORY + '';
+        entryArray = currentDirectory.split('/');
       } else {
         entryArray = [];
       }

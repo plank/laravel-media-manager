@@ -95,10 +95,15 @@ export const actions = {
   // Create Directory
   CREATE_DIRECTORY ({ commit }, value) {
     axios
-      .post(this.state.routeCreateDirectory + '?path=' + value, {})
+      .post(this.state.routeCreateDirectory + '?path=' + value.name, {})
       .then(response => {
         // Close Modal
         commit('CLOSE_MODAL_CREATE', true);
+        value.vm.$toast.open({
+          type: 'success',
+          position: 'bottom-left',
+          message: 'Folder ' + value.name + ' Created'
+        });
         // Refresh Current View With New Folder
         this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
       });
@@ -117,12 +122,20 @@ export const actions = {
       axios.post(route, {}).then(response => {
         commit('CLOSE_MODAL');
         this.dispatch('GET_DIRECTORY', response.data.parentFolder);
+        value.vm.$toast.open({
+          type: 'success',
+          position: 'bottom-left',
+          message: 'Folder Deleted'
+        });
       });
     }
 
     // If We Have Media Collection -> Delete
     if (value.mediaCollection) {
-      this.dispatch('DELETE_SELECTED_MEDIAS', value.mediaCollection);
+      this.dispatch('DELETE_SELECTED_MEDIAS', {
+        vm: value.vm,
+        media: value.mediaCollection
+      });
     }
   },
   // Set selected directory
@@ -130,15 +143,20 @@ export const actions = {
     context.commit('SET_SELECTED_DIRECTORY', value);
   },
   DELETE_SELECTED_MEDIAS ({ commit, context }, value) {
-    const users = [];
+    const media = [];
     const promises = [];
-    for (let i = 0; i < value.length; i++) {
+    for (let i = 0; i < value.media.length; i++) {
       promises.push(
         axios
-          .post(this.state.routeDeleteMedia, { id: value[i].id })
+          .post(this.state.routeDeleteMedia, { id: value.media[i].id })
           .then(response => {
+            value.vm.$toast.open({
+              type: 'success',
+              position: 'bottom-left',
+              message: 'Media Deleted'
+            });
             // do something with response
-            users.push(response);
+            media.push(response);
           })
       );
     }
@@ -207,6 +225,11 @@ export const actions = {
       credit: value.credit,
       caption: value.caption
     }).then(response => {
+      value.vm.$toast.open({
+        type: 'success',
+        position: 'bottom-left',
+        message: 'Media Updated'
+      });
       console.log(response);
     });
   }

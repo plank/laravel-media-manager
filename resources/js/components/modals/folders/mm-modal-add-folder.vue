@@ -264,7 +264,7 @@ import mmmodal from './../mm-modal';
 export default {
   name: 'mmmodaladdfolder',
   components: {
-    mmmodal,
+    mmmodal
   },
   data () {
     return {
@@ -279,10 +279,16 @@ export default {
         if (this.$store.state.currentDirectory) {
           this.$store.dispatch(
             'CREATE_DIRECTORY',
-            this.$store.state.currentDirectory + '/' + this.name
+            {
+              vm: this,
+              name: this.$store.state.currentDirectory + '/' + this.name
+            }
           );
         } else {
-          this.$store.dispatch('CREATE_DIRECTORY', this.name);
+          this.$store.dispatch('CREATE_DIRECTORY', {
+            vm: this,
+            name: this.name
+          });
         }
       };
 

@@ -1098,6 +1098,11 @@ table tr {
   background-color: #e0e0e0;
 }
 
+.v-toast__text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8125em;
+}
+
 body {
   background: #FFFFFF;
 }

@@ -71,6 +71,11 @@ export default {
         })
         .then((response) => {
           this.$store.dispatch('CLOSE_MODAL');
+          this.$toast.open({
+            type: 'success',
+            position: 'bottom-left',
+            message: 'Folder moved successfully'
+          });
           // Reload Current Directory
           this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
         });
