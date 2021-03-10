@@ -18,7 +18,7 @@
             <a v-on:click="selectElement($event, item, index)" href="#">{{ item.name | clearname }}</a>
           </div>
           <div class="mm__move-folder-handler">
-            <a v-on:click="goDeeper($event, item)" href="#">Enter</a>
+            <a v-on:click="goDeeper($event, item.name)" href="#">Enter</a>
           </div>
         </div>
       </li>

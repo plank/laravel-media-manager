@@ -14862,7 +14862,7 @@ var render = function() {
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
-                          return _vm.goDeeper($event, item)
+                          return _vm.goDeeper($event, item.name)
                         }
                       }
                     },
