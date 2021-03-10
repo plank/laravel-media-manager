@@ -465,7 +465,7 @@ strong {
 
 .vue-simple-context-menu__item {
   display: flex;
-  color: #333;
+  color: #333333;
   cursor: pointer;
   padding: 5px 15px;
   align-items: center;
@@ -473,12 +473,12 @@ strong {
 
 .vue-simple-context-menu__item:hover {
   background-color: #007aff;
-  color: #fff;
+  color: #FFFFFF;
 }
 
 .vue-simple-context-menu__divider {
   box-sizing: content-box;
-  height: 2px;
+  height: 1px;
   background-color: #c0cdd1;
   padding: 4px 0;
   background-clip: content-box;
@@ -708,6 +708,7 @@ form div textarea {
   padding: 0.625em;
   font-family: "Open Sans", sans-serif;
   text-indent: 0em;
+  resize: none;
 }
 
 input {
