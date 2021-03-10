@@ -230,7 +230,8 @@ export const actions = {
         position: 'bottom-left',
         message: 'Media Updated'
       });
-      console.log(response);
+      // Refresh folde to get real data on slidebar
+      this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
     });
   }
 

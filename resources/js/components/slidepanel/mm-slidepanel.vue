@@ -132,18 +132,19 @@ export default {
         credit: this.credit,
         caption: this.caption
       });
+
+      // Refresh Folder On Save
     }
   },
   mounted () {
     EventBus.$on('open-slide-panel', (value) => {
-      console.log(value);
       this.slideOpen = true;
       this.data = value;
       this.disk = this.data[0].disk;
       this.id = this.data[0].id;
       this.alt = this.data[0].alt;
       this.credit = this.data[0].credit;
-      this.caption = this.data[0].credit;
+      this.caption = this.data[0].caption;
     });
   },
   computed: {

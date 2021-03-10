@@ -3466,9 +3466,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function uploadSuccess($event) {
-      console.log($event); //   console.log(file);
-      //   console.log(response);
-
       this.$store.dispatch('CLOSE_MODAL_ADD'); // Refresh current folder
 
       this.$toast.open({
@@ -4353,21 +4350,20 @@ __webpack_require__.r(__webpack_exports__);
         alt: this.alt,
         credit: this.credit,
         caption: this.caption
-      });
+      }); // Refresh Folder On Save
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
-      console.log(value);
       _this.slideOpen = true;
       _this.data = value;
       _this.disk = _this.data[0].disk;
       _this.id = _this.data[0].id;
       _this.alt = _this.data[0].alt;
       _this.credit = _this.data[0].credit;
-      _this.caption = _this.data[0].credit;
+      _this.caption = _this.data[0].caption;
     });
   },
   computed: {
@@ -38599,6 +38595,8 @@ var actions = {
     });
   },
   UPDATE_MEDIA: function UPDATE_MEDIA(context, value) {
+    var _this4 = this;
+
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       disk: value.disk,
       id: value.id,
@@ -38610,8 +38608,9 @@ var actions = {
         type: 'success',
         position: 'bottom-left',
         message: 'Media Updated'
-      });
-      console.log(response);
+      }); // Refresh folde to get real data on slidebar
+
+      _this4.dispatch('GET_DIRECTORY', _this4.state.currentDirectory);
     });
   }
 };

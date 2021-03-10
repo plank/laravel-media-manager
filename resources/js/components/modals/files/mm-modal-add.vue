@@ -59,9 +59,6 @@ export default {
       this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function ($event) {
-      console.log($event);
-      //   console.log(file);
-      //   console.log(response);
       this.$store.dispatch('CLOSE_MODAL_ADD');
       // Refresh current folder
       this.$toast.open({
