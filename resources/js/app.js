@@ -43,6 +43,12 @@ const messages = {
       viewList: 'View List',
       search: 'Search',
       created_on: 'Created on',
+      error: 'Error',
+      uploaded: 'Uploaded',
+      updated: 'Updated',
+      created: 'Created',
+      deleted: 'Deleted',
+      moved: 'Moved',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -92,6 +98,12 @@ const messages = {
       viewList: 'Liste',
       search: 'Chercher',
       created_on: 'Crée le',
+      error: 'Erreur',
+      upload: 'Téverser',
+      updated: 'Mis à jour',
+      created: 'Créer',
+      deleted: 'Supprimer',
+      moved: 'Déplacer',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'

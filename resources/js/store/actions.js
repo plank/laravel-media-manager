@@ -102,7 +102,7 @@ export const actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: 'Folder ' + value.name + ' Created'
+          message: value.vm.$i18n.t('actions.created')
         });
         // Refresh Current View With New Folder
         this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
@@ -125,7 +125,7 @@ export const actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: 'Folder Deleted'
+          message: value.vm.$i18n.t('actions.deleted')
         });
       });
     }
@@ -153,7 +153,7 @@ export const actions = {
             value.vm.$toast.open({
               type: 'success',
               position: 'bottom-left',
-              message: 'Media Deleted'
+              message: value.vm.$i18n.t('actions.deleted')
             });
             // do something with response
             media.push(response);
@@ -228,7 +228,7 @@ export const actions = {
       value.vm.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: 'Media Updated'
+        message: value.vm.$i18n.t('actions.uploaded')
       });
       // Refresh folde to get real data on slidebar
       this.dispatch('GET_DIRECTORY', this.state.currentDirectory);

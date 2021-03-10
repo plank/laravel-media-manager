@@ -74,7 +74,7 @@ export default {
           this.$toast.open({
             type: 'success',
             position: 'bottom-left',
-            message: 'Folder moved successfully'
+            message: this.$i18n.t('actions.moved')
           });
           // Reload Current Directory
           this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);

@@ -1019,6 +1019,11 @@ table tr {
   align-items: center;
 }
 
+.mm__move-folder-list {
+  max-height: 30vh;
+  overflow-y: scroll;
+}
+
 .mm__move-folder-list li {
   border-radius: 4px;
   background-image: url(/images/icon-folder.svg?d58c09fa66008574e5b33725ff40b76b);

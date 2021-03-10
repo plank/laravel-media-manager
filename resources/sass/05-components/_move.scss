@@ -13,6 +13,9 @@
     }
 
     &-folder-list {
+        max-height: 30vh;
+        overflow-y: scroll;
+
         li {
             border-radius: 4px;
             background-image: url('./../../img/icon-folder.svg');

@@ -3471,7 +3471,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: $event.name + ' File Uploaded'
+        message: $event.name + ' ' + this.$i18n.t('actions.uploaded')
       });
       this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     },
@@ -3480,7 +3480,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$toast.open({
           type: 'error',
           position: 'bottom-left',
-          message: 'Error'
+          message: this.$i18n.t('actions.error')
         });
       }
     }
@@ -4015,7 +4015,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: 'Folder moved successfully'
+          message: _this2.$i18n.t('actions.moved')
         }); // Reload Current Directory
 
 
@@ -4350,7 +4350,7 @@ __webpack_require__.r(__webpack_exports__);
         alt: this.alt,
         credit: this.credit,
         caption: this.caption
-      }); // Refresh Folder On Save
+      });
     }
   },
   mounted: function mounted() {
@@ -36288,6 +36288,12 @@ var messages = {
       viewList: 'View List',
       search: 'Search',
       created_on: 'Created on',
+      error: 'Error',
+      uploaded: 'Uploaded',
+      updated: 'Updated',
+      created: 'Created',
+      deleted: 'Deleted',
+      moved: 'Moved',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -36337,6 +36343,12 @@ var messages = {
       viewList: 'Liste',
       search: 'Chercher',
       created_on: 'Crée le',
+      error: 'Erreur',
+      upload: 'Téverser',
+      updated: 'Mis à jour',
+      created: 'Créer',
+      deleted: 'Supprimer',
+      moved: 'Déplacer',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -38467,7 +38479,7 @@ var actions = {
       value.vm.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: 'Folder ' + value.name + ' Created'
+        message: value.vm.$i18n.t('actions.created')
       }); // Refresh Current View With New Folder
 
       _this.dispatch('GET_DIRECTORY', _this.state.currentDirectory);
@@ -38498,7 +38510,7 @@ var actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: 'Folder Deleted'
+          message: value.vm.$i18n.t('actions.deleted')
         });
       });
     } // If We Have Media Collection -> Delete
@@ -38528,7 +38540,7 @@ var actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: 'Media Deleted'
+          message: value.vm.$i18n.t('actions.deleted')
         }); // do something with response
 
         media.push(response);
@@ -38607,7 +38619,7 @@ var actions = {
       value.vm.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: 'Media Updated'
+        message: value.vm.$i18n.t('actions.uploaded')
       }); // Refresh folde to get real data on slidebar
 
       _this4.dispatch('GET_DIRECTORY', _this4.state.currentDirectory);
@@ -38803,10 +38815,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
 /* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
-/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/mutations.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
+
 
 
 
@@ -38817,11 +38831,14 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]);
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  state: _state__WEBPACK_IMPORTED_MODULE_4__["state"],
-  mutations: _mutations__WEBPACK_IMPORTED_MODULE_6__["mutations"],
-  actions: _actions__WEBPACK_IMPORTED_MODULE_5__["actions"],
-  getters: _getters__WEBPACK_IMPORTED_MODULE_7__["getters"]
+  i18n: i18n,
+  state: _state__WEBPACK_IMPORTED_MODULE_5__["state"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_7__["mutations"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_6__["actions"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_8__["getters"]
 }));
 
 /***/ }),

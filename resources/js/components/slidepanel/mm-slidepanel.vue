@@ -132,8 +132,6 @@ export default {
         credit: this.credit,
         caption: this.caption
       });
-
-      // Refresh Folder On Save
     }
   },
   mounted () {

@@ -64,7 +64,7 @@ export default {
       this.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: $event.name + ' File Uploaded'
+        message: $event.name + ' ' + this.$i18n.t('actions.uploaded')
       });
       this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     },
@@ -73,7 +73,7 @@ export default {
         this.$toast.open({
           type: 'error',
           position: 'bottom-left',
-          message: 'Error'
+          message: this.$i18n.t('actions.error')
         });
       }
     }
