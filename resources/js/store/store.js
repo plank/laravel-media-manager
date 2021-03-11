@@ -10,7 +10,6 @@ import { mutations } from './mutations';
 import { getters } from './getters';
 
 Vue.use(Vuex);
-Vue.use(VueToast);
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({});
