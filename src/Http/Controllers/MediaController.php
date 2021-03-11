@@ -89,12 +89,12 @@ class MediaController extends BaseController
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
         $response = [];
-
         foreach ($media as $index => $m) {
             $model = $this->uploader
                 ->toDestination($disk, $path)
                 ->fromSource($m);
-                if (is_array($data['title'])) {
+                if ($data->isNotEmpty() &&
+                    (is_array($data['title']) || is_array($data['alt']) || is_array($data['caption']) || is_array($data['credit']))) {
                     $model->beforeSave(function (Media $m) use ($data, $index) {
                         $details = $data->mapWithKeys(function ($entries, $field) use ($index) {
                             return [$field => $entries[$index] ?? null];
