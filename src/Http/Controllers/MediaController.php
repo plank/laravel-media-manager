@@ -97,7 +97,7 @@ class MediaController extends BaseController
                 if (is_array($data['title'])) {
                     $model->beforeSave(function (Media $m) use ($data, $index) {
                         $details = $data->mapWithKeys(function ($entries, $field) use ($index) {
-                            return [$field => $entries[$index]];
+                            return [$field => $entries[$index] ?? null];
                         });
                         $m->fill($details->toArray());
                     });
