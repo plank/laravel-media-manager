@@ -94,12 +94,16 @@ class MediaController extends BaseController
             $model = $this->uploader
                 ->toDestination($disk, $path)
                 ->fromSource($m);
-                if (is_array($data['title']) || count($media) == 1) {
+                if (is_array($data['title'])) {
                     $model->beforeSave(function (Media $m) use ($data, $index) {
                         $details = $data->mapWithKeys(function ($entries, $field) use ($index) {
                             return [$field => $entries[$index]];
                         });
                         $m->fill($details->toArray());
+                    });
+                } elseif (count($media) == 1) {
+                    $model->beforeSave(function (Media $m) use ($data, $index) {
+                        $m->fill($data->toArray());
                     });
                 }
             $response[] = $model->upload();
