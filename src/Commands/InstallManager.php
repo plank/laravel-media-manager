@@ -60,7 +60,8 @@ class InstallManager extends Command
                         'vue-i18n' => "^8.24.0",
                         'vue-moment' => "^4.1.0",
                         'vue-loader' => "^16.1.2",
-                        '@vue/compiler-sfc' => '^3.0.5'
+                        '@vue/compiler-sfc' => '^3.0.5',
+                        "axios" => "^0.19"
                     ] + $packages;
             });
 
