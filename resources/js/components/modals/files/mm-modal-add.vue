@@ -45,6 +45,8 @@ export default {
     return {
       dropzoneOptions: {
         url: this.getUploadURL(),
+        parallelUploads: 20,
+        uploadMultiple: true,
         dictDefaultMessage: '<span class="upload__illustration"></span>'
       }
     };
