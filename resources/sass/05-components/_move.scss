@@ -18,7 +18,7 @@
 
         li {
             border-radius: 4px;
-            background-image: url('./../../img/icon-folder.svg');
+            background-image: url('/images/icon-folder.svg');
             background-position: left center;
             background-repeat: no-repeat;
             padding-left: 2em;
@@ -32,7 +32,7 @@
             }
 
             &.mm__move-back {
-                background-image: url('./../../img/icon-arrow-back.svg');
+                background-image: url('/images/icon-arrow-back.svg');
                 background-size: contain;
                 background-position: center left;
                 background-repeat: no-repeat;
@@ -57,7 +57,7 @@
 
             &.active {
                 background-color: $mm-move-active-bg;
-                background-image: url('./../../img/icon-folder.svg');
+                background-image: url('/images/icon-folder.svg');
                 background-position: left center;
                 background-repeat: no-repeat;
                 .mm__move-folder-title {
@@ -89,7 +89,7 @@
 
     &-folder-handler {
         a {
-            background: url('./../../img/icon-arrow-next.svg') center center no-repeat;
+            background: url('/images/icon-arrow-next.svg') center center no-repeat;
             background-size: 100%;
             display: inline-block;
             position: relative;
@@ -100,7 +100,7 @@
             &:hover {
                 border-radius: 4px;
                 transition: all 0.2s ease-in-out;
-                background-image: url('./../../img/icon-arrow-next.svg') center center no-repeat;
+                background-image: url('/images/icon-arrow-next.svg') center center no-repeat;
                 background-color: darken($mm-move-hover-bg, 10);
             }
         }
