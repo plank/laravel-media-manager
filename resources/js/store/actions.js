@@ -102,7 +102,7 @@ export const actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.vm.$i18n.t('actions.created')
+          message: value.name + ' ' + value.vm.$i18n.t('actions.created')
         });
         // Refresh Current View With New Folder
         this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
@@ -125,7 +125,7 @@ export const actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.vm.$i18n.t('actions.deleted')
+          message: value.folder.name + ' ' + value.vm.$i18n.t('actions.deleted')
         });
       });
     }
@@ -153,7 +153,7 @@ export const actions = {
             value.vm.$toast.open({
               type: 'success',
               position: 'bottom-left',
-              message: value.vm.$i18n.t('actions.deleted')
+              message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.deleted')
             });
             // do something with response
             media.push(response);
