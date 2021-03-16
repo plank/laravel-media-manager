@@ -10,3 +10,4 @@ node_modules
 .php_cs.cache
 dist/
 node_modules/
+.cache
