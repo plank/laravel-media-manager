@@ -3452,6 +3452,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dropzoneOptions: {
         url: this.getUploadURL(),
+        parallelUploads: 20,
+        uploadMultiple: true,
         dictDefaultMessage: '<span class="upload__illustration"></span>'
       }
     };
@@ -38479,7 +38481,7 @@ var actions = {
       value.vm.$toast.open({
         type: 'success',
         position: 'bottom-left',
-        message: value.vm.$i18n.t('actions.created')
+        message: value.name + ' ' + value.vm.$i18n.t('actions.created')
       }); // Refresh Current View With New Folder
 
       _this.dispatch('GET_DIRECTORY', _this.state.currentDirectory);
@@ -38510,7 +38512,7 @@ var actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.vm.$i18n.t('actions.deleted')
+          message: value.folder.name + ' ' + value.vm.$i18n.t('actions.deleted')
         });
       });
     } // If We Have Media Collection -> Delete
@@ -38528,23 +38530,29 @@ var actions = {
     context.commit('SET_SELECTED_DIRECTORY', value);
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(_ref5, value) {
+    var _this3 = this;
+
     var commit = _ref5.commit,
         context = _ref5.context;
     var media = [];
     var promises = [];
 
-    for (var i = 0; i < value.media.length; i++) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeDeleteMedia, {
+    var _loop = function _loop(i) {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this3.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.vm.$i18n.t('actions.deleted')
+          message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.deleted')
         }); // do something with response
 
         media.push(response);
       }));
+    };
+
+    for (var i = 0; i < value.media.length; i++) {
+      _loop(i);
     }
 
     commit('CLOSE_MODAL');
@@ -38554,13 +38562,13 @@ var actions = {
     });
   },
   MAKE_SEARCH: function MAKE_SEARCH(_ref6, value) {
-    var _this3 = this;
+    var _this4 = this;
 
     var commit = _ref6.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + '?q=' + value, {}).then(function (response) {
       // Replace Medias Collection With Results
-      _this3.state.mediaCollection = response.data;
-      _this3.state.hideDirectory = true; // Hide Folders
+      _this4.state.mediaCollection = response.data;
+      _this4.state.hideDirectory = true; // Hide Folders
     });
   },
   UPDATE_ORDERBY: function UPDATE_ORDERBY(_ref7, data) {
@@ -38607,7 +38615,7 @@ var actions = {
     });
   },
   UPDATE_MEDIA: function UPDATE_MEDIA(context, value) {
-    var _this4 = this;
+    var _this5 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       disk: value.disk,
@@ -38622,7 +38630,7 @@ var actions = {
         message: value.vm.$i18n.t('actions.uploaded')
       }); // Refresh folde to get real data on slidebar
 
-      _this4.dispatch('GET_DIRECTORY', _this4.state.currentDirectory);
+      _this5.dispatch('GET_DIRECTORY', _this5.state.currentDirectory);
     });
   }
 };
@@ -38860,8 +38868,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

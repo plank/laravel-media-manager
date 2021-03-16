@@ -6,8 +6,6 @@ coverage
 .DS_Store
 .idea
 node_modules
-.cache/
-.cache
 /dist
 .php_cs.cache
 dist/

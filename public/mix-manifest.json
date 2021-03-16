@@ -1,4 +1,17 @@
 {
-    "/app.js": "/app.js?id=da54ffebcd8b373e86e0",
-    "/app.css": "/app.css?id=0e6a7ca44f4693237ed6"
+    "/app.js": "/app.js?id=da107d84a2697a86c26c",
+    "/app.css": "/app.css?id=6ea582416588c296e9d5",
+    "/images/icon-add.svg": "/images/icon-add.svg?id=f35ff7376a119c2d780b",
+    "/images/icon-arrow-back.svg": "/images/icon-arrow-back.svg?id=963a92661eaa72c7bfd3",
+    "/images/icon-arrow-next.svg": "/images/icon-arrow-next.svg?id=eccda1148183083ccdd9",
+    "/images/icon-close.svg": "/images/icon-close.svg?id=27cbcf9a520b83f4f09d",
+    "/images/icon-directory.svg": "/images/icon-directory.svg?id=8058c90eb390c6e2d693",
+    "/images/icon-folder.svg": "/images/icon-folder.svg?id=d58c09fa66008574e5b3",
+    "/images/icon-grid.svg": "/images/icon-grid.svg?id=395de219cb376b4ebbef",
+    "/images/icon-list.svg": "/images/icon-list.svg?id=5a8a49aaa9a307344049",
+    "/images/icon-minimize.svg": "/images/icon-minimize.svg?id=70d00f757079f937ab52",
+    "/images/icon-search.svg": "/images/icon-search.svg?id=c32d162531d39466978f",
+    "/images/icon-select.svg": "/images/icon-select.svg?id=6fbfd83b5d4ddcd55fbe",
+    "/images/icon-selected.svg": "/images/icon-selected.svg?id=2c7d3f1283d545d66fd8",
+    "/images/illustration-upload.svg": "/images/illustration-upload.svg?id=6d65bf9ec5ab9a1c63f0"
 }

@@ -21,6 +21,7 @@ mix.options({
     },
 })
     .setPublicPath('public')
+    .copy('resources/img/*', 'public/images')
     .js('resources/js/app.js', 'public')
     .sass('resources/sass/app.scss', 'public')
     .version()
