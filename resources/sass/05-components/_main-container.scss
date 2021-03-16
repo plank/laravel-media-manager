@@ -1,0 +1,15 @@
+// Main Container
+
+.wrapper {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.mm {
+    background: $mm-bg-color;
+
+    &__empty {
+        text-align: center;
+        opacity: 0.5;
+    }
+}

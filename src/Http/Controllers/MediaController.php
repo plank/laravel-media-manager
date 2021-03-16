@@ -84,17 +84,31 @@ class MediaController extends BaseController
      */
     public function create(Request $request)
     {
-        $media = $request->file;
-        $data = $request->only(['title', 'alt', 'caption', 'credit']);
+        $media = is_array($request->file) ? $request->file : [$request->file] ;
+        $data = collect($request->only(['title', 'alt', 'caption', 'credit']));
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
-        $model = $this->uploader
-            ->toDestination($disk, $path)
-            ->fromSource($media)
-            ->beforeSave(function (Media $m) use ($data) {
-                $m->fill($data);
-            });
-        return response($model->upload());
+        $response = [];
+        foreach ($media as $index => $m) {
+            $model = $this->uploader
+                ->toDestination($disk, $path)
+                ->fromSource($m);
+                if ($data->isNotEmpty() &&
+                    (is_array($data['title']) || is_array($data['alt']) || is_array($data['caption']) || is_array($data['credit']))) {
+                    $model->beforeSave(function (Media $m) use ($data, $index) {
+                        $details = $data->mapWithKeys(function ($entries, $field) use ($index) {
+                            return [$field => $entries[$index] ?? null];
+                        });
+                        $m->fill($details->toArray());
+                    });
+                } elseif (count($media) == 1) {
+                    $model->beforeSave(function (Media $m) use ($data, $index) {
+                        $m->fill($data->toArray());
+                    });
+                }
+            $response[] = $model->upload();
+        }
+        return response($response);
     }
 
     /**

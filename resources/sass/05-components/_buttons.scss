@@ -1,0 +1,58 @@
+// Buttons
+.btn {
+    font-family: $font-family-header;
+    text-align: center;
+    text-decoration: none;
+    border-radius: em-calc(3px);
+
+    &[disabled] {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+        filter: grayscale(1);
+    }
+
+    &-rounded {
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.25);
+        color: $mm-color-white;
+        border: none;
+        border-radius: 150px;
+        width: $button-add-dimension;
+        height: $button-add-dimension;
+        cursor: pointer;
+    }
+
+    &-add {
+        position: fixed;
+        right: em-calc(10px);
+        bottom: em-calc(10px);
+        z-index: 999;
+        &:hover {
+            transform: scale(1.1);
+            transition: all 0.2s ease-in-out;
+        }
+    }
+
+    &-default {
+        text-transform: uppercase;
+        color: white;
+        padding: em(14px) em(48px);
+        border-width: 3px;
+        border-style: solid;
+    }
+
+    &-default-border {
+        border-width: 3px;
+        border-style: solid;
+        text-transform: uppercase;
+        padding: em(14px) em(28px);
+    }
+
+    &-delete {
+        font-weight: 100;
+        padding: em(14px) em(48px);
+        font-size: em-calc(12px);
+        text-transform: uppercase;
+        text-decoration: underline;
+    }
+}

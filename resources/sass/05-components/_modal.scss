@@ -1,0 +1,98 @@
+// Modals
+.modal {
+    background: $mm-color-white;
+    width: fit-content;
+    height: fit-content;
+    min-width: 400px;
+    //min-height: 400px;
+    display: inline-block;
+    margin: 0 auto;
+    position: absolute;
+    top: 18vh;
+    left: 0;
+    right: 0;
+    padding: em-calc(25px);
+    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
+    border-radius: em-calc(3px);
+    z-index: 2;
+
+    &__container {
+
+        .title {
+            margin: 2rem 0;
+        }
+
+        p {
+            font-family: $font-family-base;
+            line-height: 1.6em;
+        }
+
+        .buttons__container {
+            &-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                div {
+                    text-align: center;
+                    width: 100%;
+
+                    .btn {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        &-upload {
+            border: 2px dashed $mm-modal-add-border;
+            margin-top: em(40px);
+        }
+
+    }
+
+    &-close {
+        float: right;
+    }
+}
+
+.overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(245,245,245,0.80);
+    top: 0;
+    z-index: 1;
+}
+
+// Modal : Add A Folder
+// ------------------------------
+.modal-add-folder {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    .content-grid {
+        display: grid;
+        grid-template-rows: auto auto;
+    }
+    .icon-container {
+        height: inherit;
+        width: inherit;
+    }
+
+    input {
+        margin: 1em 0;
+        width: 100%;
+        min-height: 30px;
+        box-shadow: none !important;
+        border: 2px solid #999 !important;
+        border-radius: 4px;
+        text-indent: 1em;
+        font-size: em-calc(16px);
+    }
+}
+
+// Modal : Delete A Folder
+// ------------------------------
+.modal-delete-folder {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}

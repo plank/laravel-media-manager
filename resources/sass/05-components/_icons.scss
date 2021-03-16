@@ -1,0 +1,42 @@
+// Icons
+
+.icon-container {
+    // background: #ECEBEB;
+    height: 120px;
+    width: 120px;
+    border-radius: 150px;
+    margin: 0 auto;
+    display: flex;
+    svg {
+        display: flex;
+        align-self: center;
+        float: none;
+        clear: both;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+.i {
+    &-add {
+        background: url('/images/icon-add.svg');
+        display: block;
+        width: em-calc(38px);
+        height: em-calc(38px);
+        margin: 0 auto;
+    }
+
+    &-minimize {
+        cursor: pointer;
+        background: url('/images/icon-minimize.svg');
+        display: block;
+        width: em-calc(21px);
+        height: em-calc(12px);
+        margin: 0 auto;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            opacity: 0.5;
+            transition: all 0.2s ease-in-out;
+        }
+    }
+}
