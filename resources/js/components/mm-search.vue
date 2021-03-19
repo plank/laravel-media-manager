@@ -97,7 +97,7 @@
             </a>
           </li>
           <li v-if="this.$store.state.totalSelected > 1">
-            <a v-on:click="deselectAll($event)" href="#">Deselect All</a>
+            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{ $t('actions.deselectAll') }}</a>
           </li>
           <li v-if="this.$store.state.selectedDirectory">
             <a v-on:click="openMoveModal($event)" href="">

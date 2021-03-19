@@ -49,6 +49,7 @@ const messages = {
       created: 'Created',
       deleted: 'Deleted',
       moved: 'Moved',
+      deselectAll: 'Deselect All',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -104,6 +105,7 @@ const messages = {
       created: 'Créer',
       deleted: 'Supprimer',
       moved: 'Déplacer',
+      deselectAll: 'Tout déselectionner',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'

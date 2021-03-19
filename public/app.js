@@ -13783,6 +13783,7 @@ var render = function() {
                 _c(
                   "a",
                   {
+                    staticClass: "mm__search-deselect",
                     attrs: { href: "#" },
                     on: {
                       click: function($event) {
@@ -13790,7 +13791,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Deselect All")]
+                  [_vm._v(_vm._s(_vm.$t("actions.deselectAll")))]
                 )
               ])
             : _vm._e(),
@@ -36296,6 +36297,7 @@ var messages = {
       created: 'Created',
       deleted: 'Deleted',
       moved: 'Moved',
+      deselectAll: 'Deselect All',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -36351,6 +36353,7 @@ var messages = {
       created: 'Créer',
       deleted: 'Supprimer',
       moved: 'Déplacer',
+      deselectAll: 'Tout déselectionner',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
