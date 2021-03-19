@@ -326,7 +326,7 @@ strong {
 }
 
 .mm__search-select {
-  background: url("/img/icon-select.svg");
+  background: url("/images/icon-select.svg");
   background-repeat: no-repeat;
   background-position: center right 1em;
   -moz-appearance: none;
@@ -511,7 +511,7 @@ strong {
 }
 
 .i-add {
-  background: url(/images/icon-add.svg?f35ff7376a119c2d780b761775d61cc6);
+  background: url("/images/icon-add.svg");
   display: block;
   width: 2.375em;
   height: 2.375em;
@@ -520,7 +520,7 @@ strong {
 
 .i-minimize {
   cursor: pointer;
-  background: url("/img/icon-minimize.svg");
+  background: url("/images/icon-minimize.svg");
   display: block;
   width: 1.3125em;
   height: 0.75em;
@@ -999,7 +999,7 @@ table tr {
 }
 
 #dropzone .upload__illustration {
-  background: url(/images/illustration-upload.svg?6d65bf9ec5ab9a1c63f0e2a2d78752d2) center center no-repeat;
+  background: url("/images/illustration-upload.svg") center center no-repeat;
   height: 244px;
   width: 100%;
   display: block;
@@ -1026,7 +1026,7 @@ table tr {
 
 .mm__move-folder-list li {
   border-radius: 4px;
-  background-image: url(/images/icon-folder.svg?d58c09fa66008574e5b33725ff40b76b);
+  background-image: url("/images/icon-folder.svg");
   background-position: left center;
   background-repeat: no-repeat;
   padding-left: 2em;
@@ -1041,7 +1041,7 @@ table tr {
 }
 
 .mm__move-folder-list li.mm__move-back {
-  background-image: url(/images/icon-arrow-back.svg?963a92661eaa72c7bfd36b1a677b9a1b);
+  background-image: url("/images/icon-arrow-back.svg");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
@@ -1068,7 +1068,7 @@ table tr {
 
 .mm__move-folder-list li.active {
   background-color: #f3f3f3;
-  background-image: url(/images/icon-folder.svg?d58c09fa66008574e5b33725ff40b76b);
+  background-image: url("/images/icon-folder.svg");
   background-position: left center;
   background-repeat: no-repeat;
 }
@@ -1087,7 +1087,7 @@ table tr {
 }
 
 .mm__move-folder-handler a {
-  background: url(/images/icon-arrow-next.svg?eccda1148183083ccdd9f3f64615cde9) center center no-repeat;
+  background: url("/images/icon-arrow-next.svg") center center no-repeat;
   background-size: 100%;
   display: inline-block;
   position: relative;
@@ -1099,7 +1099,7 @@ table tr {
 .mm__move-folder-handler a:hover {
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
-  background-image: url(/images/icon-arrow-next.svg?eccda1148183083ccdd9f3f64615cde9) center center no-repeat;
+  background-image: url("/images/icon-arrow-next.svg") center center no-repeat;
   background-color: #e0e0e0;
 }
 

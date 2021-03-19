@@ -181,7 +181,7 @@ export const actions = {
     const mediasArray = Object.values(this.state.mediaCollection);
     // Sort Medias
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
-      if (data === 'desc') {
+      if (data === 'asc') {
         if (value1.timestamp > value2.timestamp) {
           return 1;
         } else {
@@ -189,7 +189,7 @@ export const actions = {
         }
       }
 
-      if (data === 'asc') {
+      if (data === 'desc') {
         if (value1.timestamp < value2.timestamp) {
           return 1;
         } else {
