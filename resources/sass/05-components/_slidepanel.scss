@@ -1,9 +1,10 @@
 // Sidepanel
 
 .mm__slidepanel {
-    overflow-x: scroll;
+    overflow-x: hidden;
+    overflow-y: visible;
     position: fixed;
-    width: 32%;
+    width: 350px;
     height: 100vh;
     background: $mm-slidepanel-bg;
     top: 0;

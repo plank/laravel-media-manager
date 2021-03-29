@@ -2471,54 +2471,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmfoldercard',
-  props: ['item'],
+  name: "mmfoldercard",
+  props: ["item"],
   data: function data() {
     return {};
   },
   filters: {
     clearname: function clearname(name) {
-      name = name.split('/');
+      name = name.split("/");
       return name[name.length - 1];
     }
   },
@@ -2607,6 +2568,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-icon-base.vue */ "./resources/js/components/mm-icon-base.vue");
+/* harmony import */ var _icons_icon_empty_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icons/icon-empty.vue */ "./resources/js/components/icons/icon-empty.vue");
 //
 //
 //
@@ -2621,87 +2584,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmempty',
-  components: {},
+  name: "mmempty",
+  components: {
+    mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    iconempty: _icons_icon_empty_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {};
   },
@@ -12537,6 +12427,215 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "svg",
+    {
+      attrs: {
+        width: "209px",
+        height: "244px",
+        viewBox: "0 0 209 244",
+        version: "1.1",
+        xmlns: "http://www.w3.org/2000/svg",
+        "xmlns:xlink": "http://www.w3.org/1999/xlink"
+      }
+    },
+    [
+      _c("title", [_vm._v("icon-empty-folder")]),
+      _vm._v(" "),
+      _c(
+        "g",
+        {
+          attrs: {
+            id: "Page-1",
+            stroke: "none",
+            "stroke-width": "1",
+            fill: "none",
+            "fill-rule": "evenodd"
+          }
+        },
+        [
+          _c("g", { attrs: { id: "icon-empty-folder" } }, [
+            _c("circle", {
+              attrs: {
+                id: "Oval",
+                fill: "#DADADA",
+                cx: "35.5",
+                cy: "40.5",
+                r: "3.5"
+              }
+            }),
+            _vm._v(" "),
+            _c("circle", {
+              attrs: {
+                id: "Oval",
+                fill: "#DADADA",
+                cx: "69.5",
+                cy: "16.5",
+                r: "7.5"
+              }
+            }),
+            _vm._v(" "),
+            _c("g", { attrs: { id: "icon-move" } }, [
+              _c("path", {
+                attrs: {
+                  d:
+                    "M173.686353,9.33718757 C140.307692,-13.6719682 96.3206133,7.30686471 75.438618,56.1948322 L75.4231232,56.230947 C74.4402167,58.5332838 72.7708102,60.3068916 70.5687483,61.3610327 C59.9241921,66.4568032 49.6353717,73.272418 40.1777429,81.7881054 C-3.70478551,121.300111 -13.0896103,182.416246 19.2153837,218.294576 C51.5203778,254.172907 113.282506,251.227661 157.165034,211.715655 C179.678976,191.444011 193.112486,165.485471 196.493965,140.166286 C196.62996,139.147537 196.877757,138.182137 197.239677,137.290159 C216.882256,88.8724266 206.559415,31.9976972 173.686353,9.33718757",
+                  id: "Fill-3",
+                  "fill-opacity": "0.04",
+                  fill: "#000000",
+                  "fill-rule": "nonzero"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "g",
+                {
+                  attrs: {
+                    id: "Group-11",
+                    transform: "translate(19.000000, 61.000000)"
+                  }
+                },
+                [
+                  _c("circle", {
+                    attrs: {
+                      id: "Oval",
+                      fill: "#DADADA",
+                      cx: "159.5",
+                      cy: "124.5",
+                      r: "23.5"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M138.408084,16.98714 L65.766942,16.98714 C63.72486,16.98714 61.89003,15.74055 61.13763,13.84245 L56.897172,3.14469 C56.144772,1.24659 54.3096,-5.83213478e-14 52.26786,-5.83213478e-14 L17.06751,-5.83213478e-14 C14.317146,-5.83213478e-14 12.087648,2.229498 12.087648,4.979862 L12.087648,12.00762 C12.087648,14.757984 9.85815,16.987482 7.107786,16.987482 L6.64848,16.987482 C2.976426,16.987482 -6.80415724e-14,19.96425 -6.80415724e-14,23.635962 L-6.80415724e-14,125.62002 C-6.80415724e-14,131.76918 4.984992,136.75383 11.13381,136.75383 L145.056222,136.75383 L145.056222,23.63562 C145.056222,19.963908 142.079796,16.98714 138.408084,16.98714 Z",
+                      id: "Path",
+                      stroke: "#000000",
+                      "stroke-width": "2",
+                      fill: "#FFFFFF",
+                      "fill-rule": "nonzero"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M44.57457,32.254362 L168.45552,32.254362 C172.127574,32.254362 175.104,35.23113 175.104,38.902842 L159.448266,130.105008 C159.448266,133.777062 156.471498,136.753488 152.799786,136.753488 L22.270014,136.753488 L11.135178,136.753488 C15.891714,136.753488 19.188252,134.364276 21.188952,129.852612 C21.773772,128.534202 22.16673,127.138842 22.420152,125.718858 L37.925748,38.9025 C37.925748,35.23113 40.902516,32.254362 44.57457,32.254362 L44.57457,32.254362 Z",
+                      id: "Path",
+                      stroke: "#000000",
+                      "stroke-width": "2",
+                      fill: "#FFFFFF",
+                      "fill-rule": "nonzero"
+                    }
+                  })
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "g",
+              {
+                attrs: {
+                  id: "Group-13",
+                  transform:
+                    "translate(184.528992, 66.476257) rotate(24.000000) translate(-184.528992, -66.476257) translate(163.528992, 55.476257)",
+                  fill: "#000000"
+                }
+              },
+              [
+                _c("rect", {
+                  attrs: {
+                    id: "Rectangle",
+                    transform:
+                      "translate(7.000000, 15.500000) rotate(-45.000000) translate(-7.000000, -15.500000) ",
+                    x: "6",
+                    y: "8",
+                    width: "2",
+                    height: "15",
+                    rx: "1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  attrs: {
+                    id: "Rectangle",
+                    transform:
+                      "translate(14.000000, 10.000000) rotate(-15.000000) translate(-14.000000, -10.000000) ",
+                    x: "13",
+                    y: "5",
+                    width: "2",
+                    height: "10",
+                    rx: "1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  attrs: {
+                    id: "Rectangle",
+                    transform:
+                      "translate(29.000000, 10.000000) rotate(15.000000) translate(-29.000000, -10.000000) ",
+                    x: "28",
+                    y: "5",
+                    width: "2",
+                    height: "10",
+                    rx: "1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  attrs: {
+                    id: "Rectangle",
+                    transform:
+                      "translate(35.000000, 15.500000) rotate(45.000000) translate(-35.000000, -15.500000) ",
+                    x: "34",
+                    y: "8",
+                    width: "2",
+                    height: "15",
+                    rx: "1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("rect", {
+                  attrs: {
+                    id: "Rectangle",
+                    x: "21",
+                    y: "0",
+                    width: "2",
+                    height: "15",
+                    rx: "1"
+                  }
+                })
+              ]
+            )
+          ])
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-info.vue?vue&type=template&id=23147a5c&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/icons/icon-info.vue?vue&type=template&id=23147a5c& ***!
@@ -12852,70 +12951,18 @@ var render = function() {
           "svg",
           {
             attrs: {
-              width: "36px",
-              height: "32px",
-              viewBox: "0 0 36 32",
+              width: "20px",
+              height: "16px",
+              viewBox: "0 0 20 16",
               version: "1.1",
               xmlns: "http://www.w3.org/2000/svg",
               "xmlns:xlink": "http://www.w3.org/1999/xlink"
             }
           },
           [
-            _c("defs", [
-              _c(
-                "filter",
-                {
-                  attrs: {
-                    x: "-87.5%",
-                    y: "-109.4%",
-                    width: "275.0%",
-                    height: "318.8%",
-                    filterUnits: "objectBoundingBox",
-                    id: "filter-3"
-                  }
-                },
-                [
-                  _c("feOffset", {
-                    attrs: {
-                      dx: "0",
-                      dy: "1",
-                      in: "SourceAlpha",
-                      result: "shadowOffsetOuter1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("feGaussianBlur", {
-                    attrs: {
-                      stdDeviation: "4",
-                      in: "shadowOffsetOuter1",
-                      result: "shadowBlurOuter1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("feColorMatrix", {
-                    attrs: {
-                      values: "0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0",
-                      type: "matrix",
-                      in: "shadowBlurOuter1",
-                      result: "shadowMatrixOuter1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "feMerge",
-                    [
-                      _c("feMergeNode", {
-                        attrs: { in: "shadowMatrixOuter1" }
-                      }),
-                      _vm._v(" "),
-                      _c("feMergeNode", { attrs: { in: "SourceGraphic" } })
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
+            _c("title", [_vm._v("Group")]),
+            _vm._v(" "),
+            _c("desc", [_vm._v("Created with Sketch.")]),
             _vm._v(" "),
             _c(
               "g",
@@ -12933,24 +12980,14 @@ var render = function() {
                   "g",
                   {
                     attrs: {
-                      id: "Media-Manager---Grid-View---Folder-Selected",
-                      transform: "translate(-296.000000, -234.000000)"
+                      id: "test",
+                      transform: "translate(-304.000000, -241.000000)"
                     }
                   },
                   [
                     _c("g", { attrs: { id: "Intro" } }, [
                       _c("g", { attrs: { id: "Concentric-circles" } }, [
-                        _c("mask", { attrs: { id: "mask-2", fill: "white" } }, [
-                          _c("use", { attrs: { "xlink:href": "#path-1" } })
-                        ]),
-                        _vm._v(" "),
-                        _c("use", {
-                          attrs: {
-                            id: "Mask",
-                            fill: "#2D2D2D",
-                            "xlink:href": "#path-1"
-                          }
-                        })
+                        _c("g", { attrs: { id: "Mask" } })
                       ])
                     ]),
                     _vm._v(" "),
@@ -12959,40 +12996,30 @@ var render = function() {
                       {
                         attrs: {
                           id: "Group",
-                          transform: "translate(304.000000, 194.000000)",
+                          transform: "translate(304.000000, 241.000000)",
                           "fill-rule": "nonzero"
                         }
                       },
                       [
-                        _c(
-                          "g",
-                          {
+                        _c("g", { attrs: { id: "folder" } }, [
+                          _c("path", {
                             attrs: {
-                              id: "folder",
-                              filter: "url(#filter-3)",
-                              transform: "translate(0.000000, 47.000000)"
+                              d:
+                                "M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z",
+                              id: "Path",
+                              fill: "#AAAAAA"
                             }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z",
-                                id: "Path",
-                                fill: "#AAAAAA"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M1.05263431,15.5054518 L18.683964,15.5054518 C19.2653236,15.5054518 19.7365983,15.0341771 19.7365983,14.4528175 L19.7365983,3.51159076 C19.7365983,2.93023115 19.2653236,2.45895645 18.683964,2.45895645 L11.0751661,2.45895645 C10.6948843,2.45895645 10.3441467,2.66408022 10.1576935,2.99555719 L9.57721897,4.02758219 C9.39080795,4.35905916 9.04007034,4.56418293 8.65974634,4.56418293 L1.05263431,4.56418293 C0.471274699,4.56418293 -4.5518551e-14,5.03545763 -4.5518551e-14,5.61681724 L-4.5518551e-14,14.4528175 C-4.5518551e-14,15.0341771 0.471274699,15.5054518 1.05263431,15.5054518 Z",
-                                id: "Path",
-                                fill: "#808080"
-                              }
-                            })
-                          ]
-                        )
+                          }),
+                          _vm._v(" "),
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M1.05263431,15.5054518 L18.683964,15.5054518 C19.2653236,15.5054518 19.7365983,15.0341771 19.7365983,14.4528175 L19.7365983,3.51159076 C19.7365983,2.93023115 19.2653236,2.45895645 18.683964,2.45895645 L11.0751661,2.45895645 C10.6948843,2.45895645 10.3441467,2.66408022 10.1576935,2.99555719 L9.57721897,4.02758219 C9.39080795,4.35905916 9.04007034,4.56418293 8.65974634,4.56418293 L1.05263431,4.56418293 C0.471274699,4.56418293 -4.5518551e-14,5.03545763 -4.5518551e-14,5.61681724 L-4.5518551e-14,14.4528175 C-4.5518551e-14,15.0341771 0.471274699,15.5054518 1.05263431,15.5054518 Z",
+                              id: "Path",
+                              fill: "#808080"
+                            }
+                          })
+                        ])
                       ]
                     )
                   ]
@@ -13102,194 +13129,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "mm__empty" }, [
-    _c(
-      "svg",
-      {
-        attrs: {
-          width: "209px",
-          height: "244px",
-          viewBox: "0 0 209 244",
-          version: "1.1",
-          xmlns: "http://www.w3.org/2000/svg",
-          "xmlns:xlink": "http://www.w3.org/1999/xlink"
-        }
-      },
-      [
-        _c("title", [_vm._v("icon-empty-folder")]),
-        _vm._v(" "),
-        _c(
-          "g",
-          {
-            attrs: {
-              id: "Page-1",
-              stroke: "none",
-              "stroke-width": "1",
-              fill: "none",
-              "fill-rule": "evenodd"
-            }
-          },
-          [
-            _c("g", { attrs: { id: "icon-empty-folder" } }, [
-              _c("circle", {
-                attrs: {
-                  id: "Oval",
-                  fill: "#DADADA",
-                  cx: "35.5",
-                  cy: "40.5",
-                  r: "3.5"
-                }
-              }),
-              _vm._v(" "),
-              _c("circle", {
-                attrs: {
-                  id: "Oval",
-                  fill: "#DADADA",
-                  cx: "69.5",
-                  cy: "16.5",
-                  r: "7.5"
-                }
-              }),
-              _vm._v(" "),
-              _c("g", { attrs: { id: "icon-move" } }, [
-                _c("path", {
-                  attrs: {
-                    d:
-                      "M173.686353,9.33718757 C140.307692,-13.6719682 96.3206133,7.30686471 75.438618,56.1948322 L75.4231232,56.230947 C74.4402167,58.5332838 72.7708102,60.3068916 70.5687483,61.3610327 C59.9241921,66.4568032 49.6353717,73.272418 40.1777429,81.7881054 C-3.70478551,121.300111 -13.0896103,182.416246 19.2153837,218.294576 C51.5203778,254.172907 113.282506,251.227661 157.165034,211.715655 C179.678976,191.444011 193.112486,165.485471 196.493965,140.166286 C196.62996,139.147537 196.877757,138.182137 197.239677,137.290159 C216.882256,88.8724266 206.559415,31.9976972 173.686353,9.33718757",
-                    id: "Fill-3",
-                    "fill-opacity": "0.04",
-                    fill: "#000000",
-                    "fill-rule": "nonzero"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "g",
-                  {
-                    attrs: {
-                      id: "Group-11",
-                      transform: "translate(19.000000, 61.000000)"
-                    }
-                  },
-                  [
-                    _c("circle", {
-                      attrs: {
-                        id: "Oval",
-                        fill: "#DADADA",
-                        cx: "159.5",
-                        cy: "124.5",
-                        r: "23.5"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M138.408084,16.98714 L65.766942,16.98714 C63.72486,16.98714 61.89003,15.74055 61.13763,13.84245 L56.897172,3.14469 C56.144772,1.24659 54.3096,-5.83213478e-14 52.26786,-5.83213478e-14 L17.06751,-5.83213478e-14 C14.317146,-5.83213478e-14 12.087648,2.229498 12.087648,4.979862 L12.087648,12.00762 C12.087648,14.757984 9.85815,16.987482 7.107786,16.987482 L6.64848,16.987482 C2.976426,16.987482 -6.80415724e-14,19.96425 -6.80415724e-14,23.635962 L-6.80415724e-14,125.62002 C-6.80415724e-14,131.76918 4.984992,136.75383 11.13381,136.75383 L145.056222,136.75383 L145.056222,23.63562 C145.056222,19.963908 142.079796,16.98714 138.408084,16.98714 Z",
-                        id: "Path",
-                        stroke: "#000000",
-                        "stroke-width": "2",
-                        fill: "#FFFFFF",
-                        "fill-rule": "nonzero"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M44.57457,32.254362 L168.45552,32.254362 C172.127574,32.254362 175.104,35.23113 175.104,38.902842 L159.448266,130.105008 C159.448266,133.777062 156.471498,136.753488 152.799786,136.753488 L22.270014,136.753488 L11.135178,136.753488 C15.891714,136.753488 19.188252,134.364276 21.188952,129.852612 C21.773772,128.534202 22.16673,127.138842 22.420152,125.718858 L37.925748,38.9025 C37.925748,35.23113 40.902516,32.254362 44.57457,32.254362 L44.57457,32.254362 Z",
-                        id: "Path",
-                        stroke: "#000000",
-                        "stroke-width": "2",
-                        fill: "#FFFFFF",
-                        "fill-rule": "nonzero"
-                      }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "g",
-                {
-                  attrs: {
-                    id: "Group-13",
-                    transform:
-                      "translate(184.528992, 66.476257) rotate(24.000000) translate(-184.528992, -66.476257) translate(163.528992, 55.476257)",
-                    fill: "#000000"
-                  }
-                },
-                [
-                  _c("rect", {
-                    attrs: {
-                      id: "Rectangle",
-                      transform:
-                        "translate(7.000000, 15.500000) rotate(-45.000000) translate(-7.000000, -15.500000) ",
-                      x: "6",
-                      y: "8",
-                      width: "2",
-                      height: "15",
-                      rx: "1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("rect", {
-                    attrs: {
-                      id: "Rectangle",
-                      transform:
-                        "translate(14.000000, 10.000000) rotate(-15.000000) translate(-14.000000, -10.000000) ",
-                      x: "13",
-                      y: "5",
-                      width: "2",
-                      height: "10",
-                      rx: "1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("rect", {
-                    attrs: {
-                      id: "Rectangle",
-                      transform:
-                        "translate(29.000000, 10.000000) rotate(15.000000) translate(-29.000000, -10.000000) ",
-                      x: "28",
-                      y: "5",
-                      width: "2",
-                      height: "10",
-                      rx: "1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("rect", {
-                    attrs: {
-                      id: "Rectangle",
-                      transform:
-                        "translate(35.000000, 15.500000) rotate(45.000000) translate(-35.000000, -15.500000) ",
-                      x: "34",
-                      y: "8",
-                      width: "2",
-                      height: "15",
-                      rx: "1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("rect", {
-                    attrs: {
-                      id: "Rectangle",
-                      x: "21",
-                      y: "0",
-                      width: "2",
-                      height: "15",
-                      rx: "1"
-                    }
-                  })
-                ]
-              )
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "mm__empty" },
+    [
+      _c(
+        "mmiconbase",
+        {
+          attrs: {
+            "icon-name": "icon-empty",
+            "current-color": "000",
+            "icon-color": "000",
+            width: "209",
+            height: "244",
+            viewBox: "0 0 206 244"
+          }
+        },
+        [_c("iconempty")],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36949,6 +36810,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_delete_vue_vue_type_template_id_00e5aa4f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_delete_vue_vue_type_template_id_00e5aa4f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/icons/icon-empty.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/icons/icon-empty.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icon-empty.vue?vue&type=template&id=44d66859& */ "./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/icons/icon-empty.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./icon-empty.vue?vue&type=template&id=44d66859& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/icons/icon-empty.vue?vue&type=template&id=44d66859&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_icon_empty_vue_vue_type_template_id_44d66859___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

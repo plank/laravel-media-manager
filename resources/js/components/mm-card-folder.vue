@@ -2,68 +2,29 @@
   <div data-type="folder" class="mm__card">
     <div class="mm__card-infos">
       <svg
-        width="36px"
-        height="32px"
-        viewBox="0 0 36 32"
+        width="20px"
+        height="16px"
+        viewBox="0 0 20 16"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
       >
-        <defs>
-          <filter
-            x="-87.5%"
-            y="-109.4%"
-            width="275.0%"
-            height="318.8%"
-            filterUnits="objectBoundingBox"
-            id="filter-3"
-          >
-            <feOffset
-              dx="0"
-              dy="1"
-              in="SourceAlpha"
-              result="shadowOffsetOuter1"
-            ></feOffset>
-            <feGaussianBlur
-              stdDeviation="4"
-              in="shadowOffsetOuter1"
-              result="shadowBlurOuter1"
-            ></feGaussianBlur>
-            <feColorMatrix
-              values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0"
-              type="matrix"
-              in="shadowBlurOuter1"
-              result="shadowMatrixOuter1"
-            ></feColorMatrix>
-            <feMerge>
-              <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
-              <feMergeNode in="SourceGraphic"></feMergeNode>
-            </feMerge>
-          </filter>
-        </defs>
+        <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+        <title>Group</title>
+        <desc>Created with Sketch.</desc>
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g
-            id="Media-Manager---Grid-View---Folder-Selected"
-            transform="translate(-296.000000, -234.000000)"
-          >
+          <g id="test" transform="translate(-304.000000, -241.000000)">
             <g id="Intro">
               <g id="Concentric-circles">
-                <mask id="mask-2" fill="white">
-                  <use xlink:href="#path-1"></use>
-                </mask>
-                <use id="Mask" fill="#2D2D2D" xlink:href="#path-1"></use>
+                <g id="Mask"></g>
               </g>
             </g>
             <g
               id="Group"
-              transform="translate(304.000000, 194.000000)"
+              transform="translate(304.000000, 241.000000)"
               fill-rule="nonzero"
             >
-              <g
-                id="folder"
-                filter="url(#filter-3)"
-                transform="translate(0.000000, 47.000000)"
-              >
+              <g id="folder">
                 <path
                   d="M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z"
                   id="Path"
@@ -90,17 +51,17 @@
 
 <script>
 export default {
-  name: 'mmfoldercard',
-  props: ['item'],
-  data () {
+  name: "mmfoldercard",
+  props: ["item"],
+  data() {
     return {};
   },
   filters: {
     clearname: function (name) {
-      name = name.split('/');
+      name = name.split("/");
       return name[name.length - 1];
-    }
+    },
   },
-  methods: {}
+  methods: {},
 };
 </script>

@@ -24,8 +24,8 @@
 
     &-add {
         position: fixed;
-        right: em-calc(10px);
-        bottom: em-calc(10px);
+        right: em-calc(48px);
+        bottom: em-calc(48px);
         z-index: 999;
         &:hover {
             transform: scale(1.1);

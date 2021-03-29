@@ -217,7 +217,7 @@ strong {
 }
 
 .mm__header {
-  background: #E3E2ED;
+  background: #F9F9F9;
   padding: 2.5em 0;
 }
 
@@ -418,8 +418,8 @@ strong {
 
 .btn-add {
   position: fixed;
-  right: 0.625em;
-  bottom: 0.625em;
+  right: 3em;
+  bottom: 3em;
   z-index: 999;
 }
 
@@ -610,9 +610,10 @@ strong {
 }
 
 .mm__slidepanel {
-  overflow-x: scroll;
+  overflow-x: hidden;
+  overflow-y: visible;
   position: fixed;
-  width: 32%;
+  width: 350px;
   height: 100vh;
   background: #FFFFFF;
   top: 0;
@@ -1126,7 +1127,7 @@ body.mm__carousel-open .btn-add {
 }
 
 .app-container {
-  background: #25223F;
+  background: #2D2D2D;
   display: grid;
   grid-template-columns: 24% auto;
   min-height: 100vh;
