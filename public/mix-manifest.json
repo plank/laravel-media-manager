@@ -1,6 +1,6 @@
 {
-    "/app.js": "/app.js?id=aba8f0d8ba8382bd9d16",
-    "/app.css": "/app.css?id=e1c176c5d2287bd18cba",
+    "/app.js": "/app.js?id=8e85f912381540395074",
+    "/app.css": "/app.css?id=7dc48db1a2b737bc6c3d",
     "/images/icon-add.svg": "/images/icon-add.svg?id=f35ff7376a119c2d780b",
     "/images/icon-arrow-back.svg": "/images/icon-arrow-back.svg?id=963a92661eaa72c7bfd3",
     "/images/icon-arrow-next.svg": "/images/icon-arrow-next.svg?id=eccda1148183083ccdd9",
@@ -13,5 +13,6 @@
     "/images/icon-search.svg": "/images/icon-search.svg?id=c32d162531d39466978f",
     "/images/icon-select.svg": "/images/icon-select.svg?id=6fbfd83b5d4ddcd55fbe",
     "/images/icon-selected.svg": "/images/icon-selected.svg?id=2c7d3f1283d545d66fd8",
+    "/images/illustration-trash.png": "/images/illustration-trash.png?id=6458c8d02f4ae785381c",
     "/images/illustration-upload.svg": "/images/illustration-upload.svg?id=6d65bf9ec5ab9a1c63f0"
 }

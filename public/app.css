@@ -216,6 +216,21 @@ strong {
   opacity: 0.5;
 }
 
+.mm__empty h2 {
+  font-size: 1.125em;
+}
+
+.mm__empty h3 {
+  font-family: "Open Sans", sans-serif;
+  margin-top: 1em;
+  font-size: 0.8125em;
+}
+
+.mm__empty h3 a {
+  font-weight: 600;
+  color: inherit;
+}
+
 .mm__header {
   background: #F9F9F9;
   padding: 2.5em 0;
@@ -823,7 +838,20 @@ label {
 
 .modal-delete-folder {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
+}
+
+.modal-delete-folder p {
+  margin: 2em 0;
+}
+
+.illustration__trash {
+  background: url("/images/illustration-trash.png") center center no-repeat;
+  background-size: contain;
+  height: 200px;
+  width: 200px;
+  display: block;
+  margin: 0 auto;
 }
 
 #breadcrumb li {

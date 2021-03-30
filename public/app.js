@@ -2584,6 +2584,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2595,7 +2603,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  methods: {}
+  methods: {
+    openModal: function openModal() {
+      this.$store.dispatch("OPEN_MODAL_ADD");
+    }
+  }
 });
 
 /***/ }),
@@ -3770,9 +3782,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodaldeletefolder',
+  name: "mmmodaldeletefolder",
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3785,12 +3798,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL_DELETE');
+      this.$store.dispatch("CLOSE_MODAL_DELETE");
     },
     deleteElement: function deleteElement($event) {
       // Delete selected folder
       $event.preventDefault();
-      this.$store.dispatch('DELETE_SELECTED', {
+      this.$store.dispatch("DELETE_SELECTED", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         mediaCollection: this.$store.state.selectedElem
@@ -3807,7 +3820,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -13147,7 +13160,30 @@ var render = function() {
         },
         [_c("iconempty")],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("h2", [_vm._v(_vm._s(_vm.$t("actions.empty_folder")))]),
+      _vm._v(" "),
+      _c("h3", [
+        _vm._v(
+          "\n    " + _vm._s(_vm.$t("actions.upload_text_click")) + "\n    "
+        ),
+        _c(
+          "a",
+          {
+            staticClass: "link",
+            attrs: { href: "#" },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.openModal()
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.$t("actions.upload_text_here")))]
+        ),
+        _vm._v("\n    " + _vm._s(_vm.$t("actions.upload_text_up")) + "\n  ")
+      ])
     ],
     1
   )
@@ -14455,6 +14491,8 @@ var render = function() {
       _c("div", { attrs: { slot: "content" }, slot: "content" }, [
         _c("div", { staticClass: "content-grid" }, [
           _c("div", [
+            _c("div", { staticClass: "illustration__trash" }),
+            _vm._v(" "),
             _c("p", [
               _vm._v(
                 "\n          " +
@@ -36134,8 +36172,8 @@ var messages = {
     },
     search: {
       input_placeholder: 'What are you looking for ? ',
-      by_type: 'Filter by type',
-      by_date: 'Filter by date',
+      by_type: 'Filter by Type',
+      by_date: 'Filter by Date',
       no_result: 'Sorry, no result'
     },
     actions: {
@@ -36159,6 +36197,10 @@ var messages = {
       deleted: 'Deleted',
       moved: 'Moved',
       deselectAll: 'Deselect All',
+      empty_folder: 'This folder is empty',
+      upload_text_click: 'Click',
+      upload_text_here: 'here',
+      upload_text_up: 'to upload files',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -36180,7 +36222,7 @@ var messages = {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
       title_moveFolder: 'Move Folder To :',
-      confirmation_msg: 'Are you sure you want to delete these items?',
+      confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
       folder_name: 'Folder Name'
     }
   },
@@ -36215,6 +36257,10 @@ var messages = {
       deleted: 'Supprimer',
       moved: 'Déplacer',
       deselectAll: 'Tout déselectionner',
+      empty_folder: 'Ce dossier est vide',
+      upload_text_click: 'Clique',
+      upload_text_here: 'ici',
+      upload_text_up: 'pour téléverser un fichier',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'

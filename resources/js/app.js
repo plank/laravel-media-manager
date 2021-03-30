@@ -25,8 +25,8 @@ const messages = {
     },
     search: {
       input_placeholder: 'What are you looking for ? ',
-      by_type: 'Filter by type',
-      by_date: 'Filter by date',
+      by_type: 'Filter by Type',
+      by_date: 'Filter by Date',
       no_result: 'Sorry, no result'
     },
     actions: {
@@ -50,6 +50,10 @@ const messages = {
       deleted: 'Deleted',
       moved: 'Moved',
       deselectAll: 'Deselect All',
+      empty_folder: 'This folder is empty',
+      upload_text_click: 'Click',
+      upload_text_here: 'here',
+      upload_text_up: 'to upload files',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -71,7 +75,7 @@ const messages = {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
       title_moveFolder: 'Move Folder To :',
-      confirmation_msg: 'Are you sure you want to delete these items?',
+      confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
       folder_name: 'Folder Name'
     }
   },
@@ -106,6 +110,10 @@ const messages = {
       deleted: 'Supprimer',
       moved: 'Déplacer',
       deselectAll: 'Tout déselectionner',
+      empty_folder: 'Ce dossier est vide',
+      upload_text_click: 'Clique',
+      upload_text_here: 'ici',
+      upload_text_up: 'pour téléverser un fichier',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'

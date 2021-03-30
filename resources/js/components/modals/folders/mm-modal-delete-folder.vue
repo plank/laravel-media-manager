@@ -5,6 +5,7 @@
     <div slot="content">
       <div class="content-grid">
         <div>
+          <div class="illustration__trash"></div>
           <p>
             {{ $t("modal.confirmation_msg") }}
           </p>
@@ -37,48 +38,48 @@
 </template>
 
 <script>
-import mmmodal from './../mm-modal';
+import mmmodal from "./../mm-modal";
 
 export default {
-  name: 'mmmodaldeletefolder',
+  name: "mmmodaldeletefolder",
   components: {
-    mmmodal
+    mmmodal,
   },
-  data () {
+  data() {
     return {
-      name: null
+      name: null,
     };
   },
-  mounted () {},
+  mounted() {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL_DELETE');
+      this.$store.dispatch("CLOSE_MODAL_DELETE");
     },
     deleteElement: function ($event) {
       // Delete selected folder
       $event.preventDefault();
-      this.$store.dispatch('DELETE_SELECTED', {
+      this.$store.dispatch("DELETE_SELECTED", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
-        mediaCollection: this.$store.state.selectedElem
+        mediaCollection: this.$store.state.selectedElem,
       });
-    }
+    },
   },
   computed: {
-    getDir () {
+    getDir() {
       return this.$store.getters.getDirectory;
     },
     // Get Main Color From Store
-    getColor () {
+    getColor() {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

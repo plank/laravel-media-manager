@@ -11,5 +11,20 @@
     &__empty {
         text-align: center;
         opacity: 0.5;
+
+        h2 {
+            font-size: em-calc(18px);
+        }
+
+        h3 {
+            font-family: $font-family-base;
+            margin-top: 1em;
+            font-size: em-calc(13px);
+            a {
+                font-weight: 600;
+                color: inherit;
+            }
+        }
+
     }
 }

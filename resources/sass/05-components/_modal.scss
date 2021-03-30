@@ -94,5 +94,23 @@
 // ------------------------------
 .modal-delete-folder {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+
+    p {
+        margin: 2em 0;
+    }
+
+}
+
+// Illustrations On Modals
+// -------------------------------
+.illustration {
+    &__trash {
+        background: url('/images/illustration-trash.png') center center no-repeat;
+        background-size: contain;
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin: 0 auto;
+    }
 }
