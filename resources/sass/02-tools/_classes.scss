@@ -10,3 +10,13 @@
 .text-right {
     text-align: right;
 }
+
+.margin {
+    &__top {
+        margin-top: 1em;
+    }
+
+    &__bottom {
+        margin-top: 1em;
+    }
+}

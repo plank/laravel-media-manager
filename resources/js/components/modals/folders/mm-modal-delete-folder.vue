@@ -27,7 +27,7 @@
       <div>
         <a
           v-on:click="closeModal($event)"
-          class="btn btn-delete text-center"
+          class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""
           >{{ $t("actions.cancel") }}</a
@@ -94,7 +94,7 @@ export default {
         transition: all 0.2s ease-in-out
 
 .btn-default-border
-    border: var(--bg-color)
+    border: 3px solid var(--bg-color)
     color: var(--bg-color)
     &:hover
         background: var(--bg-color)

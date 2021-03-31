@@ -54,6 +54,7 @@ const messages = {
       upload_text_click: 'Click',
       upload_text_here: 'here',
       upload_text_up: 'to upload files',
+      drag_upload: 'Drag items here or add files',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'
@@ -114,6 +115,7 @@ const messages = {
       upload_text_click: 'Clique',
       upload_text_here: 'ici',
       upload_text_up: 'pour téléverser un fichier',
+      drag_upload: 'Faites glisser des éléments ici ou ajoutez des fichiers',
       sort: {
         oldest: 'Sort Oldest to Newset',
         newest: 'Sort Newest to Oldest'

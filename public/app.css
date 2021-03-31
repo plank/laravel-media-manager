@@ -173,6 +173,14 @@ table {
   text-align: right;
 }
 
+.margin__top {
+  margin-top: 1em;
+}
+
+.margin__bottom {
+  margin-top: 1em;
+}
+
 h1 {
   font-size: 1.875em;
   font-family: "Barlow", sans-serif;
@@ -183,6 +191,11 @@ h2 {
   font-size: 1.3125em;
   font-family: "Barlow", sans-serif;
   text-transform: uppercase;
+}
+
+h3 {
+  font-size: 0.875em;
+  font-family: "Open Sans", sans-serif;
 }
 
 b,
@@ -222,7 +235,7 @@ strong {
 
 .mm__empty h3 {
   font-family: "Open Sans", sans-serif;
-  margin-top: 1em;
+  margin-top: 0.5em;
   font-size: 0.8125em;
 }
 
@@ -444,6 +457,8 @@ strong {
 }
 
 .btn-default {
+  display: flex;
+  align-items: center;
   text-transform: uppercase;
   color: white;
   padding: 0.875em 3em;
@@ -452,8 +467,8 @@ strong {
 }
 
 .btn-default-border {
-  border-width: 3px;
-  border-style: solid;
+  border-width: 3px !important;
+  border-style: solid !important;
   text-transform: uppercase;
   padding: 0.875em 1.75em;
 }
@@ -464,6 +479,13 @@ strong {
   font-size: 0.75em;
   text-transform: uppercase;
   text-decoration: underline;
+}
+
+.btn-link {
+  color: inherit;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 .vue-simple-context-menu {
@@ -634,10 +656,7 @@ strong {
   top: 0;
   right: 0;
   box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
-}
-
-.mm__slidepanel-btn-container {
-  padding: 0 2.5em;
+  z-index: 999;
 }
 
 .mm__slidepanel-btn-container .columns__1 {
@@ -778,9 +797,20 @@ label {
   line-height: 1.6em;
 }
 
+.modal__container .content-grid,
+.modal__container label {
+  font-size: 0.875em;
+}
+
+.modal__container input {
+  margin-top: 0.4rem;
+}
+
 .modal__container .buttons__container-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  -moz-column-gap: 1em;
+       column-gap: 1em;
 }
 
 .modal__container .buttons__container-wrapper div {
@@ -795,6 +825,10 @@ label {
 .modal__container-upload {
   border: 2px dashed #848484;
   margin-top: 2.5em;
+}
+
+.modal__container-upload h2 {
+  text-align: center;
 }
 
 .modal-close {
@@ -843,6 +877,15 @@ label {
 
 .modal-delete-folder p {
   margin: 2em 0;
+}
+
+.illustration__folder {
+  background: url("/images/illustration-folder.png") center center no-repeat;
+  background-size: contain;
+  height: 200px;
+  width: 200px;
+  display: block;
+  margin: 0 auto;
 }
 
 .illustration__trash {

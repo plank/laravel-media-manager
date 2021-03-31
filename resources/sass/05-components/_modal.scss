@@ -27,10 +27,20 @@
             line-height: 1.6em;
         }
 
+        .content-grid,
+        label {
+            font-size: em-calc(14px);
+        }
+
+        input {
+            margin-top: 0.4rem;
+        }
+
         .buttons__container {
             &-wrapper {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
+                column-gap: 1em;
 
                 div {
                     text-align: center;
@@ -46,6 +56,10 @@
         &-upload {
             border: 2px dashed $mm-modal-add-border;
             margin-top: em(40px);
+
+            h2 {
+                text-align: center;
+            }
         }
 
     }
@@ -105,6 +119,15 @@
 // Illustrations On Modals
 // -------------------------------
 .illustration {
+    &__folder {
+        background: url('/images/illustration-folder.png') center center no-repeat;
+        background-size: contain;
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin: 0 auto;
+    }
+
     &__trash {
         background: url('/images/illustration-trash.png') center center no-repeat;
         background-size: contain;
