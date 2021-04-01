@@ -38076,24 +38076,28 @@ var actions = {
     var _loop = function _loop(i) {
       promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this4.state.routeUpdateMedia, {
         id: value.media[i].id,
-        disk: value.destination
+        disk: 'public',
+        path: value.destination
       }).then(function (response) {
+        commit('CLOSE_MODAL');
+
+        _this4.dispatch('GET_DIRECTORY', _this4.state.currentDirectory);
+
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
-        }); // do something with response
-
+          message: value.destination + value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
+        });
         media.push(response);
       }));
     };
 
     for (var i = 0; i < value.media.length; i++) {
       _loop(i);
-    }
+    } // commit('CLOSE_MODAL');
+    // this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
 
-    commit('CLOSE_MODAL');
-    this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
+
     Promise.all(promises).then(function () {
       return console.log();
     });

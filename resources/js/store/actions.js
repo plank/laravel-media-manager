@@ -176,22 +176,26 @@ export const actions = {
     for (let i = 0; i < value.media.length; i++) {
       promises.push(
         axios
-          .post(this.state.routeUpdateMedia, { id: value.media[i].id, disk: value.destination })
+          .post(this.state.routeUpdateMedia, {
+            id: value.media[i].id,
+            disk: 'public',
+            path: value.destination
+          })
           .then(response => {
+            commit('CLOSE_MODAL');
+            this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
             value.vm.$toast.open({
               type: 'success',
               position: 'bottom-left',
-              message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
+              message: value.destination + value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
             });
-            // do something with response
             media.push(response);
           })
       );
     }
 
-    commit('CLOSE_MODAL');
-    this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
-
+    // commit('CLOSE_MODAL');
+    // this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
     Promise.all(promises).then(() => console.log());
   },
   DELETE_SELECTED_MEDIAS ({ commit, context }, value) {
