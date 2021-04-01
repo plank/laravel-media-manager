@@ -21,7 +21,7 @@
           :style="styleBtnDefault"
           v-bind:disabled="!selectedFolder"
           class="btn btn-default"
-          v-on:click="moveDirectory($event)"
+          v-on:click="moveSelected($event)"
           href=""
           >{{ $t("actions.move") }}</a
         >
@@ -40,58 +40,49 @@
 </template>
 
 <script>
-import { EventBus } from './../../../event-bus.js';
-import mmmodal from './../mm-modal';
-import mmmovemain from './../../move/mm-move-main';
-import axios from 'axios';
+import { EventBus } from "../../event-bus.js";
+import mmmodal from "./../modals/mm-modal";
+import mmmovemain from "./mm-move-main";
+import axios from "axios";
 export default {
-  name: 'mmmodalamovefolder',
+  name: "mmmodalamovefolder",
   components: {
     mmmodal,
-    mmmovemain
+    mmmovemain,
   },
-  data () {
+  data() {
     return {
       name: null,
-      selectedFolder: null
+      selectedFolder: null,
     };
   },
-  mounted () {
-    EventBus.$on('allow-move', (value) => {
+  mounted() {
+    EventBus.$on("allow-move", (value) => {
       this.selectedFolder = value;
     });
   },
   methods: {
-    moveDirectory: function ($event) {
+    moveSelected: function ($event) {
       $event.preventDefault();
-      axios
-        .post(this.$store.state.routeMoveDirectory, {
-          source: this.$store.state.selectedDirectory.name,
-          destination: this.selectedFolder.name
-        })
-        .then((response) => {
-          this.$store.dispatch('CLOSE_MODAL');
-          this.$toast.open({
-            type: 'success',
-            position: 'bottom-left',
-            message: this.$i18n.t('actions.moved')
-          });
-          // Reload Current Directory
-          this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
-        });
+      this.$store.dispatch("MOVE_SELECTED", {
+        vm: this,
+        folder: this.$store.state.selectedDirectory,
+        destination: this.selectedFolder,
+        mediaCollection: this.$store.state.selectedElem,
+      });
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('CLOSE_MOVE_MODAL');
-    }
+      this.$store.dispatch("CLOSE_MOVE_MODAL");
+    },
   },
   computed: {
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

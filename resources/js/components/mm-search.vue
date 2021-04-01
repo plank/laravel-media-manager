@@ -108,7 +108,12 @@
               $t("actions.deselectAll")
             }}</a>
           </li>
-          <li v-if="this.$store.state.selectedDirectory">
+          <li
+            v-if="
+              this.$store.state.selectedDirectory ||
+              this.$store.state.selectedElem.length > 0
+            "
+          >
             <a v-on:click="openMoveModal($event)" href="">
               <!-- Move Icon -->
               <mmiconbase

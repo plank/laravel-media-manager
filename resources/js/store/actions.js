@@ -108,6 +108,34 @@ export const actions = {
         this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
       });
   },
+  MOVE_SELECTED ({ commit }, value) {
+    // If We Have Directory -> Delete
+    if (value.folder) {
+      axios
+        .post(this.state.routeMoveDirectory, {
+          source: this.state.selectedDirectory.name,
+          destination: value.destination.name
+        })
+        .then(response => {
+          this.dispatch('CLOSE_MODAL');
+          value.vm.$toast.open({
+            type: 'success',
+            position: 'bottom-left',
+            message: value.vm.$i18n.t('actions.moved')
+          });
+          // Reload Current Directory
+          value.vm.$store.dispatch('GET_DIRECTORY', value.vm.$store.state.currentDirectory);
+        });
+    }
+    // // If We Have Media Collection -> Delete
+    if (value.mediaCollection) {
+      this.dispatch('MOVE_SELECTED_MEDIAS', {
+        vm: value.vm,
+        destination: value.destination.name,
+        media: value.mediaCollection
+      });
+    }
+  },
   DELETE_SELECTED ({ commit }, value) {
     // If We Have Directory -> Delete
     if (value.folder) {
@@ -141,6 +169,30 @@ export const actions = {
   // Set selected directory
   SET_SELECTED_DIRECTORY (context, value) {
     context.commit('SET_SELECTED_DIRECTORY', value);
+  },
+  MOVE_SELECTED_MEDIAS ({ commit, context }, value) {
+    const media = [];
+    const promises = [];
+    for (let i = 0; i < value.media.length; i++) {
+      promises.push(
+        axios
+          .post(this.state.routeUpdateMedia, { id: value.media[i].id, disk: value.destination })
+          .then(response => {
+            value.vm.$toast.open({
+              type: 'success',
+              position: 'bottom-left',
+              message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
+            });
+            // do something with response
+            media.push(response);
+          })
+      );
+    }
+
+    commit('CLOSE_MODAL');
+    this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
+
+    Promise.all(promises).then(() => console.log());
   },
   DELETE_SELECTED_MEDIAS ({ commit, context }, value) {
     const media = [];
