@@ -6,7 +6,7 @@
     :aria-labelledby="iconName"
     role="presentation"
   >
-    <title :id="iconName" lang="en">{{ iconName }} icon</title>
+    <title :id="iconName" lang="en">{{ iconName }}</title>
     <g :fill="iconColor">
       <slot></slot>
     </g>
@@ -18,21 +18,21 @@ export default {
   props: {
     iconName: {
       type: String,
-      default: 'box'
+      default: "box",
     },
     width: {
       type: [Number, String],
-      default: 26
+      default: 26,
     },
     height: {
       type: [Number, String],
-      default: 26
+      default: 26,
     },
     iconColor: {
       type: String,
-      default: 'currentColor'
-    }
-  }
+      default: "currentColor",
+    },
+  },
 };
 </script>
 

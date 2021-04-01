@@ -42,6 +42,8 @@ const messages = {
       viewGrid: 'View Grid',
       viewList: 'View List',
       search: 'Search',
+      info: 'Informations',
+      add_folder: 'Add Folder',
       created_on: 'Created on',
       error: 'Error',
       uploaded: 'Uploaded',
@@ -77,6 +79,8 @@ const messages = {
       title_deleteFolder: 'Delete Folder',
       title_moveFolder: 'Move Folder To :',
       confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
+      confirmation_msg_medias: 'Are you sure you want to delete this item?',
+      confirmation_msg_medias_multiple: 'Are you sure you want to delete all these items? ',
       folder_name: 'Folder Name'
     }
   },
@@ -103,6 +107,8 @@ const messages = {
       viewGrid: 'Grille',
       viewList: 'Liste',
       search: 'Chercher',
+      add_folder: 'Ajouter Répertoire',
+      info: 'Informations',
       created_on: 'Crée le',
       error: 'Erreur',
       upload: 'Téverser',
@@ -138,6 +144,8 @@ const messages = {
       title_deleteFolder: 'Supprimer répertoire',
       title_moveFolder: 'Déplacer répertoire vers :',
       confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
+      confirmation_msg_medias: 'Êtes vous certains de vouloir supprimer cet élément ?',
+      confirmation_msg_medias_multiple: 'Êtes vous certains de vouloir supprimer ces éléments ?',
       folder_name: 'Nom du dossier'
     }
   }

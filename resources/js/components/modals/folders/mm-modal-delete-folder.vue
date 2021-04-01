@@ -6,9 +6,21 @@
       <div class="content-grid">
         <div>
           <div class="illustration__trash"></div>
-          <p>
+
+          <p v-if="this.$store.state.selectedDirectory">
             {{ $t("modal.confirmation_msg") }}
           </p>
+
+          <div
+            v-if="this.$store.state.selectedElem && !this.$store.state.selectedDirectory"
+          >
+            <div v-if="this.$store.state.selectedElem.length <= 1">
+              <p>{{ $t("modal.confirmation_msg_medias") }}</p>
+            </div>
+            <div v-else>
+              <p>{{ $t("modal.confirmation_msg_medias_multiple") }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

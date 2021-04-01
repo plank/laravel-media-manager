@@ -11,7 +11,7 @@
           <a v-on:click="makeSearch($event)" href="#">
             <!-- Search Icon -->
             <mmiconbase
-              icon-name="icon-list"
+              :icon-name="this.$i18n.t('actions.search')"
               current-color="000"
               icon-color="000"
               width="26"
@@ -37,7 +37,7 @@
             >
               <!-- Search Icon -->
               <mmiconbase
-                icon-name="icon-list"
+                :icon-name="this.$i18n.t('actions.search')"
                 current-color="000"
                 icon-color="000"
                 width="26"
@@ -52,9 +52,9 @@
               :title="$t('actions.search')"
               href="#"
             >
-              <!-- Search Cloes -->
+              <!-- Search Close -->
               <mmiconbase
-                icon-name="move-folder"
+                :icon-name="this.$i18n.t('actions.search')"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="23"
@@ -64,11 +64,18 @@
               ></mmiconbase>
             </a>
           </li>
-          <li class="separator">
+          <li
+            v-if="
+              this.$store.state.selectedDirectory ||
+              showInformationsBtn ||
+              this.$store.state.totalSelected > 1
+            "
+            class="separator"
+          >
             <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
               <!-- Delete Icon -->
               <mmiconbase
-                icon-name="add-folder"
+                :icon-name="this.$i18n.t('actions.delete')"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
@@ -86,7 +93,7 @@
             >
               <!-- Directory Icon -->
               <mmiconbase
-                icon-name="add-folder"
+                :icon-name="this.$i18n.t('actions.add_folder')"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
@@ -97,13 +104,15 @@
             </a>
           </li>
           <li v-if="this.$store.state.totalSelected > 1">
-            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{ $t('actions.deselectAll') }}</a>
+            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{
+              $t("actions.deselectAll")
+            }}</a>
           </li>
           <li v-if="this.$store.state.selectedDirectory">
             <a v-on:click="openMoveModal($event)" href="">
               <!-- Move Icon -->
               <mmiconbase
-                icon-name="add-folder"
+                :icon-name="this.$i18n.t('actions.move')"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
@@ -117,7 +126,7 @@
             <a v-on:click="setCurrent($event, getSelected)" href="">
               <!-- Info -->
               <mmiconbase
-                icon-name="move-folder"
+                :icon-name="this.$i18n.t('actions.info')"
                 current-color="#8B8B8B"
                 icon-color="#8B8B8B"
                 width="26"
@@ -201,18 +210,18 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
-import mmiconbase from './mm-icon-base.vue';
-import iconadddirectory from './icons/icon-add-directory.vue';
-import iconsearch from './icons/icon-search.vue';
-import icondelete from './icons/icon-delete.vue';
-import iconinfo from './icons/icon-info.vue';
-import iconmove from './icons/icon-move.vue';
-import iconclosesearch from './icons/icon-close-search.vue';
-import mmbreadcrumb from './breadcrumb/mm-breadcrumb';
+import { EventBus } from "../event-bus.js";
+import mmiconbase from "./mm-icon-base.vue";
+import iconadddirectory from "./icons/icon-add-directory.vue";
+import iconsearch from "./icons/icon-search.vue";
+import icondelete from "./icons/icon-delete.vue";
+import iconinfo from "./icons/icon-info.vue";
+import iconmove from "./icons/icon-move.vue";
+import iconclosesearch from "./icons/icon-close-search.vue";
+import mmbreadcrumb from "./breadcrumb/mm-breadcrumb";
 
 export default {
-  name: 'mmsearch',
+  name: "mmsearch",
   components: {
     mmiconbase,
     iconadddirectory,
@@ -221,112 +230,112 @@ export default {
     iconinfo,
     iconmove,
     iconclosesearch,
-    mmbreadcrumb
+    mmbreadcrumb,
   },
-  data () {
+  data() {
     return {
       showInformations: false,
-      selectedFilterType: '',
+      selectedFilterType: "",
       isSearch: false,
       searchTerm: null,
-      sortOrder: ''
+      sortOrder: "",
     };
   },
-  mounted () {},
+  mounted() {},
   methods: {
     viewState: function (event, value) {
       event.preventDefault();
-      this.$store.dispatch('VIEW_STATE', value);
+      this.$store.dispatch("VIEW_STATE", value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function (event, id) {
       event.preventDefault();
-      EventBus.$emit('open-slide-panel', id);
+      EventBus.$emit("open-slide-panel", id);
     },
     openModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_CREATE');
+      this.$store.dispatch("OPEN_MODAL_CREATE");
     },
     openDeleteModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openDeleteMedia: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openMoveModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MOVE_MODAL');
+      this.$store.dispatch("OPEN_MOVE_MODAL");
     },
     applyFilter: function ($event) {
       $event.preventDefault();
-      const card = document.getElementsByClassName('mm__card');
+      const card = document.getElementsByClassName("mm__card");
       for (let i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove('hide');
-        if (this.selectedFilterType !== 'all') {
+        card.item(i).parentNode.classList.remove("hide");
+        if (this.selectedFilterType !== "all") {
           if (
             card.item(i).dataset.type !== this.selectedFilterType &&
-            card.item(i).dataset.type !== 'folder'
+            card.item(i).dataset.type !== "folder"
           ) {
-            card.item(i).parentNode.classList.add('hide');
+            card.item(i).parentNode.classList.add("hide");
           }
         } else {
-          card.item(i).parentNode.classList.remove('hide');
+          card.item(i).parentNode.classList.remove("hide");
         }
       }
     },
     applyFilterDate: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder);
+      this.$store.dispatch("UPDATE_ORDERBY", this.sortOrder);
     },
     deselectAll: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('RESET_SELECTED');
+      this.$store.dispatch("RESET_SELECTED");
     },
     openSearch: function ($event) {
       $event.preventDefault();
       if (this.isSearch) {
         // Reset State
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
+        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
       }
       this.isSearch = !this.isSearch;
     },
     makeSearch: function ($event) {
       $event.preventDefault();
       //   alert("Search For : " + this.searchTerm);
-      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
-    }
+      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+    },
   },
   computed: {
-    getCurrentFolder () {
+    getCurrentFolder() {
       return this.$store.state.currentDirectory;
     },
     // Get Main Color From Store
-    getColor () {
+    getColor() {
       return this.$store.state.mainColor;
     },
-    getDataTypes () {
+    getDataTypes() {
       return this.$store.state.dataType;
     },
-    getSelected () {
+    getSelected() {
       return this.$store.state.selectedElem;
     },
-    showInformationsBtn (getSelected) {
+    showInformationsBtn(getSelected) {
       if (this.getSelected.length !== 1) {
         return false;
       } else {
         return true;
       }
-    }
+    },
   },
   filters: {
     capitalize: function (value) {
-      if (!value) return '';
+      if (!value) return "";
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
-    }
-  }
+    },
+  },
 };
 </script>

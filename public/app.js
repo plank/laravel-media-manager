@@ -2760,7 +2760,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     iconName: {
       type: String,
-      "default": 'box'
+      "default": "box"
     },
     width: {
       type: [Number, String],
@@ -2772,7 +2772,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     iconColor: {
       type: String,
-      "default": 'currentColor'
+      "default": "currentColor"
     }
   }
 });
@@ -3164,6 +3164,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3174,7 +3183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmsearch',
+  name: "mmsearch",
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3188,62 +3197,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: '',
+      selectedFilterType: "",
       isSearch: false,
       searchTerm: null,
-      sortOrder: ''
+      sortOrder: ""
     };
   },
   mounted: function mounted() {},
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch('VIEW_STATE', value);
+      this.$store.dispatch("VIEW_STATE", value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_CREATE');
+      this.$store.dispatch("OPEN_MODAL_CREATE");
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
+      this.$store.dispatch("OPEN_MODAL_DELETE");
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch('OPEN_MOVE_MODAL');
+      this.$store.dispatch("OPEN_MOVE_MODAL");
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName('mm__card');
+      var card = document.getElementsByClassName("mm__card");
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove('hide');
+        card.item(i).parentNode.classList.remove("hide");
 
-        if (this.selectedFilterType !== 'all') {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
-            card.item(i).parentNode.classList.add('hide');
+        if (this.selectedFilterType !== "all") {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
+            card.item(i).parentNode.classList.add("hide");
           }
         } else {
-          card.item(i).parentNode.classList.remove('hide');
+          card.item(i).parentNode.classList.remove("hide");
         }
       }
     },
     applyFilterDate: function applyFilterDate($event) {
       $event.preventDefault();
-      this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder);
+      this.$store.dispatch("UPDATE_ORDERBY", this.sortOrder);
     },
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
-      this.$store.dispatch('RESET_SELECTED');
+      this.$store.dispatch("RESET_SELECTED");
     },
     openSearch: function openSearch($event) {
       $event.preventDefault();
@@ -3251,7 +3260,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.isSearch) {
         // Reset State
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
+        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
       }
 
       this.isSearch = !this.isSearch;
@@ -3259,7 +3268,7 @@ __webpack_require__.r(__webpack_exports__);
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
 
-      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
+      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
     }
   },
   computed: {
@@ -3286,7 +3295,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return '';
+      if (!value) return "";
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -3540,6 +3549,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../mm-modal */ "./resources/js/components/modals/mm-modal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13098,7 +13119,7 @@ var render = function() {
     },
     [
       _c("title", { attrs: { id: _vm.iconName, lang: "en" } }, [
-        _vm._v(_vm._s(_vm.iconName) + " icon")
+        _vm._v(_vm._s(_vm.iconName))
       ]),
       _vm._v(" "),
       _c("g", { attrs: { fill: _vm.iconColor } }, [_vm._t("default")], 2)
@@ -13326,7 +13347,7 @@ var render = function() {
                         "mmiconbase",
                         {
                           attrs: {
-                            "icon-name": "icon-list",
+                            "icon-name": this.$i18n.t("actions.search"),
                             "current-color": "000",
                             "icon-color": "000",
                             width: "26",
@@ -13373,7 +13394,7 @@ var render = function() {
                       "mmiconbase",
                       {
                         attrs: {
-                          "icon-name": "icon-list",
+                          "icon-name": this.$i18n.t("actions.search"),
                           "current-color": "000",
                           "icon-color": "000",
                           width: "26",
@@ -13402,7 +13423,7 @@ var render = function() {
                       "mmiconbase",
                       {
                         attrs: {
-                          "icon-name": "move-folder",
+                          "icon-name": this.$i18n.t("actions.search"),
                           "current-color": "#8B8B8B",
                           "icon-color": "#8B8B8B",
                           width: "23",
@@ -13418,37 +13439,41 @@ var render = function() {
                 )
           ]),
           _vm._v(" "),
-          _c("li", { staticClass: "separator" }, [
-            _c(
-              "a",
-              {
-                attrs: { title: _vm.$t("actions.delete"), href: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.openDeleteModal($event)
-                  }
-                }
-              },
-              [
+          this.$store.state.selectedDirectory ||
+          _vm.showInformationsBtn ||
+          this.$store.state.totalSelected > 1
+            ? _c("li", { staticClass: "separator" }, [
                 _c(
-                  "mmiconbase",
+                  "a",
                   {
-                    attrs: {
-                      "icon-name": "add-folder",
-                      "current-color": "#8B8B8B",
-                      "icon-color": "#8B8B8B",
-                      width: "26",
-                      height: "26",
-                      viewBox: "0 0 26 26"
+                    attrs: { title: _vm.$t("actions.delete"), href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.openDeleteModal($event)
+                      }
                     }
                   },
-                  [_c("icondelete")],
+                  [
+                    _c(
+                      "mmiconbase",
+                      {
+                        attrs: {
+                          "icon-name": this.$i18n.t("actions.delete"),
+                          "current-color": "#8B8B8B",
+                          "icon-color": "#8B8B8B",
+                          width: "26",
+                          height: "26",
+                          viewBox: "0 0 26 26"
+                        }
+                      },
+                      [_c("icondelete")],
+                      1
+                    )
+                  ],
                   1
                 )
-              ],
-              1
-            )
-          ]),
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("li", [
             _c(
@@ -13466,7 +13491,7 @@ var render = function() {
                   "mmiconbase",
                   {
                     attrs: {
-                      "icon-name": "add-folder",
+                      "icon-name": this.$i18n.t("actions.add_folder"),
                       "current-color": "#8B8B8B",
                       "icon-color": "#8B8B8B",
                       width: "26",
@@ -13517,7 +13542,7 @@ var render = function() {
                       "mmiconbase",
                       {
                         attrs: {
-                          "icon-name": "add-folder",
+                          "icon-name": this.$i18n.t("actions.move"),
                           "current-color": "#8B8B8B",
                           "icon-color": "#8B8B8B",
                           width: "26",
@@ -13551,7 +13576,7 @@ var render = function() {
                       "mmiconbase",
                       {
                         attrs: {
-                          "icon-name": "move-folder",
+                          "icon-name": this.$i18n.t("actions.info"),
                           "current-color": "#8B8B8B",
                           "icon-color": "#8B8B8B",
                           width: "26",
@@ -13958,13 +13983,38 @@ var render = function() {
           _c("div", [
             _c("div", { staticClass: "illustration__trash" }),
             _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n          " +
-                  _vm._s(_vm.$t("modal.confirmation_msg")) +
-                  "\n        "
-              )
-            ])
+            this.$store.state.selectedDirectory
+              ? _c("p", [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(_vm.$t("modal.confirmation_msg")) +
+                      "\n        "
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            this.$store.state.selectedElem &&
+            !this.$store.state.selectedDirectory
+              ? _c("div", [
+                  this.$store.state.selectedElem.length <= 1
+                    ? _c("div", [
+                        _c("p", [
+                          _vm._v(
+                            _vm._s(_vm.$t("modal.confirmation_msg_medias"))
+                          )
+                        ])
+                      ])
+                    : _c("div", [
+                        _c("p", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$t("modal.confirmation_msg_medias_multiple")
+                            )
+                          )
+                        ])
+                      ])
+                ])
+              : _vm._e()
           ])
         ])
       ]),
@@ -35669,6 +35719,8 @@ var messages = {
       viewGrid: 'View Grid',
       viewList: 'View List',
       search: 'Search',
+      info: 'Informations',
+      add_folder: 'Add Folder',
       created_on: 'Created on',
       error: 'Error',
       uploaded: 'Uploaded',
@@ -35704,6 +35756,8 @@ var messages = {
       title_deleteFolder: 'Delete Folder',
       title_moveFolder: 'Move Folder To :',
       confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
+      confirmation_msg_medias: 'Are you sure you want to delete this item?',
+      confirmation_msg_medias_multiple: 'Are you sure you want to delete all these items? ',
       folder_name: 'Folder Name'
     }
   },
@@ -35730,6 +35784,8 @@ var messages = {
       viewGrid: 'Grille',
       viewList: 'Liste',
       search: 'Chercher',
+      add_folder: 'Ajouter Répertoire',
+      info: 'Informations',
       created_on: 'Crée le',
       error: 'Erreur',
       upload: 'Téverser',
@@ -35765,6 +35821,8 @@ var messages = {
       title_deleteFolder: 'Supprimer répertoire',
       title_moveFolder: 'Déplacer répertoire vers :',
       confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
+      confirmation_msg_medias: 'Êtes vous certains de vouloir supprimer cet élément ?',
+      confirmation_msg_medias_multiple: 'Êtes vous certains de vouloir supprimer ces éléments ?',
       folder_name: 'Nom du dossier'
     }
   }
