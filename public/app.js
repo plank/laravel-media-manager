@@ -2081,6 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
+        this.$store.dispatch("RESET_SELECTED", true);
         var card = document.getElementsByClassName("mm__results-single");
 
         for (var i = 0; i < card.length; i++) {
