@@ -2,6 +2,7 @@
 
 namespace Plank\MediaManager;
 
+use Plank\MediaManager\Commands\GenerateConversions;
 use Plank\MediaManager\Commands\InstallManager;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Config;
@@ -41,7 +42,8 @@ class MediaManagerServiceProvider extends ServiceProvider
 
 
             // Registering package commands.
-             $this->commands([InstallManager::class]);
+             $this->commands([InstallManager::class, GenerateConversions::class]);
+
         }
     }
 
