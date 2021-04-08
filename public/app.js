@@ -38142,7 +38142,7 @@ var actions = {
     commit('CLOSE_MODAL');
     var self = this;
     setTimeout(function () {
-      self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
+      return self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
     }, 500);
     Promise.all(promises).then(function () {
       return console.log();

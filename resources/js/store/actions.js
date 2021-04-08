@@ -220,9 +220,7 @@ export const actions = {
     commit('CLOSE_MODAL');
     const self = this;
 
-    setTimeout(function () {
-      self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
-    }, 500);
+    setTimeout(() => self.dispatch('GET_DIRECTORY', self.state.currentDirectory), 500);
 
     Promise.all(promises).then(() => console.log());
   },
