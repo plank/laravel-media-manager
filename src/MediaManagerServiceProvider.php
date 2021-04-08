@@ -16,13 +16,14 @@ class MediaManagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
+        if (!defined('MANAGER_PATH')) {
+            define('MANAGER_PATH', realpath(__DIR__.'/../'));
+        }
+
+
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'media-manager');
-         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+         $this->loadMigrationsFrom(MANAGER_PATH.'/database/migrations');
+         $this->loadRoutesFrom(MANAGER_PATH.'/routes/web.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
