@@ -38140,7 +38140,10 @@ var actions = {
     }
 
     commit('CLOSE_MODAL');
-    this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
+    var self = this;
+    setTimeout(function () {
+      self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
+    }, 500);
     Promise.all(promises).then(function () {
       return console.log();
     });
