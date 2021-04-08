@@ -1,13 +1,13 @@
 <template>
   <div class="mm__search">
-    <div class="mm__search-container" v-bind:class="{ 'is-open': this.isSearch }">
-      <div class="mm__search-term" v-if="this.isSearch">
+    <div class="mm__search-container">
+      <div class="mm__search-term">
         <input
           v-model="searchTerm"
           type="text"
           v-bind:placeholder="$t('search.input_placeholder')"
         />
-        <div v-if="this.isSearch">
+        <div>
           <a v-on:click="makeSearch($event)" href="#">
             <!-- Search Icon -->
             <mmiconbase
@@ -20,50 +20,29 @@
               ><iconsearch></iconsearch
             ></mmiconbase>
           </a>
-          <a
-            class="mm__search-close"
-            v-on:click="openSearch($event)"
-            :title="$t('actions.search')"
-            href="#"
-          >
-            <!-- Search Close -->
-            <mmiconbase
-              :icon-name="this.$i18n.t('actions.search')"
-              current-color="#8B8B8B"
-              icon-color="#8B8B8B"
-              width="16"
-              height="23"
-              viewBox="0 0 23 23"
-              ><iconclosesearch></iconclosesearch
-            ></mmiconbase>
-          </a>
         </div>
       </div>
-      <div v-if="!this.isSearch" class="mm__search-breadcrumb">
+      <div class="mm__search-breadcrumb">
         <!-- <p v-html="getCurrentFolder"></p> -->
         <mmbreadcrumb></mmbreadcrumb>
       </div>
       <div class="mm__search-actions">
         <ul>
-          <li class="mm__search-icon">
-            <a
-              v-if="!this.isSearch"
-              v-on:click="openSearch($event)"
-              :title="$t('actions.search')"
-              href="#"
-            >
-              <!-- Search Icon -->
+          <li class="mm__search-icon" v-if="showInformationsBtn">
+            <a v-on:click="setCurrent($event, getSelected)" href="">
+              <!-- Info -->
               <mmiconbase
-                :icon-name="this.$i18n.t('actions.search')"
-                current-color="000"
-                icon-color="000"
+                :icon-name="this.$i18n.t('actions.info')"
+                current-color="#8B8B8B"
+                icon-color="#8B8B8B"
                 width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><iconsearch></iconsearch
+                height="23"
+                viewBox="0 0 20 23"
+                ><iconinfo></iconinfo
               ></mmiconbase>
             </a>
           </li>
+
           <li
             v-if="
               this.$store.state.selectedDirectory ||
@@ -103,11 +82,6 @@
               ></mmiconbase>
             </a>
           </li>
-          <li class="mm__search-icon" v-if="this.$store.state.totalSelected > 1">
-            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{
-              $t("actions.deselectAll")
-            }}</a>
-          </li>
           <li
             class="mm__search-icon"
             v-if="
@@ -128,19 +102,10 @@
               ></mmiconbase>
             </a>
           </li>
-          <li class="mm__search-icon" v-if="showInformationsBtn">
-            <a v-on:click="setCurrent($event, getSelected)" href="">
-              <!-- Info -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.info')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="26"
-                height="23"
-                viewBox="0 0 20 23"
-                ><iconinfo></iconinfo
-              ></mmiconbase>
-            </a>
+          <li class="mm__search-icon" v-if="this.$store.state.totalSelected > 1">
+            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{
+              $t("actions.deselectAll")
+            }}</a>
           </li>
           <!-- <li>
             <a
@@ -242,7 +207,6 @@ export default {
     return {
       showInformations: false,
       selectedFilterType: "",
-      isSearch: false,
       searchTerm: null,
       sortOrder: "",
     };
@@ -298,15 +262,6 @@ export default {
     deselectAll: function ($event) {
       $event.preventDefault();
       this.$store.dispatch("RESET_SELECTED");
-    },
-    openSearch: function ($event) {
-      $event.preventDefault();
-      if (this.isSearch) {
-        // Reset State
-        this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
-      }
-      this.isSearch = !this.isSearch;
     },
     makeSearch: function ($event) {
       $event.preventDefault();
