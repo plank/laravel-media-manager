@@ -45,7 +45,7 @@
       </div>
       <div class="mm__search-actions">
         <ul>
-          <li class="mm__search-icon-search">
+          <li class="mm__search-icon">
             <a
               v-if="!this.isSearch"
               v-on:click="openSearch($event)"
@@ -70,7 +70,7 @@
               showInformationsBtn ||
               this.$store.state.totalSelected > 1
             "
-            class="separator"
+            class="separator mm__search-icon"
           >
             <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
               <!-- Delete Icon -->
@@ -85,7 +85,7 @@
               ></mmiconbase>
             </a>
           </li>
-          <li class="mm__search-icon-create">
+          <li class="mm__search-icon">
             <a
               v-on:click="openModal($event)"
               :title="$t('actions.createDirectory')"
@@ -103,12 +103,13 @@
               ></mmiconbase>
             </a>
           </li>
-          <li v-if="this.$store.state.totalSelected > 1">
+          <li class="mm__search-icon" v-if="this.$store.state.totalSelected > 1">
             <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{
               $t("actions.deselectAll")
             }}</a>
           </li>
           <li
+            class="mm__search-icon"
             v-if="
               this.$store.state.selectedDirectory ||
               this.$store.state.selectedElem.length > 0
@@ -127,7 +128,7 @@
               ></mmiconbase>
             </a>
           </li>
-          <li v-if="showInformationsBtn">
+          <li class="mm__search-icon" v-if="showInformationsBtn">
             <a v-on:click="setCurrent($event, getSelected)" href="">
               <!-- Info -->
               <mmiconbase

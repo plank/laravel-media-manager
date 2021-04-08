@@ -272,7 +272,7 @@ strong {
   height: 4em;
 }
 
-.mm__search-container.is-open .mm__search-icon-create {
+.mm__search-container.is-open .mm__search-icon {
   position: relative;
   top: 2px;
 }

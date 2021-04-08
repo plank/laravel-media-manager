@@ -3184,6 +3184,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -13415,7 +13416,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "mm__search-actions" }, [
           _c("ul", [
-            _c("li", { staticClass: "mm__search-icon-search" }, [
+            _c("li", { staticClass: "mm__search-icon" }, [
               !this.isSearch
                 ? _c(
                     "a",
@@ -13452,7 +13453,7 @@ var render = function() {
             this.$store.state.selectedDirectory ||
             _vm.showInformationsBtn ||
             this.$store.state.totalSelected > 1
-              ? _c("li", { staticClass: "separator" }, [
+              ? _c("li", { staticClass: "separator mm__search-icon" }, [
                   _c(
                     "a",
                     {
@@ -13485,7 +13486,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _c("li", { staticClass: "mm__search-icon-create" }, [
+            _c("li", { staticClass: "mm__search-icon" }, [
               _c(
                 "a",
                 {
@@ -13518,7 +13519,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             this.$store.state.totalSelected > 1
-              ? _c("li", [
+              ? _c("li", { staticClass: "mm__search-icon" }, [
                   _c(
                     "a",
                     {
@@ -13537,7 +13538,7 @@ var render = function() {
             _vm._v(" "),
             this.$store.state.selectedDirectory ||
             this.$store.state.selectedElem.length > 0
-              ? _c("li", [
+              ? _c("li", { staticClass: "mm__search-icon" }, [
                   _c(
                     "a",
                     {
@@ -13571,7 +13572,7 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm.showInformationsBtn
-              ? _c("li", [
+              ? _c("li", { staticClass: "mm__search-icon" }, [
                   _c(
                     "a",
                     {
