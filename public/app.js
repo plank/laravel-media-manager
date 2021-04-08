@@ -3150,41 +3150,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3210,7 +3175,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showInformations: false,
       selectedFilterType: "",
-      isSearch: false,
       searchTerm: null,
       sortOrder: ""
     };
@@ -3265,17 +3229,6 @@ __webpack_require__.r(__webpack_exports__);
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
       this.$store.dispatch("RESET_SELECTED");
-    },
-    openSearch: function openSearch($event) {
-      $event.preventDefault();
-
-      if (this.isSearch) {
-        // Reset State
-        this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
-      }
-
-      this.isSearch = !this.isSearch;
     },
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
@@ -13305,309 +13258,231 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mm__search" }, [
-    _c(
-      "div",
-      {
-        staticClass: "mm__search-container",
-        class: { "is-open": this.isSearch }
-      },
-      [
-        this.isSearch
-          ? _c("div", { staticClass: "mm__search-term" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.searchTerm,
-                    expression: "searchTerm"
-                  }
-                ],
-                attrs: {
-                  type: "text",
-                  placeholder: _vm.$t("search.input_placeholder")
-                },
-                domProps: { value: _vm.searchTerm },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.searchTerm = $event.target.value
-                  }
+    _c("div", { staticClass: "mm__search-container" }, [
+      _c("div", { staticClass: "mm__search-term" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.searchTerm,
+              expression: "searchTerm"
+            }
+          ],
+          attrs: {
+            type: "text",
+            placeholder: _vm.$t("search.input_placeholder")
+          },
+          domProps: { value: _vm.searchTerm },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchTerm = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "a",
+            {
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.makeSearch($event)
                 }
-              }),
-              _vm._v(" "),
-              this.isSearch
-                ? _c("div", [
-                    _c(
-                      "a",
-                      {
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            return _vm.makeSearch($event)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "mmiconbase",
-                          {
-                            attrs: {
-                              "icon-name": this.$i18n.t("actions.search"),
-                              "current-color": "000",
-                              "icon-color": "000",
-                              width: "26",
-                              height: "26",
-                              viewBox: "0 0 26 26"
-                            }
-                          },
-                          [_c("iconsearch")],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "mm__search-close",
-                        attrs: { title: _vm.$t("actions.search"), href: "#" },
-                        on: {
-                          click: function($event) {
-                            return _vm.openSearch($event)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "mmiconbase",
-                          {
-                            attrs: {
-                              "icon-name": this.$i18n.t("actions.search"),
-                              "current-color": "#8B8B8B",
-                              "icon-color": "#8B8B8B",
-                              width: "16",
-                              height: "23",
-                              viewBox: "0 0 23 23"
-                            }
-                          },
-                          [_c("iconclosesearch")],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                : _vm._e()
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        !this.isSearch
-          ? _c(
-              "div",
-              { staticClass: "mm__search-breadcrumb" },
-              [_c("mmbreadcrumb")],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "mm__search-actions" }, [
-          _c("ul", [
-            _c("li", { staticClass: "mm__search-icon" }, [
-              !this.isSearch
-                ? _c(
-                    "a",
-                    {
-                      attrs: { title: _vm.$t("actions.search"), href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.openSearch($event)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "mmiconbase",
-                        {
-                          attrs: {
-                            "icon-name": this.$i18n.t("actions.search"),
-                            "current-color": "000",
-                            "icon-color": "000",
-                            width: "26",
-                            height: "26",
-                            viewBox: "0 0 26 26"
-                          }
-                        },
-                        [_c("iconsearch")],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            this.$store.state.selectedDirectory ||
-            _vm.showInformationsBtn ||
-            this.$store.state.totalSelected > 1
-              ? _c("li", { staticClass: "separator mm__search-icon" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { title: _vm.$t("actions.delete"), href: "" },
-                      on: {
-                        click: function($event) {
-                          return _vm.openDeleteModal($event)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "mmiconbase",
-                        {
-                          attrs: {
-                            "icon-name": this.$i18n.t("actions.delete"),
-                            "current-color": "#8B8B8B",
-                            "icon-color": "#8B8B8B",
-                            width: "26",
-                            height: "26",
-                            viewBox: "0 0 26 26"
-                          }
-                        },
-                        [_c("icondelete")],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("li", { staticClass: "mm__search-icon" }, [
+              }
+            },
+            [
               _c(
-                "a",
+                "mmiconbase",
                 {
-                  attrs: { title: _vm.$t("actions.createDirectory"), href: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.openModal($event)
-                    }
+                  attrs: {
+                    "icon-name": this.$i18n.t("actions.search"),
+                    "current-color": "000",
+                    "icon-color": "000",
+                    width: "26",
+                    height: "26",
+                    viewBox: "0 0 26 26"
                   }
                 },
-                [
-                  _c(
-                    "mmiconbase",
-                    {
-                      attrs: {
-                        "icon-name": this.$i18n.t("actions.add_folder"),
-                        "current-color": "#8B8B8B",
-                        "icon-color": "#8B8B8B",
-                        width: "26",
-                        height: "26",
-                        viewBox: "0 0 26 26"
-                      }
-                    },
-                    [_c("iconadddirectory")],
-                    1
-                  )
-                ],
+                [_c("iconsearch")],
                 1
               )
-            ]),
-            _vm._v(" "),
-            this.$store.state.totalSelected > 1
-              ? _c("li", { staticClass: "mm__search-icon" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "mm__search-deselect",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          return _vm.deselectAll($event)
-                        }
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm.$t("actions.deselectAll")))]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            this.$store.state.selectedDirectory ||
-            this.$store.state.selectedElem.length > 0
-              ? _c("li", { staticClass: "mm__search-icon" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function($event) {
-                          return _vm.openMoveModal($event)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "mmiconbase",
-                        {
-                          attrs: {
-                            "icon-name": this.$i18n.t("actions.move"),
-                            "current-color": "#8B8B8B",
-                            "icon-color": "#8B8B8B",
-                            width: "26",
-                            height: "26",
-                            viewBox: "0 0 26 26"
-                          }
-                        },
-                        [_c("iconmove")],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.showInformationsBtn
-              ? _c("li", { staticClass: "mm__search-icon" }, [
-                  _c(
-                    "a",
-                    {
-                      attrs: { href: "" },
-                      on: {
-                        click: function($event) {
-                          return _vm.setCurrent($event, _vm.getSelected)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "mmiconbase",
-                        {
-                          attrs: {
-                            "icon-name": this.$i18n.t("actions.info"),
-                            "current-color": "#8B8B8B",
-                            "icon-color": "#8B8B8B",
-                            width: "26",
-                            height: "23",
-                            viewBox: "0 0 20 23"
-                          }
-                        },
-                        [_c("iconinfo")],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              : _vm._e()
-          ])
+            ],
+            1
+          )
         ])
-      ]
-    ),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "mm__search-breadcrumb" },
+        [_c("mmbreadcrumb")],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "mm__search-actions" }, [
+        _c("ul", [
+          _vm.showInformationsBtn
+            ? _c("li", { staticClass: "mm__search-icon" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.setCurrent($event, _vm.getSelected)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "mmiconbase",
+                      {
+                        attrs: {
+                          "icon-name": this.$i18n.t("actions.info"),
+                          "current-color": "#8B8B8B",
+                          "icon-color": "#8B8B8B",
+                          width: "26",
+                          height: "23",
+                          viewBox: "0 0 20 23"
+                        }
+                      },
+                      [_c("iconinfo")],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          this.$store.state.selectedDirectory ||
+          _vm.showInformationsBtn ||
+          this.$store.state.totalSelected > 1
+            ? _c("li", { staticClass: "separator mm__search-icon" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: { title: _vm.$t("actions.delete"), href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.openDeleteModal($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "mmiconbase",
+                      {
+                        attrs: {
+                          "icon-name": this.$i18n.t("actions.delete"),
+                          "current-color": "#8B8B8B",
+                          "icon-color": "#8B8B8B",
+                          width: "26",
+                          height: "26",
+                          viewBox: "0 0 26 26"
+                        }
+                      },
+                      [_c("icondelete")],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("li", { staticClass: "mm__search-icon" }, [
+            _c(
+              "a",
+              {
+                attrs: { title: _vm.$t("actions.createDirectory"), href: "" },
+                on: {
+                  click: function($event) {
+                    return _vm.openModal($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "mmiconbase",
+                  {
+                    attrs: {
+                      "icon-name": this.$i18n.t("actions.add_folder"),
+                      "current-color": "#8B8B8B",
+                      "icon-color": "#8B8B8B",
+                      width: "26",
+                      height: "26",
+                      viewBox: "0 0 26 26"
+                    }
+                  },
+                  [_c("iconadddirectory")],
+                  1
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          this.$store.state.selectedDirectory ||
+          this.$store.state.selectedElem.length > 0
+            ? _c("li", { staticClass: "mm__search-icon" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.openMoveModal($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "mmiconbase",
+                      {
+                        attrs: {
+                          "icon-name": this.$i18n.t("actions.move"),
+                          "current-color": "#8B8B8B",
+                          "icon-color": "#8B8B8B",
+                          width: "26",
+                          height: "26",
+                          viewBox: "0 0 26 26"
+                        }
+                      },
+                      [_c("iconmove")],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          this.$store.state.totalSelected > 1
+            ? _c("li", { staticClass: "mm__search-icon" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "mm__search-deselect",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deselectAll($event)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("actions.deselectAll")))]
+                )
+              ])
+            : _vm._e()
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "mm__search-filters" }, [
       _c(

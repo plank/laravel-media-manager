@@ -263,13 +263,11 @@ strong {
 .mm__search-container {
   display: grid;
   margin: 2.375em 0 0 0;
-  grid-template-columns: auto auto;
-  -moz-column-gap: 4em;
-       column-gap: 4em;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
   box-sizing: border-box;
   width: 100%;
   align-items: center;
-  height: 4em;
 }
 
 .mm__search-container.is-open .mm__search-icon {
@@ -324,6 +322,8 @@ strong {
 
 .mm__search-term input {
   width: 100%;
+  max-width: 30%;
+  float: right;
   display: inline-block;
   background: #F9F9F9;
   border-radius: 24px;

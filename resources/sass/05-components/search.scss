@@ -26,12 +26,12 @@
         &-container {
             display: grid;
             margin: em(38px) 0 0 0;
-            grid-template-columns: auto auto;
-            column-gap: 4em;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr;
             box-sizing: border-box;
             width: 100%;
             align-items: center;
-            height: 4em;
+            // height: 4em;
 
             &.is-open {
                 .mm__search-icon {
@@ -91,6 +91,8 @@
 
             input {
                 width: 100%;
+                max-width: 30%;
+                float: right;
                 display: inline-block;
                 background: $mm-form-input-bg;
                 border-radius: 24px;
