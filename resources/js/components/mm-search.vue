@@ -1,6 +1,6 @@
 <template>
   <div class="mm__search">
-    <div class="mm__search-container">
+    <div class="mm__search-container" v-bind:class="{ 'is-open': this.isSearch }">
       <div class="mm__search-term" v-if="this.isSearch">
         <input
           v-model="searchTerm"
@@ -18,6 +18,23 @@
               height="26"
               viewBox="0 0 26 26"
               ><iconsearch></iconsearch
+            ></mmiconbase>
+          </a>
+          <a
+            class="mm__search-close"
+            v-on:click="openSearch($event)"
+            :title="$t('actions.search')"
+            href="#"
+          >
+            <!-- Search Close -->
+            <mmiconbase
+              :icon-name="this.$i18n.t('actions.search')"
+              current-color="#8B8B8B"
+              icon-color="#8B8B8B"
+              width="16"
+              height="23"
+              viewBox="0 0 23 23"
+              ><iconclosesearch></iconclosesearch
             ></mmiconbase>
           </a>
         </div>
@@ -46,23 +63,6 @@
                 ><iconsearch></iconsearch
               ></mmiconbase>
             </a>
-            <a
-              v-else
-              v-on:click="openSearch($event)"
-              :title="$t('actions.search')"
-              href="#"
-            >
-              <!-- Search Close -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.search')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="23"
-                height="23"
-                viewBox="0 0 23 23"
-                ><iconclosesearch></iconclosesearch
-              ></mmiconbase>
-            </a>
           </li>
           <li
             v-if="
@@ -85,7 +85,7 @@
               ></mmiconbase>
             </a>
           </li>
-          <li>
+          <li class="mm__search-icon-create">
             <a
               v-on:click="openModal($event)"
               :title="$t('actions.createDirectory')"

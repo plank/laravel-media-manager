@@ -1,13 +1,18 @@
 .mm {
     &__search {
 
-        &-icon-search {
-            position: relative;
-            top: -4px;
-            svg {
-                top: 4px;
-                position: relative;
-            }
+        // &-icon-search {
+        //     position: relative;
+        //     top: -4px;
+        //     svg {
+        //         top: 4px;
+        //         position: relative;
+        //     }
+        // }
+
+        &-close {
+            position: absolute;
+            right: -3.5em;
         }
 
         &-no-result {
@@ -27,6 +32,13 @@
             width: 100%;
             align-items: center;
             height: 4em;
+
+            &.is-open {
+                .mm__search-icon-create {
+                    position: relative;
+                    top: 2px;
+                }
+            }
         }
 
         // Breadcrumb

@@ -249,14 +249,9 @@ strong {
   padding: 2.5em 0;
 }
 
-.mm__search-icon-search {
-  position: relative;
-  top: -4px;
-}
-
-.mm__search-icon-search svg {
-  top: 4px;
-  position: relative;
+.mm__search-close {
+  position: absolute;
+  right: -3.5em;
 }
 
 .mm__search-no-result h3 {
@@ -275,6 +270,11 @@ strong {
   width: 100%;
   align-items: center;
   height: 4em;
+}
+
+.mm__search-container.is-open .mm__search-icon-create {
+  position: relative;
+  top: 2px;
 }
 
 .mm__search-breadcrumb {
