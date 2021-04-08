@@ -178,7 +178,7 @@ export const actions = {
         axios
           .post(this.state.routeUpdateMedia, {
             id: value.media[i].id,
-            disk: 'public',
+            disk: value.media[i].disk,
             path: value.destination
           })
           .then(response => {
