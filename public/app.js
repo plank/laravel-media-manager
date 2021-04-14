@@ -2057,7 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "media-manager",
+  name: 'media-manager',
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_2__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -2079,13 +2079,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     triggerClick: function triggerClick($event) {
-      if ($event.target.classList.contains("mm__results-grid")) {
-        this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-        this.$store.dispatch("RESET_SELECTED", true);
-        var card = document.getElementsByClassName("mm__results-single");
+      if ($event.target.classList.contains('mm__results-grid')) {
+        this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+        this.$store.dispatch('RESET_SELECTED', true);
+        var card = document.getElementsByClassName('mm__results-single');
 
         for (var i = 0; i < card.length; i++) {
-          card.item(i).classList.remove("active");
+          card.item(i).classList.remove('active');
         }
       }
     }
@@ -2478,14 +2478,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmfoldercard",
-  props: ["item"],
+  name: 'mmfoldercard',
+  props: ['item'],
   data: function data() {
     return {};
   },
   filters: {
     clearname: function clearname(name) {
-      name = name.split("/");
+      name = name.split('/');
       return name[name.length - 1];
     }
   },
@@ -2536,8 +2536,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmcard",
-  props: ["item"],
+  name: 'mmcard',
+  props: ['item'],
   data: function data() {
     return {
       isSelected: false
@@ -2548,7 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
     pushSelected: function pushSelected(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("PUSH_SELECTED", value);
+      this.$store.dispatch('PUSH_SELECTED', value);
       this.isSelected = !this.isSelected;
     }
   },
@@ -2608,7 +2608,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmempty",
+  name: 'mmempty',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     iconempty: _icons_icon_empty_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2618,7 +2618,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     openModal: function openModal() {
-      this.$store.dispatch("OPEN_MODAL_ADD");
+      this.$store.dispatch('OPEN_MODAL_ADD');
     }
   }
 });
@@ -2672,7 +2672,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmfolders",
+  name: 'mmfolders',
   components: {
     mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2681,14 +2681,14 @@ __webpack_require__.r(__webpack_exports__);
       current: null,
       cardItem: null,
       optionsArray1: [{
-        name: this.$i18n.t("actions.delete"),
-        slug: "delete",
-        "class": "delete-class"
+        name: this.$i18n.t('actions.delete'),
+        slug: 'delete',
+        "class": 'delete-class'
       }, {
-        type: "divider"
+        type: 'divider'
       }, {
-        name: "Move",
-        slug: "move"
+        name: 'Move',
+        slug: 'move'
       }] // directoryCollection: this.$store.state.directoryCollection
 
     };
@@ -2701,33 +2701,33 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.state.selectedElem.push(event.item);
 
       if (JSON.stringify(event.option.slug) === '"delete"') {
-        this.$store.dispatch("OPEN_MODAL_DELETE");
+        this.$store.dispatch('OPEN_MODAL_DELETE');
       } else if (JSON.stringify(event.option.slug) === '"move"') {
         this.$store.state.selectedDirectory = event.item;
-        this.$store.dispatch("OPEN_MOVE_MODAL"); // EventBus.$emit('open-slide-panel', [event.item]);
+        this.$store.dispatch('OPEN_MOVE_MODAL'); // EventBus.$emit('open-slide-panel', [event.item]);
       }
     },
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function openDirectory(event, value) {
       this.current = value.name;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-      this.$store.dispatch("GET_DIRECTORY", value.name);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+      this.$store.dispatch('GET_DIRECTORY', value.name);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", item);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', item);
     },
     goBack: function goBack($event) {
       $event.preventDefault();
       var directoryTarget = null;
-      var directoryLevel = this.current.split("/");
+      var directoryLevel = this.current.split('/');
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = "";
+        directoryTarget = '';
       }
 
       this.openDirectory($event, directoryTarget);
@@ -2739,7 +2739,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch("GET_DIRECTORY");
+    this.$store.dispatch('GET_DIRECTORY');
   }
 });
 
@@ -2773,7 +2773,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     iconName: {
       type: String,
-      "default": "box"
+      "default": 'box'
     },
     width: {
       type: [Number, String],
@@ -2785,7 +2785,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     iconColor: {
       type: String,
-      "default": "currentColor"
+      "default": 'currentColor'
     }
   }
 });
@@ -3183,7 +3183,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmsearch",
+  name: 'mmsearch',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconadddirectory: _icons_icon_add_directory_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -3197,62 +3197,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showInformations: false,
-      selectedFilterType: "",
+      selectedFilterType: '',
       isSearch: true,
       searchTerm: null,
-      sortOrder: ""
+      sortOrder: ''
     };
   },
   mounted: function mounted() {},
   methods: {
     viewState: function viewState(event, value) {
       event.preventDefault();
-      this.$store.dispatch("VIEW_STATE", value);
+      this.$store.dispatch('VIEW_STATE', value);
     },
     // Set Current State And Open Slidepanel
     setCurrent: function setCurrent(event, id) {
       event.preventDefault();
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('open-slide-panel', id);
     },
     openModal: function openModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_CREATE");
+      this.$store.dispatch('OPEN_MODAL_CREATE');
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openDeleteMedia: function openDeleteMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
     },
     openMoveModal: function openMoveModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MOVE_MODAL");
+      this.$store.dispatch('OPEN_MOVE_MODAL');
     },
     applyFilter: function applyFilter($event) {
       $event.preventDefault();
-      var card = document.getElementsByClassName("mm__card");
+      var card = document.getElementsByClassName('mm__card');
 
       for (var i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove("hide");
+        card.item(i).parentNode.classList.remove('hide');
 
-        if (this.selectedFilterType !== "all") {
-          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== "folder") {
-            card.item(i).parentNode.classList.add("hide");
+        if (this.selectedFilterType !== 'all') {
+          if (card.item(i).dataset.type !== this.selectedFilterType && card.item(i).dataset.type !== 'folder') {
+            card.item(i).parentNode.classList.add('hide');
           }
         } else {
-          card.item(i).parentNode.classList.remove("hide");
+          card.item(i).parentNode.classList.remove('hide');
         }
       }
     },
     applyFilterDate: function applyFilterDate($event) {
       $event.preventDefault();
-      this.$store.dispatch("UPDATE_ORDERBY", this.sortOrder);
+      this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder);
     },
     deselectAll: function deselectAll($event) {
       $event.preventDefault();
-      this.$store.dispatch("RESET_SELECTED");
+      this.$store.dispatch('RESET_SELECTED');
     },
     openSearch: function openSearch($event) {
       $event.preventDefault();
@@ -3260,7 +3260,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.isSearch) {
         // Reset State
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
       }
 
       this.isSearch = !this.isSearch;
@@ -3268,7 +3268,7 @@ __webpack_require__.r(__webpack_exports__);
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
 
-      this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
       this.isSearch = false;
     }
   },
@@ -3296,7 +3296,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   filters: {
     capitalize: function capitalize(value) {
-      if (!value) return "";
+      if (!value) return '';
       value = value.toString();
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
@@ -3362,7 +3362,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaladd",
+  name: 'mmmodaladd',
   components: {
     vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -3379,31 +3379,31 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     openUpload: function openUpload() {
-      document.getElementsByClassName("dropzone")[0].click();
+      document.getElementsByClassName('dropzone')[0].click();
     },
     getUploadURL: function getUploadURL() {
-      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+      return 'media-api/create?path=' + this.$store.state.currentDirectory + '';
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_ADD");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function uploadSuccess($event) {
-      this.$store.dispatch("CLOSE_MODAL_ADD"); // Refresh current folder
+      this.$store.dispatch('CLOSE_MODAL_ADD'); // Refresh current folder
 
       this.$toast.open({
-        type: "success",
-        position: "bottom-left",
-        message: $event.name + " " + this.$i18n.t("actions.uploaded")
+        type: 'success',
+        position: 'bottom-left',
+        message: $event.name + ' ' + this.$i18n.t('actions.uploaded')
       });
-      this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     },
     showError: function showError($event) {
       if ($event.status) {
         this.$toast.open({
-          type: "error",
-          position: "bottom-left",
-          message: this.$i18n.t("actions.error")
+          type: 'error',
+          position: 'bottom-left',
+          message: this.$i18n.t('actions.error')
         });
       }
     }
@@ -3415,7 +3415,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3482,7 +3482,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaladdfolder",
+  name: 'mmmodaladdfolder',
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3500,12 +3500,12 @@ __webpack_require__.r(__webpack_exports__);
 
       var createFolderPath = function createFolderPath() {
         if (_this.$store.state.currentDirectory) {
-          _this.$store.dispatch("CREATE_DIRECTORY", {
+          _this.$store.dispatch('CREATE_DIRECTORY', {
             vm: _this,
-            name: _this.$store.state.currentDirectory + "/" + _this.name
+            name: _this.$store.state.currentDirectory + '/' + _this.name
           });
         } else {
-          _this.$store.dispatch("CREATE_DIRECTORY", {
+          _this.$store.dispatch('CREATE_DIRECTORY', {
             vm: _this,
             name: _this.name
           });
@@ -3516,10 +3516,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     }
   },
   computed: {
@@ -3532,7 +3532,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3603,7 +3603,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodaldeletefolder",
+  name: 'mmmodaldeletefolder',
   components: {
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3616,12 +3616,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_DELETE");
+      this.$store.dispatch('CLOSE_MODAL_DELETE');
     },
     deleteElement: function deleteElement($event) {
       // Delete selected folder
       $event.preventDefault();
-      this.$store.dispatch("DELETE_SELECTED", {
+      this.$store.dispatch('DELETE_SELECTED', {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         mediaCollection: this.$store.state.selectedElem
@@ -3638,7 +3638,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3691,20 +3691,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodal",
+  name: 'mmmodal',
   components: {},
   data: function data() {
     return {};
   },
-  props: ["extraClassContainer"],
+  props: ['extraClassContainer'],
   mounted: function mounted() {},
   methods: {
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL");
+      this.$store.dispatch('CLOSE_MODAL');
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     }
   },
   computed: {
@@ -3714,7 +3714,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -3782,7 +3782,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmmodalamovefolder",
+  name: 'mmmodalamovefolder',
   components: {
     mmmodal: _modals_mm_modal__WEBPACK_IMPORTED_MODULE_1__["default"],
     mmmovemain: _mm_move_main__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -3796,14 +3796,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("allow-move", function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('allow-move', function (value) {
       _this.selectedFolder = value;
     });
   },
   methods: {
     moveSelected: function moveSelected($event) {
       $event.preventDefault();
-      this.$store.dispatch("MOVE_SELECTED", {
+      this.$store.dispatch('MOVE_SELECTED', {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         destination: this.selectedFolder,
@@ -3812,13 +3812,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     closeModal: function closeModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MOVE_MODAL");
+      this.$store.dispatch('CLOSE_MOVE_MODAL');
     }
   },
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }
@@ -4038,7 +4038,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   components: {
     mmiconbase: _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     iconclose: _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -4047,11 +4047,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       slideOpen: false,
       data: [],
-      disk: "",
-      id: "",
-      alt: "",
-      credit: "",
-      caption: ""
+      disk: '',
+      id: '',
+      alt: '',
+      credit: '',
+      caption: ''
     };
   },
   methods: {
@@ -4061,12 +4061,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     openDeleteModal: function openDeleteModal($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
       this.slideOpen = false;
     },
     updateMedia: function updateMedia($event) {
       $event.preventDefault();
-      this.$store.dispatch("UPDATE_MEDIA", {
+      this.$store.dispatch('UPDATE_MEDIA', {
         vm: this,
         disk: this.disk,
         id: this.id,
@@ -4079,7 +4079,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('open-slide-panel', function (value) {
       _this.slideOpen = true;
       _this.data = value;
       _this.disk = _this.data[0].disk;
@@ -4092,7 +4092,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        "--bg-color": this.$store.state.mainColor
+        '--bg-color': this.$store.state.mainColor
       };
     }
   }

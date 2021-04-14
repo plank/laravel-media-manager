@@ -46,32 +46,32 @@
 </template>
 
 <script>
-import mmmodal from "./../mm-modal";
+import mmmodal from './../mm-modal';
 
 export default {
-  name: "mmmodaladdfolder",
+  name: 'mmmodaladdfolder',
   components: {
-    mmmodal,
+    mmmodal
   },
-  data() {
+  data () {
     return {
-      name: null,
+      name: null
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     createDirectory: function ($event) {
       $event.preventDefault();
       const createFolderPath = () => {
         if (this.$store.state.currentDirectory) {
-          this.$store.dispatch("CREATE_DIRECTORY", {
+          this.$store.dispatch('CREATE_DIRECTORY', {
             vm: this,
-            name: this.$store.state.currentDirectory + "/" + this.name,
+            name: this.$store.state.currentDirectory + '/' + this.name
           });
         } else {
-          this.$store.dispatch("CREATE_DIRECTORY", {
+          this.$store.dispatch('CREATE_DIRECTORY', {
             vm: this,
-            name: this.name,
+            name: this.name
           });
         }
       };
@@ -80,26 +80,26 @@ export default {
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
-    },
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
+    }
   },
   computed: {
-    getDir() {
+    getDir () {
       return this.$store.getters.getDirectory;
     },
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

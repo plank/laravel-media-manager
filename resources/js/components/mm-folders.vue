@@ -34,45 +34,45 @@
 </template>
 
 <script>
-import mmfoldercard from "./mm-card-folder";
+import mmfoldercard from './mm-card-folder';
 
 export default {
-  name: "mmfolders",
+  name: 'mmfolders',
   components: {
-    mmfoldercard,
+    mmfoldercard
   },
-  data() {
+  data () {
     return {
       current: null,
       cardItem: null,
       optionsArray1: [
         {
-          name: this.$i18n.t("actions.delete"),
-          slug: "delete",
-          class: "delete-class",
+          name: this.$i18n.t('actions.delete'),
+          slug: 'delete',
+          class: 'delete-class'
         },
         {
-          type: "divider",
+          type: 'divider'
         },
         {
-          name: "Move",
-          slug: "move",
-        },
-      ],
+          name: 'Move',
+          slug: 'move'
+        }
+      ]
       // directoryCollection: this.$store.state.directoryCollection
     };
   },
   methods: {
-    handleClick(event, item) {
+    handleClick (event, item) {
       this.$refs.vueSimpleContextMenu.showMenu(event, item);
     },
-    optionClicked(event) {
+    optionClicked (event) {
       this.$store.state.selectedElem.push(event.item);
       if (JSON.stringify(event.option.slug) === '"delete"') {
-        this.$store.dispatch("OPEN_MODAL_DELETE");
+        this.$store.dispatch('OPEN_MODAL_DELETE');
       } else if (JSON.stringify(event.option.slug) === '"move"') {
         this.$store.state.selectedDirectory = event.item;
-        this.$store.dispatch("OPEN_MOVE_MODAL");
+        this.$store.dispatch('OPEN_MOVE_MODAL');
         // EventBus.$emit('open-slide-panel', [event.item]);
       }
     },
@@ -80,35 +80,35 @@ export default {
     // Set activeDirectory and open in relation
     openDirectory: function (event, value) {
       this.current = value.name;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-      this.$store.dispatch("GET_DIRECTORY", value.name);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+      this.$store.dispatch('GET_DIRECTORY', value.name);
     },
-    showOptions(index, item) {
+    showOptions (index, item) {
       this.cardItem = index;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", item);
+      this.$store.dispatch('SET_SELECTED_DIRECTORY', item);
     },
-    goBack($event) {
+    goBack ($event) {
       $event.preventDefault();
       let directoryTarget = null;
-      const directoryLevel = this.current.split("/");
+      const directoryLevel = this.current.split('/');
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = "";
+        directoryTarget = '';
       }
 
       this.openDirectory($event, directoryTarget);
-    },
+    }
   },
   computed: {
-    getDir() {
+    getDir () {
       return this.$store.getters.GET_DIRECTORY;
-    },
+    }
   },
-  mounted() {
-    this.$store.dispatch("GET_DIRECTORY");
-  },
+  mounted () {
+    this.$store.dispatch('GET_DIRECTORY');
+  }
 };
 </script>

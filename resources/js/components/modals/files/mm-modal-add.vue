@@ -40,66 +40,66 @@
 </template>
 
 <script>
-import vue2Dropzone from "vue2-dropzone";
-import "vue2-dropzone/dist/vue2Dropzone.min.css";
+import vue2Dropzone from 'vue2-dropzone';
+import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 export default {
-  name: "mmmodaladd",
+  name: 'mmmodaladd',
   components: {
-    vueDropzone: vue2Dropzone,
+    vueDropzone: vue2Dropzone
   },
-  data() {
+  data () {
     return {
       dropzoneOptions: {
         url: this.getUploadURL(),
         parallelUploads: 20,
         uploadMultiple: true,
-        dictDefaultMessage: '<span class="upload__illustration"></span>',
-      },
+        dictDefaultMessage: '<span class="upload__illustration"></span>'
+      }
     };
   },
-  mounted() {},
+  mounted () {},
   methods: {
     openUpload: function () {
-      document.getElementsByClassName("dropzone")[0].click();
+      document.getElementsByClassName('dropzone')[0].click();
     },
     getUploadURL: function () {
-      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+      return 'media-api/create?path=' + this.$store.state.currentDirectory + '';
     },
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_ADD");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
     },
     uploadSuccess: function ($event) {
-      this.$store.dispatch("CLOSE_MODAL_ADD");
+      this.$store.dispatch('CLOSE_MODAL_ADD');
       // Refresh current folder
       this.$toast.open({
-        type: "success",
-        position: "bottom-left",
-        message: $event.name + " " + this.$i18n.t("actions.uploaded"),
+        type: 'success',
+        position: 'bottom-left',
+        message: $event.name + ' ' + this.$i18n.t('actions.uploaded')
       });
-      this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     },
     showError: function ($event) {
       if ($event.status) {
         this.$toast.open({
-          type: "error",
-          position: "bottom-left",
-          message: this.$i18n.t("actions.error"),
+          type: 'error',
+          position: 'bottom-left',
+          message: this.$i18n.t('actions.error')
         });
       }
-    },
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

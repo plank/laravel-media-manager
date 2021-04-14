@@ -21,22 +21,22 @@
 </template>
 
 <script>
-import mmiconbase from "./mm-icon-base.vue";
-import iconempty from "./icons/icon-empty.vue";
+import mmiconbase from './mm-icon-base.vue';
+import iconempty from './icons/icon-empty.vue';
 
 export default {
-  name: "mmempty",
+  name: 'mmempty',
   components: {
     mmiconbase,
-    iconempty,
+    iconempty
   },
-  data() {
+  data () {
     return {};
   },
   methods: {
     openModal: function () {
-      this.$store.dispatch("OPEN_MODAL_ADD");
-    },
-  },
+      this.$store.dispatch('OPEN_MODAL_ADD');
+    }
+  }
 };
 </script>

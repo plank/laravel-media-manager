@@ -35,33 +35,33 @@
 
 <script>
 export default {
-  name: "mmmodal",
+  name: 'mmmodal',
   components: {},
-  data() {
+  data () {
     return {};
   },
-  props: ["extraClassContainer"],
-  mounted() {},
+  props: ['extraClassContainer'],
+  mounted () {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL");
+      this.$store.dispatch('CLOSE_MODAL');
     },
     uploadSuccess: function () {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
-    },
+      this.$store.dispatch('CLOSE_MODAL_CREATE');
+    }
   },
   computed: {
     // Get Main Color From Store
-    getColor() {
+    getColor () {
       return this.$store.state.mainColor;
     },
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

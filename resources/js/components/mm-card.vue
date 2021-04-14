@@ -32,11 +32,11 @@
 
 <script>
 export default {
-  name: "mmcard",
-  props: ["item"],
-  data() {
+  name: 'mmcard',
+  props: ['item'],
+  data () {
     return {
-      isSelected: false,
+      isSelected: false
     };
   },
   methods: {
@@ -44,9 +44,9 @@ export default {
     pushSelected: function (event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch("PUSH_SELECTED", value);
+      this.$store.dispatch('PUSH_SELECTED', value);
       this.isSelected = !this.isSelected;
-    },
+    }
   },
   computed: {
     setSelected: function (item) {
@@ -60,8 +60,8 @@ export default {
       } else {
         return true;
       }
-    },
+    }
   },
-  mounted() {},
+  mounted () {}
 };
 </script>

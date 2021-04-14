@@ -92,23 +92,23 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import store from "../store/store.js";
-import mmsearch from "./mm-search";
-import mmresults from "./mm-results";
-import mmslidepanel from "./slidepanel/mm-slidepanel";
-import mmaddbutton from "./mm-add-button";
-import mmmodaladd from "./modals/files/mm-modal-add";
-import mmmodaladdfolder from "./modals/folders/mm-modal-add-folder";
-import mmmodaldeletefolder from "./modals/folders/mm-modal-delete-folder";
-import mmmodalmove from "./move/mm-modal-move";
-import mmlistresults from "./mm-list-results";
-import mmfolders from "./mm-folders";
-import mmcarousel from "./carousel/mm-carousel";
-import mmempty from "./mm-empty";
+import { mapState, mapGetters } from 'vuex';
+import store from '../store/store.js';
+import mmsearch from './mm-search';
+import mmresults from './mm-results';
+import mmslidepanel from './slidepanel/mm-slidepanel';
+import mmaddbutton from './mm-add-button';
+import mmmodaladd from './modals/files/mm-modal-add';
+import mmmodaladdfolder from './modals/folders/mm-modal-add-folder';
+import mmmodaldeletefolder from './modals/folders/mm-modal-delete-folder';
+import mmmodalmove from './move/mm-modal-move';
+import mmlistresults from './mm-list-results';
+import mmfolders from './mm-folders';
+import mmcarousel from './carousel/mm-carousel';
+import mmempty from './mm-empty';
 
 export default {
-  name: "media-manager",
+  name: 'media-manager',
   components: {
     mmsearch,
     mmresults,
@@ -121,45 +121,45 @@ export default {
     mmmodaladdfolder,
     mmmodaldeletefolder,
     mmmodalmove,
-    mmempty,
+    mmempty
   },
-  data() {
+  data () {
     return {
-      info: null,
+      info: null
     };
   },
   methods: {
     triggerClick: function ($event) {
-      if ($event.target.classList.contains("mm__results-grid")) {
-        this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-        this.$store.dispatch("RESET_SELECTED", true);
-        const card = document.getElementsByClassName("mm__results-single");
+      if ($event.target.classList.contains('mm__results-grid')) {
+        this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
+        this.$store.dispatch('RESET_SELECTED', true);
+        const card = document.getElementsByClassName('mm__results-single');
         for (let i = 0; i < card.length; i++) {
-          card.item(i).classList.remove("active");
+          card.item(i).classList.remove('active');
         }
       }
-    },
+    }
   },
   computed: {
-    modalStateMoveFolder() {
+    modalStateMoveFolder () {
       return this.$store.state.modalState.move;
     },
-    modalStateCreateFolder() {
+    modalStateCreateFolder () {
       return this.$store.state.modalState.create;
     },
-    modalStateDeleteFolder() {
+    modalStateDeleteFolder () {
       return this.$store.state.modalState.delete;
     },
-    modalStateAddMedia() {
+    modalStateAddMedia () {
       return this.$store.state.modalState.add;
     },
-    viewState() {
+    viewState () {
       return this.$store.state.viewState;
     },
-    folderState() {
+    folderState () {
       return this.$store.state.folderState;
     },
-    isEmpty() {
+    isEmpty () {
       if (
         this.$store.state.directoryCollection.length === 0 &&
         this.$store.state.mediaCollection.length === 0
@@ -168,7 +168,7 @@ export default {
       } else {
         return false;
       }
-    },
-  },
+    }
+  }
 };
 </script>

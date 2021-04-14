@@ -102,25 +102,25 @@
 </template>
 
 <script>
-import { EventBus } from "../../event-bus.js";
-import mmiconbase from "./../mm-icon-base.vue";
-import iconclose from "./../icons/icon-close.vue";
+import { EventBus } from '../../event-bus.js';
+import mmiconbase from './../mm-icon-base.vue';
+import iconclose from './../icons/icon-close.vue';
 
 export default {
-  name: "mmslidepanel",
+  name: 'mmslidepanel',
   components: {
     mmiconbase,
-    iconclose,
+    iconclose
   },
-  data() {
+  data () {
     return {
       slideOpen: false,
       data: [],
-      disk: "",
-      id: "",
-      alt: "",
-      credit: "",
-      caption: "",
+      disk: '',
+      id: '',
+      alt: '',
+      credit: '',
+      caption: ''
     };
   },
   methods: {
@@ -130,23 +130,23 @@ export default {
     },
     openDeleteModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch('OPEN_MODAL_DELETE');
       this.slideOpen = false;
     },
     updateMedia: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("UPDATE_MEDIA", {
+      this.$store.dispatch('UPDATE_MEDIA', {
         vm: this,
         disk: this.disk,
         id: this.id,
         alt: this.alt,
         credit: this.credit,
-        caption: this.caption,
+        caption: this.caption
       });
-    },
+    }
   },
-  mounted() {
-    EventBus.$on("open-slide-panel", (value) => {
+  mounted () {
+    EventBus.$on('open-slide-panel', (value) => {
       this.slideOpen = true;
       this.data = value;
       this.disk = this.data[0].disk;
@@ -157,12 +157,12 @@ export default {
     });
   },
   computed: {
-    styleBtnDefault() {
+    styleBtnDefault () {
       return {
-        "--bg-color": this.$store.state.mainColor,
+        '--bg-color': this.$store.state.mainColor
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

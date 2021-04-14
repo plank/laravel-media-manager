@@ -51,17 +51,17 @@
 
 <script>
 export default {
-  name: "mmfoldercard",
-  props: ["item"],
-  data() {
+  name: 'mmfoldercard',
+  props: ['item'],
+  data () {
     return {};
   },
   filters: {
     clearname: function (name) {
-      name = name.split("/");
+      name = name.split('/');
       return name[name.length - 1];
-    },
+    }
   },
-  methods: {},
+  methods: {}
 };
 </script>
