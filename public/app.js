@@ -2672,7 +2672,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmfolders',
+  name: "mmfolders",
   components: {
     mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2681,14 +2681,14 @@ __webpack_require__.r(__webpack_exports__);
       current: null,
       cardItem: null,
       optionsArray1: [{
-        name: this.$i18n.t('actions.delete'),
-        slug: 'delete',
-        "class": 'delete-class'
+        name: this.$i18n.t("actions.delete"),
+        slug: "delete",
+        "class": "delete-class"
       }, {
-        type: 'divider'
+        type: "divider"
       }, {
-        name: 'Move',
-        slug: 'move'
+        name: "Move",
+        slug: "move"
       }] // directoryCollection: this.$store.state.directoryCollection
 
     };
@@ -2701,33 +2701,33 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.state.selectedElem.push(event.item);
 
       if (JSON.stringify(event.option.slug) === '"delete"') {
-        this.$store.dispatch('OPEN_MODAL_DELETE');
+        this.$store.dispatch("OPEN_MODAL_DELETE");
       } else if (JSON.stringify(event.option.slug) === '"move"') {
         this.$store.state.selectedDirectory = event.item;
-        this.$store.dispatch('OPEN_MOVE_MODAL'); // EventBus.$emit('open-slide-panel', [event.item]);
+        this.$store.dispatch("OPEN_MOVE_MODAL"); // EventBus.$emit('open-slide-panel', [event.item]);
       }
     },
     // Open Directory
     // Set activeDirectory and open in relation
     openDirectory: function openDirectory(event, value) {
       this.current = value.name;
-      this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
-      this.$store.dispatch('GET_DIRECTORY', value.name);
+      this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
+      this.$store.dispatch("GET_DIRECTORY", value.name);
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch('SET_SELECTED_DIRECTORY', item);
+      this.$store.dispatch("SET_SELECTED_DIRECTORY", item);
     },
     goBack: function goBack($event) {
       $event.preventDefault();
       var directoryTarget = null;
-      var directoryLevel = this.current.split('/');
+      var directoryLevel = this.current.split("/");
 
       if (directoryLevel.length > 1) {
         // Get second last item on arrau
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       } else {
-        directoryTarget = '';
+        directoryTarget = "";
       }
 
       this.openDirectory($event, directoryTarget);
@@ -2739,7 +2739,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch('GET_DIRECTORY');
+    this.$store.dispatch("GET_DIRECTORY");
   }
 });
 
