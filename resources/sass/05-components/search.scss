@@ -11,8 +11,9 @@
         // }
 
         &-close {
-            position: absolute;
-            right: -3.5em;
+            position: absolute !important;
+            right: 0em !important;
+            top: 1em !important;
         }
 
         &-no-result {
@@ -86,6 +87,14 @@
             top: 4px;
         }
 
+        &-input {
+            right: 3em !important;
+        }
+
+        &-launch {
+            position: absolute !important;
+        }
+
         &-term {
             position: relative;
 
@@ -113,7 +122,7 @@
             }
 
             div {
-                position: absolute;
+                position: relative;
                 top: 0.5em;
                 right: 0;
             }

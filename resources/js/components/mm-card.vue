@@ -5,14 +5,21 @@
     v-on:click="pushSelected($event, item)"
   >
     <div>
-      <div class="mm__card-placeholder mm__card-default-placeholder" v-if="item.aggregate_type === 'document' || item.aggregate_type === 'pdf' || item.aggregate_type === 'video'">
+      <div
+        class="mm__card-placeholder mm__card-default-placeholder"
+        v-if="
+          item.aggregate_type === 'document' ||
+          item.aggregate_type === 'pdf' ||
+          item.aggregate_type === 'video'
+        "
+      >
         {{ item.extension }}
       </div>
       <img
         class="mm__card-placeholder"
         v-if="item.aggregate_type != 'audio'"
         width="100%"
-        :src="item.url"
+        :src="item.conversion_urls.thumb"
         alt=""
       />
     </div>
@@ -25,11 +32,11 @@
 
 <script>
 export default {
-  name: 'mmcard',
-  props: ['item'],
-  data () {
+  name: "mmcard",
+  props: ["item"],
+  data() {
     return {
-      isSelected: false
+      isSelected: false,
     };
   },
   methods: {
@@ -37,9 +44,9 @@ export default {
     pushSelected: function (event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('PUSH_SELECTED', value);
+      this.$store.dispatch("PUSH_SELECTED", value);
       this.isSelected = !this.isSelected;
-    }
+    },
   },
   computed: {
     setSelected: function (item) {
@@ -53,8 +60,8 @@ export default {
       } else {
         return true;
       }
-    }
+    },
   },
-  mounted () {}
+  mounted() {},
 };
 </script>

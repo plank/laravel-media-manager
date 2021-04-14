@@ -2528,9 +2528,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcard',
-  props: ['item'],
+  name: "mmcard",
+  props: ["item"],
   data: function data() {
     return {
       isSelected: false
@@ -2541,7 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
     pushSelected: function pushSelected(event, value) {
       event.preventDefault();
       this.current = value.id;
-      this.$store.dispatch('PUSH_SELECTED', value);
+      this.$store.dispatch("PUSH_SELECTED", value);
       this.isSelected = !this.isSelected;
     }
   },
@@ -3150,6 +3157,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3175,6 +3198,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showInformations: false,
       selectedFilterType: "",
+      isSearch: true,
       searchTerm: null,
       sortOrder: ""
     };
@@ -3230,10 +3254,22 @@ __webpack_require__.r(__webpack_exports__);
       $event.preventDefault();
       this.$store.dispatch("RESET_SELECTED");
     },
+    openSearch: function openSearch($event) {
+      $event.preventDefault();
+
+      if (!this.isSearch) {
+        // Reset State
+        this.$store.state.hideDirectory = false;
+        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      }
+
+      this.isSearch = !this.isSearch;
+    },
     makeSearch: function makeSearch($event) {
       $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
 
       this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+      this.isSearch = false;
     }
   },
   computed: {
@@ -12888,7 +12924,11 @@ var render = function() {
         _vm.item.aggregate_type != "audio"
           ? _c("img", {
               staticClass: "mm__card-placeholder",
-              attrs: { width: "100%", src: _vm.item.url, alt: "" }
+              attrs: {
+                width: "100%",
+                src: _vm.item.conversion_urls.thumb,
+                alt: ""
+              }
             })
           : _vm._e()
       ]),
@@ -13260,61 +13300,97 @@ var render = function() {
   return _c("div", { staticClass: "mm__search" }, [
     _c("div", { staticClass: "mm__search-container" }, [
       _c("div", { staticClass: "mm__search-term" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.searchTerm,
-              expression: "searchTerm"
-            }
-          ],
-          attrs: {
-            type: "text",
-            placeholder: _vm.$t("search.input_placeholder")
-          },
-          domProps: { value: _vm.searchTerm },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("div", { staticClass: "mm__search-input" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchTerm,
+                expression: "searchTerm"
               }
-              _vm.searchTerm = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("div", [
-          _c(
-            "a",
-            {
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  return _vm.makeSearch($event)
-                }
-              }
+            ],
+            attrs: {
+              type: "text",
+              placeholder: _vm.$t("search.input_placeholder")
             },
-            [
+            domProps: { value: _vm.searchTerm },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.searchTerm = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "mm__search-launch" }, [
+            _c(
+              "a",
+              {
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.makeSearch($event)
+                  }
+                }
+              },
+              [
+                _c(
+                  "mmiconbase",
+                  {
+                    attrs: {
+                      "icon-name": this.$i18n.t("actions.search"),
+                      "current-color": "000",
+                      "icon-color": "000",
+                      width: "26",
+                      height: "26",
+                      viewBox: "0 0 26 26"
+                    }
+                  },
+                  [_c("iconsearch")],
+                  1
+                )
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        !this.isSearch
+          ? _c("div", { staticClass: "mm__search-close" }, [
               _c(
-                "mmiconbase",
+                "a",
                 {
-                  attrs: {
-                    "icon-name": this.$i18n.t("actions.search"),
-                    "current-color": "000",
-                    "icon-color": "000",
-                    width: "26",
-                    height: "26",
-                    viewBox: "0 0 26 26"
+                  attrs: { title: _vm.$t("actions.search"), href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.openSearch($event)
+                    }
                   }
                 },
-                [_c("iconsearch")],
+                [
+                  _c(
+                    "mmiconbase",
+                    {
+                      attrs: {
+                        "icon-name": "move-folder",
+                        "current-color": "#8B8B8B",
+                        "icon-color": "#8B8B8B",
+                        width: "18",
+                        height: "23",
+                        viewBox: "0 0 23 23"
+                      }
+                    },
+                    [_c("iconclosesearch")],
+                    1
+                  )
+                ],
                 1
               )
-            ],
-            1
-          )
-        ])
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -37963,7 +38039,7 @@ var actions = {
     var _loop = function _loop(i) {
       promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this4.state.routeUpdateMedia, {
         id: value.media[i].id,
-        disk: 'public',
+        disk: value.media[i].disk,
         path: value.destination
       }).then(function (response) {
         commit('CLOSE_MODAL');
@@ -38331,8 +38407,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -2,22 +2,38 @@
   <div class="mm__search">
     <div class="mm__search-container">
       <div class="mm__search-term">
-        <input
-          v-model="searchTerm"
-          type="text"
-          v-bind:placeholder="$t('search.input_placeholder')"
-        />
-        <div>
-          <a v-on:click="makeSearch($event)" href="#">
-            <!-- Search Icon -->
+        <div class="mm__search-input">
+          <input
+            v-model="searchTerm"
+            type="text"
+            v-bind:placeholder="$t('search.input_placeholder')"
+          />
+          <div class="mm__search-launch">
+            <a v-on:click="makeSearch($event)" href="#">
+              <!-- Search Icon -->
+              <mmiconbase
+                :icon-name="this.$i18n.t('actions.search')"
+                current-color="000"
+                icon-color="000"
+                width="26"
+                height="26"
+                viewBox="0 0 26 26"
+                ><iconsearch></iconsearch
+              ></mmiconbase>
+            </a>
+          </div>
+        </div>
+        <div class="mm__search-close" v-if="!this.isSearch">
+          <a v-on:click="openSearch($event)" :title="$t('actions.search')" href="#">
+            <!-- Search Cloes -->
             <mmiconbase
-              :icon-name="this.$i18n.t('actions.search')"
-              current-color="000"
-              icon-color="000"
-              width="26"
-              height="26"
-              viewBox="0 0 26 26"
-              ><iconsearch></iconsearch
+              icon-name="move-folder"
+              current-color="#8B8B8B"
+              icon-color="#8B8B8B"
+              width="18"
+              height="23"
+              viewBox="0 0 23 23"
+              ><iconclosesearch></iconclosesearch
             ></mmiconbase>
           </a>
         </div>
@@ -207,6 +223,7 @@ export default {
     return {
       showInformations: false,
       selectedFilterType: "",
+      isSearch: true,
       searchTerm: null,
       sortOrder: "",
     };
@@ -263,10 +280,20 @@ export default {
       $event.preventDefault();
       this.$store.dispatch("RESET_SELECTED");
     },
+    openSearch: function ($event) {
+      $event.preventDefault();
+      if (!this.isSearch) {
+        // Reset State
+        this.$store.state.hideDirectory = false;
+        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      }
+      this.isSearch = !this.isSearch;
+    },
     makeSearch: function ($event) {
       $event.preventDefault();
       //   alert("Search For : " + this.searchTerm);
       this.$store.dispatch("MAKE_SEARCH", this.searchTerm);
+      this.isSearch = false;
     },
   },
   computed: {
