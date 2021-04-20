@@ -1,6 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap);@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;
+@import url(https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap);@import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;
 
-600&display=swap);@charset "UTF-8";
+400;600;900&display=swap);@charset "UTF-8";
 html,
 body,
 div,
@@ -333,7 +333,7 @@ strong {
   width: 100%;
   max-width: 30%;
   float: right;
-  display: inline-block;
+  font-size: 15px;
   background: #F9F9F9;
   border-radius: 24px;
   border: none;
@@ -619,6 +619,13 @@ strong {
   right: -2em;
 }
 
+.mm__card-background {
+  height: 150px;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+}
+
 .mm__card-placeholder {
   display: grid;
   background: #333333;
@@ -630,7 +637,7 @@ strong {
 }
 
 .mm__card-default-placeholder {
-  min-height: 174px;
+  height: 100%;
 }
 
 .mm__card-infos {
@@ -668,6 +675,10 @@ strong {
   z-index: 999;
 }
 
+.mm__slidepanel-btn-container {
+  text-align: center;
+}
+
 .mm__slidepanel-btn-container .columns__1 {
   text-align: center;
   margin: 1.25em 0 3.75em 0;
@@ -676,6 +687,11 @@ strong {
 .mm__slidepanel-btn-container .columns__2 {
   -moz-column-gap: 0.625em;
        column-gap: 0.625em;
+}
+
+.mm__slidepanel-btn-container .btn {
+  width: auto;
+  margin: 0 auto;
 }
 
 .mm__slidepanel-close {
@@ -712,8 +728,7 @@ strong {
   font-weight: 400;
 }
 
-.mm__slidepanel-infos p strong {
-  font-weight: 600;
+.mm__slidepanel-infos p span {
   color: #222222;
 }
 
@@ -726,6 +741,24 @@ strong {
 .mm__slidepanel .audio-player audio {
   margin: 0 auto;
   display: block;
+}
+
+.mm_slidepanel-placeholder-container {
+  background: #333333;
+  width: 100%;
+  display: flex;
+  min-height: 250px;
+}
+
+.mm_slidepanel-placeholder-container .placeholder {
+  display: grid;
+  color: white;
+  font-size: 34px;
+  text-transform: uppercase;
+  font-family: "Barlow", sans-serif;
+  align-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 form {
@@ -744,7 +777,7 @@ form div label {
   font-size: 0.8125em;
   color: #6D6D6D;
   text-align: left;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 0.3125em;
 }
 
@@ -754,7 +787,9 @@ form div input {
   min-height: 2.5em;
   border: 1px solid #CACACA;
   border-radius: 3px;
-  text-indent: 1em;
+  text-indent: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 form div textarea {

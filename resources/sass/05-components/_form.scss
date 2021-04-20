@@ -11,7 +11,7 @@ form {
             font-size: em-calc(13px);
             color: $mm-slidepanel-label-color;
             text-align: left;
-            font-weight: 600;
+            font-weight: $weight-regular;
             margin-bottom: em(5px);
         }
 
@@ -21,7 +21,9 @@ form {
             min-height: em(40px);
             border: 1px solid $mm-form-border-color;
             border-radius: 3px;
-            text-indent: 1em;
+            text-indent: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
         }
 
         textarea {

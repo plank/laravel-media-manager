@@ -34,9 +34,16 @@
         }
     }
 
+    &-background {
+        height: 150px;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+    }
+
     &-placeholder {
         display: grid;
-        background: rgb(51, 51, 51);
+        background: $mm-card-placeholder-bg;
         color: white;
         text-transform: uppercase;
         font-family: $font-family-header;
@@ -45,7 +52,7 @@
     }
 
     &-default-placeholder {
-        min-height: 174px;
+        height: 100%;
     }
 
     &-infos {

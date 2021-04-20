@@ -13,6 +13,7 @@
     z-index: 999;
 
     &-btn-container {
+        text-align: center;
 
         .columns__1 {
             text-align: center;
@@ -21,6 +22,11 @@
 
         .columns__2 {
             column-gap: em(10px);
+        }
+
+        .btn {
+            width: auto;
+            margin: 0 auto;
         }
     }
 
@@ -61,10 +67,9 @@
             display: block;
             line-height: 2em;
             color: $mm-slidepanel-label-color;
-            font-weight: 400;
+            font-weight: $weight-regular;
 
-            strong {
-                font-weight: 600;
+            span {
                 color: $mm-slidepanel-strong-color;
             }
         }
@@ -79,5 +84,22 @@
             margin: 0 auto;
             display: block;
         }
+    }
+}
+
+.mm_slidepanel-placeholder-container {
+    background: $mm-card-placeholder-bg;
+    width: 100%;
+    display: flex;
+    min-height: 250px;
+    .placeholder {
+        display: grid;
+        color: white;
+        font-size: 34px;
+        text-transform: uppercase;
+        font-family: $font-family-header;
+        align-content: center;
+        text-align: center;
+        width: 100%;
     }
 }

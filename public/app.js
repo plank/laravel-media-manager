@@ -2530,11 +2530,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'mmcard',
   props: ['item'],
@@ -2550,6 +2545,9 @@ __webpack_require__.r(__webpack_exports__);
       this.current = value.id;
       this.$store.dispatch('PUSH_SELECTED', value);
       this.isSelected = !this.isSelected;
+    },
+    setBackground: function setBackground(item) {
+      return 'background: url(' + item.conversion_urls.thumb + ')';
     }
   },
   computed: {
@@ -3931,6 +3929,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _mm_icon_base_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mm-icon-base.vue */ "./resources/js/components/mm-icon-base.vue");
 /* harmony import */ var _icons_icon_close_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../icons/icon-close.vue */ "./resources/js/components/icons/icon-close.vue");
+//
+//
+//
 //
 //
 //
@@ -12908,30 +12909,28 @@ var render = function() {
       }
     },
     [
-      _c("div", [
-        _vm.item.aggregate_type === "document" ||
-        _vm.item.aggregate_type === "pdf" ||
-        _vm.item.aggregate_type === "video"
-          ? _c(
-              "div",
-              {
-                staticClass: "mm__card-placeholder mm__card-default-placeholder"
-              },
-              [_vm._v("\n      " + _vm._s(_vm.item.extension) + "\n    ")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.item.aggregate_type != "audio"
-          ? _c("img", {
-              staticClass: "mm__card-placeholder",
-              attrs: {
-                width: "100%",
-                src: _vm.item.conversion_urls.thumb,
-                alt: ""
-              }
-            })
-          : _vm._e()
-      ]),
+      _c(
+        "div",
+        {
+          staticClass: "mm__card-background",
+          style: _vm.setBackground(_vm.item)
+        },
+        [
+          _vm.item.aggregate_type === "document" ||
+          _vm.item.aggregate_type === "pdf" ||
+          _vm.item.aggregate_type === "audio" ||
+          _vm.item.aggregate_type === "video"
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "mm__card-placeholder mm__card-default-placeholder"
+                },
+                [_vm._v("\n      " + _vm._s(_vm.item.extension) + "\n    ")]
+              )
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "mm__card-infos" }, [
         _c("h6", [_vm._v(_vm._s(_vm.item.filename))]),
@@ -14370,9 +14369,7 @@ var render = function() {
             ? _c("img", {
                 attrs: { width: "100%", src: this.data[0].url, alt: "" }
               })
-            : _vm._e(),
-          _vm._v(" "),
-          this.data[0].aggregate_type === "video"
+            : this.data[0].aggregate_type === "video"
             ? _c("div", { staticClass: "video-player" }, [
                 _c(
                   "video",
@@ -14391,9 +14388,7 @@ var render = function() {
                   ]
                 )
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          this.data[0].aggregate_type === "audio"
+            : this.data[0].aggregate_type === "audio"
             ? _c("div", { staticClass: "audio-player" }, [
                 _c("audio", { attrs: { controls: "" } }, [
                   _c("source", {
@@ -14408,7 +14403,15 @@ var render = function() {
                   )
                 ])
               ])
-            : _vm._e()
+            : _c(
+                "div",
+                { staticClass: "mm_slidepanel-placeholder-container" },
+                [
+                  _c("div", { staticClass: "placeholder" }, [
+                    _vm._v(_vm._s(this.data[0].extension))
+                  ])
+                ]
+              )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
@@ -14416,22 +14419,22 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Type: "),
-            _c("strong", [_vm._v(_vm._s(this.data[0].mime_type))])
+            _c("span", [_vm._v(_vm._s(this.data[0].mime_type))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Dimension: "),
-            _c("strong", [_vm._v(_vm._s(this.data[0].size))])
+            _c("span", [_vm._v(_vm._s(this.data[0].size))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      File Size: "),
-            _c("strong", [_vm._v(_vm._s(this.data[0].size))])
+            _c("span", [_vm._v(_vm._s(this.data[0].size))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Upload Date:\n      "),
-            _c("strong", [
+            _c("span", [
               _vm._v(
                 _vm._s(
                   _vm._f("moment")(this.data[0].created_at, "MMMM Do, YYYY")
@@ -14524,7 +14527,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mm__slidepanel-btn-container" }, [
-            _c("div", { staticClass: "columns columns__2" }, [
+            _c("div", { staticClass: "columns" }, [
               _c(
                 "a",
                 {
@@ -14538,16 +14541,6 @@ var render = function() {
                   }
                 },
                 [_vm._v("Save")]
-              ),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-default-border",
-                  style: _vm.styleBtnDefault,
-                  attrs: { href: "" }
-                },
-                [_vm._v("Add Details")]
               )
             ]),
             _vm._v(" "),

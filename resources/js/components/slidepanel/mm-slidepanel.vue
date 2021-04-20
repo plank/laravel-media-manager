@@ -21,19 +21,22 @@
         :src="this.data[0].url"
         alt=""
       />
-      <div v-if="this.data[0].aggregate_type === 'video'" class="video-player">
+      <div v-else-if="this.data[0].aggregate_type === 'video'" class="video-player">
         <video width="100%" height="240" controls>
           <source :src="this.data[0].url" type="video/mp4" />
           <source :src="this.data[0].url" type="video/ogg" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div v-if="this.data[0].aggregate_type === 'audio'" class="audio-player">
+      <div v-else-if="this.data[0].aggregate_type === 'audio'" class="audio-player">
         <audio controls>
           <source :src="this.data[0].url" type="audio/ogg" />
           <source :src="this.data[0].url" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
+      </div>
+      <div class="mm_slidepanel-placeholder-container" v-else>
+          <div class="placeholder">{{ this.data[0].extension }}</div>
       </div>
     </div>
     <!-- Container Slidepanel -->
@@ -42,20 +45,20 @@
       <h5>{{ this.data[0].filename }}</h5>
       <!-- Type -->
       <p>
-        Type: <strong>{{ this.data[0].mime_type }}</strong>
+        Type: <span>{{ this.data[0].mime_type }}</span>
       </p>
       <!-- Dimension -->
       <p>
-        Dimension: <strong>{{ this.data[0].size }}</strong>
+        Dimension: <span>{{ this.data[0].size }}</span>
       </p>
       <!-- File Size -->
       <p>
-        File Size: <strong>{{ this.data[0].size }}</strong>
+        File Size: <span>{{ this.data[0].size }}</span>
       </p>
       <!-- Upload Date -->
       <p>
         Upload Date:
-        <strong>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</strong>
+        <span>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
       <!-- Form -->
       <form id="media__update" action="">
@@ -74,7 +77,7 @@
       </form>
 
       <div class="mm__slidepanel-btn-container">
-        <div class="columns columns__2">
+        <div class="columns">
           <a
             :style="styleBtnDefault"
             class="btn btn-default"
@@ -82,9 +85,9 @@
             href=""
             >Save</a
           >
-          <a :style="styleBtnDefault" class="btn btn-default-border" href=""
+          <!-- <a :style="styleBtnDefault" class="btn btn-default-border" href=""
             >Add Details</a
-          >
+          > -->
         </div>
         <div class="columns__1">
           <a

@@ -1,7 +1,7 @@
 // Imports [ Fonts]
 // ------------------------------------------------------
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;900&display=swap');
 
 // Colors
 // --------------------------------
@@ -11,6 +11,7 @@ $mm-bg-color            :       #FFFFFF;
 $mm-header-bg-color     :       #F9F9F9;
 // Card
 $mm-card-selected       :       #2D2D2D;
+$mm-card-placeholder-bg :       rgb(51, 51, 51);
 
 // Form
 $mm-form-placeholder    :   #616161;
@@ -54,6 +55,10 @@ $font-family-header     :    'Barlow', sans-serif;
 $font-family-base       :    'Open Sans', sans-serif;
 
 $base-font-size         :     16px;
+
+$weight-regular         :     400;
+$weight-semi-bold       :     600;
+$weight-bold            :     900;
 
 // Dimensions
 // ------------------------------------------------------
