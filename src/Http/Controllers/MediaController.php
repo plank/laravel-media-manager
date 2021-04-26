@@ -87,7 +87,7 @@ class MediaController extends BaseController
         $media = is_array($request->file) ? $request->file : [$request->file] ;
         $data = collect($request->only(['title', 'alt', 'caption', 'credit']));
         $disk = $this->manager->verifyDisk($request->disk);
-        $path = $this->manager->verifyDirectory($disk, $request->path);
+        $path = $this->manager->verifyDirectory($disk, trim($request->path, "/"));
         $response = [];
         foreach ($media as $index => $m) {
             $model = $this->uploader
