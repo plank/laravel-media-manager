@@ -5,22 +5,11 @@
         text-transform: capitalize;
 
         &:first-child {
-            &:before {
-                display: none;
+            a {
+                &:before {
+                    display: none;
+                }
             }
-        }
-
-        // &:last-child {
-        //     a {
-        //         font-weight: 700;
-        //     }
-        // }
-
-        &:before {
-            content: "/";
-            margin: 0 0.6em;
-            display: inline-block;
-            position: relative;
         }
 
         a {
@@ -29,13 +18,19 @@
             font-size: em(14px);
             text-decoration: none;
             transition: all 0.5s ease-in-out;
-
-            padding: 0.5em 0.6em;
             border-radius: 150px;
             &:hover {
                 transition: all 0.5s ease-in-out;
                 background: $mm-breadcrumb-link-hover;
             }
+
+            &:before {
+                content: "/";
+                margin: 0 0.6em;
+                display: inline-block;
+                position: relative;
+            }
+
         }
     }
 }

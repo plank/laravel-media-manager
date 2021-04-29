@@ -5,7 +5,6 @@
       class="mm__carousel"
       v-if="totalSelected > 1 && !isMinimize && showCarousel"
     >
-    {{ totalSelected }}
       <div class="mm__carousel-title">
         <div>
           <h2>{{ $t("carousel.title") }}</h2>
@@ -26,9 +25,8 @@
         {{ $t("carousel.drag_text") }}
       </div>
 
-      <!-- Loop  -->
       <div class="mm__carousel-grid">
-        <draggable id="draggable">
+        <draggable :list="this.$store.state.selectedElem" id="draggable">
           <div v-for="(item, index) in this.$store.state.selectedElem" :key="index">
             <mmcarouselcard :index="index" :item="item"></mmcarouselcard>
           </div>
@@ -37,7 +35,7 @@
 
       <div class="mm__carousel-btn-container">
         <div>
-          <a :style="styleBtnDefault" class="btn btn-default" href="">{{
+          <a @click.prevent="copyCarouselDOM()" :style="styleBtnDefault" class="btn btn-default" href="">{{
             $t("carousel.btn_create")
           }}</a>
           <a
@@ -65,7 +63,7 @@ export default {
   },
   data () {
     return {
-      showCarousel: false,
+      showCarousel: true,
       isMinify: false,
       isMinimize: false
     };
@@ -84,10 +82,40 @@ export default {
     },
     cancelCarousel: function (event) {
       event.preventDefault();
-      // this.isMinimize = !this.isMinimize;
-      // Reset selected elements to Null.
       this.$store.dispatch('RESET_SELECTED');
-      // Remove all selected icons on view.
+    },
+    copyToClipboard: function (text) {
+      const dummy = document.createElement('textarea');
+      // to avoid breaking orgain page when copying more words
+      // cant copy when adding below this code
+      // dummy.style.display = 'none'
+      document.body.appendChild(dummy);
+      // Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+    },
+    copyCarouselDOM: function () {
+      const imagesArray = [];
+      this.$store.state.selectedElem.forEach(function (element) {
+        imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
+      });
+
+      // Create General Structure
+      const customDOM = '<div class="slider">' +
+        '<div class="bxslider">' +
+        imagesArray.join('') +
+        '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' +
+        '</div>';
+
+      this.copyToClipboard(customDOM);
+
+      this.$toast.open({
+        type: 'success',
+        position: 'bottom-left',
+        message: this.$i18n.t('actions.copyToClipboard')
+      });
     }
   },
   mounted () {},

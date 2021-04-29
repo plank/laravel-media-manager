@@ -160,14 +160,7 @@ export default {
       return this.$store.state.folderState;
     },
     isEmpty () {
-      if (
-        this.$store.state.directoryCollection.length === 0 &&
-        this.$store.state.mediaCollection.length === 0
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
     }
   }
 };

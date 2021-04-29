@@ -2,7 +2,7 @@
   <div class="mm__carousel-card">
     <div>
       <span v-on:click="removeFromSelected(item)">x</span>
-      <img width="100%" :src="item.url" alt="" />
+      <div class="thumb" :style="backgroundImage(item)"></div>
     </div>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default {
     }
   },
   mounted () {},
-  computed: {}
+  computed: {
+    backgroundImage: () => (item) => {
+      return 'background-image: url("' + item.conversion_urls.thumb + '")';
+    }
+  }
 };
 </script>

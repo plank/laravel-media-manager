@@ -25,7 +25,7 @@
         </div>
         <div class="mm__search-close" v-if="!this.isSearch">
           <a v-on:click="openSearch($event)" :title="$t('actions.search')" href="#">
-            <!-- Search Cloes -->
+            <!-- Search Close -->
             <mmiconbase
               icon-name="move-folder"
               current-color="#8B8B8B"
@@ -39,7 +39,6 @@
         </div>
       </div>
       <div class="mm__search-breadcrumb">
-        <!-- <p v-html="getCurrentFolder"></p> -->
         <mmbreadcrumb></mmbreadcrumb>
       </div>
       <div class="mm__search-actions">
@@ -123,42 +122,6 @@
               $t("actions.deselectAll")
             }}</a>
           </li>
-          <!-- <li>
-            <a
-              :title="$t('actions.viewGrid')"
-              v-on:click="viewState($event, false)"
-              v-bind:class="{ active: this.$store.state.viewState === false }"
-              href=""
-            >
-              <mmiconbase
-                icon-name="icon-grid"
-                current-color="000"
-                icon-color="000"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><icongrid></icongrid
-              ></mmiconbase>
-            </a>
-          </li>
-          <li>
-            <a
-              :title="$t('actions.viewList')"
-              v-on:click="viewState($event, true)"
-              v-bind:class="{ active: this.$store.state.viewState === true }"
-              href=""
-            >
-              <mmiconbase
-                icon-name="icon-list"
-                current-color="000"
-                icon-color="000"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><iconlist></iconlist
-              ></mmiconbase>
-            </a>
-          </li> -->
         </ul>
       </div>
     </div>
@@ -172,7 +135,6 @@
       >
         <option disabled value="">{{ $t("search.by_type") }}</option>
         <option value="all">All</option>
-        <!-- Loop Here -->
         <option
           v-for="(item, index) in this.$store.state.mediaTypeArray"
           v-bind:key="index"
@@ -291,7 +253,6 @@ export default {
     },
     makeSearch: function ($event) {
       $event.preventDefault();
-      //   alert("Search For : " + this.searchTerm);
       this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
       this.isSearch = false;
     }
@@ -311,11 +272,7 @@ export default {
       return this.$store.state.selectedElem;
     },
     showInformationsBtn (getSelected) {
-      if (this.getSelected.length !== 1) {
-        return false;
-      } else {
-        return true;
-      }
+      return this.getSelected.length === 1;
     }
   },
   filters: {

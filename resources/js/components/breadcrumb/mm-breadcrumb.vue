@@ -2,14 +2,16 @@
   <div id="breadcrumb">
     <ul>
       <li v-if="this.createBreadcrumb.length > 0">
-        <a v-on:click="openRootDirectory($event, '/')" href="#">...</a>
+        <a v-on:click="openRootDirectory($event, '/')" href="#">home</a>
       </li>
-      <li v-for="(elem, index) in breadCrumb" :key="index" v-if="elem">
-        <span v-if="index != Object.keys(createBreadcrumb).length - 1">
-          <a v-on:click="openDirectory($event, { index, elem })" href="#">{{ elem }}</a>
-        </span>
-        <span v-else>
-          <a href="#">{{ elem }}</a>
+      <li v-for="(elem, index) in breadCrumb" :key="index">
+        <span v-if="elem">
+          <span v-if="index != Object.keys(createBreadcrumb).length - 1">
+            <a v-on:click="openDirectory($event, { index, elem })" href="#">{{ elem }}</a>
+          </span>
+          <span v-else>
+            <a href="#">{{ elem }}</a>
+          </span>
         </span>
       </li>
     </ul>
@@ -18,19 +20,19 @@
 
 <script>
 export default {
-  name: 'mmbreadcrumb',
-  props: ['item'],
-  data () {
+  name: "mmbreadcrumb",
+  props: ["item"],
+  data() {
     return {
       isSelected: false,
-      breadcrumbMarkup: null
+      breadcrumbMarkup: null,
     };
   },
   methods: {
     openRootDirectory: function ($event, value) {
       $event.preventDefault();
-      this.$store.dispatch('GET_DIRECTORY', value);
-      this.$store.dispatch('RESET_SELECTED');
+      this.$store.dispatch("GET_DIRECTORY", value);
+      this.$store.dispatch("RESET_SELECTED");
     },
     openDirectory: function ($event, value) {
       $event.preventDefault();
@@ -38,31 +40,31 @@ export default {
       newBreadcrumbArray.length = value.index + 1;
       const qs = Object.keys(newBreadcrumbArray)
         .map((key) => `${newBreadcrumbArray[key]}`)
-        .join('/');
-      this.$store.dispatch('GET_DIRECTORY', qs);
-      this.$store.dispatch('RESET_SELECTED');
-    }
+        .join("/");
+      this.$store.dispatch("GET_DIRECTORY", qs);
+      this.$store.dispatch("RESET_SELECTED");
+    },
   },
   computed: {
-    breadCrumb () {
-      if (this.createBreadcrumb.length > 0) {
+    breadCrumb() {
+      if (this.createBreadcrumb.length > 0) {
         return this.createBreadcrumb;
       } else {
         return false;
       }
     },
-    createBreadcrumb () {
+    createBreadcrumb() {
       let entryArray = null;
       if (this.$store.getters.GET_CURRENT_DIRECTORY) {
-        const currentDirectory = this.$store.getters.GET_CURRENT_DIRECTORY + '';
-        entryArray = currentDirectory.split('/');
+        const currentDirectory = this.$store.getters.GET_CURRENT_DIRECTORY + "";
+        entryArray = currentDirectory.split("/");
       } else {
         entryArray = [];
       }
       return entryArray;
-    }
+    },
   },
   watch: {},
-  mounted () {}
+  mounted() {},
 };
 </script>

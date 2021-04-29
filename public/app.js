@@ -2110,11 +2110,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.folderState;
     },
     isEmpty: function isEmpty() {
-      if (this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
     }
   }
 });
@@ -2148,9 +2144,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmbreadcrumb',
-  props: ['item'],
+  name: "mmbreadcrumb",
+  props: ["item"],
   data: function data() {
     return {
       isSelected: false,
@@ -2160,8 +2158,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openRootDirectory: function openRootDirectory($event, value) {
       $event.preventDefault();
-      this.$store.dispatch('GET_DIRECTORY', value);
-      this.$store.dispatch('RESET_SELECTED');
+      this.$store.dispatch("GET_DIRECTORY", value);
+      this.$store.dispatch("RESET_SELECTED");
     },
     openDirectory: function openDirectory($event, value) {
       $event.preventDefault();
@@ -2169,9 +2167,9 @@ __webpack_require__.r(__webpack_exports__);
       newBreadcrumbArray.length = value.index + 1;
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
-      }).join('/');
-      this.$store.dispatch('GET_DIRECTORY', qs);
-      this.$store.dispatch('RESET_SELECTED');
+      }).join("/");
+      this.$store.dispatch("GET_DIRECTORY", qs);
+      this.$store.dispatch("RESET_SELECTED");
     }
   },
   computed: {
@@ -2186,8 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
       var entryArray = null;
 
       if (this.$store.getters.GET_CURRENT_DIRECTORY) {
-        var currentDirectory = this.$store.getters.GET_CURRENT_DIRECTORY + '';
-        entryArray = currentDirectory.split('/');
+        var currentDirectory = this.$store.getters.GET_CURRENT_DIRECTORY + "";
+        entryArray = currentDirectory.split("/");
       } else {
         entryArray = [];
       }
@@ -2232,7 +2230,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {},
-  computed: {}
+  computed: {
+    backgroundImage: function backgroundImage() {
+      return function (item) {
+        return 'background-image: url("' + item.conversion_urls.thumb + '")';
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -2302,8 +2306,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2314,7 +2316,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showCarousel: false,
+      showCarousel: true,
       isMinify: false,
       isMinimize: false
     };
@@ -2332,10 +2334,34 @@ __webpack_require__.r(__webpack_exports__);
       this.isMinify = !this.isMinify;
     },
     cancelCarousel: function cancelCarousel(event) {
-      event.preventDefault(); // this.isMinimize = !this.isMinimize;
-      // Reset selected elements to Null.
+      event.preventDefault();
+      this.$store.dispatch('RESET_SELECTED');
+    },
+    copyToClipboard: function copyToClipboard(text) {
+      var dummy = document.createElement('textarea'); // to avoid breaking orgain page when copying more words
+      // cant copy when adding below this code
+      // dummy.style.display = 'none'
 
-      this.$store.dispatch('RESET_SELECTED'); // Remove all selected icons on view.
+      document.body.appendChild(dummy); // Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+    },
+    copyCarouselDOM: function copyCarouselDOM() {
+      var imagesArray = [];
+      this.$store.state.selectedElem.forEach(function (element) {
+        imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
+      }); // Create General Structure
+
+      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join('') + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + '</div>';
+      this.copyToClipboard(customDOM);
+      this.$toast.open({
+        type: 'success',
+        position: 'bottom-left',
+        message: this.$i18n.t('actions.copyToClipboard')
+      });
     }
   },
   mounted: function mounted() {},
@@ -3133,44 +3159,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3264,8 +3252,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isSearch = !this.isSearch;
     },
     makeSearch: function makeSearch($event) {
-      $event.preventDefault(); //   alert("Search For : " + this.searchTerm);
-
+      $event.preventDefault();
       this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
       this.isSearch = false;
     }
@@ -3285,11 +3272,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.selectedElem;
     },
     showInformationsBtn: function showInformationsBtn(getSelected) {
-      if (this.getSelected.length !== 1) {
-        return false;
-      } else {
-        return true;
-      }
+      return this.getSelected.length === 1;
     }
   },
   filters: {
@@ -11709,37 +11692,41 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("...")]
+                [_vm._v("home")]
               )
             ])
           : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.breadCrumb, function(elem, index) {
-          return elem
-            ? _c("li", { key: index }, [
-                index != Object.keys(_vm.createBreadcrumb).length - 1
-                  ? _c("span", [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              return _vm.openDirectory($event, {
-                                index: index,
-                                elem: elem
-                              })
+          return _c("li", { key: index }, [
+            elem
+              ? _c("span", [
+                  index != Object.keys(_vm.createBreadcrumb).length - 1
+                    ? _c("span", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                return _vm.openDirectory($event, {
+                                  index: index,
+                                  elem: elem
+                                })
+                              }
                             }
-                          }
-                        },
-                        [_vm._v(_vm._s(elem))]
-                      )
-                    ])
-                  : _c("span", [
-                      _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(elem))])
-                    ])
-              ])
-            : _vm._e()
+                          },
+                          [_vm._v(_vm._s(elem))]
+                        )
+                      ])
+                    : _c("span", [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(elem))
+                        ])
+                      ])
+                ])
+              : _vm._e()
+          ])
         })
       ],
       2
@@ -11782,7 +11769,7 @@ var render = function() {
         [_vm._v("x")]
       ),
       _vm._v(" "),
-      _c("img", { attrs: { width: "100%", src: _vm.item.url, alt: "" } })
+      _c("div", { staticClass: "thumb", style: _vm.backgroundImage(_vm.item) })
     ])
   ])
 }
@@ -11814,7 +11801,6 @@ var render = function() {
           "div",
           { staticClass: "mm__carousel", class: { minify: _vm.isMinify } },
           [
-            _vm._v("\n  " + _vm._s(_vm.totalSelected) + "\n    "),
             _c("div", { staticClass: "mm__carousel-title" }, [
               _c("div", [_c("h2", [_vm._v(_vm._s(_vm.$t("carousel.title")))])]),
               _vm._v(" "),
@@ -11856,7 +11842,12 @@ var render = function() {
               [
                 _c(
                   "draggable",
-                  { attrs: { id: "draggable" } },
+                  {
+                    attrs: {
+                      list: this.$store.state.selectedElem,
+                      id: "draggable"
+                    }
+                  },
                   _vm._l(this.$store.state.selectedElem, function(item, index) {
                     return _c(
                       "div",
@@ -11882,7 +11873,13 @@ var render = function() {
                   {
                     staticClass: "btn btn-default",
                     style: _vm.styleBtnDefault,
-                    attrs: { href: "" }
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.copyCarouselDOM()
+                      }
+                    }
                   },
                   [_vm._v(_vm._s(_vm.$t("carousel.btn_create")))]
                 ),
@@ -35671,6 +35668,7 @@ var messages = {
       cancel: 'Cancel',
       move: 'Move',
       back: 'Back',
+      copyToClipboard: 'Code Copy To Clipboard',
       more_details: 'More Details',
       createDirectory: 'Create Directory',
       viewGrid: 'View Grid',
@@ -35711,7 +35709,7 @@ var messages = {
     modal: {
       title_createFolder: 'Create Folder',
       title_deleteFolder: 'Delete Folder',
-      title_moveFolder: 'Move Folder To :',
+      title_moveFolder: 'Move Item To :',
       confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
       confirmation_msg_medias: 'Are you sure you want to delete this item?',
       confirmation_msg_medias_multiple: 'Are you sure you want to delete all these items? ',
@@ -35736,6 +35734,7 @@ var messages = {
       cancel: 'Annuler',
       move: 'Déplacer',
       back: 'Retour',
+      copyToClipboard: 'Code copier dans le presse-papiers',
       more_details: 'Details',
       createDirectory: 'Nouveau dossier',
       viewGrid: 'Grille',
@@ -37963,7 +37962,7 @@ var actions = {
         value.vm.$toast.open({
           type: 'success',
           position: 'bottom-left',
-          message: value.vm.$i18n.t('actions.moved')
+          message: _this2.state.selectedDirectory.name + ' ' + value.vm.$i18n.t('actions.moved')
         }); // Reload Current Directory
 
         value.vm.$store.dispatch('GET_DIRECTORY', value.vm.$store.state.currentDirectory);

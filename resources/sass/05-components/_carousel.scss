@@ -75,6 +75,12 @@
             font-weight: 900;
             cursor: pointer;
         }
+
+        .thumb {
+            min-height: 200px;
+            background-position: center center;
+            background-size: cover;
+        }
     }
 
     &-grid {
@@ -90,14 +96,22 @@
         }
     }
 
-    .wefwefef{
-        background: yellow;
-        display: inherit;
-    }
-
     &-btn-container {
         display: block;
         margin-top: em(60px);
         text-align: center;
+
+        div {
+            display: inline-flex;
+            width: fit-content;
+            position: relative;
+
+            .btn {
+                margin-left: 1em;
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
     }
 }

@@ -121,7 +121,7 @@ export const actions = {
           value.vm.$toast.open({
             type: 'success',
             position: 'bottom-left',
-            message: value.vm.$i18n.t('actions.moved')
+            message: this.state.selectedDirectory.name + ' ' + value.vm.$i18n.t('actions.moved')
           });
           // Reload Current Directory
           value.vm.$store.dispatch('GET_DIRECTORY', value.vm.$store.state.currentDirectory);
