@@ -85,7 +85,7 @@ class MediaController extends BaseController
     public function create(Request $request)
     {
         $media = is_array($request->file) ? $request->file : [$request->file] ;
-        $data = collect($request->only(['title', 'alt', 'caption', 'credit']));
+        $data = collect($request->only(['title', 'alt', 'caption', 'credit', 'source']));
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, trim($request->path, "/"));
         $response = [];
@@ -131,7 +131,7 @@ class MediaController extends BaseController
         $media = Media::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
         $path = $this->manager->verifyDirectory($disk, $valid['path'] ?? $media->directory);
-        $details = $request->only(['title', 'alt', 'caption', 'credit']);
+        $details = $request->only(['title', 'alt', 'caption', 'credit', 'source']);
 
         $media->fill($details);
 
