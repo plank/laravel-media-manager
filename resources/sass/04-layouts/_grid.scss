@@ -1,12 +1,14 @@
 // Grid & Container Elements
+// ------------------------------------------------------
 
 .columns {
-    display: grid;
-    &__1 {
-        grid-template-columns: repeat(1, 1fr);
-    }
+	display: grid;
 
-    &__2 {
-        grid-template-columns: repeat(2, 1fr);
-    }
+	&__1 {
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+	&__2 {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }

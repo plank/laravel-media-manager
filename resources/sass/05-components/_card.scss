@@ -1,79 +1,79 @@
 // Cards
 // ------------------------------
 
-
-
 // Results Card
 // ------------------------------
 .mm__card {
-    overflow: hidden;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
-    transition: all 0.2s ease-in-out;
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0 1px 20px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.46);
-        transition: all 0.2s ease-in-out;
-    }
+	overflow: hidden;
+	border-radius: 5px;
+	border: 2px solid transparent;
+	box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+	transition: all 0.2s ease-in-out;
 
-    &.selected {
-        transition: all 0.2s ease-in-out;
-        border-radius: em(5px);
-        border: 2px solid $mm-card-selected;
-        box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
-        &:after {
-            content: "";
-            position: absolute;
-            width: em(64px);
-            height: em(64px);
-            display: inline-block;
-            // background: url('./../../img/icon-selected.svg');
-            top: -2em;
-            right: -2em;
-        }
-    }
+	&:hover {
+		cursor: pointer;
+		box-shadow: 0 1px 20px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.46);
+		transition: all 0.2s ease-in-out;
+	}
 
-    &-background {
-        height: 150px;
-        background-size: cover !important;
-        background-repeat: no-repeat !important;
-        background-position: center center !important;
-    }
+	&.selected {
+		transition: all 0.2s ease-in-out;
+		border-radius: em(5px);
+		border: 2px solid $mm-card-selected;
+		box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
 
-    &-placeholder {
-        display: grid;
-        background: $mm-card-placeholder-bg;
-        color: white;
-        text-transform: uppercase;
-        font-family: $font-family-header;
-        align-content: center;
-        text-align: center;
-    }
+		&::after {
+			content: "";
+			position: absolute;
+			width: em(64px);
+			height: em(64px);
+			display: inline-block;
+			// background: url('./../../img/icon-selected.svg');
+			top: -2em;
+			right: -2em;
+		}
+	}
 
-    &-default-placeholder {
-        height: 100%;
-    }
+	&-background {
+		height: 150px;
+		background-size: cover !important;
+		background-repeat: no-repeat !important;
+		background-position: center center !important;
+	}
 
-    &-infos {
-        padding: em(9px);
+	&-placeholder {
+		display: grid;
+		background: $mm-card-placeholder-bg;
+		color: $mm-color-white;
+		text-transform: uppercase;
+		font-family: $font-family-header;
+		align-content: center;
+		text-align: center;
+	}
 
-        h6 {
-            color: #222222;
-            font-family: $font-family-base;
-            font-size: em-calc(12px);
-            font-weight: 600;
-            letter-spacing: 0;
-            line-height: em-calc(24px);
-        }
+	&-default-placeholder {
+		height: 100%;
+	}
 
-        .type,
-        .date {
-            color: #616161;
-            font-family: $font-family-base;
-            font-size: em-calc(10px);
-            letter-spacing: 0;
-            line-height: 14px;
-        }
-    }
+	&-infos {
+		padding: em(9px);
+
+		h6 {
+			color: #222;
+			font-family: $font-family-base;
+			font-size: em-calc(12px);
+			font-weight: 600;
+			letter-spacing: 0;
+			line-height: em-calc(24px);
+		}
+
+		.type,
+		.date {
+			color: #616161;
+			font-family: $font-family-base;
+			font-size: em-calc(10px);
+			letter-spacing: 0;
+			line-height: 14px;
+		}
+	}
 }

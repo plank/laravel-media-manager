@@ -65,6 +65,8 @@ const messages = {
     },
     slidepanel: {
       alt_text: 'Alternative Text',
+      title: 'Title',
+      source: 'Source',
       credit: 'Credit',
       caption: 'Caption'
     },

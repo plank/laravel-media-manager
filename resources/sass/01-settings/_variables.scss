@@ -4,48 +4,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;900&display=swap');
 
 // Colors
-// --------------------------------
-$mm-color-black         :       #000000;
-$mm-color-white         :       #FFFFFF;
-$mm-bg-color            :       #FFFFFF;
-$mm-header-bg-color     :       #F9F9F9;
-// Card
-$mm-card-selected       :       #2D2D2D;
+// ------------------------------------------------------
+$mm-color-black         :       #000;
+$mm-color-white         :       #fff;
+$mm-bg-color            :       #fff;
+$mm-header-bg-color     :       #f9f9f9;
+
+// Cards Colors
+// ------------------------------------------------------
+$mm-card-selected       :       #2d2d2d;
 $mm-card-placeholder-bg :       rgb(51, 51, 51);
 
-// Form
+// Form Colors
+// ------------------------------------------------------
 $mm-form-placeholder    :   #616161;
-$mm-form-input-bg       :   #F9F9F9;
-$mm-form-select-border  :   #DEDEDE;
-$mm-form-border-color   :   #CACACA;
-$mm-form-separator      :   #E2E2E2;
+$mm-form-input-bg       :   #f9f9f9;
+$mm-form-select-border  :   #dedede;
+$mm-form-border-color   :   #cacaca;
+$mm-form-separator      :   #e2e2e2;
 
-// Modal
+// Modal Colors
+// ------------------------------------------------------
 $mm-modal-add-border    :   #848484;
 
-// Table
-$mm-table-head-color    :   #222222;
-$mm-table-head-bg       :   #F9F9F9;
+// Table Colors
+// ------------------------------------------------------
+$mm-table-head-color    :   #222;
+$mm-table-head-bg       :   #f9f9f9;
 
-// Slidepanel
-$mm-slidepanel-bg               :       #FFFFFF;
-$mm-slidepanel-label-color      :       #6D6D6D;
-$mm-slidepanel-strong-color     :       #222222;
+// Slidepanel Colors
+// ------------------------------------------------------
+$mm-slidepanel-bg               :       #fff;
+$mm-slidepanel-label-color      :       #6d6d6d;
+$mm-slidepanel-strong-color     :       #222;
 
-// Breadcrum
-$mm-breadcrumb-color            :   #222222;
-$mm-breadcrumb-link-hover       :   #F9F9F9;
-// Carousel
-$mm-carousel-bg         :   #F9F9F9;
+// Breadcrum Colors
+// ------------------------------------------------------
+$mm-breadcrumb-color            :   #222;
+$mm-breadcrumb-link-hover       :   #f9f9f9;
 
-// Move
-$mm-move-color          :   #222222;
-$mm-move-hover-bg       :   #F9F9F9;
+// Carousel Colors
+// ------------------------------------------------------
+$mm-carousel-bg         :   #f9f9f9;
+
+// Move Colors
+// ------------------------------------------------------
+$mm-move-color          :   #222;
+$mm-move-hover-bg       :   #f9f9f9;
 $mm-move-active-bg      :   #f3f3f3;
 
-
-// Context Menu
-$mm-ctx-item-color      :       #333333;
+// Context Menu Colors
+// ------------------------------------------------------
+$mm-ctx-item-color      :       #333;
 $mm-ctx-item-color-hv   :       #007aff;
 $mm-ctx-divider         :       #c0cdd1;
 

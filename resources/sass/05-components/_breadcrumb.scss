@@ -1,36 +1,35 @@
 #breadcrumb {
+	li {
+		display: inline-block;
+		text-transform: capitalize;
 
-    li {
-        display: inline-block;
-        text-transform: capitalize;
+		&:first-child {
+			a {
+				&::before  {
+					display: none;
+				}
+			}
+		}
 
-        &:first-child {
-            a {
-                &:before {
-                    display: none;
-                }
-            }
-        }
+		a {
+			font-family: $font-family-base;
+			color: $mm-breadcrumb-color;
+			font-size: em(14px);
+			text-decoration: none;
+			transition: all 0.5s ease-in-out;
+			border-radius: 150px;
 
-        a {
-            font-family: $font-family-base;
-            color: $mm-breadcrumb-color;
-            font-size: em(14px);
-            text-decoration: none;
-            transition: all 0.5s ease-in-out;
-            border-radius: 150px;
-            &:hover {
-                transition: all 0.5s ease-in-out;
-                background: $mm-breadcrumb-link-hover;
-            }
+			&:hover {
+				transition: all 0.5s ease-in-out;
+				background: $mm-breadcrumb-link-hover;
+			}
 
-            &:before {
-                content: "/";
-                margin: 0 0.6em;
-                display: inline-block;
-                position: relative;
-            }
-
-        }
-    }
+			&::before {
+				content: "/";
+				margin: 0 0.6em;
+				display: inline-block;
+				position: relative;
+			}
+		}
+	}
 }

@@ -40,6 +40,12 @@
       </div>
     </div>
     <!-- Container Slidepanel -->
+    <div>
+        <ul>
+            <li>FR</li>
+            <li>EN</li>
+        </ul>
+    </div>
     <div class="mm__slidepanel-infos">
       <!-- Name -->
       <h5>{{ this.data[0].filename }}</h5>
@@ -62,17 +68,26 @@
       </p>
       <!-- Form -->
       <form id="media__update" action="">
+          <!-- $details = $request->only(['title', 'alt', 'caption', 'credit', 'source']); -->
         <div>
-          <label for="">{{ $t("slidepanel.alt_text") }}</label>
+          <label for="title">{{ $t("slidepanel.title") }}</label>
+          <input v-model="title" value="" id="title" type="text" />
+        </div>
+        <div>
+          <label for="alt">{{ $t("slidepanel.alt_text") }}</label>
           <input v-model="alt" value="" id="alt" type="text" />
         </div>
         <div>
-          <label for="">{{ $t("slidepanel.credit") }}</label>
+          <label for="caption">{{ $t("slidepanel.caption") }}</label>
+          <textarea v-model="caption" id="caption" />
+        </div>
+        <div>
+          <label for="credit">{{ $t("slidepanel.credit") }}</label>
           <input v-model="credit" id="credit" type="text" />
         </div>
         <div>
-          <label for="">{{ $t("slidepanel.caption") }}</label>
-          <textarea v-model="caption" id="caption" />
+          <label for="source">{{ $t("slidepanel.source") }}</label>
+          <input v-model="source" id="source" type="text" />
         </div>
       </form>
 
@@ -121,9 +136,11 @@ export default {
       data: [],
       disk: '',
       id: '',
+      title: '',
       alt: '',
       credit: '',
-      caption: ''
+      caption: '',
+      source: ''
     };
   },
   methods: {

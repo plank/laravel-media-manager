@@ -4018,6 +4018,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4033,9 +4048,11 @@ __webpack_require__.r(__webpack_exports__);
       data: [],
       disk: '',
       id: '',
+      title: '',
       alt: '',
       credit: '',
-      caption: ''
+      caption: '',
+      source: ''
     };
   },
   methods: {
@@ -14411,6 +14428,8 @@ var render = function() {
               )
         ]),
         _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
           _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),
           _vm._v(" "),
@@ -14442,7 +14461,34 @@ var render = function() {
           _vm._v(" "),
           _c("form", { attrs: { id: "media__update", action: "" } }, [
             _c("div", [
-              _c("label", { attrs: { for: "" } }, [
+              _c("label", { attrs: { for: "title" } }, [
+                _vm._v(_vm._s(_vm.$t("slidepanel.title")))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                attrs: { value: "", id: "title", type: "text" },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", { attrs: { for: "alt" } }, [
                 _vm._v(_vm._s(_vm.$t("slidepanel.alt_text")))
               ]),
               _vm._v(" "),
@@ -14469,7 +14515,34 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
-              _c("label", { attrs: { for: "" } }, [
+              _c("label", { attrs: { for: "caption" } }, [
+                _vm._v(_vm._s(_vm.$t("slidepanel.caption")))
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.caption,
+                    expression: "caption"
+                  }
+                ],
+                attrs: { id: "caption" },
+                domProps: { value: _vm.caption },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.caption = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", { attrs: { for: "credit" } }, [
                 _vm._v(_vm._s(_vm.$t("slidepanel.credit")))
               ]),
               _vm._v(" "),
@@ -14496,27 +14569,27 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
-              _c("label", { attrs: { for: "" } }, [
-                _vm._v(_vm._s(_vm.$t("slidepanel.caption")))
+              _c("label", { attrs: { for: "source" } }, [
+                _vm._v(_vm._s(_vm.$t("slidepanel.source")))
               ]),
               _vm._v(" "),
-              _c("textarea", {
+              _c("input", {
                 directives: [
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.caption,
-                    expression: "caption"
+                    value: _vm.source,
+                    expression: "source"
                   }
                 ],
-                attrs: { id: "caption" },
-                domProps: { value: _vm.caption },
+                attrs: { id: "source", type: "text" },
+                domProps: { value: _vm.source },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.caption = $event.target.value
+                    _vm.source = $event.target.value
                   }
                 }
               })
@@ -14562,7 +14635,20 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("ul", [
+        _c("li", [_vm._v("FR")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("EN")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -35696,6 +35782,8 @@ var messages = {
     },
     slidepanel: {
       alt_text: 'Alternative Text',
+      title: 'Title',
+      source: 'Source',
       credit: 'Credit',
       caption: 'Caption'
     },

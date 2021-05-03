@@ -1,105 +1,106 @@
 // Sidepanel
-
+// ------------------------------------------
 .mm__slidepanel {
-    overflow-x: hidden;
-    overflow-y: visible;
-    position: fixed;
-    width: 350px;
-    height: 100vh;
-    background: $mm-slidepanel-bg;
-    top: 0;
-    right: 0;
-    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
-    z-index: 999;
+	overflow-x: hidden;
+	overflow-y: visible;
+	position: fixed;
+	width: 350px;
+	height: 100vh;
+	background: $mm-slidepanel-bg;
+	top: 0;
+	right: 0;
+	box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+	z-index: 999;
 
-    &-btn-container {
-        text-align: center;
+	&-btn-container {
+		text-align: center;
 
-        .columns__1 {
-            text-align: center;
-            margin: em(20px) 0 em(60px) 0;
-        }
+		.columns__1 {
+			text-align: center;
+			margin: em(20px) 0 em(60px) 0;
+		}
 
-        .columns__2 {
-            column-gap: em(10px);
-        }
+		.columns__2 {
+			column-gap: em(10px);
+		}
 
-        .btn {
-            width: auto;
-            margin: 0 auto;
-        }
-    }
+		.btn {
+			width: auto;
+			margin: 0 auto;
+		}
+	}
 
-    &-close {
-        float: right;
-        background-repeat: no-repeat;
-        display: inline-block;
-        width: em(22px);
-        height: em(22px);
-        margin: em(20px);
-        // margin: em(20px) em(20px) em(20px) 0;
-        // transition: all 0.2s ease-in-out;
-        // &:hover {
-        //     // transition: all 0.2s ease-in-out;
-        //     opacity: 0.5;
-        //     // transform: scale(1.1);
-        // }
-    }
+	&-close {
+		float: right;
+		background-repeat: no-repeat;
+		display: inline-block;
+		width: em(22px);
+		height: em(22px);
+		margin: em(20px);
+		// margin: em(20px) em(20px) em(20px) 0;
+		// transition: all 0.2s ease-in-out;
+		// &:hover {
+		//     // transition: all 0.2s ease-in-out;
+		//     opacity: 0.5;
+		//     // transform: scale(1.1);
+		// }
+	}
 
-    &-infos {
-        margin: 0 auto;
-        width: 90%;
-        font-family: $font-family-base;
+	&-infos {
+		margin: 0 auto;
+		width: 90%;
+		font-family: $font-family-base;
 
-        h5 {
-            font-size: em-calc(18px);
-            font-weight: 600;
-            letter-spacing: 0;
-            line-height: em(24px);
-            text-align: left;
-            padding: em(21px) 0;
-            border-bottom: 1px solid $mm-form-separator;
-            margin-bottom: em(20px);
-        }
+		h5 {
+			font-size: em-calc(18px);
+			font-weight: 600;
+			letter-spacing: 0;
+			line-height: em(24px);
+			text-align: left;
+			padding: em(21px) 0;
+			border-bottom: 1px solid $mm-form-separator;
+			margin-bottom: em(20px);
+		}
 
-        p {
-            font-size: em-calc(14px);
-            display: block;
-            line-height: 2em;
-            color: $mm-slidepanel-label-color;
-            font-weight: $weight-regular;
+		p {
+			font-size: em-calc(14px);
+			display: block;
+			line-height: 2em;
+			color: $mm-slidepanel-label-color;
+			font-weight: $weight-regular;
 
-            span {
-                color: $mm-slidepanel-strong-color;
-            }
-        }
-    }
+			span {
+				color: $mm-slidepanel-strong-color;
+			}
+		}
+	}
 
-    // Audio Player
-    .video-player,
-    .audio-player {
-        margin-top: 4em;
+	// Audio Player
+	.video-player,
+	.audio-player {
+		margin-top: 4em;
 
-        audio {
-            margin: 0 auto;
-            display: block;
-        }
-    }
+		audio {
+			margin: 0 auto;
+			display: block;
+		}
+	}
 }
 
 .mm_slidepanel-placeholder-container {
-    background: $mm-card-placeholder-bg;
-    width: 100%;
-    display: flex;
-    min-height: 250px;
-    .placeholder {
-        display: grid;
-        color: white;
-        font-size: 34px;
-        text-transform: uppercase;
-        font-family: $font-family-header;
-        align-content: center;
-        text-align: center;
-        width: 100%;
-    }
+	background: $mm-card-placeholder-bg;
+	width: 100%;
+	display: flex;
+	min-height: 250px;
+
+	.placeholder {
+		display: grid;
+		color: white;
+		font-size: 34px;
+		text-transform: uppercase;
+		font-family: $font-family-header;
+		align-content: center;
+		text-align: center;
+		width: 100%;
+	}
 }
