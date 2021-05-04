@@ -4054,10 +4054,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -4076,8 +4072,7 @@ __webpack_require__.r(__webpack_exports__);
       title: '',
       alt: '',
       credit: '',
-      caption: '',
-      source: ''
+      caption: ''
     };
   },
   methods: {
@@ -14614,33 +14609,6 @@ var render = function() {
                       return
                     }
                     _vm.credit = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("label", { attrs: { for: "source" } }, [
-                _vm._v(_vm._s(_vm.$t("slidepanel.source")))
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.source,
-                    expression: "source"
-                  }
-                ],
-                attrs: { id: "source", type: "text" },
-                domProps: { value: _vm.source },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.source = $event.target.value
                   }
                 }
               })
