@@ -618,7 +618,7 @@ strong {
 
 .mm__card-background {
   height: 150px;
-  background-size: cover !important;
+  background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
 }
@@ -1086,7 +1086,8 @@ table tr {
 .mm__carousel-card .thumb {
   min-height: 200px;
   background-position: center center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .mm__carousel-grid {

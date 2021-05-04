@@ -1,286 +1,302 @@
 <template>
-  <div class="mm__search">
-    <div class="mm__search-container">
-      <div class="mm__search-term">
-        <div class="mm__search-input">
-          <input
-            v-model="searchTerm"
-            type="text"
-            v-bind:placeholder="$t('search.input_placeholder')"
-          />
-          <div class="mm__search-launch">
-            <a v-on:click="makeSearch($event)" href="#">
-              <!-- Search Icon -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.search')"
-                current-color="000"
-                icon-color="000"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><iconsearch></iconsearch
-              ></mmiconbase>
-            </a>
-          </div>
-        </div>
-        <div class="mm__search-close" v-if="!this.isSearch">
-          <a v-on:click="openSearch($event)" :title="$t('actions.search')" href="#">
-            <!-- Search Close -->
-            <mmiconbase
-              icon-name="move-folder"
-              current-color="#8B8B8B"
-              icon-color="#8B8B8B"
-              width="18"
-              height="23"
-              viewBox="0 0 23 23"
-              ><iconclosesearch></iconclosesearch
-            ></mmiconbase>
-          </a>
-        </div>
-      </div>
-      <div class="mm__search-breadcrumb">
-        <mmbreadcrumb></mmbreadcrumb>
-      </div>
-      <div class="mm__search-actions">
-        <ul>
-          <li class="mm__search-icon" v-if="showInformationsBtn">
-            <a v-on:click="setCurrent($event, getSelected)" href="">
-              <!-- Info -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.info')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="26"
-                height="23"
-                viewBox="0 0 20 23"
-                ><iconinfo></iconinfo
-              ></mmiconbase>
-            </a>
-          </li>
+    <div class="mm__search">
+        <div class="mm__search-container">
+            <div class="mm__search-term">
+                <div class="mm__search-input">
+                    <input
+                        v-model="searchTerm"
+                        type="text"
+                        v-bind:placeholder="$t('search.input_placeholder')"
+                    />
+                    <div class="mm__search-launch">
+                        <a v-on:click="makeSearch($event)" href="#">
+                            <!-- Search Icon -->
+                            <mmiconbase
+                                :icon-name="this.$i18n.t('actions.search')"
+                                current-color="000"
+                                icon-color="000"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 26 26"
+                                ><iconsearch></iconsearch
+                            ></mmiconbase>
+                        </a>
+                    </div>
+                </div>
+                <div class="mm__search-close" v-if="!this.isSearch">
+                    <a
+                        v-on:click="openSearch($event)"
+                        :title="$t('actions.search')"
+                        href="#"
+                    >
+                        <!-- Search Close -->
+                        <mmiconbase
+                            icon-name="move-folder"
+                            current-color="#8B8B8B"
+                            icon-color="#8B8B8B"
+                            width="18"
+                            height="23"
+                            viewBox="0 0 23 23"
+                            ><iconclosesearch></iconclosesearch
+                        ></mmiconbase>
+                    </a>
+                </div>
+            </div>
+            <div class="mm__search-breadcrumb">
+                <mmbreadcrumb></mmbreadcrumb>
+            </div>
+            <div class="mm__search-actions">
+                <ul>
+                    <li class="mm__search-icon" v-if="showInformationsBtn">
+                        <a v-on:click="setCurrent($event, getSelected)" href="">
+                            <!-- Info -->
+                            <mmiconbase
+                                :icon-name="this.$i18n.t('actions.info')"
+                                current-color="#8B8B8B"
+                                icon-color="#8B8B8B"
+                                width="26"
+                                height="23"
+                                viewBox="0 0 20 23"
+                                ><iconinfo></iconinfo
+                            ></mmiconbase>
+                        </a>
+                    </li>
 
-          <li
-            v-if="
-              this.$store.state.selectedDirectory ||
-              showInformationsBtn ||
-              this.$store.state.totalSelected > 1
-            "
-            class="separator mm__search-icon"
-          >
-            <a v-on:click="openDeleteModal($event)" :title="$t('actions.delete')" href="">
-              <!-- Delete Icon -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.delete')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><icondelete></icondelete
-              ></mmiconbase>
-            </a>
-          </li>
-          <li class="mm__search-icon">
-            <a
-              v-on:click="openModal($event)"
-              :title="$t('actions.createDirectory')"
-              href=""
+                    <li
+                        v-if="
+                            this.$store.state.selectedDirectory ||
+                                showInformationsBtn ||
+                                this.$store.state.totalSelected > 1
+                        "
+                        class="separator mm__search-icon"
+                    >
+                        <a
+                            v-on:click="openDeleteModal($event)"
+                            :title="$t('actions.delete')"
+                            href=""
+                        >
+                            <!-- Delete Icon -->
+                            <mmiconbase
+                                :icon-name="this.$i18n.t('actions.delete')"
+                                current-color="#8B8B8B"
+                                icon-color="#8B8B8B"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 26 26"
+                                ><icondelete></icondelete
+                            ></mmiconbase>
+                        </a>
+                    </li>
+                    <li class="mm__search-icon">
+                        <a
+                            v-on:click="openModal($event)"
+                            :title="$t('actions.createDirectory')"
+                            href=""
+                        >
+                            <!-- Directory Icon -->
+                            <mmiconbase
+                                :icon-name="this.$i18n.t('actions.add_folder')"
+                                current-color="#8B8B8B"
+                                icon-color="#8B8B8B"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 26 26"
+                                ><iconadddirectory></iconadddirectory
+                            ></mmiconbase>
+                        </a>
+                    </li>
+                    <li
+                        class="mm__search-icon"
+                        v-if="
+                            this.$store.state.selectedDirectory ||
+                                this.$store.state.selectedElem.length > 0
+                        "
+                    >
+                        <a v-on:click="openMoveModal($event)" href="">
+                            <!-- Move Icon -->
+                            <mmiconbase
+                                :icon-name="this.$i18n.t('actions.move')"
+                                current-color="#8B8B8B"
+                                icon-color="#8B8B8B"
+                                width="26"
+                                height="26"
+                                viewBox="0 0 26 26"
+                                ><iconmove></iconmove
+                            ></mmiconbase>
+                        </a>
+                    </li>
+                    <li
+                        class="mm__search-icon"
+                        v-if="this.$store.state.totalSelected > 1"
+                    >
+                        <a
+                            class="mm__search-deselect"
+                            v-on:click="deselectAll($event)"
+                            href="#"
+                            >{{ $t('actions.deselectAll') }}</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mm__search-filters">
+            <select
+                v-on:change="applyFilter($event)"
+                v-model="selectedFilterType"
+                class="mm__search-select"
+                name=""
+                id=""
             >
-              <!-- Directory Icon -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.add_folder')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><iconadddirectory></iconadddirectory
-              ></mmiconbase>
-            </a>
-          </li>
-          <li
-            class="mm__search-icon"
-            v-if="
-              this.$store.state.selectedDirectory ||
-              this.$store.state.selectedElem.length > 0
-            "
-          >
-            <a v-on:click="openMoveModal($event)" href="">
-              <!-- Move Icon -->
-              <mmiconbase
-                :icon-name="this.$i18n.t('actions.move')"
-                current-color="#8B8B8B"
-                icon-color="#8B8B8B"
-                width="26"
-                height="26"
-                viewBox="0 0 26 26"
-                ><iconmove></iconmove
-              ></mmiconbase>
-            </a>
-          </li>
-          <li class="mm__search-icon" v-if="this.$store.state.totalSelected > 1">
-            <a class="mm__search-deselect" v-on:click="deselectAll($event)" href="#">{{
-              $t("actions.deselectAll")
-            }}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="mm__search-filters">
-      <select
-        v-on:change="applyFilter($event)"
-        v-model="selectedFilterType"
-        class="mm__search-select"
-        name=""
-        id=""
-      >
-        <option disabled value="">{{ $t("search.by_type") }}</option>
-        <option value="all">All</option>
-        <option
-          v-for="(item, index) in this.$store.state.mediaTypeArray"
-          v-bind:key="index"
-        >
-          {{ item.name | capitalize }} {{ item }}
-        </option>
-      </select>
+                <option disabled value="">{{ $t('search.by_type') }}</option>
+                <option value="all">All</option>
+                <option
+                    v-for="(item, index) in this.$store.state.mediaTypeArray"
+                    v-bind:key="index"
+                >
+                    {{ item.name | capitalize }} {{ item }}
+                </option>
+            </select>
 
-      <select
-        v-on:change="applyFilterDate($event)"
-        v-model="sortOrder"
-        class="mm__search-select"
-        name=""
-        id=""
-      >
-        <option disabled value="">{{ $t("search.by_date") }}</option>
-        <option value="asc">{{ $t("actions.sort.oldest") }}</option>
-        <option value="desc">{{ $t("actions.sort.newest") }}</option>
-      </select>
+            <select
+                v-on:change="applyFilterDate($event)"
+                v-model="sortOrder"
+                class="mm__search-select"
+                name=""
+                id=""
+            >
+                <option disabled value="">{{ $t('search.by_date') }}</option>
+                <option value="asc">{{ $t('actions.sort.oldest') }}</option>
+                <option value="desc">{{ $t('actions.sort.newest') }}</option>
+            </select>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
-import mmiconbase from './mm-icon-base.vue';
-import iconadddirectory from './icons/icon-add-directory.vue';
-import iconsearch from './icons/icon-search.vue';
-import icondelete from './icons/icon-delete.vue';
-import iconinfo from './icons/icon-info.vue';
-import iconmove from './icons/icon-move.vue';
-import iconclosesearch from './icons/icon-close-search.vue';
-import mmbreadcrumb from './breadcrumb/mm-breadcrumb';
+import { EventBus } from '../event-bus.js'
+import mmiconbase from './mm-icon-base.vue'
+import iconadddirectory from './icons/icon-add-directory.vue'
+import iconsearch from './icons/icon-search.vue'
+import icondelete from './icons/icon-delete.vue'
+import iconinfo from './icons/icon-info.vue'
+import iconmove from './icons/icon-move.vue'
+import iconclosesearch from './icons/icon-close-search.vue'
+import mmbreadcrumb from './breadcrumb/mm-breadcrumb'
 
 export default {
-  name: 'mmsearch',
-  components: {
-    mmiconbase,
-    iconadddirectory,
-    iconsearch,
-    icondelete,
-    iconinfo,
-    iconmove,
-    iconclosesearch,
-    mmbreadcrumb
-  },
-  data () {
-    return {
-      showInformations: false,
-      selectedFilterType: '',
-      isSearch: true,
-      searchTerm: null,
-      sortOrder: ''
-    };
-  },
-  mounted () {},
-  methods: {
-    viewState: function (event, value) {
-      event.preventDefault();
-      this.$store.dispatch('VIEW_STATE', value);
+    name: 'mmsearch',
+    components: {
+        mmiconbase,
+        iconadddirectory,
+        iconsearch,
+        icondelete,
+        iconinfo,
+        iconmove,
+        iconclosesearch,
+        mmbreadcrumb
     },
-    // Set Current State And Open Slidepanel
-    setCurrent: function (event, id) {
-      event.preventDefault();
-      EventBus.$emit('open-slide-panel', id);
-    },
-    openModal: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_CREATE');
-    },
-    openDeleteModal: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
-    },
-    openDeleteMedia: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('OPEN_MODAL_DELETE');
-    },
-    openMoveModal: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('OPEN_MOVE_MODAL');
-    },
-    applyFilter: function ($event) {
-      $event.preventDefault();
-      const card = document.getElementsByClassName('mm__card');
-      for (let i = 0; i < card.length; i++) {
-        card.item(i).parentNode.classList.remove('hide');
-        if (this.selectedFilterType !== 'all') {
-          if (
-            card.item(i).dataset.type !== this.selectedFilterType &&
-            card.item(i).dataset.type !== 'folder'
-          ) {
-            card.item(i).parentNode.classList.add('hide');
-          }
-        } else {
-          card.item(i).parentNode.classList.remove('hide');
+    data () {
+        return {
+            showInformations: false,
+            selectedFilterType: '',
+            isSearch: true,
+            searchTerm: null,
+            sortOrder: ''
         }
-      }
     },
-    applyFilterDate: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder);
+    mounted () {},
+    methods: {
+        viewState: function (event, value) {
+            event.preventDefault()
+            this.$store.dispatch('VIEW_STATE', value)
+        },
+        // Set Current State And Open Slidepanel
+        setCurrent: function (event, id) {
+            event.preventDefault()
+            EventBus.$emit('open-slide-panel', id)
+        },
+        openModal: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('OPEN_MODAL_CREATE')
+        },
+        openDeleteModal: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('OPEN_MODAL_DELETE')
+        },
+        openDeleteMedia: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('OPEN_MODAL_DELETE')
+        },
+        openMoveModal: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('OPEN_MOVE_MODAL')
+        },
+        applyFilter: function ($event) {
+            $event.preventDefault()
+            const card = document.getElementsByClassName('mm__card')
+            for (let i = 0; i < card.length; i++) {
+                card.item(i).parentNode.classList.remove('hide')
+                if (this.selectedFilterType !== 'all') {
+                    if (
+                        card.item(i).dataset.type !== this.selectedFilterType &&
+                        card.item(i).dataset.type !== 'folder'
+                    ) {
+                        card.item(i).parentNode.classList.add('hide')
+                    }
+                } else {
+                    card.item(i).parentNode.classList.remove('hide')
+                }
+            }
+        },
+        applyFilterDate: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('UPDATE_ORDERBY', this.sortOrder)
+        },
+        deselectAll: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('RESET_SELECTED')
+        },
+        openSearch: function ($event) {
+            $event.preventDefault()
+            if (!this.isSearch) {
+                // Reset State
+                this.$store.state.hideDirectory = false
+                this.$store.dispatch(
+                    'GET_DIRECTORY',
+                    this.$store.state.currentDirectory
+                )
+            }
+            this.isSearch = !this.isSearch
+        },
+        makeSearch: function ($event) {
+            $event.preventDefault()
+            this.$store.dispatch('MAKE_SEARCH', this.searchTerm)
+            this.isSearch = false
+        }
     },
-    deselectAll: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('RESET_SELECTED');
+    computed: {
+        getCurrentFolder () {
+            return this.$store.state.currentDirectory
+        },
+        getColor () {
+            return this.$store.state.mainColor
+        },
+        getDataTypes () {
+            return this.$store.state.dataType
+        },
+        getSelected () {
+            return this.$store.state.selectedElem
+        },
+        showInformationsBtn (getSelected) {
+            return this.getSelected.length === 1
+        }
     },
-    openSearch: function ($event) {
-      $event.preventDefault();
-      if (!this.isSearch) {
-        // Reset State
-        this.$store.state.hideDirectory = false;
-        this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
-      }
-      this.isSearch = !this.isSearch;
-    },
-    makeSearch: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('MAKE_SEARCH', this.searchTerm);
-      this.isSearch = false;
+    filters: {
+        capitalize: function (value) {
+            if (!value) return ''
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
+        }
     }
-  },
-  computed: {
-    getCurrentFolder () {
-      return this.$store.state.currentDirectory;
-    },
-    // Get Main Color From Store
-    getColor () {
-      return this.$store.state.mainColor;
-    },
-    getDataTypes () {
-      return this.$store.state.dataType;
-    },
-    getSelected () {
-      return this.$store.state.selectedElem;
-    },
-    showInformationsBtn (getSelected) {
-      return this.getSelected.length === 1;
-    }
-  },
-  filters: {
-    capitalize: function (value) {
-      if (!value) return '';
-      value = value.toString();
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    }
-  }
-};
+}
 </script>
