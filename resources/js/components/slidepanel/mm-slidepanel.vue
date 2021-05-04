@@ -40,12 +40,6 @@
       </div>
     </div>
     <!-- Container Slidepanel -->
-    <div>
-        <ul>
-            <li>FR</li>
-            <li>EN</li>
-        </ul>
-    </div>
     <div class="mm__slidepanel-infos">
       <!-- Name -->
       <h5>{{ this.data[0].filename }}</h5>

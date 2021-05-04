@@ -4027,12 +4027,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -14428,8 +14422,6 @@ var render = function() {
               )
         ]),
         _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
           _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),
           _vm._v(" "),
@@ -14635,20 +14627,7 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("ul", [
-        _c("li", [_vm._v("FR")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("EN")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -35709,175 +35688,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
 /* harmony import */ var _components_MediaManager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/MediaManager */ "./resources/js/components/MediaManager.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
-/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
-/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-simple-context-menu */ "./node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.esm.js");
-/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
-/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
+/* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
+/* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-simple-context-menu */ "./node_modules/vue-simple-context-menu/dist/vue-simple-context-menu.esm.js");
+/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
+/* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_7__);
+// Imports
 
 
 
 
 
 
- // Context Menu
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simple-context-menu', vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create();
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simple-context-menu', vue_simple_context_menu__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_5___default.a);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js")); // To Externalize In The Future
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_toast_notification__WEBPACK_IMPORTED_MODULE_4___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 
-var messages = {
-  en: {
-    general: {
-      title: 'Media Manager'
-    },
-    search: {
-      input_placeholder: 'What are you looking for ? ',
-      by_type: 'Filter by Type',
-      by_date: 'Filter by Date',
-      no_result: 'Sorry, no result'
-    },
-    actions: {
-      "delete": 'Delete',
-      yes: 'Yes',
-      no: 'No',
-      create: 'Create',
-      cancel: 'Cancel',
-      move: 'Move',
-      back: 'Back',
-      copyToClipboard: 'Code Copy To Clipboard',
-      more_details: 'More Details',
-      createDirectory: 'Create Directory',
-      viewGrid: 'View Grid',
-      viewList: 'View List',
-      search: 'Search',
-      info: 'Informations',
-      add_folder: 'Add Folder',
-      created_on: 'Created on',
-      error: 'Error',
-      uploaded: 'Uploaded',
-      updated: 'Updated',
-      created: 'Created',
-      deleted: 'Deleted',
-      moved: 'Moved',
-      deselectAll: 'Deselect All',
-      empty_folder: 'This folder is empty',
-      upload_text_click: 'Click',
-      upload_text_here: 'here',
-      upload_text_up: 'to upload files',
-      drag_upload: 'Drag items here or add files',
-      sort: {
-        oldest: 'Sort Oldest to Newset',
-        newest: 'Sort Newest to Oldest'
-      }
-    },
-    slidepanel: {
-      alt_text: 'Alternative Text',
-      title: 'Title',
-      source: 'Source',
-      credit: 'Credit',
-      caption: 'Caption'
-    },
-    carousel: {
-      title: 'Create Carousel',
-      selected_items: 'Item(s) Selected',
-      drag_text: 'Drag photo to reorder',
-      btn_create: 'Create',
-      btn_cancel: 'Cancel'
-    },
-    modal: {
-      title_createFolder: 'Create Folder',
-      title_deleteFolder: 'Delete Folder',
-      title_moveFolder: 'Move Item To :',
-      confirmation_msg: 'Are you sure you want to delete this folder and all its items?',
-      confirmation_msg_medias: 'Are you sure you want to delete this item?',
-      confirmation_msg_medias_multiple: 'Are you sure you want to delete all these items? ',
-      folder_name: 'Folder Name'
+function loadLocaleMessages() {
+  var locales = __webpack_require__("./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.json$/");
+
+  var messages = {};
+  locales.keys().forEach(function (key) {
+    var matched = key.match(/([A-Za-z0-9-_]+)\./i);
+
+    if (matched && matched.length > 1) {
+      var locale = matched[1];
+      messages[locale] = locales(key);
     }
-  },
-  fr: {
-    general: {
-      title: 'Gestionnaire de médias'
-    },
-    search: {
-      input_placeholder: 'Que cherchez-vous?',
-      by_type: 'Filtrer par type',
-      by_date: 'Filtrer par date',
-      no_result: 'Désolé, aucun résultat'
-    },
-    actions: {
-      "delete": 'Effacer',
-      yes: 'Oui',
-      no: 'Non',
-      create: 'Creer',
-      cancel: 'Annuler',
-      move: 'Déplacer',
-      back: 'Retour',
-      copyToClipboard: 'Code copier dans le presse-papiers',
-      more_details: 'Details',
-      createDirectory: 'Nouveau dossier',
-      viewGrid: 'Grille',
-      viewList: 'Liste',
-      search: 'Chercher',
-      add_folder: 'Ajouter Répertoire',
-      info: 'Informations',
-      created_on: 'Crée le',
-      error: 'Erreur',
-      upload: 'Téverser',
-      updated: 'Mis à jour',
-      created: 'Créer',
-      deleted: 'Supprimer',
-      moved: 'Déplacer',
-      deselectAll: 'Tout déselectionner',
-      empty_folder: 'Ce dossier est vide',
-      upload_text_click: 'Clique',
-      upload_text_here: 'ici',
-      upload_text_up: 'pour téléverser un fichier',
-      drag_upload: 'Faites glisser des éléments ici ou ajoutez des fichiers',
-      sort: {
-        oldest: 'Sort Oldest to Newset',
-        newest: 'Sort Newest to Oldest'
-      }
-    },
-    slidepanel: {
-      alt_text: 'Texte alternatif',
-      credit: 'Crédit',
-      caption: 'Légende'
-    },
-    carousel: {
-      title: 'Créer carousel',
-      selected_items: 'Élément(s) Selectionnés',
-      drag_text: 'Faites glisser la photo pour réorganiser',
-      btn_create: 'Créer',
-      btn_cancel: 'Annuler'
-    },
-    modal: {
-      title_createFolder: 'Créer un dossier',
-      title_deleteFolder: 'Supprimer répertoire',
-      title_moveFolder: 'Déplacer répertoire vers :',
-      confirmation_msg: 'Êtes vous certains de vouloir supprimer ces éléments ?',
-      confirmation_msg_medias: 'Êtes vous certains de vouloir supprimer cet élément ?',
-      confirmation_msg_medias_multiple: 'Êtes vous certains de vouloir supprimer ces éléments ?',
-      folder_name: 'Nom du dossier'
-    }
-  }
-};
+  });
+  return messages;
+}
+
 var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
   locale: 'en',
-  messages: messages
+  messages: loadLocaleMessages()
 });
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _store_store__WEBPACK_IMPORTED_MODULE_4__["default"],
-  VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_5___default.a,
+  store: _store_store__WEBPACK_IMPORTED_MODULE_3__["default"],
+  VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_4___default.a,
   render: function render(h) {
     return h(_components_MediaManager__WEBPACK_IMPORTED_MODULE_2__["default"]);
   },
@@ -37901,6 +37755,62 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
 var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+
+/***/ }),
+
+/***/ "./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.json$/":
+/*!*************************************************************!*\
+  !*** ./resources/js/locales sync [A-Za-z0-9-_,\s]+\.json$/ ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./en.json": "./resources/js/locales/en.json",
+	"./fr.json": "./resources/js/locales/fr.json"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.json$/";
+
+/***/ }),
+
+/***/ "./resources/js/locales/en.json":
+/*!**************************************!*\
+  !*** ./resources/js/locales/en.json ***!
+  \**************************************/
+/*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\"},\"actions\":{\"delete\":\"Delete\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"add_folder\":\"Add Folder\",\"created_on\":\"Created on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_moveFolder\":\"Move Item To :\",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
+
+/***/ }),
+
+/***/ "./resources/js/locales/fr.json":
+/*!**************************************!*\
+  !*** ./resources/js/locales/fr.json ***!
+  \**************************************/
+/*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\"},\"actions\":{\"delete\":\"Effacer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"created_on\":\"Crée le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
 
 /***/ }),
 
