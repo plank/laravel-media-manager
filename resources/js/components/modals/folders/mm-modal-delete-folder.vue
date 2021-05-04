@@ -5,9 +5,22 @@
     <div slot="content">
       <div class="content-grid">
         <div>
-          <p>
+          <div class="illustration__trash"></div>
+
+          <p v-if="this.$store.state.selectedDirectory">
             {{ $t("modal.confirmation_msg") }}
           </p>
+
+          <div
+            v-if="this.$store.state.selectedElem && !this.$store.state.selectedDirectory"
+          >
+            <div v-if="this.$store.state.selectedElem.length <= 1">
+              <p>{{ $t("modal.confirmation_msg_medias") }}</p>
+            </div>
+            <div v-else>
+              <p>{{ $t("modal.confirmation_msg_medias_multiple") }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -26,7 +39,7 @@
       <div>
         <a
           v-on:click="closeModal($event)"
-          class="btn btn-delete text-center"
+          class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""
           >{{ $t("actions.cancel") }}</a
@@ -93,7 +106,7 @@ export default {
         transition: all 0.2s ease-in-out
 
 .btn-default-border
-    border: var(--bg-color)
+    border: 3px solid var(--bg-color)
     color: var(--bg-color)
     &:hover
         background: var(--bg-color)

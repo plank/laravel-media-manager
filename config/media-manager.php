@@ -4,6 +4,7 @@
  */
 return [
     'model' => \Plank\MediaManager\Models\Media::class,
+    'table' => env('MEDIA_TABLE', 'media'),
     // The relative path to the conversions directory, **including** the trailing slash
     'conversions-directory' => "conversions/",
     'conversions' => [

@@ -14,12 +14,13 @@ class UpdateMediaTable extends Migration
     public function up()
     {
         $adding = ['title', 'caption', 'alt', 'credit'];
-        if (!Schema::hasColumns('media', $adding) && !Schema::hasColumns('media_translations', $adding)) {
+        if (!Schema::hasColumns(config('media-manager.table'), $adding)) {
             Schema::table('media', function (Blueprint $table) {
-                $table->string('title')->nullable();
-                $table->text('caption')->nullable();
-                $table->string('alt')->nullable();
-                $table->string('credit')->nullable();
+                $table->string('source')->nullable()->after('id');
+                $table->string('credit')->nullable()->after('id');
+                $table->string('alt')->nullable()->after('id');
+                $table->text('caption')->nullable()->after('id');
+                $table->string('title')->nullable()->after('id');
             });
         }
     }
