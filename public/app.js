@@ -37888,9 +37888,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var actions = {
   CLOSE_MODAL: function CLOSE_MODAL(context) {
-    context.commit('CLOSE_MODAL_CREATE', false);
-    context.commit('CLOSE_MODAL_DELETE', false);
-    context.commit('CLOSE_MODAL_MOVE', false);
+    var modals = ['CLOSE_MODAL_CREATE', 'CLOSE_MODAL_DELETE', 'CLOSE_MODAL_MOVE'];
+    modals.forEach(function (modal) {
+      context.commit(modal, false);
+    });
   },
   OPEN_MODAL_CREATE: function OPEN_MODAL_CREATE(context) {
     context.commit('OPEN_MODAL_CREATE', true);
@@ -37940,16 +37941,12 @@ var actions = {
     this.state.totalSelected = this.state.selectedElem.length;
   },
   RESET_SELECTED: function RESET_SELECTED(context, value) {
-    context.commit('RESET_SELECTED', true); // Reset totalSelected value.
-
+    context.commit('RESET_SELECTED', true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
-  // Get all directory if no value passed or specific subdirectory
-  // if we receive a value
   GET_DIRECTORY: function GET_DIRECTORY(_ref, value) {
     var commit = _ref.commit;
-    var route; // Reset Selected Directory
-
+    var route;
     this.state.selectedElem = [];
 
     if (value) {
@@ -37961,10 +37958,8 @@ var actions = {
     }
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
-      // if we have some media
       if (response.data.media) {
-        commit('SET_MEDIA', response.data.media); // Create Media Types List
-
+        commit('SET_MEDIA', response.data.media);
         commit('SET_MEDIATYPES', response.data.media);
       }
 
@@ -38024,7 +38019,7 @@ var actions = {
 
         value.vm.$store.dispatch('GET_DIRECTORY', value.vm.$store.state.currentDirectory);
       });
-    } // // If We Have Media Collection -> Delete
+    } // If We Have Media Collection -> Delete
 
 
     if (value.mediaCollection) {
@@ -38106,12 +38101,10 @@ var actions = {
 
     for (var i = 0; i < value.media.length; i++) {
       _loop(i);
-    } // commit('CLOSE_MODAL');
-    // this.dispatch('GET_DIRECTORY', this.state.currentDirectory);
-
+    }
 
     Promise.all(promises).then(function () {
-      return console.log();
+      return console.log('move selected');
     });
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(_ref7, value) {
@@ -38130,8 +38123,7 @@ var actions = {
           type: 'success',
           position: 'bottom-left',
           message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.deleted')
-        }); // do something with response
-
+        });
         media.push(response);
       }));
     };
@@ -38146,7 +38138,7 @@ var actions = {
       return self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
     }, 500);
     Promise.all(promises).then(function () {
-      return console.log();
+      return console.log('delete selected');
     });
   },
   MAKE_SEARCH: function MAKE_SEARCH(_ref8, value) {
@@ -38155,8 +38147,9 @@ var actions = {
     var commit = _ref8.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + '?q=' + value, {}).then(function (response) {
       // Replace Medias Collection With Results
-      _this6.state.mediaCollection = response.data;
-      _this6.state.hideDirectory = true; // Hide Folders
+      _this6.state.mediaCollection = response.data; // Hide Folders
+
+      _this6.state.hideDirectory = true;
     });
   },
   UPDATE_ORDERBY: function UPDATE_ORDERBY(_ref9, data) {
