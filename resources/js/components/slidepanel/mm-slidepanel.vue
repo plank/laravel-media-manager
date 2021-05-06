@@ -87,10 +87,6 @@
                     <label for="credit">{{ $t('slidepanel.credit') }}</label>
                     <input v-model="credit" id="credit" type="text" />
                 </div>
-                <div>
-                    <label for="source">{{ $t('slidepanel.source') }}</label>
-                    <input v-model="source" id="source" type="text" />
-                </div>
             </form>
 
             <div class="mm__slidepanel-btn-container">
@@ -141,8 +137,7 @@ export default {
             title: '',
             alt: '',
             credit: '',
-            caption: '',
-            source: ''
+            caption: ''
         }
     },
     methods: {
