@@ -11,7 +11,7 @@ class Media extends BaseMedia
 {
     use Convertible;
 
-    protected $appends = ['url', 'conversion_urls'];
+    protected $appends = ['conversion_urls'];
 
     public function getUrlAttribute()
     {
