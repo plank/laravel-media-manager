@@ -1,50 +1,51 @@
 form {
-    margin-top: em(20px);
-    border-top: 1px solid $mm-form-separator;
-    padding-top: em(21px);
+	margin-top: em(20px);
+	border-top: 1px solid $mm-form-separator;
+	padding-top: em(21px);
 
-    div {
-        margin-bottom: em-calc(16px);
-        label {
-            display: block;
-            font-family: $font-family-base;
-            font-size: em-calc(13px);
-            color: $mm-slidepanel-label-color;
-            text-align: left;
-            font-weight: 600;
-            margin-bottom: em(5px);
-        }
+	div {
+		margin-bottom: em-calc(16px);
 
-        textarea,
-        input {
-            width: 100%;
-            min-height: em(40px);
-            border: 1px solid $mm-form-border-color;
-            border-radius: 3px;
-            text-indent: 1em;
-        }
+		label {
+			display: block;
+			font-family: $font-family-base;
+			font-size: em-calc(13px);
+			color: $mm-slidepanel-label-color;
+			text-align: left;
+			font-weight: $weight-regular;
+			margin-bottom: em(5px);
+		}
 
-        textarea {
-            padding: em-calc(10px);
-            font-family: $font-family-base;
-            text-indent: 0em;
-            resize: none;
-        }
-    }
+		textarea,
+		input {
+			width: 100%;
+			min-height: em(40px);
+			border: 1px solid $mm-form-border-color;
+			border-radius: 3px;
+			text-indent: 4px;
+			font-size: 14px;
+			box-sizing: border-box;
+		}
 
-
+		textarea {
+			padding: em-calc(10px);
+			font-family: $font-family-base;
+			text-indent: 0;
+			resize: none;
+		}
+	}
 }
 
 input {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 label {
-    color: rgba($mm-color-black, .5);
-    font-size: em-calc(18px);
-    font-family: $font-family-base;
-    cursor: text;
-    transition: .25s ease;
+	color: rgba($mm-color-black, 0.5);
+	font-size: em-calc(18px);
+	font-family: $font-family-base;
+	cursor: text;
+	transition: 0.25s ease;
 }
 
 // Style for input with animation

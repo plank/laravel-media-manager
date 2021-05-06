@@ -1,103 +1,118 @@
 // Sidepanel
 
 .mm__carousel {
-    overflow-y: scroll;
-    position: fixed;
-    width: 100%;
-    height: 300px;
-    background: $mm-carousel-bg;
-    bottom: 0;
-    left: 0;
-    box-shadow: 0 1px 1px 0 rgba(59,72,77,0.08), 0 1px 3px 1px rgba(59,72,77,0.16);
-    padding: em(50px);
-    box-sizing: border-box;
+	overflow-y: scroll;
+	position: fixed;
+	width: 100%;
+	height: 300px;
+	background: $mm-carousel-bg;
+	bottom: 0;
+	left: 0;
+	box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
+	padding: em(50px);
+	box-sizing: border-box;
 
-    &.minify {
-        bottom: em(-230px);
-        overflow: hidden;
-        padding: em(26px);
-        .mm__carousel-minify-handler {
-            .i-minimize {
-                transform: rotate(180deg);
-            }
-        }
-    }
+	&.minify {
+		bottom: em(-230px);
+		overflow: hidden;
+		padding: em(26px);
 
+		.mm__carousel-minify-handler {
+			.i-minimize {
+				transform: rotate(180deg);
+			}
+		}
+	}
 
-    &-items-counter {
-        font-family: $font-family-base;
-        font-size: em(15px);
-        background: #ede7e7;
-        border-radius: 150px;
-        padding: 0.4em 1.4em;
-    }
+	&-items-counter {
+		font-family: $font-family-base;
+		font-size: em(15px);
+		background: #ede7e7;
+		border-radius: 150px;
+		padding: 0.4em 1.4em;
+	}
 
-    &-minify-handler {
-        float: right;
-    }
+	&-minify-handler {
+		float: right;
+	}
 
-    &-title {
-        display: grid;
-        grid-template-columns: auto auto 1fr;
-        column-gap: em(20px);
-        align-items: center;
+	&-title {
+		display: grid;
+		grid-template-columns: auto auto 1fr;
+		column-gap: em(20px);
+		align-items: center;
+	}
 
+	&-reorder {
+		// display: none;
+		overflow: hidden;
+		margin: em(30px) 0;
+		font-family: $font-family-base;
+		font-size: em(14px);
+		line-height: 1.2em;
+	}
 
-    }
+	&-card {
+		position: relative;
+		cursor: move;
 
-    &-reorder {
-        // display: none;
-        overflow: hidden;
-        margin: em(30px) 0;
-        font-family: $font-family-base;
-        font-size: em(14px);
-        line-height: 1.2em;
-    }
+		span {
+			background: $mm-card-selected;
+			color: $mm-color-white;
+			box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.25);
+			position: absolute;
+			display: inline-flex;
+			align-items: center;
+			height: 24px;
+			padding: 4px 12px;
+			border-radius: em(150px);
+			font-family: $font-family-base;
+			font-size: em(12px);
+			top: -1em;
+			right: -1em;
+			font-weight: 900;
+			cursor: pointer;
+		}
 
-    &-card {
-        position: relative;
-        cursor: move;
+		.thumb {
+			min-height: 200px;
+			background-position: center center;
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+	}
 
-        span {
-            background: $mm-card-selected;
-            color: white;
-            box-shadow: 0 2px 11px 0 rgba(0,0,0,0.25);
-            position: absolute;
-            display: inline-flex;
-            align-items: center;
-            height: 24px;
-            padding: 4px 12px;
-            border-radius: em(150px);
-            font-family: $font-family-base;
-            font-size: em(12px);
-            top: -1em;
-            right: -1em;
-            font-weight: 900;
-            cursor: pointer;
-        }
-    }
+	&-grid {
+		grid-template-columns: 1fr;
+		text-align: center;
+		display: grid;
 
-    &-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-        display: grid;
-        #draggable {
-            display: grid;
-            margin-bottom: em(16px);
-            column-gap: em(16px);
-            row-gap: em(16px);
-            grid-template-columns: repeat(5, 1fr);
-        }
-    }
+		#draggable {
+			display: grid;
+			margin-bottom: em(16px);
+			column-gap: em(16px);
+			row-gap: em(16px);
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
 
-    .wefwefef{
-        background: yellow;
-        display: inherit;
-    }
+	&-btn-container {
+		display: block;
+		margin-top: em(60px);
+		text-align: center;
 
-    &-btn-container {
-        display: block;
-        margin-top: em(60px);
-        text-align: center;
-    }
+		div {
+			display: inline-flex;
+			width: fit-content;
+			position: relative;
+
+			.btn {
+				margin-left: 1em;
+
+				&:first-child {
+					margin-left: 0;
+				}
+			}
+		}
+	}
 }

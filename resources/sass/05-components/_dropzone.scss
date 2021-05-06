@@ -1,17 +1,16 @@
 #dropzone {
-    border: none;
-    font-family: $font-family-header;
-    font-size: em(16px);
-    text-transform: uppercase;
-    color: #000000;
-    letter-spacing: 2px;
-    text-align: center;
+	border: none;
+	font-family: $font-family-header;
+	font-size: em(16px);
+	text-transform: uppercase;
+	color: #000;
+	letter-spacing: 2px;
+	text-align: center;
 
-    .upload__illustration {
-        // background: blue; // TODO: Replace with illustration
-        background: url('/images/illustration-upload.svg') center center no-repeat;
-        height: 244px;
-        width: 100%;
-        display: block;
-    }
+	.upload__illustration {
+		background: url('/images/illustration-upload.svg') center center no-repeat;
+		height: 244px;
+		width: 100%;
+		display: block;
+	}
 }

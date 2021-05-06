@@ -13,14 +13,14 @@ class InstallManager extends Command
      *
      * @var string
      */
-    protected $signature = 'manager:install';
+    protected $signature = 'media-manager:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Install the Plank Media manager by injecting appropriate mix directives, and installing needed NPM pacakges';
 
     /**
      * Create a new command instance.

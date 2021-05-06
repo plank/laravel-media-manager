@@ -1,0 +1,66 @@
+{
+    "general": {
+        "title": "Gestionnaire de médias"
+      },
+      "search": {
+        "input_placeholder": "Que cherchez-vous?",
+        "by_type": "Filtrer par type",
+        "by_date": "Filtrer par date",
+        "no_result": "Désolé, aucun résultat"
+      },
+      "actions": {
+        "delete": "Effacer",
+        "yes": "Oui",
+        "no": "Non",
+        "create": "Creer",
+        "cancel": "Annuler",
+        "move": "Déplacer",
+        "back": "Retour",
+        "copyToClipboard": "Code copier dans le presse-papiers",
+        "more_details": "Details",
+        "createDirectory": "Nouveau dossier",
+        "viewGrid": "Grille",
+        "viewList": "Liste",
+        "search": "Chercher",
+        "add_folder": "Ajouter Répertoire",
+        "info": "Informations",
+        "created_on": "Crée le",
+        "error": "Erreur",
+        "upload": "Téverser",
+        "updated": "Mis à jour",
+        "created": "Créer",
+        "deleted": "Supprimer",
+        "moved": "Déplacer",
+        "deselectAll": "Tout déselectionner",
+        "empty_folder": "Ce dossier est vide",
+        "upload_text_click": "Clique",
+        "upload_text_here": "ici",
+        "upload_text_up": "pour téléverser un fichier",
+        "drag_upload": "Faites glisser des éléments ici ou ajoutez des fichiers",
+        "sort": {
+          "oldest": "Sort Oldest to Newset",
+          "newest": "Sort Newest to Oldest"
+        }
+      },
+      "slidepanel": {
+        "alt_text": "Texte alternatif",
+        "credit": "Crédit",
+        "caption": "Légende"
+      },
+      "carousel": {
+        "title": "Créer carousel",
+        "selected_items": "Élément(s) Selectionnés",
+        "drag_text": "Faites glisser la photo pour réorganiser",
+        "btn_create": "Créer",
+        "btn_cancel": "Annuler"
+      },
+      "modal": {
+        "title_createFolder": "Créer un dossier",
+        "title_deleteFolder": "Supprimer répertoire",
+        "title_moveFolder": "Déplacer répertoire vers :",
+        "confirmation_msg": "Êtes vous certains de vouloir supprimer ces éléments ?",
+        "confirmation_msg_medias": "Êtes vous certains de vouloir supprimer cet élément ?",
+        "confirmation_msg_medias_multiple": "Êtes vous certains de vouloir supprimer ces éléments ?",
+        "folder_name": "Nom du dossier"
+      }
+}

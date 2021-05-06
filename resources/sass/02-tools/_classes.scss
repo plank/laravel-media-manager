@@ -1,12 +1,24 @@
 // Text Helper
+// ------------------------------------------------------
 .text-center {
-    text-align: center;
+	text-align: center;
 }
 
 .text-left {
-    text-align: left;
+	text-align: left;
 }
 
 .text-right {
-    text-align: right;
+	text-align: right;
+}
+// Spacing Helper
+// ------------------------------------------------------
+.margin {
+	&__top {
+		margin-top: 1em;
+	}
+
+	&__bottom {
+		margin-top: 1em;
+	}
 }
