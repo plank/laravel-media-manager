@@ -4,7 +4,7 @@
       <li
         v-if="getDir.length || getDir.length == 0"
         class="mm__move-back"
-        v-on:click="goBack($event)"
+        v-on:click.prevent="goBack()"
       >
         <a href="">{{ $t("actions.back") }}</a>
       </li>
@@ -15,7 +15,7 @@
       >
         <div class="mm__move-single">
           <div class="mm__move-folder-title">
-            <a v-on:click="selectElement($event, item, index)" href="#">{{
+            <a v-on:click.prevent="selectElement(item, index)" href="#">{{
               item.name | clearname
             }}</a>
           </div>
@@ -41,27 +41,24 @@ export default {
     };
   },
   methods: {
-    goBack($event) {
-      $event.preventDefault();
-      let directoryTarget = null;
+    goBack() {
+      let directoryTarget = "";
       const directoryLevel = this.current.split("/");
 
       if (directoryLevel.length > 1) {
         directoryTarget = directoryLevel[directoryLevel.length - 2];
-      } else {
-        directoryTarget = "";
       }
+
       this.current = directoryTarget;
       this.$store.dispatch("GET_MOVE_DIRECTORY", directoryTarget);
     },
-    selectElement: function ($event, value, index) {
-      $event.preventDefault();
+    selectElement: function (value, index) {
       this.folderIndex = index;
-      EventBus.$emit("allow-move", value);
+      EventBus.$emit("allowMove", value);
     },
-    goDeeper: function (value) {
-      this.current = value;
-      this.$store.dispatch("GET_MOVE_DIRECTORY", value);
+    goDeeper: function (directoryName) {
+      this.current = directoryName;
+      this.$store.dispatch("GET_MOVE_DIRECTORY", directoryName);
     },
   },
   filters: {

@@ -3689,8 +3689,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _modals_mm_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../modals/mm-modal */ "./resources/js/components/modals/mm-modal.vue");
 /* harmony import */ var _mm_move_main__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-move-main */ "./resources/js/components/move/mm-move-main.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -3732,12 +3730,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodalamovefolder',
+  name: "mmmodalamovefolder",
   components: {
     mmmodal: _modals_mm_modal__WEBPACK_IMPORTED_MODULE_1__["default"],
     mmmovemain: _mm_move_main__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -3751,29 +3748,27 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on('allow-move', function (value) {
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("allowMove", function (value) {
       _this.selectedFolder = value;
     });
   },
   methods: {
-    moveSelected: function moveSelected($event) {
-      $event.preventDefault();
-      this.$store.dispatch('MOVE_SELECTED', {
+    moveSelected: function moveSelected() {
+      this.$store.dispatch("MOVE_SELECTED", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         destination: this.selectedFolder,
         mediaCollection: this.$store.state.selectedElem
       });
     },
-    closeModal: function closeModal($event) {
-      $event.preventDefault();
-      this.$store.dispatch('CLOSE_MOVE_MODAL');
+    closeModal: function closeModal() {
+      this.$store.dispatch("CLOSE_MOVE_MODAL");
     }
   },
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -3832,28 +3827,24 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    goBack: function goBack($event) {
-      $event.preventDefault();
-      var directoryTarget = null;
+    goBack: function goBack() {
+      var directoryTarget = "";
       var directoryLevel = this.current.split("/");
 
       if (directoryLevel.length > 1) {
         directoryTarget = directoryLevel[directoryLevel.length - 2];
-      } else {
-        directoryTarget = "";
       }
 
       this.current = directoryTarget;
       this.$store.dispatch("GET_MOVE_DIRECTORY", directoryTarget);
     },
-    selectElement: function selectElement($event, value, index) {
-      $event.preventDefault();
+    selectElement: function selectElement(value, index) {
       this.folderIndex = index;
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("allow-move", value);
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("allowMove", value);
     },
-    goDeeper: function goDeeper(value) {
-      this.current = value;
-      this.$store.dispatch("GET_MOVE_DIRECTORY", value);
+    goDeeper: function goDeeper(directoryName) {
+      this.current = directoryName;
+      this.$store.dispatch("GET_MOVE_DIRECTORY", directoryName);
     }
   },
   filters: {
@@ -14213,6 +14204,7 @@ var render = function() {
                 attrs: { disabled: !_vm.selectedFolder, href: "" },
                 on: {
                   click: function($event) {
+                    $event.preventDefault()
                     return _vm.moveSelected($event)
                   }
                 }
@@ -14230,6 +14222,7 @@ var render = function() {
                 attrs: { href: "" },
                 on: {
                   click: function($event) {
+                    $event.preventDefault()
                     return _vm.closeModal($event)
                   }
                 }
@@ -14276,7 +14269,8 @@ var render = function() {
                 staticClass: "mm__move-back",
                 on: {
                   click: function($event) {
-                    return _vm.goBack($event)
+                    $event.preventDefault()
+                    return _vm.goBack()
                   }
                 }
               },
@@ -14301,7 +14295,8 @@ var render = function() {
                       attrs: { href: "#" },
                       on: {
                         click: function($event) {
-                          return _vm.selectElement($event, item, index)
+                          $event.preventDefault()
+                          return _vm.selectElement(item, index)
                         }
                       }
                     },

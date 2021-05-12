@@ -1028,7 +1028,10 @@
 
 .mm__move-folder-list {
   max-height: 30vh;
-  overflow-y: scroll;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .mm__move-folder-list li {
