@@ -51,7 +51,6 @@ export default {
   },
   data() {
     return {
-      name: null,
       selectedFolder: null,
     };
   },
@@ -85,29 +84,29 @@ export default {
 
 <style lang="scss">
 .btn-default {
-  background: var(--bg-color);
-  border-color: var(--bg-color);
+	background: var(--bg-color);
+	border-color: var(--bg-color);
 
-  &:hover {
-    background: #fff;
-    border-color: var(--bg-color);
-    color: var(--bg-color);
-    transition: all 0.2s ease-in-out;
-  }
+	&:hover {
+		background: #fff;
+		border-color: var(--bg-color);
+		color: var(--bg-color);
+		transition: all 0.2s ease-in-out;
+	}
 }
 
 .btn-default-border {
-  border: var(--bg-color);
-  color: var(--bg-color);
+	border: var(--bg-color);
+	color: var(--bg-color);
 
-  &:hover {
-    background: var(--bg-color);
-    color: #fff;
-    transition: all 0.2s ease-in-out;
-  }
+	&:hover {
+		background: var(--bg-color);
+		color: #fff;
+		transition: all 0.2s ease-in-out;
+	}
 }
 
 .btn-delete {
-  color: var(--bg-color);
+	color: var(--bg-color);
 }
 </style>

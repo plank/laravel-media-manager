@@ -158,11 +158,6 @@
   margin-right: 1.125em;
 }
 
-.mm__search-actions ul li.separator {
-  border-right: 1px solid #ececec;
-  padding-right: 0.625em;
-}
-
 .mm__search-actions ul li a:hover {
   opacity: 0.5;
   transition: all 0.2s ease-in-out;
@@ -185,14 +180,11 @@
   right: 3em !important;
 }
 
-.mm__search-launch {
-  position: absolute !important;
-}
-
 .mm__search-launch a {
   right: 1em;
+  top: 0.2em;
+  position: absolute;
   display: flex;
-  position: relative;
 }
 
 .mm__search-term {

@@ -102,10 +102,10 @@ export default {
 
 <style lang="scss">
 .vue-dropzone {
-  .dz-preview {
-    .dz-details {
-      background: var(--bg-color) !important;
-    }
-  }
+	.dz-preview {
+		.dz-details {
+			background: var(--bg-color) !important;
+		}
+	}
 }
 </style>

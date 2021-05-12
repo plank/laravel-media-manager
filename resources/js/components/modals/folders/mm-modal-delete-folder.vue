@@ -27,11 +27,10 @@
 
     <div class="buttons__container-wrapper" slot="buttons">
       <div>
-        <!-- v-on:click="deleteSelectedMedia($event)" -->
         <a
           :style="styleBtnDefault"
           class="btn btn-default"
-          v-on:click="deleteElement($event)"
+          v-on:click.prevent="deleteElement"
           href=""
           >{{ $t("actions.yes") }}</a
         >
@@ -50,69 +49,62 @@
 </template>
 
 <script>
-import mmmodal from './../mm-modal';
+import mmmodal from "./../mm-modal";
 
 export default {
-  name: 'mmmodaldeletefolder',
+  name: "mmmodaldeletefolder",
   components: {
-    mmmodal
+    mmmodal,
   },
-  data () {
-    return {
-      name: null
-    };
-  },
-  mounted () {},
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL_DELETE');
+      this.$store.dispatch("CLOSE_MODAL_DELETE");
     },
-    deleteElement: function ($event) {
-      // Delete selected folder
-      $event.preventDefault();
-      this.$store.dispatch('DELETE_SELECTED', {
+    deleteElement: function () {
+      this.$store.dispatch("DELETE_SELECTED", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
-        mediaCollection: this.$store.state.selectedElem
+        mediaCollection: this.$store.state.selectedElem,
       });
-    }
+    },
   },
   computed: {
-    getDir () {
-      return this.$store.getters.getDirectory;
-    },
-    // Get Main Color From Store
-    getColor () {
-      return this.$store.state.mainColor;
-    },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="sass">
-.btn-default
-    background: var(--bg-color)
-    border-color: var(--bg-color)
-    &:hover
-        background: white
-        border-color: var(--bg-color)
-        color: var(--bg-color)
-        transition: all 0.2s ease-in-out
+<style lang="scss">
+.btn-default {
+	background: var(--bg-color);
+	border-color: var(--bg-color);
 
-.btn-default-border
-    border: 3px solid var(--bg-color)
-    color: var(--bg-color)
-    &:hover
-        background: var(--bg-color)
-        color: white
-        transition: all 0.2s ease-in-out
+	&:hover {
+		background: white;
+		border-color: var(--bg-color);
+		color: var(--bg-color);
+		transition: all 0.2s ease-in-out;
+	}
+}
 
-.btn-delete
-    color: var(--bg-color)
+.btn-default-border {
+	border: var(--bg-color);
+	color: var(--bg-color);
+
+	&:hover {
+		background: var(--bg-color);
+		color: white;
+		transition: all 0.2s ease-in-out;
+	}
+}
+
+.btn-delete {
+	color: var(--bg-color);
+}
 </style>
+
