@@ -2,7 +2,11 @@ import axios from "axios";
 
 export const actions = {
   closeModal(context) {
-    let modals = ["CLOSE_MODAL_CREATE", "CLOSE_MODAL_DELETE", "CLOSE_MODAL_MOVE"];
+    let modals = [
+      "CLOSE_MODAL_CREATE",
+      "CLOSE_MODAL_DELETE",
+      "CLOSE_MODAL_MOVE"
+    ];
 
     modals.forEach(modal => {
       context.commit(modal, false);
@@ -76,7 +80,6 @@ export const actions = {
       commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
-  // Get Directory For Moving Files
   getMoveDirectory({ commit }, value) {
     let route;
     if (value) {
@@ -88,24 +91,20 @@ export const actions = {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
     });
   },
-  // Create Directory
   createDirectory({ commit }, value) {
     axios
       .post(this.state.routeCreateDirectory + "?path=" + value.name, {})
       .then(response => {
-        // Close Modal
         commit("CLOSE_MODAL_CREATE", true);
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
           message: value.name + " " + value.vm.$i18n.t("actions.created")
         });
-        // Refresh Current View With New Folder
         this.dispatch("getDirectory", this.state.currentDirectory);
       });
   },
   moveSelected({ commit }, value) {
-    // If We Have Directory -> Delete
     if (value.folder) {
       axios
         .post(this.state.routeMoveDirectory, {
@@ -246,7 +245,6 @@ export const actions = {
   updateOrderBy({ commit, state, dispatch }, data) {
     const directoryArray = Object.values(this.state.directoryCollection);
     const mediasArray = Object.values(this.state.mediaCollection);
-    // Sort Medias
     this.state.mediaCollection = mediasArray.sort(function(value1, value2) {
       if (data === "asc") {
         if (value1.timestamp > value2.timestamp) {
@@ -265,7 +263,6 @@ export const actions = {
       }
     });
 
-    // Sort Directories
     this.state.directoryCollection = directoryArray.sort(function(
       value1,
       value2
@@ -302,7 +299,6 @@ export const actions = {
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-        // Refresh folde to get real data on slidebar
         this.dispatch("getDirectory", this.state.currentDirectory);
       });
   }

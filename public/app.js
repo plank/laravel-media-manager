@@ -37301,7 +37301,6 @@ var actions = {
       commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
-  // Get Directory For Moving Files
   getMoveDirectory: function getMoveDirectory(_ref2, value) {
     var commit = _ref2.commit;
     var route;
@@ -37316,19 +37315,17 @@ var actions = {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
     });
   },
-  // Create Directory
   createDirectory: function createDirectory(_ref3, value) {
     var _this2 = this;
 
     var commit = _ref3.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
-      // Close Modal
       commit("CLOSE_MODAL_CREATE", true);
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",
         message: value.name + " " + value.vm.$i18n.t("actions.created")
-      }); // Refresh Current View With New Folder
+      });
 
       _this2.dispatch("getDirectory", _this2.state.currentDirectory);
     });
@@ -37338,7 +37335,6 @@ var actions = {
 
     var commit = _ref4.commit;
 
-    // If We Have Directory -> Delete
     if (value.folder) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeMoveDirectory, {
         source: this.state.selectedDirectory.name,
@@ -37491,8 +37487,7 @@ var actions = {
         state = _ref9.state,
         dispatch = _ref9.dispatch;
     var directoryArray = Object.values(this.state.directoryCollection);
-    var mediasArray = Object.values(this.state.mediaCollection); // Sort Medias
-
+    var mediasArray = Object.values(this.state.mediaCollection);
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
       if (data === "asc") {
         if (value1.timestamp > value2.timestamp) {
@@ -37509,8 +37504,7 @@ var actions = {
           return -1;
         }
       }
-    }); // Sort Directories
-
+    });
     this.state.directoryCollection = directoryArray.sort(function (value1, value2) {
       if (data === "desc") {
         if (value1.timestamp > value2.timestamp) {
@@ -37543,7 +37537,7 @@ var actions = {
         type: "success",
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
-      }); // Refresh folde to get real data on slidebar
+      });
 
       _this8.dispatch("getDirectory", _this8.state.currentDirectory);
     });
