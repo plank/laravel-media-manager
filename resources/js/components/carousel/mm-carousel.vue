@@ -79,7 +79,7 @@ export default {
       this.isMinify = !this.isMinify;
     },
     cancelCarousel: function () {
-      this.$store.dispatch("RESET_SELECTED");
+      this.$store.dispatch("resetSelected");
     },
     copyToClipboard: function (text) {
       const dummyTextarea = document.createElement("textarea");

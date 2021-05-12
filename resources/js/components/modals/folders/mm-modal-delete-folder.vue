@@ -59,10 +59,10 @@ export default {
   methods: {
     closeModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("CLOSE_MODAL_DELETE");
+      this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function () {
-      this.$store.dispatch("DELETE_SELECTED", {
+      this.$store.dispatch("deleteSelected", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         mediaCollection: this.$store.state.selectedElem,

@@ -432,9 +432,9 @@
 
 .mm .i-minimize {
   cursor: pointer;
-  background: url("/images/icon-minimize.svg");
+  background: url("/images/icon-minimize.svg") no-repeat;
   display: block;
-  width: 1.3125em;
+  width: 1.5625em;
   height: 0.75em;
   margin: 0 auto;
   transition: all 0.2s ease-in-out;

@@ -14,7 +14,7 @@ export default {
   props: ["item", "index"],
   methods: {
     removeFromSelected: function (value) {
-      this.$store.dispatch("PUSH_SELECTED", value);
+      this.$store.dispatch("pushSelected", value);
     },
   },
   computed: {

@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     moveSelected: function () {
-      this.$store.dispatch("MOVE_SELECTED", {
+      this.$store.dispatch("moveSelected", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
         destination: this.selectedFolder,
@@ -69,7 +69,7 @@ export default {
       });
     },
     closeModal: function () {
-      this.$store.dispatch("CLOSE_MOVE_MODAL");
+      this.$store.dispatch("closeModalMove");
     },
   },
   computed: {

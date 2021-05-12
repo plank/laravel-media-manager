@@ -1,9 +1,8 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    :width="34"
-    :height="30"
-    :aria-labelledby="add"
+    width="34"
+    height="30"
     role="presentation"
   >
     <title>{{ $t("actions.upload") }}</title>

@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     pushSelected: function (event, value) {
-      this.$store.dispatch("PUSH_SELECTED", value);
+      this.$store.dispatch("pushSelected", value);
     },
   },
   watch: {

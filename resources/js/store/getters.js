@@ -1,11 +1,11 @@
 export const getters = {
-  GET_CURRENT_DIRECTORY: state => {
+  getCurrentDirectory: state => {
     return state.currentDirectory;
   },
-  GET_DIRECTORY: state => {
+  getDirectory: state => {
     return state.directoryCollection;
   },
-  GET_MOVE_DIRECTORY: state => {
+  getMoveDirectory: state => {
     return state.moveDirectoryCollection;
   }
 };

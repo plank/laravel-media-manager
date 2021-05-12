@@ -45,10 +45,10 @@ export default {
   },
   methods: {
     closeModal: function () {
-      this.$store.dispatch("CLOSE_MODAL");
+      this.$store.dispatch("closeModal");
     },
     uploadSuccess: function () {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch("closeModalCreate");
     },
   },
   computed: {

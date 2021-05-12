@@ -58,30 +58,30 @@ export default {
     optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);
       if (JSON.stringify(event.option.slug) === '"delete"') {
-        this.$store.dispatch("OPEN_MODAL_DELETE");
+        this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"move"') {
         this.$store.state.selectedDirectory = event.item;
-        this.$store.dispatch("OPEN_MOVE_MODAL");
+        this.$store.dispatch("openModalMove");
         // EventBus.$emit('open-slide-panel', [event.item]);
       }
     },
     openDirectory: function (value) {
       this.current = value.name;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-      this.$store.dispatch("GET_DIRECTORY", value.name);
+      this.$store.dispatch("setSelectedDirectory", null);
+      this.$store.dispatch("getDirectory", value.name);
     },
     showOptions(index, item) {
       this.cardItem = index;
-      this.$store.dispatch("SET_SELECTED_DIRECTORY", item);
+      this.$store.dispatch("setSelectedDirectory", item);
     },
   },
   computed: {
     getDir() {
-      return this.$store.getters.GET_DIRECTORY;
+      return this.$store.getters.getDirectory;
     },
   },
   mounted() {
-    this.$store.dispatch("GET_DIRECTORY");
+    this.$store.dispatch("getDirectory");
   },
 };
 </script>

@@ -63,12 +63,12 @@ export default {
     createDirectory: function () {
       const createFolderPath = () => {
         if (this.$store.state.currentDirectory) {
-          this.$store.dispatch("CREATE_DIRECTORY", {
+          this.$store.dispatch("createDirectory", {
             vm: this,
             name: this.$store.state.currentDirectory + "/" + this.name,
           });
         } else {
-          this.$store.dispatch("CREATE_DIRECTORY", {
+          this.$store.dispatch("createDirectory", {
             vm: this,
             name: this.name,
           });
@@ -78,10 +78,10 @@ export default {
       return createFolderPath();
     },
     closeModal: function () {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch("closeModalCreate");
     },
     uploadSuccess: function () {
-      this.$store.dispatch("CLOSE_MODAL_CREATE");
+      this.$store.dispatch("closeModalCreate");
     },
   },
   computed: {

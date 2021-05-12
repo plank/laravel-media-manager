@@ -29,9 +29,9 @@
 
 		&-minimize {
 			cursor: pointer;
-			background: url('/images/icon-minimize.svg');
+			background: url('/images/icon-minimize.svg') no-repeat;
 			display: block;
-			width: em-calc(21px);
+			width: em-calc(25px);
 			height: em-calc(12px);
 			margin: 0 auto;
 			transition: all 0.2s ease-in-out;

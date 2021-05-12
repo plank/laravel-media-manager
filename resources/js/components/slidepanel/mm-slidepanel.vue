@@ -128,12 +128,12 @@ export default {
     },
     openDeleteModal: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     },
     updateMedia: function ($event) {
       $event.preventDefault();
-      this.$store.dispatch("UPDATE_MEDIA", {
+      this.$store.dispatch("updateMedia", {
         vm: this,
         disk: this.disk,
         id: this.id,

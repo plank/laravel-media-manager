@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     openModal: function () {
-      this.$store.dispatch("OPEN_MODAL_ADD");
+      this.$store.dispatch("openModalAdd");
     },
   },
 };

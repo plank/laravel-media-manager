@@ -133,8 +133,8 @@ export default {
   methods: {
     triggerClick: function ($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
-        this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-        this.$store.dispatch("RESET_SELECTED", true);
+        this.$store.dispatch("setSelectedDirectory", null);
+        this.$store.dispatch("resetSelected", true);
         const card = document.getElementsByClassName("mm__results-single");
         for (let i = 0; i < card.length; i++) {
           card.item(i).classList.remove("active");

@@ -60,7 +60,7 @@ export default {
     optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);
       if (JSON.stringify(event.option.slug) === '"delete"') {
-        this.$store.dispatch("OPEN_MODAL_DELETE");
+        this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"details"') {
         EventBus.$emit("open-slide-panel", [event.item]);
       }

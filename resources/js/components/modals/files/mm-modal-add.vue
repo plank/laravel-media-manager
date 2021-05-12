@@ -66,11 +66,11 @@ export default {
       return "media-api/create?path=" + this.$store.state.currentDirectory + "";
     },
     closeModal: function () {
-      this.$store.dispatch("CLOSE_MODAL_ADD");
+      this.$store.dispatch("closeModalAdd");
     },
     uploadSuccess: function ($event) {
-      this.$store.dispatch("CLOSE_MODAL_ADD");
-      this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+      this.$store.dispatch("closeModalAdd");
+      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
       this.$toast.open({
         type: "success",
         position: "bottom-left",

@@ -141,13 +141,13 @@ export default {
       EventBus.$emit("open-slide-panel", id);
     },
     openModal: function () {
-      this.$store.dispatch("OPEN_MODAL_CREATE");
+      this.$store.dispatch("openModalCreate");
     },
     openDeleteModal: function () {
-      this.$store.dispatch("OPEN_MODAL_DELETE");
+      this.$store.dispatch("openModalDelete");
     },
     openMoveModal: function () {
-      this.$store.dispatch("OPEN_MOVE_MODAL");
+      this.$store.dispatch("openModalMove");
     },
     applyFilter: function () {
       const card = document.getElementsByClassName("mm__card");
@@ -166,20 +166,20 @@ export default {
       }
     },
     applyFilterDate: function () {
-      this.$store.dispatch("UPDATE_ORDERBY", this.sortOrder);
+      this.$store.dispatch("updateOrderBy", this.sortOrder);
     },
     deselectAll: function () {
-      this.$store.dispatch("RESET_SELECTED");
+      this.$store.dispatch("resetSelected");
     },
     openSearch: function () {
       if (!this.isSearch) {
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
+        this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
       }
       this.isSearch = !this.isSearch;
     },
     makeSearch: function () {
-      this.$store.dispatch("MAKE_SEARCH", {
+      this.$store.dispatch("makeSearch", {
         vm: this,
         searchterm: this.searchTerm,
       });

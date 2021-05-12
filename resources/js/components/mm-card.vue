@@ -36,7 +36,7 @@ export default {
   methods: {
     pushSelected: function (value) {
       this.current = value.id;
-      this.$store.dispatch("PUSH_SELECTED", value);
+      this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
     },
     setBackground: function (item) {

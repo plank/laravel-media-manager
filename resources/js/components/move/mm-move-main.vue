@@ -50,7 +50,7 @@ export default {
       }
 
       this.current = directoryTarget;
-      this.$store.dispatch("GET_MOVE_DIRECTORY", directoryTarget);
+      this.$store.dispatch("getMoveDirectory", directoryTarget);
     },
     selectElement: function (value, index) {
       this.folderIndex = index;
@@ -58,7 +58,7 @@ export default {
     },
     goDeeper: function (directoryName) {
       this.current = directoryName;
-      this.$store.dispatch("GET_MOVE_DIRECTORY", directoryName);
+      this.$store.dispatch("getMoveDirectory", directoryName);
     },
   },
   filters: {
@@ -68,11 +68,11 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("GET_MOVE_DIRECTORY");
+    this.$store.dispatch("getMoveDirectory");
   },
   computed: {
     getDir() {
-      return this.$store.getters.GET_MOVE_DIRECTORY;
+      return this.$store.getters.getMoveDirectory;
     },
   },
 };
