@@ -32,11 +32,13 @@
 @import '05-components/dropzone';
 @import '05-components/move';
 @import '05-components/toast';
+@import '05-components/loader';
 
 // For Demo Only
 // NOTE: This can be remove
+
 body {
-	background: $mm-bg-color;
+	// background: $mm-bg-color;
 
 	&.mm__carousel-open {
 		.btn-add {

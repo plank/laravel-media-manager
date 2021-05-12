@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.options({
+ mix.options({
     terser: {
         terserOptions: {
             compress: {
@@ -20,7 +20,8 @@ mix.options({
         },
     },
 })
-    .setPublicPath('public')
+
+mix.setPublicPath('public')
     .copy('resources/img/*', 'public/images')
     .js('resources/js/app.js', 'public')
     .sass('resources/sass/app.scss', 'public')

@@ -27,5 +27,7 @@ export const state = {
   mediaCollection: [],
   // Ordering
   orderBy: 'created_at',
-  orderDirection: 'asc'
+  orderDirection: 'asc',
+  // loading state
+  isLoading: true
 };
