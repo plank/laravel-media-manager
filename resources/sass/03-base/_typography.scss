@@ -1,23 +1,25 @@
 // typography
 // ------------------------------------------------------
-h1 {
-	font-size: em-calc(30px);
-	font-family: $font-family-header;
-	text-transform: uppercase;
-}
+.mm {
+	h1 {
+		font-size: em-calc(30px);
+		font-family: $font-family-header;
+		text-transform: uppercase;
+	}
 
-h2 {
-	font-size: em-calc(21px);
-	font-family: $font-family-header;
-	text-transform: uppercase;
-}
+	h2 {
+		font-size: em-calc(21px);
+		font-family: $font-family-header;
+		text-transform: uppercase;
+	}
 
-h3 {
-	font-size: em-calc(14px);
-	font-family: $font-family-base;
-}
+	h3 {
+		font-size: em-calc(14px);
+		font-family: $font-family-base;
+	}
 
-b,
-strong {
-	font-weight: bold;
+	b,
+	strong {
+		font-weight: bold;
+	}
 }

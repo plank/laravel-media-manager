@@ -1,29 +1,32 @@
 // Main Container
 // ------------------------------------------
-.wrapper {
-	max-width: 90%;
-	margin: 0 auto;
-}
-
 .mm {
-	background: $mm-bg-color;
+	.wrapper {
+		max-width: 90%;
+		margin: 0 auto;
+        background: $mm-bg-color;
+	}
 
-	&__empty {
-		text-align: center;
-		opacity: 0.5;
+	.mm {
+		background: $mm-bg-color;
 
-		h2  {
-			font-size: em-calc(18px);
-		}
+		&__empty {
+			text-align: center;
+			opacity: 0.5;
 
-		h3 {
-			font-family: $font-family-base;
-			margin-top: 0.5em;
-			font-size: em-calc(13px);
+			h2  {
+				font-size: em-calc(18px);
+			}
 
-			a {
-				font-weight: 600;
-				color: inherit;
+			h3 {
+				font-family: $font-family-base;
+				margin-top: 0.5em;
+				font-size: em-calc(13px);
+
+				a {
+					font-weight: 600;
+					color: inherit;
+				}
 			}
 		}
 	}

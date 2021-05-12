@@ -2040,6 +2040,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2053,7 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'media-manager',
+  name: "media-manager",
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2075,13 +2079,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     triggerClick: function triggerClick($event) {
-      if ($event.target.classList.contains('mm__results-grid')) {
-        this.$store.dispatch('SET_SELECTED_DIRECTORY', null);
-        this.$store.dispatch('RESET_SELECTED', true);
-        var card = document.getElementsByClassName('mm__results-single');
+      if ($event.target.classList.contains("mm__results-grid")) {
+        this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
+        this.$store.dispatch("RESET_SELECTED", true);
+        var card = document.getElementsByClassName("mm__results-single");
 
         for (var i = 0; i < card.length; i++) {
-          card.item(i).classList.remove('active');
+          card.item(i).classList.remove("active");
         }
       }
     }
@@ -11561,6 +11565,12 @@ var render = function() {
     "div",
     { staticClass: "mm" },
     [
+      this.$store.state.isLoading
+        ? _c("div", { staticClass: "loader__overlay" }, [
+            _c("div", { staticClass: "loader" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "mm__header" }, [
         _c("div", { staticClass: "wrapper" }, [
           _c("h1", [_vm._v(_vm._s(_vm.$t("general.title")))])
@@ -11582,12 +11592,10 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "debug" }, [
             _vm._v(
-              "\n            " +
-                _vm._s(this.$store.state.selectedElem) +
-                "\n        "
+              "\n      " + _vm._s(this.$store.state.selectedElem) + "\n    "
             )
           ]),
-          _vm._v("\n\n        " + _vm._s(_vm.info) + "\n\n        "),
+          _vm._v("\n\n    " + _vm._s(_vm.info) + "\n\n    "),
           _vm._v(" "),
           _vm.folderState && !_vm.viewState ? _c("mmfolders") : _vm._e(),
           _vm._v(" "),
@@ -37856,42 +37864,42 @@ __webpack_require__.r(__webpack_exports__);
 
 var actions = {
   CLOSE_MODAL: function CLOSE_MODAL(context) {
-    var modals = ['CLOSE_MODAL_CREATE', 'CLOSE_MODAL_DELETE', 'CLOSE_MODAL_MOVE'];
+    var modals = ["CLOSE_MODAL_CREATE", "CLOSE_MODAL_DELETE", "CLOSE_MODAL_MOVE"];
     modals.forEach(function (modal) {
       context.commit(modal, false);
     });
   },
   OPEN_MODAL_CREATE: function OPEN_MODAL_CREATE(context) {
-    context.commit('OPEN_MODAL_CREATE', true);
+    context.commit("OPEN_MODAL_CREATE", true);
   },
   CLOSE_MODAL_CREATE: function CLOSE_MODAL_CREATE(context) {
-    context.commit('CLOSE_MODAL_CREATE', false);
+    context.commit("CLOSE_MODAL_CREATE", false);
   },
   OPEN_MODAL_DELETE: function OPEN_MODAL_DELETE(context) {
-    context.commit('OPEN_MODAL_DELETE', {
+    context.commit("OPEN_MODAL_DELETE", {
       modal_state: true
     });
   },
   CLOSE_MODAL_DELETE: function CLOSE_MODAL_DELETE(context) {
-    context.commit('CLOSE_MODAL_DELETE', false);
+    context.commit("CLOSE_MODAL_DELETE", false);
   },
   OPEN_MODAL_ADD: function OPEN_MODAL_ADD(context) {
-    context.commit('OPEN_MODAL_ADD', true);
+    context.commit("OPEN_MODAL_ADD", true);
   },
   CLOSE_MODAL_ADD: function CLOSE_MODAL_ADD(context) {
-    context.commit('CLOSE_MODAL_ADD', false);
+    context.commit("CLOSE_MODAL_ADD", false);
   },
   OPEN_MOVE_MODAL: function OPEN_MOVE_MODAL(context) {
-    context.commit('OPEN_MODAL_MOVE', true);
+    context.commit("OPEN_MODAL_MOVE", true);
   },
   CLOSE_MOVE_MODAL: function CLOSE_MOVE_MODAL(context) {
-    context.commit('CLOSE_MODAL_MOVE', false);
+    context.commit("CLOSE_MODAL_MOVE", false);
   },
   VIEW_STATE: function VIEW_STATE(context, value) {
-    context.commit('VIEW_STATE', value);
+    context.commit("VIEW_STATE", value);
   },
   GRID_VIEW: function GRID_VIEW(context, value) {
-    context.commit('VIEW_STATE', value);
+    context.commit("VIEW_STATE", value);
   },
   PUSH_SELECTED: function PUSH_SELECTED(context, value) {
     var index = this.state.selectedElem.findIndex(function (item) {
@@ -37909,29 +37917,33 @@ var actions = {
     this.state.totalSelected = this.state.selectedElem.length;
   },
   RESET_SELECTED: function RESET_SELECTED(context, value) {
-    context.commit('RESET_SELECTED', true);
+    context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
   GET_DIRECTORY: function GET_DIRECTORY(_ref, value) {
+    var _this = this;
+
     var commit = _ref.commit;
     var route;
     this.state.selectedElem = [];
+    this.state.isLoading = true;
 
     if (value) {
       this.state.currentDirectory = value;
       route = this.state.routeGetDirectory + value;
     } else {
-      this.state.currentDirectory = '';
+      this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
       if (response.data.media) {
-        commit('SET_MEDIA', response.data.media);
-        commit('SET_MEDIATYPES', response.data.media);
+        commit("SET_MEDIA", response.data.media);
+        commit("SET_MEDIATYPES", response.data.media);
+        _this.state.isLoading = false;
       }
 
-      commit('SET_DIRECTORY', response.data.subdirectories);
+      commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
   // Get Directory For Moving Files
@@ -37946,28 +37958,28 @@ var actions = {
     }
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
-      commit('SET_MOVE_DIRECTORY', response.data.subdirectories);
+      commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
     });
   },
   // Create Directory
   CREATE_DIRECTORY: function CREATE_DIRECTORY(_ref3, value) {
-    var _this = this;
+    var _this2 = this;
 
     var commit = _ref3.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + '?path=' + value.name, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
       // Close Modal
-      commit('CLOSE_MODAL_CREATE', true);
+      commit("CLOSE_MODAL_CREATE", true);
       value.vm.$toast.open({
-        type: 'success',
-        position: 'bottom-left',
-        message: value.name + ' ' + value.vm.$i18n.t('actions.created')
+        type: "success",
+        position: "bottom-left",
+        message: value.name + " " + value.vm.$i18n.t("actions.created")
       }); // Refresh Current View With New Folder
 
-      _this.dispatch('GET_DIRECTORY', _this.state.currentDirectory);
+      _this2.dispatch("GET_DIRECTORY", _this2.state.currentDirectory);
     });
   },
   MOVE_SELECTED: function MOVE_SELECTED(_ref4, value) {
-    var _this2 = this;
+    var _this3 = this;
 
     var commit = _ref4.commit;
 
@@ -37977,21 +37989,21 @@ var actions = {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
-        _this2.dispatch('CLOSE_MODAL');
+        _this3.dispatch("CLOSE_MODAL");
 
         value.vm.$toast.open({
-          type: 'success',
-          position: 'bottom-left',
-          message: _this2.state.selectedDirectory.name + ' ' + value.vm.$i18n.t('actions.moved')
+          type: "success",
+          position: "bottom-left",
+          message: _this3.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
         }); // Reload Current Directory
 
-        value.vm.$store.dispatch('GET_DIRECTORY', value.vm.$store.state.currentDirectory);
+        value.vm.$store.dispatch("GET_DIRECTORY", value.vm.$store.state.currentDirectory);
       });
     } // If We Have Media Collection -> Delete
 
 
     if (value.mediaCollection) {
-      this.dispatch('MOVE_SELECTED_MEDIAS', {
+      this.dispatch("MOVE_SELECTED_MEDIAS", {
         vm: value.vm,
         destination: value.destination.name,
         media: value.mediaCollection
@@ -37999,7 +38011,7 @@ var actions = {
     }
   },
   DELETE_SELECTED: function DELETE_SELECTED(_ref5, value) {
-    var _this3 = this;
+    var _this4 = this;
 
     var commit = _ref5.commit;
 
@@ -38009,28 +38021,28 @@ var actions = {
 
       if (value.folder) {
         this.state.currentDirectory = value.folder;
-        route = this.state.routeDeleteDirectory + '?path=' + value.folder.name;
+        route = this.state.routeDeleteDirectory + "?path=" + value.folder.name;
       } else {
-        this.state.currentDirectory = '';
+        this.state.currentDirectory = "";
         route = this.state.routeDeleteDirectory;
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
-        commit('CLOSE_MODAL');
+        commit("CLOSE_MODAL");
 
-        _this3.dispatch('GET_DIRECTORY', response.data.parentFolder);
+        _this4.dispatch("GET_DIRECTORY", response.data.parentFolder);
 
         value.vm.$toast.open({
-          type: 'success',
-          position: 'bottom-left',
-          message: value.folder.name + ' ' + value.vm.$i18n.t('actions.deleted')
+          type: "success",
+          position: "bottom-left",
+          message: value.folder.name + " " + value.vm.$i18n.t("actions.deleted")
         });
       });
     } // If We Have Media Collection -> Delete
 
 
     if (value.mediaCollection) {
-      this.dispatch('DELETE_SELECTED_MEDIAS', {
+      this.dispatch("DELETE_SELECTED_MEDIAS", {
         vm: value.vm,
         media: value.mediaCollection
       });
@@ -38038,10 +38050,10 @@ var actions = {
   },
   // Set selected directory
   SET_SELECTED_DIRECTORY: function SET_SELECTED_DIRECTORY(context, value) {
-    context.commit('SET_SELECTED_DIRECTORY', value);
+    context.commit("SET_SELECTED_DIRECTORY", value);
   },
   MOVE_SELECTED_MEDIAS: function MOVE_SELECTED_MEDIAS(_ref6, value) {
-    var _this4 = this;
+    var _this5 = this;
 
     var commit = _ref6.commit,
         context = _ref6.context;
@@ -38049,19 +38061,19 @@ var actions = {
     var promises = [];
 
     var _loop = function _loop(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this4.state.routeUpdateMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this5.state.routeUpdateMedia, {
         id: value.media[i].id,
         disk: value.media[i].disk,
         path: value.destination
       }).then(function (response) {
-        commit('CLOSE_MODAL');
+        commit("CLOSE_MODAL");
 
-        _this4.dispatch('GET_DIRECTORY', _this4.state.currentDirectory);
+        _this5.dispatch("GET_DIRECTORY", _this5.state.currentDirectory);
 
         value.vm.$toast.open({
-          type: 'success',
-          position: 'bottom-left',
-          message: value.destination + value.media[i].filename + ' ' + value.vm.$i18n.t('actions.move')
+          type: "success",
+          position: "bottom-left",
+          message: value.destination + value.media[i].filename + " " + value.vm.$i18n.t("actions.move")
         });
         media.push(response);
       }));
@@ -38072,11 +38084,11 @@ var actions = {
     }
 
     Promise.all(promises).then(function () {
-      return console.log('move selected');
+      return console.log("move selected");
     });
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(_ref7, value) {
-    var _this5 = this;
+    var _this6 = this;
 
     var commit = _ref7.commit,
         context = _ref7.context;
@@ -38084,13 +38096,13 @@ var actions = {
     var promises = [];
 
     var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this5.state.routeDeleteMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this6.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
-          type: 'success',
-          position: 'bottom-left',
-          message: value.media[i].filename + ' ' + value.vm.$i18n.t('actions.deleted')
+          type: "success",
+          position: "bottom-left",
+          message: value.media[i].filename + " " + value.vm.$i18n.t("actions.deleted")
         });
         media.push(response);
       }));
@@ -38100,24 +38112,24 @@ var actions = {
       _loop2(i);
     }
 
-    commit('CLOSE_MODAL');
+    commit("CLOSE_MODAL");
     var self = this;
     setTimeout(function () {
-      return self.dispatch('GET_DIRECTORY', self.state.currentDirectory);
+      return self.dispatch("GET_DIRECTORY", self.state.currentDirectory);
     }, 500);
     Promise.all(promises).then(function () {
-      return console.log('delete selected');
+      return console.log("delete selected");
     });
   },
   MAKE_SEARCH: function MAKE_SEARCH(_ref8, value) {
-    var _this6 = this;
+    var _this7 = this;
 
     var commit = _ref8.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + '?q=' + value, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value, {}).then(function (response) {
       // Replace Medias Collection With Results
-      _this6.state.mediaCollection = response.data; // Hide Folders
+      _this7.state.mediaCollection = response.data; // Hide Folders
 
-      _this6.state.hideDirectory = true;
+      _this7.state.hideDirectory = true;
     });
   },
   UPDATE_ORDERBY: function UPDATE_ORDERBY(_ref9, data) {
@@ -38128,7 +38140,7 @@ var actions = {
     var mediasArray = Object.values(this.state.mediaCollection); // Sort Medias
 
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
-      if (data === 'asc') {
+      if (data === "asc") {
         if (value1.timestamp > value2.timestamp) {
           return 1;
         } else {
@@ -38136,7 +38148,7 @@ var actions = {
         }
       }
 
-      if (data === 'desc') {
+      if (data === "desc") {
         if (value1.timestamp < value2.timestamp) {
           return 1;
         } else {
@@ -38146,7 +38158,7 @@ var actions = {
     }); // Sort Directories
 
     this.state.directoryCollection = directoryArray.sort(function (value1, value2) {
-      if (data === 'desc') {
+      if (data === "desc") {
         if (value1.timestamp > value2.timestamp) {
           return 1;
         } else {
@@ -38154,7 +38166,7 @@ var actions = {
         }
       }
 
-      if (data === 'asc') {
+      if (data === "asc") {
         if (value1.timestamp < value2.timestamp) {
           return 1;
         } else {
@@ -38164,7 +38176,7 @@ var actions = {
     });
   },
   UPDATE_MEDIA: function UPDATE_MEDIA(context, value) {
-    var _this7 = this;
+    var _this8 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       disk: value.disk,
@@ -38174,12 +38186,12 @@ var actions = {
       caption: value.caption
     }).then(function (response) {
       value.vm.$toast.open({
-        type: 'success',
-        position: 'bottom-left',
-        message: value.vm.$i18n.t('actions.uploaded')
+        type: "success",
+        position: "bottom-left",
+        message: value.vm.$i18n.t("actions.uploaded")
       }); // Refresh folde to get real data on slidebar
 
-      _this7.dispatch('GET_DIRECTORY', _this7.state.currentDirectory);
+      _this8.dispatch("GET_DIRECTORY", _this8.state.currentDirectory);
     });
   }
 };
@@ -38351,7 +38363,9 @@ var state = {
   mediaCollection: [],
   // Ordering
   orderBy: 'created_at',
-  orderDirection: 'asc'
+  orderDirection: 'asc',
+  // loading state
+  isLoading: true
 };
 
 /***/ }),
@@ -38417,8 +38431,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
