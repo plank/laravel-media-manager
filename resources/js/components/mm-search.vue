@@ -270,7 +270,10 @@ export default {
         },
         makeSearch: function ($event) {
             $event.preventDefault()
-            this.$store.dispatch('MAKE_SEARCH', this.searchTerm)
+            this.$store.dispatch('MAKE_SEARCH', {
+                vm: this,
+                searchterm: this.searchTerm
+            })
             this.isSearch = false
         }
     },

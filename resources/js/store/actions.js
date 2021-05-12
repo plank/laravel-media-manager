@@ -242,12 +242,17 @@ export const actions = {
   },
   MAKE_SEARCH({ commit }, value) {
     axios
-      .get(this.state.routeSearchMedia + "?q=" + value, {})
+      .get(this.state.routeSearchMedia + "?q=" + value.searchterm, {})
       .then(response => {
-        // Replace Medias Collection With Results
         this.state.mediaCollection = response.data;
-        // Hide Folders
         this.state.hideDirectory = true;
+      })
+      .catch(error => {
+        value.vm.$toast.open({
+            type: "error",
+            position: "bottom-left",
+            message: error.toString()
+          });
       });
   },
   UPDATE_ORDERBY({ commit, state, dispatch }, data) {
