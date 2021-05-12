@@ -2013,12 +2013,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcarouselcard',
+  name: "mmcarouselcard",
   components: {},
-  props: ['item', 'index'],
+  props: ["item", "index"],
   methods: {
     removeFromSelected: function removeFromSelected(value) {
-      this.$store.dispatch('PUSH_SELECTED', value);
+      this.$store.dispatch("PUSH_SELECTED", value);
     }
   },
   computed: {
@@ -2103,22 +2103,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmcarousel',
+  name: "mmcarousel",
   components: {
     mmcarouselcard: _mm_carousel_card__WEBPACK_IMPORTED_MODULE_0__["default"],
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -2131,27 +2119,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateHoverState: function updateHoverState(isHover) {
-      this.hoverState = isHover;
-    },
-    hidePanel: function hidePanel(event) {
-      event.preventDefault();
-      this.isMinimize = !this.isMinimize;
-    },
-    minifyPanel: function minifyPanel(event) {
-      event.preventDefault();
+    minifyPanel: function minifyPanel() {
       this.isMinify = !this.isMinify;
     },
-    cancelCarousel: function cancelCarousel(event) {
-      event.preventDefault();
-      this.$store.dispatch('RESET_SELECTED');
+    cancelCarousel: function cancelCarousel() {
+      this.$store.dispatch("RESET_SELECTED");
     },
     copyToClipboard: function copyToClipboard(text) {
-      var dummyTextarea = document.createElement('textarea');
+      var dummyTextarea = document.createElement("textarea");
       document.body.appendChild(dummyTextarea);
       dummyTextarea.value = text;
       dummyTextarea.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(dummyTextarea);
     },
     copyCarouselDOM: function copyCarouselDOM() {
@@ -2160,26 +2139,26 @@ __webpack_require__.r(__webpack_exports__);
         imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
       }); // Create General BxSlider Structure
 
-      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join('') + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + '</div>';
+      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + "</div>";
       this.copyToClipboard(customDOM);
       this.$toast.open({
-        type: 'success',
-        position: 'bottom-left',
-        message: this.$i18n.t('actions.copyToClipboard')
+        type: "success",
+        position: "bottom-left",
+        message: this.$i18n.t("actions.copyToClipboard")
       });
     }
   },
   computed: {
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     },
     totalSelected: function totalSelected() {
       if (this.$store.state.totalSelected > 1 && this.isMinify && this.showCarousel) {
-        document.body.classList.add('mm__carousel-open');
+        document.body.classList.add("mm__carousel-open");
       } else {
-        document.body.classList.remove('mm__carousel-open');
+        document.body.classList.remove("mm__carousel-open");
       }
 
       return this.$store.state.totalSelected;
@@ -3340,20 +3319,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodaladd',
+  name: "mmmodaladd",
   components: {
     vueDropzone: vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -3369,30 +3338,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     openUpload: function openUpload() {
-      document.getElementsByClassName('dropzone')[0].click();
+      document.getElementsByClassName("dropzone")[0].click();
     },
     getUploadURL: function getUploadURL() {
-      return 'media-api/create?path=' + this.$store.state.currentDirectory + '';
+      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
     },
-    closeModal: function closeModal($event) {
-      $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL_ADD');
+    closeModal: function closeModal() {
+      this.$store.dispatch("CLOSE_MODAL_ADD");
     },
     uploadSuccess: function uploadSuccess($event) {
-      this.$store.dispatch('CLOSE_MODAL_ADD');
+      this.$store.dispatch("CLOSE_MODAL_ADD");
+      this.$store.dispatch("GET_DIRECTORY", this.$store.state.currentDirectory);
       this.$toast.open({
-        type: 'success',
-        position: 'bottom-left',
-        message: $event.name + ' ' + this.$i18n.t('actions.uploaded')
+        type: "success",
+        position: "bottom-left",
+        message: $event.name + " " + this.$i18n.t("actions.uploaded")
       });
-      this.$store.dispatch('GET_DIRECTORY', this.$store.state.currentDirectory);
     },
     showError: function showError($event) {
       if ($event.status) {
         this.$toast.open({
-          type: 'error',
-          position: 'bottom-left',
-          message: this.$i18n.t('actions.error')
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.error")
         });
       }
     }
@@ -3403,7 +3371,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -3678,27 +3646,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'mmmodal',
+  name: "mmmodal",
   components: {},
-  props: ['extraClassContainer'],
+  props: {
+    extraClassContainer: {
+      type: String,
+      required: false
+    }
+  },
   methods: {
-    closeModal: function closeModal($event) {
-      $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL');
+    closeModal: function closeModal() {
+      this.$store.dispatch("CLOSE_MODAL");
     },
     uploadSuccess: function uploadSuccess() {
-      this.$store.dispatch('CLOSE_MODAL_CREATE');
+      this.$store.dispatch("CLOSE_MODAL_CREATE");
     }
   },
   computed: {
@@ -3707,7 +3669,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     styleBtnDefault: function styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor
       };
     }
   }
@@ -11679,11 +11641,11 @@ var render = function() {
               _c("div", [
                 _c("span", { staticClass: "mm__carousel-items-counter" }, [
                   _vm._v(
-                    "\n                    " +
+                    "\n          " +
                       _vm._s(_vm.totalSelected) +
                       " " +
                       _vm._s(_vm.$t("carousel.selected_items")) +
-                      "\n                "
+                      "\n        "
                   )
                 ])
               ]),
@@ -11695,6 +11657,7 @@ var render = function() {
                     staticClass: "mm__carousel-minify-handler",
                     on: {
                       click: function($event) {
+                        $event.preventDefault()
                         return _vm.minifyPanel($event)
                       }
                     }
@@ -11706,9 +11669,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "mm__carousel-reorder" }, [
               _vm._v(
-                "\n            " +
-                  _vm._s(_vm.$t("carousel.drag_text")) +
-                  "\n        "
+                "\n      " + _vm._s(_vm.$t("carousel.drag_text")) + "\n    "
               )
             ]),
             _vm._v(" "),
@@ -11759,9 +11720,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\n          " +
                         _vm._s(_vm.$t("carousel.btn_create")) +
-                        "\n                "
+                        "\n        "
                     )
                   ]
                 ),
@@ -11772,13 +11733,18 @@ var render = function() {
                     staticClass: "btn btn-default-border",
                     style: _vm.styleBtnDefault,
                     attrs: { href: "" },
-                    on: { click: _vm.cancelCarousel }
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.cancelCarousel($event)
+                      }
+                    }
                   },
                   [
                     _vm._v(
-                      "\n                    " +
+                      "\n          " +
                         _vm._s(_vm.$t("carousel.btn_cancel")) +
-                        "\n                "
+                        "\n        "
                     )
                   ]
                 )
@@ -13752,6 +13718,7 @@ var render = function() {
         attrs: { href: "#" },
         on: {
           click: function($event) {
+            $event.preventDefault()
             return _vm.closeModal($event)
           }
         }
@@ -13833,9 +13800,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("h3", { staticClass: "text-center margin__top" }, [
-      _vm._v(
-        "\n        " + _vm._s(_vm.$t("actions.drag_upload")) + "\n        "
-      ),
+      _vm._v("\n    " + _vm._s(_vm.$t("actions.drag_upload")) + "\n    "),
       _c(
         "a",
         {
@@ -13844,7 +13809,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.openUpload()
+              return _vm.openUpload($event)
             }
           }
         },
@@ -14115,6 +14080,7 @@ var render = function() {
         attrs: { href: "#" },
         on: {
           click: function($event) {
+            $event.preventDefault()
             return _vm.closeModal($event)
           }
         }
