@@ -12,14 +12,15 @@
       >
         <mmfoldercard :item="item"></mmfoldercard>
       </div>
-    </div>
 
-    <vue-simple-context-menu
-      :elementId="'myUniqueId'"
-      :options="optionsArray1"
-      :ref="'vueSimpleContextMenu'"
-      @option-clicked="optionClicked"
-    />
+      <vue-simple-context-menu
+        v-if="this.$store.state.haveContextMenu"
+        :elementId="'myUniqueId'"
+        :options="optionsArray1"
+        :ref="'vueSimpleContextMenu'"
+        @option-clicked="optionClicked"
+      />
+    </div>
   </div>
 </template>
 
@@ -53,7 +54,9 @@ export default {
   },
   methods: {
     handleClick(event, item) {
-      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      if (this.$store.state.haveContextMenu) {
+        this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      }
     },
     optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);

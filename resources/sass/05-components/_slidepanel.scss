@@ -37,13 +37,6 @@
 		width: em(22px);
 		height: em(22px);
 		margin: em(20px);
-		// margin: em(20px) em(20px) em(20px) 0;
-		// transition: all 0.2s ease-in-out;
-		// &:hover {
-		//     // transition: all 0.2s ease-in-out;
-		//     opacity: 0.5;
-		//     // transform: scale(1.1);
-		// }
 	}
 
 	&-infos {
@@ -75,7 +68,6 @@
 		}
 	}
 
-	// Audio Player
 	.video-player,
 	.audio-player {
 		margin-top: 4em;

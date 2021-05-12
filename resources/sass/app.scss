@@ -34,8 +34,6 @@
 @import '05-components/toast';
 @import '05-components/loader';
 
-// For Demo Only
-// NOTE: This can be remove
 
 body {
 	// background: $mm-bg-color;
@@ -52,17 +50,4 @@ body {
 	display: grid;
 	grid-template-columns: 24% auto;
 	min-height: 100vh;
-}
-
-.debug {
-	display: none;
-	background-color: black;
-	color: white;
-	position: fixed;
-	width: 50%;
-	border: 3px solid red;
-	padding: 2em;
-	left: 0;
-	top: 0;
-	z-index: 9999;
 }

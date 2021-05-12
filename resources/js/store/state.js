@@ -26,5 +26,6 @@ export const state = {
     mediaTypeArray: [],
     orderBy: "created_at",
     orderDirection: "asc",
-    isLoading: true
+    isLoading: true,
+    haveContextMenu: false,
 };

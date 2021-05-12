@@ -17,6 +17,7 @@
       </div>
     </div>
     <vue-simple-context-menu
+      v-if="this.$store.state.haveContextMenu"
       :elementId="'CardElement'"
       :options="optionsArray1"
       :ref="'vueSimpleContextMenu'"
@@ -55,7 +56,9 @@ export default {
   },
   methods: {
     handleClick(event, item) {
-      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      if (this.$store.state.haveContextMenu) {
+        this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      }
     },
     optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);

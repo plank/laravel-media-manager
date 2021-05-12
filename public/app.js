@@ -2279,13 +2279,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2313,11 +2306,6 @@ __webpack_require__.r(__webpack_exports__);
     mmmodaldeletefolder: _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_6__["default"],
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"]
-  },
-  data: function data() {
-    return {
-      info: null
-    };
   },
   methods: {
     triggerClick: function triggerClick($event) {
@@ -2577,6 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmfolders",
@@ -2601,7 +2590,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleClick: function handleClick(event, item) {
-      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      if (this.$store.state.haveContextMenu) {
+        this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      }
     },
     optionClicked: function optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);
@@ -2758,6 +2749,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2782,7 +2774,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleClick: function handleClick(event, item) {
-      this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      if (this.$store.state.haveContextMenu) {
+        this.$refs.vueSimpleContextMenu.showMenu(event, item);
+      }
     },
     optionClicked: function optionClicked(event) {
       this.$store.state.selectedElem.push(event.item);
@@ -12326,13 +12320,6 @@ var render = function() {
         [
           _c("mmsearch"),
           _vm._v(" "),
-          _c("div", { staticClass: "debug" }, [
-            _vm._v(
-              "\n      " + _vm._s(this.$store.state.selectedElem) + "\n    "
-            )
-          ]),
-          _vm._v("\n\n    " + _vm._s(_vm.info) + "\n\n    "),
-          _vm._v(" "),
           _vm.folderState && !_vm.viewState ? _c("mmfolders") : _vm._e(),
           _vm._v(" "),
           _vm.viewState && !_vm.folderState ? _c("mmlistresults") : _vm._e(),
@@ -12688,14 +12675,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "mm__results" },
-    [
-      this.$store.state.hideDirectory == false
-        ? _c(
-            "div",
-            { staticClass: "mm__results-grid" },
+  return _c("div", { staticClass: "mm__results" }, [
+    this.$store.state.hideDirectory == false
+      ? _c(
+          "div",
+          { staticClass: "mm__results-grid" },
+          [
             _vm._l(_vm.getDir, function(item, index) {
               return _c(
                 "div",
@@ -12721,18 +12706,22 @@ var render = function() {
                 1
               )
             }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("vue-simple-context-menu", {
-        ref: "vueSimpleContextMenu",
-        attrs: { elementId: "myUniqueId", options: _vm.optionsArray1 },
-        on: { "option-clicked": _vm.optionClicked }
-      })
-    ],
-    1
-  )
+            _vm._v(" "),
+            this.$store.state.haveContextMenu
+              ? _c("vue-simple-context-menu", {
+                  ref: "vueSimpleContextMenu",
+                  attrs: {
+                    elementId: "myUniqueId",
+                    options: _vm.optionsArray1
+                  },
+                  on: { "option-clicked": _vm.optionClicked }
+                })
+              : _vm._e()
+          ],
+          2
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -12879,11 +12868,13 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("vue-simple-context-menu", {
-        ref: "vueSimpleContextMenu",
-        attrs: { elementId: "CardElement", options: _vm.optionsArray1 },
-        on: { "option-clicked": _vm.optionClicked }
-      })
+      this.$store.state.haveContextMenu
+        ? _c("vue-simple-context-menu", {
+            ref: "vueSimpleContextMenu",
+            attrs: { elementId: "CardElement", options: _vm.optionsArray1 },
+            on: { "option-clicked": _vm.optionClicked }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -37696,7 +37687,8 @@ var state = {
   mediaTypeArray: [],
   orderBy: "created_at",
   orderDirection: "asc",
-  isLoading: true
+  isLoading: true,
+  haveContextMenu: false
 };
 
 /***/ }),

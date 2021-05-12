@@ -14,13 +14,6 @@
       <!-- Search Panel -->
       <mmsearch></mmsearch>
 
-      <!-- TO REMOVE -->
-      <div class="debug">
-        {{ this.$store.state.selectedElem }}
-      </div>
-
-      {{ info }}
-
       <!-- Folders List -->
       <mmfolders v-if="folderState && !viewState"></mmfolders>
 
@@ -124,11 +117,6 @@ export default {
     mmmodaldeletefolder,
     mmmodalmove,
     mmempty,
-  },
-  data() {
-    return {
-      info: null,
-    };
   },
   methods: {
     triggerClick: function ($event) {
