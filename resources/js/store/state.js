@@ -27,5 +27,6 @@ export const state = {
     orderBy: "created_at",
     orderDirection: "asc",
     isLoading: true,
+    isSearch: false,
     haveContextMenu: false,
 };
