@@ -37,7 +37,7 @@
       </div>
       <div>
         <a
-          v-on:click="closeModal($event)"
+          v-on:click.prevent="closeModal"
           class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""
@@ -57,8 +57,7 @@ export default {
     mmmodal,
   },
   methods: {
-    closeModal: function ($event) {
-      $event.preventDefault();
+    closeModal: function () {
       this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function () {
@@ -85,7 +84,7 @@ export default {
 	border-color: var(--bg-color);
 
 	&:hover {
-		background: white;
+		background: #fff;
 		border-color: var(--bg-color);
 		color: var(--bg-color);
 		transition: all 0.2s ease-in-out;
@@ -98,7 +97,7 @@ export default {
 
 	&:hover {
 		background: var(--bg-color);
-		color: white;
+		color: #fff;
 		transition: all 0.2s ease-in-out;
 	}
 }

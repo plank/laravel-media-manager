@@ -1,6 +1,6 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
-    <a href="" class="mm__slidepanel-close" v-on:click="close($event)">
+    <a href="" class="mm__slidepanel-close" v-on:click.prevent="close">
       <svg
         width="22px"
         height="22px"
@@ -51,10 +51,7 @@
         Type: <span>{{ this.data[0].mime_type }}</span>
       </p>
       <p>
-        Dimension: <span>{{ this.data[0].size }}</span>
-      </p>
-      <p>
-        File Size: <span>{{ this.data[0].size }}</span>
+        File Size: <span>{{ this.data[0].size | fileSize }}</span>
       </p>
       <p>
         Upload Date:
@@ -84,14 +81,14 @@
           <a
             :style="styleBtnDefault"
             class="btn btn-default"
-            v-on:click="updateMedia($event)"
+            v-on:click.prevent="updateMedia"
             href=""
             >Save</a
           >
         </div>
         <div class="columns__1">
           <a
-            v-on:click="openDeleteModal($event)"
+            v-on:click.prevent="openDeleteModal"
             :title="$t('actions.delete')"
             class="btn btn-delete text-center"
             :style="styleBtnDefault"
@@ -122,17 +119,14 @@ export default {
     };
   },
   methods: {
-    close: function (event) {
-      event.preventDefault();
+    close: function () {
       this.slideOpen = false;
     },
-    openDeleteModal: function ($event) {
-      $event.preventDefault();
+    openDeleteModal: function () {
       this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     },
-    updateMedia: function ($event) {
-      $event.preventDefault();
+    updateMedia: function () {
       this.$store.dispatch("updateMedia", {
         vm: this,
         disk: this.disk,
@@ -162,6 +156,14 @@ export default {
       return {
         "--bg-color": this.$store.state.mainColor,
       };
+    },
+  },
+  filters: {
+    fileSize: function (fileSize) {
+      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
+      if (fileSize == 0) return "0 Byte";
+      var i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
+      return Math.round(fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
     },
   },
 };
