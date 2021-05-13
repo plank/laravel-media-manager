@@ -1,72 +1,25 @@
 <template>
-    <div data-type="folder" class="mm__card">
-        <div class="mm__card-infos">
-            <svg
-                width="20px"
-                height="16px"
-                viewBox="0 0 20 16"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-                <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
-                <title>Group</title>
-                <desc>Created with Sketch.</desc>
-                <g
-                    id="Page-1"
-                    stroke="none"
-                    stroke-width="1"
-                    fill="none"
-                    fill-rule="evenodd"
-                >
-                    <g
-                        id="test"
-                        transform="translate(-304.000000, -241.000000)"
-                    >
-                        <g id="Intro">
-                            <g id="Concentric-circles">
-                                <g id="Mask"></g>
-                            </g>
-                        </g>
-                        <g
-                            id="Group"
-                            transform="translate(304.000000, 241.000000)"
-                            fill-rule="nonzero"
-                        >
-                            <g id="folder">
-                                <path
-                                    d="M18.683964,15.1682851 L1.05263431,15.1682851 C0.471274699,15.1682851 -3.71335547e-14,14.6970104 -3.71335547e-14,14.1156508 L-3.71335547e-14,1.06915548 C-3.71335547e-14,0.487795865 0.471274699,0.0165211663 1.05263431,0.0165211663 L6.02988854,0.0165211663 C6.41017039,0.0165211663 6.76090801,0.221644933 6.94736117,0.553121905 L7.52783572,1.5851469 C7.71424674,1.91662388 8.06498436,2.12174764 8.44530835,2.12174764 L18.6840483,2.12174764 C19.2654079,2.12174764 19.7366826,2.59302234 19.7366826,3.17438196 L19.7366826,14.1156508 C19.7366826,14.6970104 19.2653236,15.1682851 18.683964,15.1682851 Z"
-                                    id="Path"
-                                    fill="#AAAAAA"
-                                ></path>
-                                <path
-                                    d="M1.05263431,15.5054518 L18.683964,15.5054518 C19.2653236,15.5054518 19.7365983,15.0341771 19.7365983,14.4528175 L19.7365983,3.51159076 C19.7365983,2.93023115 19.2653236,2.45895645 18.683964,2.45895645 L11.0751661,2.45895645 C10.6948843,2.45895645 10.3441467,2.66408022 10.1576935,2.99555719 L9.57721897,4.02758219 C9.39080795,4.35905916 9.04007034,4.56418293 8.65974634,4.56418293 L1.05263431,4.56418293 C0.471274699,4.56418293 -4.5518551e-14,5.03545763 -4.5518551e-14,5.61681724 L-4.5518551e-14,14.4528175 C-4.5518551e-14,15.0341771 0.471274699,15.5054518 1.05263431,15.5054518 Z"
-                                    id="Path"
-                                    fill="#808080"
-                                ></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-            <h6>{{ item.name | clearname }}</h6>
-            <span class="date"
-                >{{ $t('actions.created_on') }}
-                {{ item.timestamp | moment('MMMM Do, YYYY') }}</span
-            >
-        </div>
+  <div data-type="folder" class="mm__card">
+    <div class="mm__card-infos">
+      <svg width="20" height="16" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill-rule="nonzero"><path d="M18.684 15.168H1.053A1.053 1.053 0 010 14.116V1.069C0 .488.471.017 1.053.017H6.03c.38 0 .73.205.917.536l.58 1.032c.187.332.538.537.918.537h10.239c.581 0 1.053.471 1.053 1.052v10.942c0 .581-.472 1.052-1.053 1.052z" fill="#AAA"/><path d="M1.053 15.505h17.631c.581 0 1.053-.47 1.053-1.052V3.512c0-.582-.472-1.053-1.053-1.053h-7.609c-.38 0-.73.205-.917.537l-.58 1.032a1.053 1.053 0 01-.918.536H1.053C.47 4.564 0 5.035 0 5.617v8.836c0 .581.471 1.052 1.053 1.052z" fill="gray"/></g></g></svg>
+      <h6>{{ item.name | clearname }}</h6>
+      <span class="date"
+        >{{ $t("actions.created_on") }}
+        {{ item.timestamp | moment("MMMM Do, YYYY") }}</span
+      >
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'mmfoldercard',
-    props: ['item'],
-    filters: {
-        clearname: function (name) {
-            name = name.split('/')
-            return name[name.length - 1]
-        }
-    }
-}
+  name: "mmfoldercard",
+  props: ["item"],
+  filters: {
+    clearname: function (name) {
+      name = name.split("/");
+      return name[name.length - 1];
+    },
+  },
+};
 </script>

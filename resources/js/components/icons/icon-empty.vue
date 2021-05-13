@@ -7,7 +7,7 @@
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-      <title>icon-empty-folder</title>
+      <title>{{ $t('actions.empty_folder') }}</title>
       <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="icon-empty-folder">
           <circle id="Oval" fill="#DADADA" cx="35.5" cy="40.5" r="3.5"></circle>

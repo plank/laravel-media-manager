@@ -6,7 +6,7 @@
 		padding: 0;
 		display: none;
 		list-style: none;
-		position: absolute;
+		position: absolute !important;
 		z-index: 1000000;
 		background-color: $mm-color-white;
 		border-bottom-width: 0;

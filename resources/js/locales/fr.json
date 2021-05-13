@@ -6,7 +6,8 @@
         "input_placeholder": "Que cherchez-vous?",
         "by_type": "Filtrer par type",
         "by_date": "Filtrer par date",
-        "no_result": "Désolé, aucun résultat"
+        "no_result": "Désolé, aucun résultat",
+        "close_search": "Fermer recherche"
       },
       "actions": {
         "delete": "Effacer",

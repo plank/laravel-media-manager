@@ -50,14 +50,8 @@
 					display: flex;
 					margin-right: em(18px);
 
-					&.separator {
-						border-right: 1px solid #ececec;
-						padding-right: em-calc(10px);
-					}
-
 					a {
 						&:hover {
-							// transform: scale(1.1);
 							opacity: 0.5;
 							transition: all 0.2s ease-in-out;
 						}
@@ -84,12 +78,11 @@
 		}
 
 		&-launch {
-			position: absolute !important;
-
 			a {
 				right: 1em;
+				top: 0.2em;
+				position: absolute;
 				display: flex;
-				position: relative;
 			}
 		}
 

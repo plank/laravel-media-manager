@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const actions = {
-  CLOSE_MODAL(context) {
+  closeModal(context) {
     let modals = [
       "CLOSE_MODAL_CREATE",
       "CLOSE_MODAL_DELETE",
@@ -12,39 +12,39 @@ export const actions = {
       context.commit(modal, false);
     });
   },
-  OPEN_MODAL_CREATE(context) {
+  openModalCreate(context) {
     context.commit("OPEN_MODAL_CREATE", true);
   },
-  CLOSE_MODAL_CREATE(context) {
+  closeModalCreate(context) {
     context.commit("CLOSE_MODAL_CREATE", false);
   },
-  OPEN_MODAL_DELETE(context) {
+  openModalDelete(context) {
     context.commit("OPEN_MODAL_DELETE", {
       modal_state: true
     });
   },
-  CLOSE_MODAL_DELETE(context) {
+  closeModalDelete(context) {
     context.commit("CLOSE_MODAL_DELETE", false);
   },
-  OPEN_MODAL_ADD(context) {
+  openModalAdd(context) {
     context.commit("OPEN_MODAL_ADD", true);
   },
-  CLOSE_MODAL_ADD(context) {
+  closeModalAdd(context) {
     context.commit("CLOSE_MODAL_ADD", false);
   },
-  OPEN_MOVE_MODAL(context) {
+  openModalMove(context) {
     context.commit("OPEN_MODAL_MOVE", true);
   },
-  CLOSE_MOVE_MODAL(context) {
+  closeModalMove(context) {
     context.commit("CLOSE_MODAL_MOVE", false);
   },
-  VIEW_STATE(context, value) {
+  viewState(context, value) {
     context.commit("VIEW_STATE", value);
   },
-  GRID_VIEW(context, value) {
+  gridView(context, value) {
     context.commit("VIEW_STATE", value);
   },
-  PUSH_SELECTED(context, value) {
+  pushSelected(context, value) {
     const index = this.state.selectedElem.findIndex(
       item => item.id === value.id
     );
@@ -54,15 +54,13 @@ export const actions = {
     } else {
       this.state.selectedElem.splice(index, 1);
     }
-    // You can use this to debug purpose
-    // console.log( this.state.selectedElem )
     this.state.totalSelected = this.state.selectedElem.length;
   },
-  RESET_SELECTED(context, value) {
+  resetSelected(context, value) {
     context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
-  GET_DIRECTORY({ commit }, value) {
+  getDirectory({ commit }, value) {
     let route;
     this.state.selectedElem = [];
     this.state.isLoading = true;
@@ -82,9 +80,9 @@ export const actions = {
       commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
-  // Get Directory For Moving Files
-  GET_MOVE_DIRECTORY({ commit }, value) {
+  getMoveDirectory({ commit }, value) {
     let route;
+    this.state.isLoading = true;
     if (value) {
       route = this.state.routeGetDirectory + value;
     } else {
@@ -92,26 +90,23 @@ export const actions = {
     }
     axios.get(route, {}).then(response => {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
+      this.state.isLoading = false;
     });
   },
-  // Create Directory
-  CREATE_DIRECTORY({ commit }, value) {
+  createDirectory({ commit }, value) {
     axios
       .post(this.state.routeCreateDirectory + "?path=" + value.name, {})
       .then(response => {
-        // Close Modal
         commit("CLOSE_MODAL_CREATE", true);
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
           message: value.name + " " + value.vm.$i18n.t("actions.created")
         });
-        // Refresh Current View With New Folder
-        this.dispatch("GET_DIRECTORY", this.state.currentDirectory);
+        this.dispatch("getDirectory", this.state.currentDirectory);
       });
   },
-  MOVE_SELECTED({ commit }, value) {
-    // If We Have Directory -> Delete
+  moveSelected({ commit }, value) {
     if (value.folder) {
       axios
         .post(this.state.routeMoveDirectory, {
@@ -119,7 +114,7 @@ export const actions = {
           destination: value.destination.name
         })
         .then(response => {
-          this.dispatch("CLOSE_MODAL");
+          this.dispatch("closeModal");
           value.vm.$toast.open({
             type: "success",
             position: "bottom-left",
@@ -128,24 +123,21 @@ export const actions = {
               " " +
               value.vm.$i18n.t("actions.moved")
           });
-          // Reload Current Directory
           value.vm.$store.dispatch(
-            "GET_DIRECTORY",
+            "getDirectory",
             value.vm.$store.state.currentDirectory
           );
         });
     }
-    // If We Have Media Collection -> Delete
     if (value.mediaCollection) {
-      this.dispatch("MOVE_SELECTED_MEDIAS", {
+      this.dispatch("moveSelectedMedia", {
         vm: value.vm,
         destination: value.destination.name,
         media: value.mediaCollection
       });
     }
   },
-  DELETE_SELECTED({ commit }, value) {
-    // If We Have Directory -> Delete
+  deleteSelected({ commit }, value) {
     if (value.folder) {
       let route;
       if (value.folder) {
@@ -157,7 +149,7 @@ export const actions = {
       }
       axios.post(route, {}).then(response => {
         commit("CLOSE_MODAL");
-        this.dispatch("GET_DIRECTORY", response.data.parentFolder);
+        this.dispatch("getDirectory", response.data.parentFolder);
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
@@ -165,20 +157,17 @@ export const actions = {
         });
       });
     }
-
-    // If We Have Media Collection -> Delete
     if (value.mediaCollection) {
-      this.dispatch("DELETE_SELECTED_MEDIAS", {
+      this.dispatch("deleteSelectedMedia", {
         vm: value.vm,
         media: value.mediaCollection
       });
     }
   },
-  // Set selected directory
-  SET_SELECTED_DIRECTORY(context, value) {
+  setSelectedDirectory(context, value) {
     context.commit("SET_SELECTED_DIRECTORY", value);
   },
-  MOVE_SELECTED_MEDIAS({ commit, context }, value) {
+  moveSelectedMedia({ commit, context }, value) {
     const media = [];
     const promises = [];
     for (let i = 0; i < value.media.length; i++) {
@@ -191,7 +180,7 @@ export const actions = {
           })
           .then(response => {
             commit("CLOSE_MODAL");
-            this.dispatch("GET_DIRECTORY", this.state.currentDirectory);
+            this.dispatch("getDirectory", this.state.currentDirectory);
             value.vm.$toast.open({
               type: "success",
               position: "bottom-left",
@@ -207,7 +196,7 @@ export const actions = {
     }
     Promise.all(promises).then(() => console.log("move selected"));
   },
-  DELETE_SELECTED_MEDIAS({ commit, context }, value) {
+  deleteSelectedMedia({ commit, context }, value) {
     const media = [];
     const promises = [];
     for (let i = 0; i < value.media.length; i++) {
@@ -234,26 +223,30 @@ export const actions = {
     const self = this;
 
     setTimeout(
-      () => self.dispatch("GET_DIRECTORY", self.state.currentDirectory),
+      () => self.dispatch("getDirectory", self.state.currentDirectory),
       500
     );
 
     Promise.all(promises).then(() => console.log("delete selected"));
   },
-  MAKE_SEARCH({ commit }, value) {
+  makeSearch({ commit }, value) {
     axios
-      .get(this.state.routeSearchMedia + "?q=" + value, {})
+      .get(this.state.routeSearchMedia + "?q=" + value.searchterm, {})
       .then(response => {
-        // Replace Medias Collection With Results
         this.state.mediaCollection = response.data;
-        // Hide Folders
         this.state.hideDirectory = true;
+      })
+      .catch(error => {
+        value.vm.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: error.toString()
+        });
       });
   },
-  UPDATE_ORDERBY({ commit, state, dispatch }, data) {
+  updateOrderBy({ commit, state, dispatch }, data) {
     const directoryArray = Object.values(this.state.directoryCollection);
     const mediasArray = Object.values(this.state.mediaCollection);
-    // Sort Medias
     this.state.mediaCollection = mediasArray.sort(function(value1, value2) {
       if (data === "asc") {
         if (value1.timestamp > value2.timestamp) {
@@ -272,7 +265,6 @@ export const actions = {
       }
     });
 
-    // Sort Directories
     this.state.directoryCollection = directoryArray.sort(function(
       value1,
       value2
@@ -294,7 +286,7 @@ export const actions = {
       }
     });
   },
-  UPDATE_MEDIA(context, value) {
+  updateMedia(context, value) {
     axios
       .post(this.state.routeUpdateMedia, {
         disk: value.disk,
@@ -309,8 +301,7 @@ export const actions = {
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-        // Refresh folde to get real data on slidebar
-        this.dispatch("GET_DIRECTORY", this.state.currentDirectory);
+        this.dispatch("getDirectory", this.state.currentDirectory);
       });
   }
 };

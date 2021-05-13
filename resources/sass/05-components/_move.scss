@@ -14,7 +14,10 @@
 
 	&-folder-list {
 		max-height: 30vh;
-		overflow-y: scroll;
+		overflow-y: auto;
+		padding: 0;
+		margin: 0;
+		list-style: none;
 
 		li {
 			border-radius: 4px;
@@ -23,7 +26,7 @@
 			background-repeat: no-repeat;
 			padding-left: 2em;
 
-			a  {
+			a {
 				font-size: 15px;
 			}
 
@@ -83,11 +86,6 @@
 			width: 100%;
 			box-sizing: border-box;
 		}
-
-		// &:hover {
-		//     background: $mm-move-hover-bg;
-		//     transition: all 0.2s ease-in-out;
-		// }
 	}
 
 	&-folder-handler {

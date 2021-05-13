@@ -6,7 +6,8 @@
         "input_placeholder": "What are you looking for ? ",
         "by_type": "Filter by Type",
         "by_date": "Filter by Date",
-        "no_result": "Sorry, no result"
+        "no_result": "Sorry, no result",
+        "close_search": "Close Search"
       },
       "actions": {
         "delete": "Delete",
@@ -23,6 +24,7 @@
         "viewList": "View List",
         "search": "Search",
         "info": "Informations",
+        "upload": "Upload",
         "add_folder": "Add Folder",
         "created_on": "Created on",
         "error": "Error",

@@ -27,14 +27,14 @@
           :style="styleBtnDefault"
           v-bind:disabled="!name"
           class="btn btn-default"
-          v-on:click="createDirectory($event)"
+          v-on:click.prevent="createDirectory"
           href=""
           >{{ $t("actions.create") }}</a
         >
       </div>
       <div>
         <a
-          v-on:click="closeModal($event)"
+          v-on:click.prevent="closeModal"
           class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""
@@ -46,81 +46,79 @@
 </template>
 
 <script>
-import mmmodal from './../mm-modal';
+import mmmodal from "./../mm-modal";
 
 export default {
-  name: 'mmmodaladdfolder',
+  name: "mmmodaladdfolder",
   components: {
-    mmmodal
+    mmmodal,
   },
-  data () {
+  data() {
     return {
-      name: null
+      name: null,
     };
   },
-  mounted () {},
+  mounted() {},
   methods: {
-    createDirectory: function ($event) {
-      $event.preventDefault();
+    createDirectory: function () {
       const createFolderPath = () => {
         if (this.$store.state.currentDirectory) {
-          this.$store.dispatch('CREATE_DIRECTORY', {
+          this.$store.dispatch("createDirectory", {
             vm: this,
-            name: this.$store.state.currentDirectory + '/' + this.name
+            name: this.$store.state.currentDirectory + "/" + this.name,
           });
         } else {
-          this.$store.dispatch('CREATE_DIRECTORY', {
+          this.$store.dispatch("createDirectory", {
             vm: this,
-            name: this.name
+            name: this.name,
           });
         }
       };
 
       return createFolderPath();
     },
-    closeModal: function ($event) {
-      $event.preventDefault();
-      this.$store.dispatch('CLOSE_MODAL_CREATE');
+    closeModal: function () {
+      this.$store.dispatch("closeModalCreate");
     },
     uploadSuccess: function () {
-      this.$store.dispatch('CLOSE_MODAL_CREATE');
-    }
+      this.$store.dispatch("closeModalCreate");
+    },
   },
   computed: {
-    getDir () {
-      return this.$store.getters.getDirectory;
-    },
-    // Get Main Color From Store
-    getColor () {
-      return this.$store.state.mainColor;
-    },
-    styleBtnDefault () {
+    styleBtnDefault() {
       return {
-        '--bg-color': this.$store.state.mainColor
+        "--bg-color": this.$store.state.mainColor,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="sass">
-.btn-default
-    background: var(--bg-color)
-    border-color: var(--bg-color)
-    &:hover
-        background: white
-        border-color: var(--bg-color)
-        color: var(--bg-color)
-        transition: all 0.2s ease-in-out
+<style lang="scss">
+.btn-default {
+	background: var(--bg-color);
+	border-color: var(--bg-color);
 
-.btn-default-border
-    border: var(--bg-color)
-    color: var(--bg-color)
-    &:hover
-        background: var(--bg-color)
-        color: white
-        transition: all 0.2s ease-in-out
+	&:hover {
+		background: white;
+		border-color: var(--bg-color);
+		color: var(--bg-color);
+		transition: all 0.2s ease-in-out;
+	}
+}
 
-.btn-delete
-    color: var(--bg-color)
+.btn-default-border {
+	border: var(--bg-color);
+	color: var(--bg-color);
+
+	&:hover {
+		background: var(--bg-color);
+		color: white;
+		transition: all 0.2s ease-in-out;
+	}
+}
+
+.btn-delete {
+	color: var(--bg-color);
+}
 </style>

@@ -1,89 +1,91 @@
 <template>
-    <mmmodal extraClassContainer="modal-move-folder">
-        <h2 slot="title">{{ $t('modal.title_moveFolder') }}</h2>
+  <mmmodal extraClassContainer="modal-move-folder">
+    <h2 slot="title">{{ $t("modal.title_moveFolder") }}</h2>
 
-        <div slot="content">
-            <div class="content-grid">
-                <div class="mm__move-container">
-                    <mmmovemain></mmmovemain>
-                </div>
-                <div class="input-group">
-                    <div class="centered">
-                        <div class="group"></div>
-                    </div>
-                </div>
-            </div>
+    <div slot="content">
+      <div class="content-grid">
+        <div
+          v-if="this.$store.state.isLoading && this.$store.state.modalState.move === true"
+          class="loader__overlay"
+        >
+          <div class="loader"></div>
         </div>
+        <div class="mm__move-container">
+          <mmmovemain></mmmovemain>
+        </div>
+        <div class="input-group">
+          <div class="centered">
+            <div class="group"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <div class="buttons__container-wrapper" slot="buttons">
-            <div>
-                <a
-                    :style="styleBtnDefault"
-                    v-bind:disabled="!selectedFolder"
-                    class="btn btn-default"
-                    v-on:click="moveSelected($event)"
-                    href=""
-                    >{{ $t('actions.move') }}</a
-                >
-            </div>
-            <div>
-                <a
-                    v-on:click="closeModal($event)"
-                    class="btn btn-delete text-center"
-                    :style="styleBtnDefault"
-                    href=""
-                    >{{ $t('actions.cancel') }}</a
-                >
-            </div>
-        </div>
-    </mmmodal>
+    <div class="buttons__container-wrapper" slot="buttons">
+      <div>
+        <a
+          :style="styleBtnDefault"
+          v-bind:disabled="!selectedFolder"
+          class="btn btn-default"
+          v-on:click.prevent="moveSelected"
+          href=""
+          >{{ $t("actions.move") }}</a
+        >
+      </div>
+      <div>
+        <a
+          v-on:click.prevent="closeModal"
+          class="btn btn-delete text-center"
+          :style="styleBtnDefault"
+          href=""
+          >{{ $t("actions.cancel") }}</a
+        >
+      </div>
+    </div>
+  </mmmodal>
 </template>
 
 <script>
-import { EventBus } from '../../event-bus.js'
-import mmmodal from './../modals/mm-modal'
-import mmmovemain from './mm-move-main'
-import axios from 'axios'
+import { EventBus } from "../../event-bus.js";
+import mmmodal from "./../modals/mm-modal";
+import mmmovemain from "./mm-move-main";
 export default {
-    name: 'mmmodalamovefolder',
-    components: {
-        mmmodal,
-        mmmovemain
+  name: "mmmodalamovefolder",
+  components: {
+    mmmodal,
+    mmmovemain,
+  },
+  data() {
+    return {
+      selectedFolder: null,
+    };
+  },
+  mounted() {
+    EventBus.$on("allowMove", (value) => {
+      this.selectedFolder = value;
+    });
+  },
+  methods: {
+    moveSelected: function () {
+      this.$store.dispatch("moveSelected", {
+        vm: this,
+        folder: this.$store.state.selectedDirectory,
+        destination: this.selectedFolder,
+        mediaCollection: this.$store.state.selectedElem,
+      });
     },
-    data () {
-        return {
-            name: null,
-            selectedFolder: null
-        }
+    closeModal: function () {
+      this.$store.dispatch("closeModalMove");
     },
-    mounted () {
-        EventBus.$on('allow-move', value => {
-            this.selectedFolder = value
-        })
+  },
+  computed: {
+    styleBtnDefault() {
+      return {
+        "--bg-color": this.$store.state.mainColor,
+      };
     },
-    methods: {
-        moveSelected: function ($event) {
-            $event.preventDefault()
-            this.$store.dispatch('MOVE_SELECTED', {
-                vm: this,
-                folder: this.$store.state.selectedDirectory,
-                destination: this.selectedFolder,
-                mediaCollection: this.$store.state.selectedElem
-            })
-        },
-        closeModal: function ($event) {
-            $event.preventDefault()
-            this.$store.dispatch('CLOSE_MOVE_MODAL')
-        }
-    },
-    computed: {
-        styleBtnDefault () {
-            return {
-                '--bg-color': this.$store.state.mainColor
-            }
-        }
-    }
-}
+  },
+};
 </script>
 
 <style lang="scss">

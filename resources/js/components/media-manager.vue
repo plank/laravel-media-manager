@@ -1,6 +1,6 @@
 <template>
   <div class="mm">
-    <div v-if="this.$store.state.isLoading" class="loader__overlay">
+    <div v-if="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
       <div class="loader"></div>
     </div>
 
@@ -13,13 +13,6 @@
     <div class="wrapper" v-on:click="triggerClick($event)">
       <!-- Search Panel -->
       <mmsearch></mmsearch>
-
-      <!-- TO REMOVE -->
-      <div class="debug">
-        {{ this.$store.state.selectedElem }}
-      </div>
-
-      {{ info }}
 
       <!-- Folders List -->
       <mmfolders v-if="folderState && !viewState"></mmfolders>
@@ -125,16 +118,11 @@ export default {
     mmmodalmove,
     mmempty,
   },
-  data() {
-    return {
-      info: null,
-    };
-  },
   methods: {
     triggerClick: function ($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
-        this.$store.dispatch("SET_SELECTED_DIRECTORY", null);
-        this.$store.dispatch("RESET_SELECTED", true);
+        this.$store.dispatch("setSelectedDirectory", null);
+        this.$store.dispatch("resetSelected", true);
         const card = document.getElementsByClassName("mm__results-single");
         for (let i = 0; i < card.length; i++) {
           card.item(i).classList.remove("active");
