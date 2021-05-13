@@ -82,6 +82,7 @@ export const actions = {
   },
   getMoveDirectory({ commit }, value) {
     let route;
+    this.state.isLoading = true;
     if (value) {
       route = this.state.routeGetDirectory + value;
     } else {
@@ -89,6 +90,7 @@ export const actions = {
     }
     axios.get(route, {}).then(response => {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
+      this.state.isLoading = false;
     });
   },
   createDirectory({ commit }, value) {

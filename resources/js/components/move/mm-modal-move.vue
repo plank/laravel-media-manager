@@ -4,6 +4,12 @@
 
     <div slot="content">
       <div class="content-grid">
+        <div
+          v-if="this.$store.state.isLoading && this.$store.state.modalState.move === true"
+          class="loader__overlay"
+        >
+          <div class="loader"></div>
+        </div>
         <div class="mm__move-container">
           <mmmovemain></mmmovemain>
         </div>

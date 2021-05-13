@@ -3458,6 +3458,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12295,7 +12301,7 @@ var render = function() {
     "div",
     { staticClass: "mm" },
     [
-      this.$store.state.isLoading
+      this.$store.state.isLoading && this.$store.state.modalState.move == false
         ? _c("div", { staticClass: "loader__overlay" }, [
             _c("div", { staticClass: "loader" })
           ])
@@ -13681,6 +13687,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", { attrs: { slot: "content" }, slot: "content" }, [
         _c("div", { staticClass: "content-grid" }, [
+          this.$store.state.isLoading &&
+          this.$store.state.modalState.move === true
+            ? _c("div", { staticClass: "loader__overlay" }, [
+                _c("div", { staticClass: "loader" })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "mm__move-container" },
@@ -37293,8 +37306,11 @@ var actions = {
     });
   },
   getMoveDirectory: function getMoveDirectory(_ref2, value) {
+    var _this2 = this;
+
     var commit = _ref2.commit;
     var route;
+    this.state.isLoading = true;
 
     if (value) {
       route = this.state.routeGetDirectory + value;
@@ -37304,10 +37320,11 @@ var actions = {
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
+      _this2.state.isLoading = false;
     });
   },
   createDirectory: function createDirectory(_ref3, value) {
-    var _this2 = this;
+    var _this3 = this;
 
     var commit = _ref3.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
@@ -37318,11 +37335,11 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this2.dispatch("getDirectory", _this2.state.currentDirectory);
+      _this3.dispatch("getDirectory", _this3.state.currentDirectory);
     });
   },
   moveSelected: function moveSelected(_ref4, value) {
-    var _this3 = this;
+    var _this4 = this;
 
     var commit = _ref4.commit;
 
@@ -37331,12 +37348,12 @@ var actions = {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
-        _this3.dispatch("closeModal");
+        _this4.dispatch("closeModal");
 
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
-          message: _this3.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
+          message: _this4.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
         });
         value.vm.$store.dispatch("getDirectory", value.vm.$store.state.currentDirectory);
       });
@@ -37351,7 +37368,7 @@ var actions = {
     }
   },
   deleteSelected: function deleteSelected(_ref5, value) {
-    var _this4 = this;
+    var _this5 = this;
 
     var commit = _ref5.commit;
 
@@ -37369,7 +37386,7 @@ var actions = {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this4.dispatch("getDirectory", response.data.parentFolder);
+        _this5.dispatch("getDirectory", response.data.parentFolder);
 
         value.vm.$toast.open({
           type: "success",
@@ -37390,7 +37407,7 @@ var actions = {
     context.commit("SET_SELECTED_DIRECTORY", value);
   },
   moveSelectedMedia: function moveSelectedMedia(_ref6, value) {
-    var _this5 = this;
+    var _this6 = this;
 
     var commit = _ref6.commit,
         context = _ref6.context;
@@ -37398,14 +37415,14 @@ var actions = {
     var promises = [];
 
     var _loop = function _loop(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this5.state.routeUpdateMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this6.state.routeUpdateMedia, {
         id: value.media[i].id,
         disk: value.media[i].disk,
         path: value.destination
       }).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this5.dispatch("getDirectory", _this5.state.currentDirectory);
+        _this6.dispatch("getDirectory", _this6.state.currentDirectory);
 
         value.vm.$toast.open({
           type: "success",
@@ -37425,7 +37442,7 @@ var actions = {
     });
   },
   deleteSelectedMedia: function deleteSelectedMedia(_ref7, value) {
-    var _this6 = this;
+    var _this7 = this;
 
     var commit = _ref7.commit,
         context = _ref7.context;
@@ -37433,7 +37450,7 @@ var actions = {
     var promises = [];
 
     var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this6.state.routeDeleteMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
@@ -37459,12 +37476,12 @@ var actions = {
     });
   },
   makeSearch: function makeSearch(_ref8, value) {
-    var _this7 = this;
+    var _this8 = this;
 
     var commit = _ref8.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
-      _this7.state.mediaCollection = response.data;
-      _this7.state.hideDirectory = true;
+      _this8.state.mediaCollection = response.data;
+      _this8.state.hideDirectory = true;
     })["catch"](function (error) {
       value.vm.$toast.open({
         type: "error",
@@ -37515,7 +37532,7 @@ var actions = {
     });
   },
   updateMedia: function updateMedia(context, value) {
-    var _this8 = this;
+    var _this9 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       disk: value.disk,
@@ -37530,7 +37547,7 @@ var actions = {
         message: value.vm.$i18n.t("actions.uploaded")
       });
 
-      _this8.dispatch("getDirectory", _this8.state.currentDirectory);
+      _this9.dispatch("getDirectory", _this9.state.currentDirectory);
     });
   }
 };

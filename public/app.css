@@ -698,6 +698,10 @@
   line-height: 1.6em;
 }
 
+.mm .modal__container .content-grid {
+  position: relative;
+}
+
 .mm .modal__container .content-grid,
 .mm .modal__container label {
   font-size: 0.875em;
@@ -1131,7 +1135,7 @@
 }
 
 .loader__overlay {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   position: absolute;
   height: 100%;
   width: 100%;
