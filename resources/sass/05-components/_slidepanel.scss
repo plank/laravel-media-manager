@@ -39,6 +39,7 @@
 		margin: em(20px);
 	}
 
+	&-lang,
 	&-infos {
 		margin: 0 auto;
 		width: 90%;
@@ -65,6 +66,17 @@
 			span {
 				color: $mm-slidepanel-strong-color;
 			}
+		}
+	}
+
+	&-lang {
+		display: grid;
+		grid-template-columns: minmax(220px, 1fr) 1fr;
+
+		&-container {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			text-align: center;
 		}
 	}
 

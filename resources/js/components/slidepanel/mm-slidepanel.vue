@@ -45,6 +45,25 @@
       </div>
     </div>
 
+    <div class="mm__slidepanel-lang">
+        <div>
+        </div>
+        <div class="mm__slidepanel-lang-container">
+            <div>
+                <span>EN</span>
+            </div>
+            <div>
+                <label class="switch">
+                    <input @change="setLang" true-value="fr" false-value="en" v-model="langSwitch" type="checkbox">
+                    <span class="switch-slider round"></span>
+                </label>
+            </div>
+            <div>
+                <span>FR</span>
+            </div>
+        </div>
+    </div>
+
     <div class="mm__slidepanel-infos">
       <h5>{{ this.data[0].filename }}</h5>
       <p>
@@ -112,6 +131,7 @@ export default {
   data() {
     return {
       slideOpen: false,
+      langSwitch: "",
       data: [],
       disk: "",
       id: "",
@@ -122,8 +142,10 @@ export default {
     };
   },
   methods: {
-    close: function (event) {
-      event.preventDefault();
+    setLang: function () {
+        console.log(this.langSwitch);
+    },
+    close: function () {
       this.slideOpen = false;
     },
     openDeleteModal: function ($event) {
