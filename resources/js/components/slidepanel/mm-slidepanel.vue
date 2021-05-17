@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="mm__slidepanel-lang">
+    <div v-if="this.$props.showLang" class="mm__slidepanel-lang">
         <div>
         </div>
         <div class="mm__slidepanel-lang-container">
@@ -128,6 +128,11 @@ import { EventBus } from "../../event-bus.js";
 
 export default {
   name: "mmslidepanel",
+  props: {
+      showLang: {
+          type: Boolean,
+      }
+  },
   data() {
     return {
       slideOpen: false,

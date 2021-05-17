@@ -2293,6 +2293,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "media-manager",
+  props: {
+    showLang: {
+      type: Boolean,
+      required: false,
+      "default": true
+    }
+  },
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3736,6 +3743,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
+  props: {
+    showLang: {
+      type: Boolean
+    }
+  },
   data: function data() {
     return {
       slideOpen: false,
@@ -12361,7 +12373,12 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("span", { attrs: { name: "slide-fade" } }, [_c("mmslidepanel")], 1),
+      _c(
+        "span",
+        { attrs: { name: "slide-fade" } },
+        [_c("mmslidepanel", { attrs: { showLang: this.$props.showLang } })],
+        1
+      ),
       _vm._v(" "),
       _c(
         "transition",
@@ -14008,66 +14025,68 @@ var render = function() {
               )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "mm__slidepanel-lang" }, [
-          _c("div"),
-          _vm._v(" "),
-          _c("div", { staticClass: "mm__slidepanel-lang-container" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", [
-              _c("label", { staticClass: "switch" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.langSwitch,
-                      expression: "langSwitch"
-                    }
-                  ],
-                  attrs: {
-                    "true-value": "fr",
-                    "false-value": "en",
-                    type: "checkbox"
-                  },
-                  domProps: {
-                    checked: Array.isArray(_vm.langSwitch)
-                      ? _vm._i(_vm.langSwitch, null) > -1
-                      : _vm._q(_vm.langSwitch, "fr")
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.langSwitch,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? "fr" : "en"
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.langSwitch = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.langSwitch = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.langSwitch = $$c
-                        }
-                      },
-                      _vm.setLang
-                    ]
-                  }
-                }),
+        this.$props.showLang
+          ? _c("div", { staticClass: "mm__slidepanel-lang" }, [
+              _c("div"),
+              _vm._v(" "),
+              _c("div", { staticClass: "mm__slidepanel-lang-container" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("span", { staticClass: "switch-slider round" })
+                _c("div", [
+                  _c("label", { staticClass: "switch" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.langSwitch,
+                          expression: "langSwitch"
+                        }
+                      ],
+                      attrs: {
+                        "true-value": "fr",
+                        "false-value": "en",
+                        type: "checkbox"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.langSwitch)
+                          ? _vm._i(_vm.langSwitch, null) > -1
+                          : _vm._q(_vm.langSwitch, "fr")
+                      },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$a = _vm.langSwitch,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? "fr" : "en"
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 && (_vm.langSwitch = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.langSwitch = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.langSwitch = $$c
+                            }
+                          },
+                          _vm.setLang
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "switch-slider round" })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
               ])
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
-        ]),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
           _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),

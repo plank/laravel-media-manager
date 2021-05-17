@@ -32,7 +32,7 @@
 
     <!-- Slidepanel -->
     <span name="slide-fade">
-      <mmslidepanel></mmslidepanel>
+      <mmslidepanel :showLang="this.$props.showLang"></mmslidepanel>
     </span>
 
     <!-- Modal Add -->
@@ -104,6 +104,13 @@ import mmempty from "./mm-empty";
 
 export default {
   name: "media-manager",
+  props: {
+      showLang: {
+          type: Boolean,
+          required: false,
+          default: true,
+      }
+  },
   components: {
     mmsearch,
     mmresults,
