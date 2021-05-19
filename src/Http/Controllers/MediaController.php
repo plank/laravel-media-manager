@@ -14,8 +14,9 @@ use Plank\MediaManager\MediaManager;
 class MediaController extends BaseController
 {
     protected $manager;
+    
     protected $uploader;
-    protected $model;
+
     /**
      *
      * @var array $ignore Directories, of format "path/relative/to/disk/root" to be ignored for display in the media manager.
@@ -37,7 +38,8 @@ class MediaController extends BaseController
      */
     public function show($id)
     {
-        return response(Media::findOrFail($id));
+        $model = config('media-manager.model');
+        return response($model::findOrFail($id));
     }
 
     /**
@@ -54,8 +56,9 @@ class MediaController extends BaseController
         $disk = Storage::disk($diskString);
         $path = $this->manager->verifyDirectory($diskString, $path);
         $page = $request->page;
+        $model = config('media-manager.model');
 
-        $media = Media::inDirectory($diskString, $path)->get()->forPage($page, 20);
+        $media = $model::inDirectory($diskString, $path)->get()->forPage($page, 20);
         $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
         // Get the timestamp for each directory. This can probably be improved later.
