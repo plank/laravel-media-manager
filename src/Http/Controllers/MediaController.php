@@ -14,7 +14,7 @@ use Plank\MediaManager\MediaManager;
 class MediaController extends BaseController
 {
     protected $manager;
-    
+
     protected $uploader;
 
     /**
@@ -131,7 +131,7 @@ class MediaController extends BaseController
             'rename' => "string|nullable",
         ]);
 
-        $media = Media::find($valid['id']);
+        $media = $model::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
         $path = $this->manager->verifyDirectory($disk, $valid['path'] ?? $media->directory);
         $details = $request->only(['title', 'alt', 'caption', 'credit']);
@@ -154,8 +154,9 @@ class MediaController extends BaseController
      */
     public function destroy(Request $request)
     {
+        $model = config('media-manager.model');
         $id = $request->id;
-        return response(Media::destroy($id));
+        return response($model::destroy($id));
     }
 
     /**
@@ -167,12 +168,13 @@ class MediaController extends BaseController
      */
     public function resize(Request $request)
     {
+        $model = config('media-manager.model');
         $id = $request->id;
         $size = $request->size;
         // TODO: add exceptions for this that will detect incorrect function calls
         $function = $request->function ?? MediaManager::RESIZE_WIDTH;
 
-        $image = Media::findOrFail($id);
+        $image = $model::findOrFail($id);
         $this->manager->resize($image, $size, $function);
     }
 }
