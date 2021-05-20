@@ -124,12 +124,14 @@ class MediaController extends BaseController
     public function update(Request $request)
     {
         $model = config('media-manager.model');
+        $table = (new $model())->getTable();
         $valid = $request->validate([
-            'id' => "required|exists:{$model}",
+            'id' => "required|exists:{$table}",
             'disk' => "string",
             'path' => "string|nullable",
             'rename' => "string|nullable",
         ]);
+
 
         $media = $model::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
