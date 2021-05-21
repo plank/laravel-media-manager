@@ -3763,7 +3763,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     setLang: function setLang() {
-      console.log(this.langSwitch);
+      this.$store.dispatch("setLang", this.langSwitch);
     },
     close: function close() {
       this.slideOpen = false;
@@ -3790,15 +3790,35 @@ __webpack_require__.r(__webpack_exports__);
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
       _this.slideOpen = true;
-      _this.data = value;
-      _this.disk = _this.data[0].disk;
-      _this.id = _this.data[0].id;
-      _this.alt = _this.data[0].alt;
-      _this.credit = _this.data[0].credit;
-      _this.caption = _this.data[0].caption;
+      _this.data = value[0];
+      _this.disk = _this.data.disk;
+      _this.id = _this.data.id;
+      _this.alt = _this.data.alt;
+      _this.credit = _this.data.credit;
+      _this.caption = _this.data.caption;
     });
+    this.langSwitch = this.$store.state.lang;
+  },
+  watch: {
+    getSelectedTranslation: function getSelectedTranslation() {
+      this.data = this.$store.state.selectedTranslation;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.alt = this.data.alt;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
+    },
+    getSelectedLang: function getSelectedLang(newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory");
+    }
   },
   computed: {
+    getSelectedTranslation: function getSelectedTranslation() {
+      return this.$store.state.selectedTranslation;
+    },
+    getSelectedLang: function getSelectedLang() {
+      return this.$store.state.lang;
+    },
     getColor: function getColor() {
       return this.$store.state.mainColor;
     },
@@ -13920,7 +13940,8 @@ var render = function() {
             attrs: { href: "" },
             on: {
               click: function($event) {
-                return _vm.close($event)
+                $event.preventDefault()
+                return _vm.close()
               }
             }
           },
@@ -13976,22 +13997,22 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", [
-          this.data[0].aggregate_type === "image"
+          this.data.aggregate_type === "image"
             ? _c("img", {
-                attrs: { width: "100%", src: this.data[0].url, alt: "" }
+                attrs: { width: "100%", src: this.data.url, alt: "" }
               })
-            : this.data[0].aggregate_type === "video"
+            : this.data.aggregate_type === "video"
             ? _c("div", { staticClass: "video-player" }, [
                 _c(
                   "video",
                   { attrs: { width: "100%", height: "240", controls: "" } },
                   [
                     _c("source", {
-                      attrs: { src: this.data[0].url, type: "video/mp4" }
+                      attrs: { src: this.data.url, type: "video/mp4" }
                     }),
                     _vm._v(" "),
                     _c("source", {
-                      attrs: { src: this.data[0].url, type: "video/ogg" }
+                      attrs: { src: this.data.url, type: "video/ogg" }
                     }),
                     _vm._v(
                       "\n        Your browser does not support the video tag.\n      "
@@ -13999,15 +14020,15 @@ var render = function() {
                   ]
                 )
               ])
-            : this.data[0].aggregate_type === "audio"
+            : this.data.aggregate_type === "audio"
             ? _c("div", { staticClass: "audio-player" }, [
                 _c("audio", { attrs: { controls: "" } }, [
                   _c("source", {
-                    attrs: { src: this.data[0].url, type: "audio/ogg" }
+                    attrs: { src: this.data.url, type: "audio/ogg" }
                   }),
                   _vm._v(" "),
                   _c("source", {
-                    attrs: { src: this.data[0].url, type: "audio/mpeg" }
+                    attrs: { src: this.data.url, type: "audio/mpeg" }
                   }),
                   _vm._v(
                     "\n        Your browser does not support the audio element.\n      "
@@ -14019,7 +14040,7 @@ var render = function() {
                 { staticClass: "mm_slidepanel-placeholder-container" },
                 [
                   _c("div", { staticClass: "placeholder" }, [
-                    _vm._v(_vm._s(this.data[0].extension))
+                    _vm._v(_vm._s(this.data.extension))
                   ])
                 ]
               )
@@ -14089,30 +14110,28 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
-          _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),
+          _c("h5", [_vm._v(_vm._s(this.data.filename))]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Type: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].mime_type))])
+            _c("span", [_vm._v(_vm._s(this.data.mime_type))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Dimension: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].size))])
+            _c("span", [_vm._v(_vm._s(this.data.size))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      File Size: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].size))])
+            _c("span", [_vm._v(_vm._s(this.data.size))])
           ]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Upload Date:\n      "),
             _c("span", [
               _vm._v(
-                _vm._s(
-                  _vm._f("moment")(this.data[0].created_at, "MMMM Do, YYYY")
-                )
+                _vm._s(_vm._f("moment")(this.data.created_at, "MMMM Do, YYYY"))
               )
             ])
           ]),
@@ -37394,10 +37413,40 @@ var actions = {
     context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
-  getDirectory: function getDirectory(_ref, value) {
+  getTranslatedDirectory: function getTranslatedDirectory(_ref, value) {
     var _this = this;
 
     var commit = _ref.commit;
+    var route;
+    this.state.isLoading = true;
+
+    if (value) {
+      this.state.currentDirectory = value;
+      route = this.state.routeGetDirectory + value;
+    } else {
+      this.state.currentDirectory = "";
+      route = this.state.routeGetDirectory;
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
+      if (response.data.media) {
+        response.data.media.forEach(function (element) {
+          if (element.id === _this.state.selectedElem[0].id) {
+            _this.state.selectedTranslation = element;
+          }
+        });
+        _this.state.isLoading = false;
+      }
+    });
+  },
+  getDirectory: function getDirectory(_ref2, value) {
+    var _this2 = this;
+
+    var commit = _ref2.commit;
     var route;
     this.state.selectedElem = [];
     this.state.isLoading = true;
@@ -37410,20 +37459,24 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);
         commit("SET_MEDIATYPES", response.data.media);
-        _this.state.isLoading = false;
+        _this2.state.isLoading = false;
       }
 
       commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
-  getMoveDirectory: function getMoveDirectory(_ref2, value) {
-    var _this2 = this;
+  getMoveDirectory: function getMoveDirectory(_ref3, value) {
+    var _this3 = this;
 
-    var commit = _ref2.commit;
+    var commit = _ref3.commit;
     var route;
     this.state.isLoading = true;
 
@@ -37433,15 +37486,19 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
-      _this2.state.isLoading = false;
+      _this3.state.isLoading = false;
     });
   },
-  createDirectory: function createDirectory(_ref3, value) {
-    var _this3 = this;
+  createDirectory: function createDirectory(_ref4, value) {
+    var _this4 = this;
 
-    var commit = _ref3.commit;
+    var commit = _ref4.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
       commit("CLOSE_MODAL_CREATE", true);
       value.vm.$toast.open({
@@ -37450,25 +37507,25 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this3.dispatch("getDirectory", _this3.state.currentDirectory);
+      _this4.dispatch("getDirectory", _this4.state.currentDirectory);
     });
   },
-  moveSelected: function moveSelected(_ref4, value) {
-    var _this4 = this;
+  moveSelected: function moveSelected(_ref5, value) {
+    var _this5 = this;
 
-    var commit = _ref4.commit;
+    var commit = _ref5.commit;
 
     if (value.folder) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeMoveDirectory, {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
-        _this4.dispatch("closeModal");
+        _this5.dispatch("closeModal");
 
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
-          message: _this4.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
+          message: _this5.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
         });
         value.vm.$store.dispatch("getDirectory", value.vm.$store.state.currentDirectory);
       });
@@ -37482,10 +37539,10 @@ var actions = {
       });
     }
   },
-  deleteSelected: function deleteSelected(_ref5, value) {
-    var _this5 = this;
+  deleteSelected: function deleteSelected(_ref6, value) {
+    var _this6 = this;
 
-    var commit = _ref5.commit;
+    var commit = _ref6.commit;
 
     if (value.folder) {
       var route;
@@ -37501,7 +37558,7 @@ var actions = {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this5.dispatch("getDirectory", response.data.parentFolder);
+        _this6.dispatch("getDirectory", response.data.parentFolder);
 
         value.vm.$toast.open({
           type: "success",
@@ -37521,23 +37578,23 @@ var actions = {
   setSelectedDirectory: function setSelectedDirectory(context, value) {
     context.commit("SET_SELECTED_DIRECTORY", value);
   },
-  moveSelectedMedia: function moveSelectedMedia(_ref6, value) {
-    var _this6 = this;
+  moveSelectedMedia: function moveSelectedMedia(_ref7, value) {
+    var _this7 = this;
 
-    var commit = _ref6.commit,
-        context = _ref6.context;
+    var commit = _ref7.commit,
+        context = _ref7.context;
     var media = [];
     var promises = [];
 
     var _loop = function _loop(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this6.state.routeUpdateMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeUpdateMedia, {
         id: value.media[i].id,
         disk: value.media[i].disk,
         path: value.destination
       }).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this6.dispatch("getDirectory", _this6.state.currentDirectory);
+        _this7.dispatch("getDirectory", _this7.state.currentDirectory);
 
         value.vm.$toast.open({
           type: "success",
@@ -37556,16 +37613,16 @@ var actions = {
       return console.log("move selected");
     });
   },
-  deleteSelectedMedia: function deleteSelectedMedia(_ref7, value) {
-    var _this7 = this;
+  deleteSelectedMedia: function deleteSelectedMedia(_ref8, value) {
+    var _this8 = this;
 
-    var commit = _ref7.commit,
-        context = _ref7.context;
+    var commit = _ref8.commit,
+        context = _ref8.context;
     var media = [];
     var promises = [];
 
     var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeDeleteMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this8.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
@@ -37590,13 +37647,13 @@ var actions = {
       return console.log("delete selected");
     });
   },
-  makeSearch: function makeSearch(_ref8, value) {
-    var _this8 = this;
+  makeSearch: function makeSearch(_ref9, value) {
+    var _this9 = this;
 
-    var commit = _ref8.commit;
+    var commit = _ref9.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
-      _this8.state.mediaCollection = response.data;
-      _this8.state.hideDirectory = true;
+      _this9.state.mediaCollection = response.data;
+      _this9.state.hideDirectory = true;
     })["catch"](function (error) {
       value.vm.$toast.open({
         type: "error",
@@ -37605,10 +37662,10 @@ var actions = {
       });
     });
   },
-  updateOrderBy: function updateOrderBy(_ref9, data) {
-    var commit = _ref9.commit,
-        state = _ref9.state,
-        dispatch = _ref9.dispatch;
+  updateOrderBy: function updateOrderBy(_ref10, data) {
+    var commit = _ref10.commit,
+        state = _ref10.state,
+        dispatch = _ref10.dispatch;
     var directoryArray = Object.values(this.state.directoryCollection);
     var mediasArray = Object.values(this.state.mediaCollection);
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
@@ -37647,7 +37704,7 @@ var actions = {
     });
   },
   updateMedia: function updateMedia(context, value) {
-    var _this9 = this;
+    var _this10 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       disk: value.disk,
@@ -37662,8 +37719,11 @@ var actions = {
         message: value.vm.$i18n.t("actions.uploaded")
       });
 
-      _this9.dispatch("getDirectory", _this9.state.currentDirectory);
+      _this10.dispatch("getDirectory", _this10.state.currentDirectory);
     });
+  },
+  setLang: function setLang(context, value) {
+    context.commit("SET_LANG", value);
   }
 };
 
@@ -37776,6 +37836,9 @@ var mutations = {
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
     console.log("delete selected medias");
+  },
+  SET_LANG: function SET_LANG(state, value) {
+    state.lang = value;
   }
 };
 
@@ -37803,6 +37866,7 @@ var state = {
   hideDirectory: false,
   currentDirectory: null,
   selectedDirectory: null,
+  selectedTranslation: null,
   totalSelected: 0,
   modalState: {
     add: false,
@@ -37820,7 +37884,8 @@ var state = {
   orderBy: "created_at",
   orderDirection: "asc",
   isLoading: true,
-  haveContextMenu: false
+  haveContextMenu: false,
+  lang: 'en'
 };
 
 /***/ }),

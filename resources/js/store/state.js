@@ -10,6 +10,7 @@ export const state = {
     hideDirectory: false,
     currentDirectory: null,
     selectedDirectory: null,
+    selectedTranslation: null,
     totalSelected: 0,
     modalState: {
         add: false,
@@ -28,4 +29,5 @@ export const state = {
     orderDirection: "asc",
     isLoading: true,
     haveContextMenu: false,
+    lang: 'en',
 };

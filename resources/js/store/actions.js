@@ -60,6 +60,32 @@ export const actions = {
     context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
+
+  getTranslatedDirectory({ commit }, value) {
+    let route;
+    this.state.isLoading = true;
+    if (value) {
+      this.state.currentDirectory = value;
+      route = this.state.routeGetDirectory + value;
+    } else {
+      this.state.currentDirectory = "";
+      route = this.state.routeGetDirectory;
+    }
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
+      if (response.data.media) {
+          response.data.media.forEach(element => {
+            if( element.id === this.state.selectedElem[0].id ) {
+                this.state.selectedTranslation = element;
+            }
+          });
+        this.state.isLoading = false;
+      }
+    });
+  },
   getDirectory({ commit }, value) {
     let route;
     this.state.selectedElem = [];
@@ -71,7 +97,11 @@ export const actions = {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
-    axios.get(route, {}).then(response => {
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);
         commit("SET_MEDIATYPES", response.data.media);
@@ -88,7 +118,11 @@ export const actions = {
     } else {
       route = this.state.routeGetDirectory;
     }
-    axios.get(route, {}).then(response => {
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
       this.state.isLoading = false;
     });
@@ -303,5 +337,8 @@ export const actions = {
         });
         this.dispatch("getDirectory", this.state.currentDirectory);
       });
-  }
+  },
+  setLang(context, value) {
+    context.commit("SET_LANG", value);
+  },
 };

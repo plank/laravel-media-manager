@@ -1,6 +1,6 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
-    <a href="" class="mm__slidepanel-close" v-on:click="close($event)">
+    <a href="" class="mm__slidepanel-close" v-on:click.prevent="close()">
       <svg
         width="22px"
         height="22px"
@@ -21,27 +21,27 @@
 
     <div>
       <img
-        v-if="this.data[0].aggregate_type === 'image'"
+        v-if="this.data.aggregate_type === 'image'"
         width="100%"
-        :src="this.data[0].url"
+        :src="this.data.url"
         alt=""
       />
-      <div v-else-if="this.data[0].aggregate_type === 'video'" class="video-player">
+      <div v-else-if="this.data.aggregate_type === 'video'" class="video-player">
         <video width="100%" height="240" controls>
-          <source :src="this.data[0].url" type="video/mp4" />
-          <source :src="this.data[0].url" type="video/ogg" />
+          <source :src="this.data.url" type="video/mp4" />
+          <source :src="this.data.url" type="video/ogg" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div v-else-if="this.data[0].aggregate_type === 'audio'" class="audio-player">
+      <div v-else-if="this.data.aggregate_type === 'audio'" class="audio-player">
         <audio controls>
-          <source :src="this.data[0].url" type="audio/ogg" />
-          <source :src="this.data[0].url" type="audio/mpeg" />
+          <source :src="this.data.url" type="audio/ogg" />
+          <source :src="this.data.url" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
       <div class="mm_slidepanel-placeholder-container" v-else>
-        <div class="placeholder">{{ this.data[0].extension }}</div>
+        <div class="placeholder">{{ this.data.extension }}</div>
       </div>
     </div>
 
@@ -65,19 +65,19 @@
     </div>
 
     <div class="mm__slidepanel-infos">
-      <h5>{{ this.data[0].filename }}</h5>
+      <h5>{{ this.data.filename }}</h5>
       <p>
-        Type: <span>{{ this.data[0].mime_type }}</span>
+        Type: <span>{{ this.data.mime_type }}</span>
       </p>
       <p>
-        Dimension: <span>{{ this.data[0].size }}</span>
+        Dimension: <span>{{ this.data.size }}</span>
       </p>
       <p>
-        File Size: <span>{{ this.data[0].size }}</span>
+        File Size: <span>{{ this.data.size }}</span>
       </p>
       <p>
         Upload Date:
-        <span>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</span>
+        <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
       <form id="media__update" action="">
         <div>
@@ -148,7 +148,7 @@ export default {
   },
   methods: {
     setLang: function () {
-        console.log(this.langSwitch);
+        this.$store.dispatch("setLang", this.langSwitch);
     },
     close: function () {
       this.slideOpen = false;
@@ -173,15 +173,37 @@ export default {
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
       this.slideOpen = true;
-      this.data = value;
-      this.disk = this.data[0].disk;
-      this.id = this.data[0].id;
-      this.alt = this.data[0].alt;
-      this.credit = this.data[0].credit;
-      this.caption = this.data[0].caption;
+      this.data = value[0];
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.alt = this.data.alt;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
     });
+
+    this.langSwitch = this.$store.state.lang
+
+  },
+  watch: {
+    getSelectedTranslation(){
+        this.data = this.$store.state.selectedTranslation;
+        this.disk = this.data.disk;
+        this.id = this.data.id;
+        this.alt = this.data.alt;
+        this.credit = this.data.credit;
+        this.caption = this.data.caption;
+    },
+    getSelectedLang (newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory");
+    }
   },
   computed: {
+    getSelectedTranslation(){
+        return this.$store.state.selectedTranslation;
+    },
+    getSelectedLang() {
+      return this.$store.state.lang;
+    },
     getColor() {
       return this.$store.state.mainColor;
     },
