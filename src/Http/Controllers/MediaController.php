@@ -14,8 +14,9 @@ use Plank\MediaManager\MediaManager;
 class MediaController extends BaseController
 {
     protected $manager;
+
     protected $uploader;
-    protected $model;
+
     /**
      *
      * @var array $ignore Directories, of format "path/relative/to/disk/root" to be ignored for display in the media manager.
@@ -37,7 +38,8 @@ class MediaController extends BaseController
      */
     public function show($id)
     {
-        return response(Media::findOrFail($id));
+        $model = config('media-manager.model');
+        return response($model::findOrFail($id));
     }
 
     /**
@@ -54,8 +56,9 @@ class MediaController extends BaseController
         $disk = Storage::disk($diskString);
         $path = $this->manager->verifyDirectory($diskString, $path);
         $page = $request->page;
+        $model = config('media-manager.model');
 
-        $media = Media::inDirectory($diskString, $path)->get()->forPage($page, 20);
+        $media = $model::inDirectory($diskString, $path)->get()->forPage($page, 20);
         $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
         // Get the timestamp for each directory. This can probably be improved later.
@@ -121,14 +124,16 @@ class MediaController extends BaseController
     public function update(Request $request)
     {
         $model = config('media-manager.model');
+        $table = (new $model())->getTable();
         $valid = $request->validate([
-            'id' => "required|exists:{$model}",
+            'id' => "required|exists:{$table}",
             'disk' => "string",
             'path' => "string|nullable",
             'rename' => "string|nullable",
         ]);
 
-        $media = Media::find($valid['id']);
+
+        $media = $model::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
         $path = $this->manager->verifyDirectory($disk, $valid['path'] ?? $media->directory);
         $details = $request->only(['title', 'alt', 'caption', 'credit']);
@@ -151,8 +156,9 @@ class MediaController extends BaseController
      */
     public function destroy(Request $request)
     {
+        $model = config('media-manager.model');
         $id = $request->id;
-        return response(Media::destroy($id));
+        return response($model::destroy($id));
     }
 
     /**
@@ -164,12 +170,13 @@ class MediaController extends BaseController
      */
     public function resize(Request $request)
     {
+        $model = config('media-manager.model');
         $id = $request->id;
         $size = $request->size;
         // TODO: add exceptions for this that will detect incorrect function calls
         $function = $request->function ?? MediaManager::RESIZE_WIDTH;
 
-        $image = Media::findOrFail($id);
+        $image = $model::findOrFail($id);
         $this->manager->resize($image, $size, $function);
     }
 }
