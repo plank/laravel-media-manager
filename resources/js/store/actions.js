@@ -323,7 +323,9 @@ export const actions = {
   updateMedia(context, value) {
     axios
       .post(this.state.routeUpdateMedia, {
+        locale: value.locale,
         disk: value.disk,
+        title: value.title,
         id: value.id,
         alt: value.alt,
         credit: value.credit,
