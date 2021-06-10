@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="mm__search-close" v-if="!this.isSearch">
-          <a v-on:click.prevent="openSearch" :title="$t('actions.search')" href="#">
+          <a v-on:click.prevent="toggleSearch" :title="$t('actions.search')" href="#">
             <iconclosesearch></iconclosesearch>
           </a>
         </div>
@@ -171,7 +171,8 @@ export default {
     deselectAll: function () {
       this.$store.dispatch("resetSelected");
     },
-    openSearch: function () {
+    toggleSearch: function () {
+      this.searchTerm = null;
       if (!this.isSearch) {
         this.$store.state.hideDirectory = false;
         this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);

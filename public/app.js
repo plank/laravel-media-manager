@@ -2991,7 +2991,9 @@ __webpack_require__.r(__webpack_exports__);
     deselectAll: function deselectAll() {
       this.$store.dispatch("resetSelected");
     },
-    openSearch: function openSearch() {
+    toggleSearch: function toggleSearch() {
+      this.searchTerm = null;
+
       if (!this.isSearch) {
         this.$store.state.hideDirectory = false;
         this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
@@ -13010,7 +13012,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.openSearch($event)
+                      return _vm.toggleSearch($event)
                     }
                   }
                 },
