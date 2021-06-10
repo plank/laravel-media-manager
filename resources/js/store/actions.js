@@ -77,6 +77,7 @@ export const actions = {
         }
     }).then(response => {
       if (response.data.media) {
+        console.log(this.state.selectedElem[0]);
           response.data.media.forEach(element => {
             if( element.id === this.state.selectedElem[0].id ) {
                 this.state.selectedTranslation = element;
@@ -337,7 +338,7 @@ export const actions = {
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-        this.dispatch("getDirectory", this.state.currentDirectory);
+        // this.dispatch("getDirectory", this.state.currentDirectory);
       });
   },
   setLang(context, value) {

@@ -37396,6 +37396,7 @@ var actions = {
       }
     }).then(function (response) {
       if (response.data.media) {
+        console.log(_this.state.selectedElem[0]);
         response.data.media.forEach(function (element) {
           if (element.id === _this.state.selectedElem[0].id) {
             _this.state.selectedTranslation = element;
@@ -37666,8 +37667,6 @@ var actions = {
     });
   },
   updateMedia: function updateMedia(context, value) {
-    var _this10 = this;
-
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       locale: value.locale,
       disk: value.disk,
@@ -37681,9 +37680,7 @@ var actions = {
         type: "success",
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
-      });
-
-      _this10.dispatch("getDirectory", _this10.state.currentDirectory);
+      }); // this.dispatch("getDirectory", this.state.currentDirectory);
     });
   },
   setLang: function setLang(context, value) {
