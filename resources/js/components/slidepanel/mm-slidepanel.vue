@@ -1,7 +1,16 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
+    <div v-if="this.$store.state.isLoadingSidePanel" class="loader__overlay">
+        <div class="loader"></div>
+    </div>
     <a href="" class="mm__slidepanel-close" v-on:click.prevent="close()">
-      <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg"><path d="M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z" fill-rule="nonzero" fill="none"/></svg>
+      <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z"
+          fill-rule="nonzero"
+          fill="#000"
+        />
+      </svg>
     </a>
 
     <div>
@@ -31,22 +40,27 @@
     </div>
 
     <div v-if="this.$props.showLang" class="mm__slidepanel-lang">
+      <div></div>
+      <div class="mm__slidepanel-lang-container">
         <div>
+          <span>EN</span>
         </div>
-        <div class="mm__slidepanel-lang-container">
-            <div>
-                <span>EN</span>
-            </div>
-            <div>
-                <label class="switch">
-                    <input @change="setLang" true-value="fr" false-value="en" v-model="langSwitch" type="checkbox">
-                    <span class="switch-slider round"></span>
-                </label>
-            </div>
-            <div>
-                <span>FR</span>
-            </div>
+        <div>
+          <label class="switch">
+            <input
+              @change="setLang"
+              true-value="fr"
+              false-value="en"
+              v-model="langSwitch"
+              type="checkbox"
+            />
+            <span class="switch-slider round"></span>
+          </label>
         </div>
+        <div>
+          <span>FR</span>
+        </div>
+      </div>
     </div>
 
     <div class="mm__slidepanel-infos">
@@ -114,9 +128,9 @@ import { EventBus } from "../../event-bus.js";
 export default {
   name: "mmslidepanel",
   props: {
-      showLang: {
-          type: Boolean,
-      }
+    showLang: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -133,7 +147,7 @@ export default {
   },
   methods: {
     setLang: function () {
-        this.$store.dispatch("setLang", this.langSwitch);
+      this.$store.dispatch("setLang", this.langSwitch);
     },
     close: function () {
       this.slideOpen = false;
@@ -160,7 +174,7 @@ export default {
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
       this.slideOpen = true;
-      this.data = value[0];
+      this.data = value;
       this.disk = this.data.disk;
       this.id = this.data.id;
       this.alt = this.data.alt;
@@ -169,26 +183,25 @@ export default {
       this.caption = this.data.caption;
     });
 
-    this.langSwitch = this.$store.state.lang
-
+    this.langSwitch = this.$store.state.lang;
   },
   watch: {
-    getSelectedTranslation(){
-        this.data = this.$store.state.selectedTranslation;
-        this.disk = this.data.disk;
-        this.id = this.data.id;
-        this.title = this.data.title;
-        this.alt = this.data.alt;
-        this.credit = this.data.credit;
-        this.caption = this.data.caption;
+    getSelectedTranslation() {
+      this.data = this.$store.state.selectedTranslation;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.title = this.data.title;
+      this.alt = this.data.alt;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
     },
-    getSelectedLang (newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory");
-    }
+    getSelectedLang(newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+    },
   },
   computed: {
-    getSelectedTranslation(){
-        return this.$store.state.selectedTranslation;
+    getSelectedTranslation() {
+      return this.$store.state.selectedTranslation;
     },
     getSelectedLang() {
       return this.$store.state.lang;
@@ -207,29 +220,29 @@ export default {
 
 <style lang="scss" scoped>
 .btn-default {
-	background: var(--bg-color);
-	border-color: var(--bg-color);
+  background: var(--bg-color);
+  border-color: var(--bg-color);
 
-	&:hover {
-		background: #fff;
-		border-color: var(--bg-color);
-		color: var(--bg-color);
-		transition: all 0.2s ease-in-out;
-	}
+  &:hover {
+    background: #fff;
+    border-color: var(--bg-color);
+    color: var(--bg-color);
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .btn-default-border {
-	border: var(--bg-color);
-	color: var(--bg-color);
+  border: var(--bg-color);
+  color: var(--bg-color);
 
-	&:hover {
-		background: var(--bg-color);
-		color: #fff;
-		transition: all 0.2s ease-in-out;
-	}
+  &:hover {
+    background: var(--bg-color);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .btn-delete {
-	color: var(--bg-color);
+  color: var(--bg-color);
 }
 </style>

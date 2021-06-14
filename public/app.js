@@ -2439,6 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -2465,6 +2466,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmcard",
   props: ["item"],
@@ -2474,6 +2477,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    openSelectedMedia: function openSelectedMedia(item) {
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", item);
+    },
     pushSelected: function pushSelected(value) {
       this.current = value.id;
       this.$store.dispatch("pushSelected", value);
@@ -3727,6 +3733,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3779,7 +3799,7 @@ __webpack_require__.r(__webpack_exports__);
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
       _this.slideOpen = true;
-      _this.data = value[0];
+      _this.data = value;
       _this.disk = _this.data.disk;
       _this.id = _this.data.id;
       _this.alt = _this.data.alt;
@@ -3800,7 +3820,7 @@ __webpack_require__.r(__webpack_exports__);
       this.caption = this.data.caption;
     },
     getSelectedLang: function getSelectedLang(newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory");
+      this.$store.dispatch("getTranslatedDirectory", this.data.id);
     }
   },
   computed: {
@@ -12616,6 +12636,9 @@ var render = function() {
       staticClass: "mm__card",
       class: { selected: _vm.setSelected },
       on: {
+        dblclick: function($event) {
+          return _vm.openSelectedMedia(_vm.item)
+        },
         click: function($event) {
           return _vm.pushSelected(_vm.item)
         }
@@ -13041,7 +13064,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.setCurrent(_vm.getSelected)
+                        return _vm.setCurrent(_vm.getSelected[0])
                       }
                     }
                   },
@@ -13924,6 +13947,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.slideOpen
     ? _c("div", { staticClass: "mm__slidepanel" }, [
+        this.$store.state.isLoadingSidePanel
+          ? _c("div", { staticClass: "loader__overlay" }, [
+              _c("div", { staticClass: "loader" })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "a",
           {
@@ -13952,7 +13981,7 @@ var render = function() {
                     d:
                       "M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z",
                     "fill-rule": "nonzero",
-                    fill: "none"
+                    fill: "#000"
                   }
                 })
               ]
@@ -35363,14 +35392,18 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
   locale: "en",
   messages: loadLocaleMessages()
 });
-new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
-  VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_3___default.a,
-  render: function render(h) {
-    return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"]);
-  },
-  i18n: i18n
-}).$mount("#media-manager");
+var mediamanager = document.getElementById('media-manager');
+
+if (mediamanager) {
+  new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
+    VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_3___default.a,
+    render: function render(h) {
+      return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    },
+    i18n: i18n
+  }).$mount("#media-manager");
+}
 
 /***/ }),
 
@@ -37382,11 +37415,11 @@ var actions = {
 
     var commit = _ref.commit;
     var route;
-    this.state.isLoading = true;
+    this.state.isLoadingSidePanel = true;
 
     if (value) {
       this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+      route = this.state.routeGetMedia + value;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
@@ -37397,14 +37430,9 @@ var actions = {
         locale: this.state.lang
       }
     }).then(function (response) {
-      if (response.data.media) {
-        console.log(_this.state.selectedElem[0]);
-        response.data.media.forEach(function (element) {
-          if (element.id === _this.state.selectedElem[0].id) {
-            _this.state.selectedTranslation = element;
-          }
-        });
-        _this.state.isLoading = false;
+      if (response.data) {
+        _this.state.selectedTranslation = response.data;
+        _this.state.isLoadingSidePanel = false;
       }
     });
   },
@@ -37820,6 +37848,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   mainColor: "#9C1820",
   routeGetDirectory: "/media-api/index/",
+  routeGetMedia: "/media-api/show/",
   routeCreateDirectory: "/media-api/directory/create",
   routeDeleteDirectory: "/media-api/directory/destroy",
   routeDeleteMedia: "/media-api/destroy",
@@ -37847,6 +37876,7 @@ var state = {
   orderBy: "created_at",
   orderDirection: "asc",
   isLoading: true,
+  isLoadingSidePanel: false,
   haveContextMenu: false,
   lang: 'en'
 };

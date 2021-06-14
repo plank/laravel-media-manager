@@ -63,10 +63,10 @@ export const actions = {
 
   getTranslatedDirectory({ commit }, value) {
     let route;
-    this.state.isLoading = true;
+    this.state.isLoadingSidePanel = true;
     if (value) {
       this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+      route = this.state.routeGetMedia + value;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
@@ -76,14 +76,9 @@ export const actions = {
             locale: this.state.lang
         }
     }).then(response => {
-      if (response.data.media) {
-        console.log(this.state.selectedElem[0]);
-          response.data.media.forEach(element => {
-            if( element.id === this.state.selectedElem[0].id ) {
-                this.state.selectedTranslation = element;
-            }
-          });
-        this.state.isLoading = false;
+      if (response.data) {
+        this.state.selectedTranslation = response.data;
+        this.state.isLoadingSidePanel = false;
       }
     });
   },

@@ -35,9 +35,13 @@ const i18n = new VueI18n({
   messages: loadLocaleMessages()
 });
 
-new Vue({
-  store,
-  VueToast,
-  render: h => h(mediaManager),
-  i18n
-}).$mount("#media-manager");
+var mediamanager = document.getElementById('media-manager');
+
+if(mediamanager)  {
+    new Vue({
+    store,
+    VueToast,
+    render: h => h(mediaManager),
+    i18n
+    }).$mount("#media-manager");
+}

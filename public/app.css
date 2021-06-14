@@ -532,6 +532,14 @@
   z-index: 999;
 }
 
+.mm__slidepanel-loader {
+  position: absolute;
+  display: block;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+}
+
 .mm__slidepanel-btn-container {
   text-align: center;
 }
