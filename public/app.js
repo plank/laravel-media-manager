@@ -3747,6 +3747,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3775,13 +3787,11 @@ __webpack_require__.r(__webpack_exports__);
     close: function close() {
       this.slideOpen = false;
     },
-    openDeleteModal: function openDeleteModal($event) {
-      $event.preventDefault();
+    openDeleteModal: function openDeleteModal() {
       this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     },
-    updateMedia: function updateMedia($event) {
-      $event.preventDefault();
+    updateMedia: function updateMedia() {
       this.$store.dispatch("updateMedia", {
         locale: this.langSwitch,
         vm: this,
@@ -3792,6 +3802,9 @@ __webpack_require__.r(__webpack_exports__);
         credit: this.credit,
         caption: this.caption
       });
+    },
+    selectFile: function selectFile() {
+      console.log(this.$store.state.selectedElem);
     }
   },
   mounted: function mounted() {
@@ -14240,21 +14253,42 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mm__slidepanel-btn-container" }, [
-            _c("div", { staticClass: "columns" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-default",
-                  style: _vm.styleBtnDefault,
-                  attrs: { href: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.updateMedia($event)
+            _c("div", { staticClass: "columns columns__2" }, [
+              _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default",
+                    style: _vm.styleBtnDefault,
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.updateMedia($event)
+                      }
                     }
-                  }
-                },
-                [_vm._v("Save")]
-              )
+                  },
+                  [_vm._v("Save")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default-border",
+                    style: _vm.styleBtnDefault,
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.selectFile($event)
+                      }
+                    }
+                  },
+                  [_vm._v("Select")]
+                )
+              ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "columns__1" }, [
@@ -14266,6 +14300,7 @@ var render = function() {
                   attrs: { title: _vm.$t("actions.delete"), href: "#" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.openDeleteModal($event)
                     }
                   }

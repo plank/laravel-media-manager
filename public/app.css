@@ -555,8 +555,9 @@
 }
 
 .mm__slidepanel-btn-container .btn {
-  width: auto;
   margin: 0 auto;
+  display: block;
+  width: 100%;
 }
 
 .mm__slidepanel-close {
@@ -628,6 +629,7 @@
   width: 100%;
   display: flex;
   min-height: 250px;
+  margin-bottom: 2em;
 }
 
 .mm_slidepanel-placeholder-container .placeholder {

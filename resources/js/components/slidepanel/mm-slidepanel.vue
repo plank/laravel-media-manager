@@ -1,7 +1,7 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
     <div v-if="this.$store.state.isLoadingSidePanel" class="loader__overlay">
-        <div class="loader"></div>
+      <div class="loader"></div>
     </div>
     <a href="" class="mm__slidepanel-close" v-on:click.prevent="close()">
       <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
@@ -98,18 +98,30 @@
       </form>
 
       <div class="mm__slidepanel-btn-container">
-        <div class="columns">
-          <a
-            :style="styleBtnDefault"
-            class="btn btn-default"
-            v-on:click="updateMedia($event)"
-            href=""
-            >Save</a
-          >
+        <div class="columns columns__2">
+          <div>
+            <a
+              :style="styleBtnDefault"
+              class="btn btn-default"
+              @click.prevent="updateMedia"
+              href=""
+              >Save</a
+            >
+          </div>
+
+          <div>
+            <a
+              href=""
+              @click.prevent="selectFile"
+              :style="styleBtnDefault"
+              class="btn btn-default-border"
+              >Select</a
+            >
+          </div>
         </div>
         <div class="columns__1">
           <a
-            v-on:click="openDeleteModal($event)"
+            @click.prevent="openDeleteModal"
             :title="$t('actions.delete')"
             class="btn btn-delete text-center"
             :style="styleBtnDefault"
@@ -152,13 +164,11 @@ export default {
     close: function () {
       this.slideOpen = false;
     },
-    openDeleteModal: function ($event) {
-      $event.preventDefault();
+    openDeleteModal: function () {
       this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     },
-    updateMedia: function ($event) {
-      $event.preventDefault();
+    updateMedia: function () {
       this.$store.dispatch("updateMedia", {
         locale: this.langSwitch,
         vm: this,
@@ -170,6 +180,9 @@ export default {
         caption: this.caption,
       });
     },
+    selectFile: function () {
+        console.log(this.$store.state.selectedElem);
+    }
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
