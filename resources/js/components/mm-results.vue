@@ -71,8 +71,10 @@ export default {
   },
   computed: {
     getMedia() {
+        console.log('get Media');
       return this.$store.state.mediaCollection;
     },
+
   },
 };
 </script>

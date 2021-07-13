@@ -43,6 +43,13 @@ export const mutations = {
   SET_MEDIA(state, items) {
     state.mediaCollection = items;
   },
+  UPDATE_MEDIA_VALUE(state, { id, value }) {
+    const mediaElement = state.mediaCollection.find(q => q.id === value.id);
+    mediaElement.credit = value.credit;
+    mediaElement.title = value.title;
+    mediaElement.alt = value.alt;
+    mediaElement.caption = value.caption;
+  },
   SET_MEDIATYPES(state, items) {
     for (let i = 0; i < items.length; i++) {
       const index = this.state.mediaTypeArray.findIndex(

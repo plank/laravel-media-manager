@@ -2812,6 +2812,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getMedia: function getMedia() {
+      console.log('get Media');
       return this.$store.state.mediaCollection;
     }
   }
@@ -37718,13 +37719,21 @@ var actions = {
       credit: value.credit,
       caption: value.caption
     }).then(function (response) {
+      // replace object element in mediaCollection with new one base on specific id
+      var newMedia = _this10.state.mediaCollection.findIndex(function (q) {
+        return q.id === response.data.id;
+      }); // I want to replace a specific element on object collection
+
+
+      context.commit('UPDATE_MEDIA_VALUE', {
+        id: newMedia,
+        value: response.data
+      });
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
       });
-
-      _this10.dispatch("getDirectory", _this10.state.currentDirectory);
     });
   },
   setLang: function setLang(context, value) {
@@ -37812,6 +37821,17 @@ var mutations = {
   },
   SET_MEDIA: function SET_MEDIA(state, items) {
     state.mediaCollection = items;
+  },
+  UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
+    var id = _ref.id,
+        value = _ref.value;
+    var mediaElement = state.mediaCollection.find(function (q) {
+      return q.id === value.id;
+    });
+    mediaElement.credit = value.credit;
+    mediaElement.title = value.title;
+    mediaElement.alt = value.alt;
+    mediaElement.caption = value.caption;
   },
   SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
     var _this = this;
