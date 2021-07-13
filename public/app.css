@@ -605,6 +605,7 @@
 .mm__slidepanel-lang {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) 1fr;
+  margin-top: 1em;
 }
 
 .mm__slidepanel-lang-container {

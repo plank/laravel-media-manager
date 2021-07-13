@@ -37,7 +37,7 @@
       </div>
       <div>
         <a
-          v-on:click="closeModal($event)"
+          @click.prevent="closeModal"
           class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""
@@ -57,8 +57,7 @@ export default {
     mmmodal,
   },
   methods: {
-    closeModal: function ($event) {
-      $event.preventDefault();
+    closeModal: function () {
       this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function () {

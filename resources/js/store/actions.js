@@ -333,7 +333,7 @@ export const actions = {
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-        // this.dispatch("getDirectory", this.state.currentDirectory);
+        this.dispatch("getDirectory", this.state.currentDirectory);
       });
   },
   setLang(context, value) {

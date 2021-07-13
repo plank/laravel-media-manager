@@ -1960,17 +1960,23 @@ __webpack_require__.r(__webpack_exports__);
   props: ["item"],
   methods: {
     openRootDirectory: function openRootDirectory(directoryPath) {
-      this.$store.dispatch("getDirectory", directoryPath);
-      this.$store.dispatch("resetSelected");
+      var _this = this;
+
+      this.$store.dispatch("getDirectory", directoryPath).then(function () {
+        _this.$store.dispatch("resetSelected");
+      });
     },
     openDirectory: function openDirectory(directoryPath) {
+      var _this2 = this;
+
       var newBreadcrumbArray = this.createBreadcrumb;
       newBreadcrumbArray.length = directoryPath.index + 1;
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
       }).join("/");
-      this.$store.dispatch("getDirectory", qs);
-      this.$store.dispatch("resetSelected");
+      this.$store.dispatch("getDirectory", qs).then(function () {
+        _this2.$store.dispatch("resetSelected");
+      });
     }
   },
   computed: {
@@ -2486,7 +2492,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isSelected = !this.isSelected;
     },
     setBackground: function setBackground(item) {
-      return "background: url(" + item.conversion_urls.thumb + ")";
+      return "background: url(" + item.conversion_urls[0] + ")";
     }
   },
   computed: {
@@ -2618,9 +2624,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     openDirectory: function openDirectory(value) {
+      var _this = this;
+
       this.current = value.name;
-      this.$store.dispatch("setSelectedDirectory", null);
-      this.$store.dispatch("getDirectory", value.name);
+      this.$store.dispatch("setSelectedDirectory", null).then(function () {
+        _this.$store.dispatch("getDirectory", value.name);
+      });
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
@@ -3322,8 +3331,7 @@ __webpack_require__.r(__webpack_exports__);
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    closeModal: function closeModal($event) {
-      $event.preventDefault();
+    closeModal: function closeModal() {
       this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function deleteElement() {
@@ -3354,15 +3362,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3804,13 +3803,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     selectFile: function selectFile() {
-      console.log(this.$store.state.selectedElem);
+      handleContent(this.$store.state.selectedElem);
+      this.close();
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+      console.log(value);
       _this.slideOpen = true;
       _this.data = value;
       _this.disk = _this.data.disk;
@@ -13630,6 +13631,7 @@ var render = function() {
                 attrs: { href: "" },
                 on: {
                   click: function($event) {
+                    $event.preventDefault()
                     return _vm.closeModal($event)
                   }
                 }
@@ -13682,47 +13684,20 @@ var render = function() {
           "svg",
           {
             attrs: {
-              width: "22px",
-              height: "22px",
-              viewBox: "0 0 22 22",
-              version: "1.1",
-              xmlns: "http://www.w3.org/2000/svg",
-              "xmlns:xlink": "http://www.w3.org/1999/xlink"
+              width: "22",
+              height: "22",
+              xmlns: "http://www.w3.org/2000/svg"
             }
           },
           [
-            _c(
-              "g",
-              {
-                attrs: {
-                  id: "Page-1",
-                  stroke: "none",
-                  "stroke-width": "1",
-                  fill: "none",
-                  "fill-rule": "evenodd"
-                }
-              },
-              [
-                _c(
-                  "g",
-                  {
-                    attrs: {
-                      id: "icon_cancel_default",
-                      fill: _vm.getColor,
-                      "fill-rule": "nonzero"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M21.5976567,0.402297444 C21.0611867,-0.134099148 20.2008278,-0.134099148 19.66437,0.402297444 L11,9.06567624 L2.33563,0.402297444 C1.79917222,-0.134099148 0.938813333,-0.134099148 0.402343333,0.402297444 C-0.134114444,0.938706259 -0.134114444,1.79896725 0.402343333,2.33536384 L9.06671333,10.9987304 L0.402343333,19.6621092 C-0.134114444,20.1985058 -0.134114444,21.0587668 0.402343333,21.5951756 C0.665512222,21.8583078 1.01978556,22 1.36392667,22 C1.70808,22 2.06234111,21.8684278 2.32551,21.5951756 L10.98988,12.9317968 L19.65425,21.5951756 C19.9174189,21.8583078 20.27168,22 20.6158211,22 C20.9700944,22 21.3142356,21.8684278 21.5774044,21.5951756 C22.1138744,21.0587668 22.1138744,20.1985058 21.5774044,19.6621092 L12.9332867,10.9987304 L21.5976567,2.33536384 C22.1341144,1.79896725 22.1341144,0.938706259 21.5976567,0.402297444 Z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
+            _c("path", {
+              attrs: {
+                d:
+                  "M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z",
+                "fill-rule": "nonzero",
+                fill: "#666"
+              }
+            })
           ]
         )
       ]
@@ -37732,6 +37707,8 @@ var actions = {
     });
   },
   updateMedia: function updateMedia(context, value) {
+    var _this10 = this;
+
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
       locale: value.locale,
       disk: value.disk,
@@ -37745,7 +37722,9 @@ var actions = {
         type: "success",
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
-      }); // this.dispatch("getDirectory", this.state.currentDirectory);
+      });
+
+      _this10.dispatch("getDirectory", _this10.state.currentDirectory);
     });
   },
   setLang: function setLang(context, value) {

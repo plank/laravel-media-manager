@@ -24,8 +24,9 @@ export default {
   props: ["item"],
   methods: {
     openRootDirectory: function (directoryPath) {
-      this.$store.dispatch("getDirectory", directoryPath);
-      this.$store.dispatch("resetSelected");
+      this.$store.dispatch("getDirectory", directoryPath).then( () => {
+            this.$store.dispatch("resetSelected");
+      });
     },
     openDirectory: function (directoryPath) {
       const newBreadcrumbArray = this.createBreadcrumb;
@@ -33,8 +34,10 @@ export default {
       const qs = Object.keys(newBreadcrumbArray)
         .map((key) => `${newBreadcrumbArray[key]}`)
         .join("/");
-      this.$store.dispatch("getDirectory", qs);
-      this.$store.dispatch("resetSelected");
+      this.$store.dispatch("getDirectory", qs).then( () => {
+            this.$store.dispatch("resetSelected");
+      });
+
     },
   },
   computed: {

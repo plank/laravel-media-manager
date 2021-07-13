@@ -181,11 +181,13 @@ export default {
       });
     },
     selectFile: function () {
-        console.log(this.$store.state.selectedElem);
+        handleContent(this.$store.state.selectedElem);
+        this.close();
     }
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
+        console.log(value);
       this.slideOpen = true;
       this.data = value;
       this.disk = this.data.disk;

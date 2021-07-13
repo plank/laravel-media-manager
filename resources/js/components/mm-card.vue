@@ -45,7 +45,7 @@ export default {
       this.isSelected = !this.isSelected;
     },
     setBackground: function (item) {
-      return "background: url(" + item.conversion_urls.thumb + ")";
+      return "background: url(" + item.conversion_urls[0] + ")";
     },
   },
   computed: {
