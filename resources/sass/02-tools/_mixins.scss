@@ -4,7 +4,7 @@
 // Calculate Em Based On Pixels
 // ------------------------------------------------------------------------------------
 @function em-calc($target-px: $base-font-size, $context: $base-font-size) {
-	@return $target-px / $context * 1em;
+	@return math.div($target-px, $context) * 1em;
 }
 
 // Use REM For Font-Size
@@ -36,5 +36,5 @@
 
 // Px To Em
 @function em($pixels, $context: $base-font-size ) {
-	@return #{$pixels/$context}em;
+	@return #{math.div($pixels, $context)}em;
 }
