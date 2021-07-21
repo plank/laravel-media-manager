@@ -5,6 +5,7 @@ namespace Plank\MediaManager\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Exceptions\MediaMoveException;
 use Plank\MediaManager\Models\Media;
@@ -61,13 +62,19 @@ class MediaController extends BaseController
         $media = $model::inDirectory($diskString, $path)->get()->forPage($page, 20);
         $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
+        $key = trim("root." . implode(".", explode('/', $path)), "\.");
         // Get the timestamp for each directory. This can probably be improved later.
-        foreach ($subdirectories as $index => $subdirectory) {
-            $timestamp = $disk->lastModified($subdirectory);
-            $subdirectories[$index] = [
-                'name' => $subdirectory,
-                'timestamp' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s')];
-        }
+        $subdirectories = Cache::remember("media.manager.folders.{$key}", 60*60*24, function () use ($disk, $subdirectories) {
+            foreach ($subdirectories as $index => $subdirectory) {
+                $timestamp = $disk->lastModified($subdirectory);
+                $subdirectories[$index] = [
+                    'name' => $subdirectory,
+                    'timestamp' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s')
+                ];
+            }
+                return $subdirectories;
+        });
+
 
         return response(['subdirectories' => $subdirectories, 'media' => $media]);
     }
