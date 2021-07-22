@@ -55,6 +55,7 @@
 		&-card {
 			position: relative;
 			cursor: move;
+			background: darken($mm-carousel-bg, 10%);
 
 			span {
 				background: $mm-card-selected;
@@ -98,7 +99,7 @@
 
 		&-btn-container {
 			display: block;
-			margin-top: em(60px);
+			margin-top: em(10px);
 			text-align: center;
 
 			div {
