@@ -12301,11 +12301,24 @@ var render = function() {
     "div",
     { staticClass: "mm" },
     [
-      this.$store.state.isLoading && this.$store.state.modalState.move == false
-        ? _c("div", { staticClass: "loader__overlay" }, [
-            _c("div", { staticClass: "loader" })
-          ])
-        : _vm._e(),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                this.$store.state.isLoading &&
+                this.$store.state.modalState.move == false,
+              expression:
+                "this.$store.state.isLoading && this.$store.state.modalState.move == false"
+            }
+          ],
+          staticClass: "loader__overlay"
+        },
+        [_c("div", { staticClass: "loader" })]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "mm__header" }, [
         _c("div", { staticClass: "wrapper" }, [
