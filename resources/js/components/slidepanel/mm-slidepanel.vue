@@ -81,11 +81,11 @@
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
-          <input v-model="title" value="" id="title" type="text" />
+          <input v-model="title" id="title" type="text" />
         </div>
         <div>
           <label for="alt">{{ $t("slidepanel.alt_text") }}</label>
-          <input v-model="alt" value="" id="alt" type="text" />
+          <input v-model="alt" id="alt" type="text" />
         </div>
         <div>
           <label for="caption">{{ $t("slidepanel.caption") }}</label>
