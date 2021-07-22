@@ -1,6 +1,6 @@
 <template>
   <div class="mm">
-    <div v-if="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
+    <div v-show="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
       <div class="loader"></div>
     </div>
 
