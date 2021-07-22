@@ -12381,11 +12381,24 @@ var render = function() {
     "div",
     { staticClass: "mm" },
     [
-      this.$store.state.isLoading && this.$store.state.modalState.move == false
-        ? _c("div", { staticClass: "loader__overlay" }, [
-            _c("div", { staticClass: "loader" })
-          ])
-        : _vm._e(),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                this.$store.state.isLoading &&
+                this.$store.state.modalState.move == false,
+              expression:
+                "this.$store.state.isLoading && this.$store.state.modalState.move == false"
+            }
+          ],
+          staticClass: "loader__overlay"
+        },
+        [_c("div", { staticClass: "loader" })]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "mm__header" }, [
         _c("div", { staticClass: "wrapper" }, [
@@ -14133,7 +14146,7 @@ var render = function() {
                     expression: "title"
                   }
                 ],
-                attrs: { value: "", id: "title", type: "text" },
+                attrs: { id: "title", type: "text" },
                 domProps: { value: _vm.title },
                 on: {
                   input: function($event) {
@@ -14160,7 +14173,7 @@ var render = function() {
                     expression: "alt"
                   }
                 ],
-                attrs: { value: "", id: "alt", type: "text" },
+                attrs: { id: "alt", type: "text" },
                 domProps: { value: _vm.alt },
                 on: {
                   input: function($event) {
