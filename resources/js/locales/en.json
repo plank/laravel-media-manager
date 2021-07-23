@@ -11,6 +11,9 @@
       },
       "actions": {
         "delete": "Delete",
+        "delete_file": "Delete File",
+        "save": "Save",
+        "close": "Close",
         "yes": "Yes",
         "no": "No",
         "create": "Create",

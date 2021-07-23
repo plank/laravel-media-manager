@@ -2189,6 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_folders__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mm-folders */ "./resources/js/components/mm-folders.vue");
 /* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -2279,6 +2280,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2311,7 +2313,9 @@ __webpack_require__.r(__webpack_exports__);
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);
-        this.$store.dispatch("resetSelected", true);
+        this.$store.dispatch("resetSelected", true); // close slidepane
+
+        _event_bus__WEBPACK_IMPORTED_MODULE_12__["EventBus"].$emit('close-slide-panel', false);
         var card = document.getElementsByClassName("mm__results-single");
 
         for (var i = 0; i < card.length; i++) {
@@ -3714,6 +3718,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3762,6 +3773,9 @@ __webpack_require__.r(__webpack_exports__);
       _this.alt = _this.data[0].alt;
       _this.credit = _this.data[0].credit;
       _this.caption = _this.data[0].caption;
+    });
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
+      _this.slideOpen = false;
     });
   },
   computed: {
@@ -14139,7 +14153,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mm__slidepanel-btn-container" }, [
-            _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "columns__2" }, [
               _c(
                 "a",
                 {
@@ -14152,7 +14166,22 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Save")]
+                [_vm._v(_vm._s(_vm.$t("actions.save")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-default",
+                  style: _vm.styleBtnDefault,
+                  attrs: { href: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.close($event)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.$t("actions.close")))]
               )
             ]),
             _vm._v(" "),
@@ -14169,7 +14198,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Delete file")]
+                [_vm._v(_vm._s(_vm.$t("actions.delete_file")))]
               )
             ])
           ])
@@ -37208,7 +37237,7 @@ webpackContext.id = "./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"created_on\":\"Created on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_moveFolder\":\"Move Item To :\",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"delete_file\":\"Delete File\",\"save\":\"Save\",\"close\":\"Close\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"created_on\":\"Created on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_moveFolder\":\"Move Item To :\",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
 
 /***/ }),
 
@@ -37219,7 +37248,7 @@ module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"created_on\":\"Crée le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"created_on\":\"Crée le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newset\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
 
 /***/ }),
 
