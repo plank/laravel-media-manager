@@ -2492,7 +2492,7 @@ __webpack_require__.r(__webpack_exports__);
       this.isSelected = !this.isSelected;
     },
     setBackground: function setBackground(item) {
-      return "background: url(" + item.conversion_urls[0] + ")";
+      return "background: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
     }
   },
   computed: {
