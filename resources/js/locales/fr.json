@@ -11,6 +11,9 @@
       },
       "actions": {
         "delete": "Effacer",
+        "delete_file": "Effacer Fichier",
+        "save": "Enregistrer",
+        "close": "Fermer",
         "yes": "Oui",
         "no": "Non",
         "create": "Creer",
