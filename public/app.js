@@ -37326,7 +37326,6 @@ var actions = {
 
     var commit = _ref.commit;
     var route;
-    this.state.selectedElem = [];
     this.state.isLoading = true;
 
     if (value) {
