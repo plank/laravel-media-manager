@@ -234,8 +234,10 @@ export const actions = {
       .then(response => {
         this.state.mediaCollection = response.data;
         this.state.hideDirectory = true;
+        this.state.isSearch = true;
       })
       .catch(error => {
+        this.state.isSearch = false;
         value.vm.$toast.open({
           type: "error",
           position: "bottom-left",

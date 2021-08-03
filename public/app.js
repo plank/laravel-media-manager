@@ -2947,7 +2947,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showInformations: false,
       selectedFilterType: "",
-      isSearch: true,
+      isSearch: false,
       searchTerm: null,
       sortOrder: ""
     };
@@ -2988,8 +2988,8 @@ __webpack_require__.r(__webpack_exports__);
     deselectAll: function deselectAll() {
       this.$store.dispatch("resetSelected");
     },
-    openSearch: function openSearch() {
-      if (!this.isSearch) {
+    closeSearch: function closeSearch() {
+      if (this.isSearch) {
         this.$store.state.hideDirectory = false;
         this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
       }
@@ -3001,7 +3001,7 @@ __webpack_require__.r(__webpack_exports__);
         vm: this,
         searchterm: this.searchTerm
       });
-      this.isSearch = false;
+      this.isSearch = true;
     }
   },
   computed: {
@@ -12980,7 +12980,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        !this.isSearch
+        this.$store.state.isSearch && this.isSearch
           ? _c("div", { staticClass: "mm__search-close" }, [
               _c(
                 "a",
@@ -12989,7 +12989,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.openSearch($event)
+                      return _vm.closeSearch($event)
                     }
                   }
                 },
@@ -37523,7 +37523,9 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
       _this8.state.mediaCollection = response.data;
       _this8.state.hideDirectory = true;
+      _this8.state.isSearch = true;
     })["catch"](function (error) {
+      _this8.state.isSearch = false;
       value.vm.$toast.open({
         type: "error",
         position: "bottom-left",
@@ -37746,6 +37748,7 @@ var state = {
   orderBy: "created_at",
   orderDirection: "asc",
   isLoading: true,
+  isSearch: false,
   haveContextMenu: false
 };
 
@@ -37812,8 +37815,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
