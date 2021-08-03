@@ -65,18 +65,26 @@ class MediaController extends BaseController
         $key = trim("root." . implode(".", explode('/', $path)), "\.");
         // Get the timestamp for each directory. This can probably be improved later.
         $subdirectories = Cache::remember("media.manager.folders.{$key}", 60*60*24, function () use ($disk, $subdirectories) {
-            foreach ($subdirectories as $index => $subdirectory) {
-                $timestamp = $disk->lastModified($subdirectory);
-                $subdirectories[$index] = [
-                    'name' => $subdirectory,
-                    'timestamp' => Carbon::createFromTimestamp($timestamp)->format('Y-m-d H:i:s')
-                ];
+            // Check the files immediately in the chosen folder, grab the most recent modified time, report this as the timestamp
+            $modified = Media::whereIn("directory", $subdirectories)
+                ->selectRaw('directory, max(updated_at) as timestamp')
+                ->groupBy("directory")
+                ->get()
+                ->map(function ($directory) {
+                    return [
+                        'name' => $directory->directory,
+                        'timestamp' => $directory->timestamp
+                    ];
+                });
+            // If a directory was not included in the list, it was probably empty, or only had files in it, so we just
+            // report that we cannot resolve the timestamp.
+            foreach (array_diff($subdirectories, $modified->pluck('name')->toArray()) as $leftover) {
+                $modified[] = ['name' => $leftover, 'timestamp' => "N/A"];
             }
-                return $subdirectories;
+                return $modified->sortBy('name')->values();
         });
 
-
-        return response(['subdirectories' => $subdirectories, 'media' => $media]);
+        return response(['subdirectories' => $subdirectories->sortBy('name'), 'media' => $media]);
     }
 
     /**
