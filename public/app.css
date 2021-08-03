@@ -550,6 +550,7 @@
 }
 
 .mm__slidepanel-btn-container .columns__2 {
+  display: grid;
   -moz-column-gap: 0.625em;
        column-gap: 0.625em;
 }
@@ -1013,6 +1014,7 @@
 .mm .mm__carousel-card {
   position: relative;
   cursor: move;
+  background: #e0e0e0;
 }
 
 .mm .mm__carousel-card span {
@@ -1057,7 +1059,7 @@
 
 .mm .mm__carousel-btn-container {
   display: block;
-  margin-top: 3.75em;
+  margin-top: 0.625em;
   text-align: center;
 }
 

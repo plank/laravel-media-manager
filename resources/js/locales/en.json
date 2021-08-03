@@ -11,6 +11,9 @@
       },
       "actions": {
         "delete": "Delete",
+        "delete_file": "Delete File",
+        "save": "Save",
+        "close": "Close",
         "yes": "Yes",
         "no": "No",
         "create": "Create",
@@ -40,7 +43,7 @@
         "upload_text_up": "to upload files",
         "drag_upload": "Drag items here or add files",
         "sort": {
-          "oldest": "Sort Oldest to Newset",
+          "oldest": "Sort Oldest to Newest",
           "newest": "Sort Newest to Oldest"
         }
       },

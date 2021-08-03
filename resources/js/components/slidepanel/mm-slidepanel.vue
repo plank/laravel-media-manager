@@ -98,26 +98,21 @@
       </form>
 
       <div class="mm__slidepanel-btn-container">
-        <div class="columns columns__2">
-          <div>
-            <a
-              :style="styleBtnDefault"
-              class="btn btn-default"
-              @click.prevent="updateMedia"
-              href=""
-              >Save</a
-            >
-          </div>
-
-          <div>
-            <a
-              href=""
-              @click.prevent="selectFile"
-              :style="styleBtnDefault"
-              class="btn btn-default-border"
-              >Select</a
-            >
-          </div>
+        <div class="columns__2">
+          <a
+            :style="styleBtnDefault"
+            class="btn btn-default"
+            v-on:click="updateMedia($event)"
+            href=""
+            >{{ $t('actions.save') }}</a
+          >
+          <a
+            :style="styleBtnDefault"
+            class="btn btn-default"
+            v-on:click="close($event)"
+            href=""
+            >{{ $t('actions.close') }}</a
+          >
         </div>
         <div class="columns__1">
           <a
@@ -126,7 +121,7 @@
             class="btn btn-delete text-center"
             :style="styleBtnDefault"
             href="#"
-            >Delete file</a
+            >{{ $t('actions.delete_file') }}</a
           >
         </div>
       </div>
