@@ -24,7 +24,9 @@ class MediaManagerServiceProvider extends ServiceProvider
 
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
          $this->loadMigrationsFrom(MANAGER_PATH.'/database/migrations');
-         $this->loadRoutesFrom(MANAGER_PATH.'/routes/web.php');
+        if (MediaManager::$registerRoutes) {
+            $this->loadRoutesFrom(MANAGER_PATH.'/routes/web.php');
+        }
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

@@ -77,13 +77,20 @@
       </form>
 
       <div class="mm__slidepanel-btn-container">
-        <div class="columns">
+        <div class="columns__2">
           <a
             :style="styleBtnDefault"
             class="btn btn-default"
             v-on:click.prevent="updateMedia"
             href=""
-            >Save</a
+            >{{ $t('actions.save') }}</a
+          >
+          <a
+            :style="styleBtnDefault"
+            class="btn btn-default"
+            v-on:click="close($event)"
+            href=""
+            >{{ $t('actions.close') }}</a
           >
         </div>
         <div class="columns__1">
@@ -93,7 +100,7 @@
             class="btn btn-delete text-center"
             :style="styleBtnDefault"
             href="#"
-            >Delete file</a
+            >{{ $t('actions.delete_file') }}</a
           >
         </div>
       </div>
@@ -146,6 +153,10 @@ export default {
       this.alt = this.data[0].alt;
       this.credit = this.data[0].credit;
       this.caption = this.data[0].caption;
+    });
+
+    EventBus.$on("close-slide-panel", () => {
+        this.slideOpen = false;
     });
   },
   computed: {
