@@ -81,10 +81,10 @@ class MediaController extends BaseController
             foreach (array_diff($subdirectories, $modified->pluck('name')->toArray()) as $leftover) {
                 $modified[] = ['name' => $leftover, 'timestamp' => "N/A"];
             }
-                return $modified;
+                return $modified->sortBy('name')->values();
         });
 
-        return response(['subdirectories' => $subdirectories, 'media' => $media]);
+        return response(['subdirectories' => $subdirectories->sortBy('name'), 'media' => $media]);
     }
 
     /**
