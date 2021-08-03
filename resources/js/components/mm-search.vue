@@ -14,8 +14,8 @@
             </a>
           </div>
         </div>
-        <div class="mm__search-close" v-if="!this.isSearch">
-          <a v-on:click.prevent="toggleSearch" :title="$t('actions.search')" href="#">
+        <div class="mm__search-close" v-if="this.$store.state.isSearch && this.isSearch">
+          <a v-on:click.prevent="closeSearch" :title="$t('actions.search')" href="#">
             <iconclosesearch></iconclosesearch>
           </a>
         </div>
@@ -129,7 +129,7 @@ export default {
     return {
       showInformations: false,
       selectedFilterType: "",
-      isSearch: true,
+      isSearch: false,
       searchTerm: null,
       sortOrder: "",
     };
@@ -171,9 +171,8 @@ export default {
     deselectAll: function () {
       this.$store.dispatch("resetSelected");
     },
-    toggleSearch: function () {
-      this.searchTerm = null;
-      if (!this.isSearch) {
+    closeSearch: function () {
+      if (this.isSearch) {
         this.$store.state.hideDirectory = false;
         this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
       }
@@ -184,7 +183,7 @@ export default {
         vm: this,
         searchterm: this.searchTerm,
       });
-      this.isSearch = false;
+      this.isSearch = true;
     },
   },
   computed: {

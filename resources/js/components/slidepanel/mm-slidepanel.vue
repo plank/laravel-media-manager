@@ -69,10 +69,7 @@
         Type: <span>{{ this.data.mime_type }}</span>
       </p>
       <p>
-        Dimension: <span>{{ this.data.size }}</span>
-      </p>
-      <p>
-        File Size: <span>{{ this.data.size }}</span>
+        File Size: <span>{{ this.data[0].size | fileSize }}</span>
       </p>
       <p>
         Upload Date:
@@ -102,7 +99,7 @@
           <a
             :style="styleBtnDefault"
             class="btn btn-default"
-            v-on:click="updateMedia($event)"
+            v-on:click.prevent="updateMedia"
             href=""
             >{{ $t('actions.save') }}</a
           >
@@ -223,6 +220,14 @@ export default {
       return {
         "--bg-color": this.$store.state.mainColor,
       };
+    },
+  },
+  filters: {
+    fileSize: function (fileSize) {
+      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
+      if (fileSize == 0) return "0 Byte";
+      var i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
+      return Math.round(fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
     },
   },
 };

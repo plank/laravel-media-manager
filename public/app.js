@@ -2970,7 +2970,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showInformations: false,
       selectedFilterType: "",
-      isSearch: true,
+      isSearch: false,
       searchTerm: null,
       sortOrder: ""
     };
@@ -3011,10 +3011,8 @@ __webpack_require__.r(__webpack_exports__);
     deselectAll: function deselectAll() {
       this.$store.dispatch("resetSelected");
     },
-    toggleSearch: function toggleSearch() {
-      this.searchTerm = null;
-
-      if (!this.isSearch) {
+    closeSearch: function closeSearch() {
+      if (this.isSearch) {
         this.$store.state.hideDirectory = false;
         this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
       }
@@ -3026,7 +3024,7 @@ __webpack_require__.r(__webpack_exports__);
         vm: this,
         searchterm: this.searchTerm
       });
-      this.isSearch = false;
+      this.isSearch = true;
     }
   },
   computed: {
@@ -3755,9 +3753,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3852,6 +3847,14 @@ __webpack_require__.r(__webpack_exports__);
         "--bg-color": this.$store.state.mainColor
       };
     }
+  },
+  filters: {
+    fileSize: function fileSize(_fileSize) {
+      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
+      if (_fileSize == 0) return "0 Byte";
+      var i = parseInt(Math.floor(Math.log(_fileSize) / Math.log(1024)));
+      return Math.round(_fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
+    }
   }
 });
 
@@ -3926,7 +3929,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".btn-default {\n  background: var(--bg-color);\n  border-color: var(--bg-color);\n}\n.btn-default:hover {\n  background: white;\n  border-color: var(--bg-color);\n  color: var(--bg-color);\n  transition: all 0.2s ease-in-out;\n}\n.btn-default-border {\n  border: var(--bg-color);\n  color: var(--bg-color);\n}\n.btn-default-border:hover {\n  background: var(--bg-color);\n  color: white;\n  transition: all 0.2s ease-in-out;\n}\n.btn-delete {\n  color: var(--bg-color);\n}", ""]);
+exports.push([module.i, ".btn-default {\n  background: var(--bg-color);\n  border-color: var(--bg-color);\n}\n.btn-default:hover {\n  background: #fff;\n  border-color: var(--bg-color);\n  color: var(--bg-color);\n  transition: all 0.2s ease-in-out;\n}\n.btn-default-border {\n  border: var(--bg-color);\n  color: var(--bg-color);\n}\n.btn-default-border:hover {\n  background: var(--bg-color);\n  color: #fff;\n  transition: all 0.2s ease-in-out;\n}\n.btn-delete {\n  color: var(--bg-color);\n}", ""]);
 
 // exports
 
@@ -13053,7 +13056,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        !this.isSearch
+        this.$store.state.isSearch && this.isSearch
           ? _c("div", { staticClass: "mm__search-close" }, [
               _c(
                 "a",
@@ -13062,7 +13065,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.toggleSearch($event)
+                      return _vm.closeSearch($event)
                     }
                   }
                 },
@@ -14112,13 +14115,8 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v("\n      Dimension: "),
-            _c("span", [_vm._v(_vm._s(this.data.size))])
-          ]),
-          _vm._v(" "),
-          _c("p", [
             _vm._v("\n      File Size: "),
-            _c("span", [_vm._v(_vm._s(this.data.size))])
+            _c("span", [_vm._v(_vm._s(_vm._f("fileSize")(this.data[0].size)))])
           ]),
           _vm._v(" "),
           _c("p", [
@@ -14250,6 +14248,7 @@ var render = function() {
                   attrs: { href: "" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.updateMedia($event)
                     }
                   }
@@ -37458,7 +37457,6 @@ var actions = {
 
     var commit = _ref2.commit;
     var route;
-    this.state.selectedElem = [];
     this.state.isLoading = true;
 
     if (value) {
@@ -37664,7 +37662,9 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
       _this9.state.mediaCollection = response.data;
       _this9.state.hideDirectory = true;
+      _this9.state.isSearch = true;
     })["catch"](function (error) {
+      _this9.state.isSearch = false;
       value.vm.$toast.open({
         type: "error",
         position: "bottom-left",
@@ -37917,6 +37917,7 @@ var state = {
   orderDirection: "asc",
   isLoading: true,
   isLoadingSidePanel: false,
+  isSearch: false,
   haveContextMenu: false,
   lang: 'en'
 };

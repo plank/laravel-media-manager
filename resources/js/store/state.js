@@ -30,6 +30,7 @@ export const state = {
     orderDirection: "asc",
     isLoading: true,
     isLoadingSidePanel: false,
+    isSearch: false,
     haveContextMenu: false,
     lang: 'en',
 };

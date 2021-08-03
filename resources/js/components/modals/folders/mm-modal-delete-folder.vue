@@ -84,7 +84,7 @@ export default {
 	border-color: var(--bg-color);
 
 	&:hover {
-		background: white;
+		background: #fff;
 		border-color: var(--bg-color);
 		color: var(--bg-color);
 		transition: all 0.2s ease-in-out;
@@ -97,7 +97,7 @@ export default {
 
 	&:hover {
 		background: var(--bg-color);
-		color: white;
+		color: #fff;
 		transition: all 0.2s ease-in-out;
 	}
 }
