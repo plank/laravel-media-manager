@@ -29,4 +29,6 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.', 'namespace' => 'Pla
     Route::get('/search', 'MediaSearchController@index')->name('search.index');
     Route::get('index/{path?}', 'MediaController@index')->name('index')
         ->where(['path' => '.*']);
+
+    Route::get('settings', 'MediaController@index')->name('settings.index');
 });
