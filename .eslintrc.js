@@ -11,7 +11,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: 'module',
+    parser: 'babel-eslint'
   },
   plugins: [
     'vue'
@@ -19,8 +20,5 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  },
-  parserOptions: {
-    parser: 'babel-eslint'
   }
 }

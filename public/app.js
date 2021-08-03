@@ -3311,8 +3311,7 @@ __webpack_require__.r(__webpack_exports__);
     mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    closeModal: function closeModal($event) {
-      $event.preventDefault();
+    closeModal: function closeModal() {
       this.$store.dispatch("closeModalDelete");
     },
     deleteElement: function deleteElement() {
@@ -3722,9 +3721,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3741,17 +3737,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    close: function close(event) {
-      event.preventDefault();
+    close: function close() {
       this.slideOpen = false;
     },
-    openDeleteModal: function openDeleteModal($event) {
-      $event.preventDefault();
+    openDeleteModal: function openDeleteModal() {
       this.$store.dispatch("openModalDelete");
       this.slideOpen = false;
     },
-    updateMedia: function updateMedia($event) {
-      $event.preventDefault();
+    updateMedia: function updateMedia() {
       this.$store.dispatch("updateMedia", {
         vm: this,
         disk: this.disk,
@@ -3786,6 +3779,14 @@ __webpack_require__.r(__webpack_exports__);
       return {
         "--bg-color": this.$store.state.mainColor
       };
+    }
+  },
+  filters: {
+    fileSize: function fileSize(_fileSize) {
+      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
+      if (_fileSize == 0) return "0 Byte";
+      var i = parseInt(Math.floor(Math.log(_fileSize) / Math.log(1024)));
+      return Math.round(_fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
     }
   }
 });
@@ -3861,7 +3862,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".btn-default {\n  background: var(--bg-color);\n  border-color: var(--bg-color);\n}\n.btn-default:hover {\n  background: white;\n  border-color: var(--bg-color);\n  color: var(--bg-color);\n  transition: all 0.2s ease-in-out;\n}\n.btn-default-border {\n  border: var(--bg-color);\n  color: var(--bg-color);\n}\n.btn-default-border:hover {\n  background: var(--bg-color);\n  color: white;\n  transition: all 0.2s ease-in-out;\n}\n.btn-delete {\n  color: var(--bg-color);\n}", ""]);
+exports.push([module.i, ".btn-default {\n  background: var(--bg-color);\n  border-color: var(--bg-color);\n}\n.btn-default:hover {\n  background: #fff;\n  border-color: var(--bg-color);\n  color: var(--bg-color);\n  transition: all 0.2s ease-in-out;\n}\n.btn-default-border {\n  border: var(--bg-color);\n  color: var(--bg-color);\n}\n.btn-default-border:hover {\n  background: var(--bg-color);\n  color: #fff;\n  transition: all 0.2s ease-in-out;\n}\n.btn-delete {\n  color: var(--bg-color);\n}", ""]);
 
 // exports
 
@@ -13571,6 +13572,7 @@ var render = function() {
                 attrs: { href: "" },
                 on: {
                   click: function($event) {
+                    $event.preventDefault()
                     return _vm.closeModal($event)
                   }
                 }
@@ -13908,6 +13910,7 @@ var render = function() {
             attrs: { href: "" },
             on: {
               click: function($event) {
+                $event.preventDefault()
                 return _vm.close($event)
               }
             }
@@ -14022,13 +14025,8 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v("\n      Dimension: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].size))])
-          ]),
-          _vm._v(" "),
-          _c("p", [
             _vm._v("\n      File Size: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].size))])
+            _c("span", [_vm._v(_vm._s(_vm._f("fileSize")(this.data[0].size)))])
           ]),
           _vm._v(" "),
           _c("p", [
@@ -14162,6 +14160,7 @@ var render = function() {
                   attrs: { href: "" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.updateMedia($event)
                     }
                   }
@@ -14194,6 +14193,7 @@ var render = function() {
                   attrs: { title: _vm.$t("actions.delete"), href: "#" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.openDeleteModal($event)
                     }
                   }
