@@ -42,7 +42,7 @@
         "upload_text_up": "pour téléverser un fichier",
         "drag_upload": "Faites glisser des éléments ici ou ajoutez des fichiers",
         "sort": {
-          "oldest": "Sort Oldest to Newset",
+          "oldest": "Sort Oldest to Newest",
           "newest": "Sort Newest to Oldest"
         }
       },
