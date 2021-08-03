@@ -25,6 +25,8 @@ class MediaManager
     public $manager;
     public $media;
 
+    public static $registerRoutes = true;
+
     /**
      * Constructor.
      * @param ClassString $media
@@ -95,5 +97,12 @@ class MediaManager
             throw MediaManagerException::directoryNotFound($disk, $directory);
         }
         return trim($directory, '/');
+    }
+
+    public static function ignoreRoutes()
+    {
+        static::$registerRoutes = false;
+
+        return new static;
     }
 }

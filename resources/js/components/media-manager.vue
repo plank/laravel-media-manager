@@ -1,6 +1,6 @@
 <template>
   <div class="mm">
-    <div v-if="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
+    <div v-show="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
       <div class="loader"></div>
     </div>
 
@@ -101,6 +101,7 @@ import mmlistresults from "./mm-list-results";
 import mmfolders from "./mm-folders";
 import mmcarousel from "./carousel/mm-carousel";
 import mmempty from "./mm-empty";
+import { EventBus } from '../event-bus';
 
 export default {
   name: "media-manager",
@@ -123,6 +124,8 @@ export default {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);
         this.$store.dispatch("resetSelected", true);
+        // close slidepane
+        EventBus.$emit('close-slide-panel', false);
         const card = document.getElementsByClassName("mm__results-single");
         for (let i = 0; i < card.length; i++) {
           card.item(i).classList.remove("active");

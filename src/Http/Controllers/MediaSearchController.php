@@ -20,8 +20,9 @@ class MediaSearchController extends BaseController
     public function index(Request $request)
     {
         $query = $request->q;
+        $model = config('media-manager.model');
 
-        return Media::where('filename', 'like', "%{$query}%")
+        return $model::where('filename', 'like', "%{$query}%")
             ->orWhere('title', 'like', "%{$query}%")
             ->orWhere('caption', 'like', "%{$query}%")
             ->orWhere('alt', 'like', "%{$query}%")

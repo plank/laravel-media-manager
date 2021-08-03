@@ -4,6 +4,7 @@ namespace Plank\MediaManager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Plank\MediaManager\Models\Media;
 use Plank\MediaManager\Exceptions\MediaManagerException;
@@ -43,6 +44,13 @@ class MediaManagerController extends BaseController
         }
 
         Storage::disk($disk)->makeDirectory($path);
+
+        $key = explode('/', $path);
+        array_pop($key);
+        $key = trim("root." . implode('.', $key), "\.");
+        // Invalidate the cache when a new folder is created.
+        Cache::forget("media.manager.folders.{$key}");
+
         return response([
             'success' => true,
             'path'  =>  $path,
