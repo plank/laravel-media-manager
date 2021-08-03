@@ -65,6 +65,7 @@ class MediaController extends BaseController
         $key = trim("root." . implode(".", explode('/', $path)), "\.");
         // Get the timestamp for each directory. This can probably be improved later.
         $subdirectories = Cache::remember("media.manager.folders.{$key}", 60*60*24, function () use ($disk, $subdirectories) {
+            // Check the files immediately in the chosen folder, grab the most recent modified time, report this as the timestamp
             $modified = Media::whereIn("directory", $subdirectories)
                 ->selectRaw('directory, max(updated_at) as timestamp')
                 ->groupBy("directory")
