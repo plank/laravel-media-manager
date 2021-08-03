@@ -62,7 +62,6 @@ export const actions = {
   },
   getDirectory({ commit }, value) {
     let route;
-    this.state.selectedElem = [];
     this.state.isLoading = true;
     if (value) {
       this.state.currentDirectory = value;
