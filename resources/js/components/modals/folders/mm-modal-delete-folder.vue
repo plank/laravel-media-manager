@@ -37,7 +37,7 @@
       </div>
       <div>
         <a
-          v-on:click.prevent="closeModal"
+          @click.prevent="closeModal"
           class="btn btn-default-border text-center"
           :style="styleBtnDefault"
           href=""

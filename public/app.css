@@ -532,6 +532,14 @@
   z-index: 999;
 }
 
+.mm__slidepanel-loader {
+  position: absolute;
+  display: block;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+}
+
 .mm__slidepanel-btn-container {
   text-align: center;
 }
@@ -548,8 +556,9 @@
 }
 
 .mm__slidepanel-btn-container .btn {
-  width: auto;
   margin: 0 auto;
+  display: block;
+  width: 100%;
 }
 
 .mm__slidepanel-close {
@@ -561,12 +570,14 @@
   margin: 1.25em;
 }
 
+.mm__slidepanel-lang,
 .mm__slidepanel-infos {
   margin: 0 auto;
   width: 90%;
   font-family: "Open Sans", sans-serif;
 }
 
+.mm__slidepanel-lang h5,
 .mm__slidepanel-infos h5 {
   font-size: 1.125em;
   font-weight: 600;
@@ -578,6 +589,7 @@
   margin-bottom: 1.25em;
 }
 
+.mm__slidepanel-lang p,
 .mm__slidepanel-infos p {
   font-size: 0.875em;
   display: block;
@@ -586,8 +598,21 @@
   font-weight: 400;
 }
 
+.mm__slidepanel-lang p span,
 .mm__slidepanel-infos p span {
   color: #222;
+}
+
+.mm__slidepanel-lang {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 1fr;
+  margin-top: 1em;
+}
+
+.mm__slidepanel-lang-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  text-align: center;
 }
 
 .mm__slidepanel .video-player,
@@ -606,6 +631,7 @@
   width: 100%;
   display: flex;
   min-height: 250px;
+  margin-bottom: 2em;
 }
 
 .mm_slidepanel-placeholder-container .placeholder {
@@ -617,6 +643,11 @@
   align-content: center;
   text-align: center;
   width: 100%;
+}
+
+.mm {
+  /* The slider */
+  /* Rounded sliders */
 }
 
 .mm form {
@@ -667,6 +698,61 @@
   font-family: "Open Sans", sans-serif;
   cursor: text;
   transition: 0.25s ease;
+}
+
+.mm .switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+
+.mm .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mm .switch input:checked + .switch-slider {
+  background-color: #9C1820;
+}
+
+.mm .switch input:focus + .switch-slider {
+  box-shadow: 0 0 1px #9C1820;
+}
+
+.mm .switch input:checked + .switch-slider::before {
+  transform: translateX(13px);
+}
+
+.mm .switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.mm .switch-slider::before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+.mm .switch-slider.round {
+  border-radius: 34px;
+}
+
+.mm .switch-slider.round::before {
+  border-radius: 50%;
 }
 
 .mm .modal {

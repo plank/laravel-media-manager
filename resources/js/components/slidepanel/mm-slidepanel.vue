@@ -1,70 +1,88 @@
 <template>
   <div v-if="slideOpen" class="mm__slidepanel">
-    <a href="" class="mm__slidepanel-close" v-on:click.prevent="close">
-      <svg
-        width="22px"
-        height="22px"
-        viewBox="0 0 22 22"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-      >
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g id="icon_cancel_default" :fill="getColor" fill-rule="nonzero">
-            <path
-              d="M21.5976567,0.402297444 C21.0611867,-0.134099148 20.2008278,-0.134099148 19.66437,0.402297444 L11,9.06567624 L2.33563,0.402297444 C1.79917222,-0.134099148 0.938813333,-0.134099148 0.402343333,0.402297444 C-0.134114444,0.938706259 -0.134114444,1.79896725 0.402343333,2.33536384 L9.06671333,10.9987304 L0.402343333,19.6621092 C-0.134114444,20.1985058 -0.134114444,21.0587668 0.402343333,21.5951756 C0.665512222,21.8583078 1.01978556,22 1.36392667,22 C1.70808,22 2.06234111,21.8684278 2.32551,21.5951756 L10.98988,12.9317968 L19.65425,21.5951756 C19.9174189,21.8583078 20.27168,22 20.6158211,22 C20.9700944,22 21.3142356,21.8684278 21.5774044,21.5951756 C22.1138744,21.0587668 22.1138744,20.1985058 21.5774044,19.6621092 L12.9332867,10.9987304 L21.5976567,2.33536384 C22.1341144,1.79896725 22.1341144,0.938706259 21.5976567,0.402297444 Z"
-            ></path>
-          </g>
-        </g>
+    <div v-if="this.$store.state.isLoadingSidePanel" class="loader__overlay">
+      <div class="loader"></div>
+    </div>
+    <a href="" class="mm__slidepanel-close" v-on:click.prevent="close()">
+      <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z"
+          fill-rule="nonzero"
+          fill="#000"
+        />
       </svg>
     </a>
 
     <div>
       <img
-        v-if="this.data[0].aggregate_type === 'image'"
+        v-if="this.data.aggregate_type === 'image'"
         width="100%"
-        :src="this.data[0].url"
+        :src="this.data.url"
         alt=""
       />
-      <div v-else-if="this.data[0].aggregate_type === 'video'" class="video-player">
+      <div v-else-if="this.data.aggregate_type === 'video'" class="video-player">
         <video width="100%" height="240" controls>
-          <source :src="this.data[0].url" type="video/mp4" />
-          <source :src="this.data[0].url" type="video/ogg" />
+          <source :src="this.data.url" type="video/mp4" />
+          <source :src="this.data.url" type="video/ogg" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div v-else-if="this.data[0].aggregate_type === 'audio'" class="audio-player">
+      <div v-else-if="this.data.aggregate_type === 'audio'" class="audio-player">
         <audio controls>
-          <source :src="this.data[0].url" type="audio/ogg" />
-          <source :src="this.data[0].url" type="audio/mpeg" />
+          <source :src="this.data.url" type="audio/ogg" />
+          <source :src="this.data.url" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
       <div class="mm_slidepanel-placeholder-container" v-else>
-        <div class="placeholder">{{ this.data[0].extension }}</div>
+        <div class="placeholder">{{ this.data.extension }}</div>
+      </div>
+    </div>
+
+    <div v-if="this.$props.showLang" class="mm__slidepanel-lang">
+      <div></div>
+      <div class="mm__slidepanel-lang-container">
+        <div>
+          <span>EN</span>
+        </div>
+        <div>
+          <label class="switch">
+            <input
+              @change="setLang"
+              true-value="fr"
+              false-value="en"
+              v-model="langSwitch"
+              type="checkbox"
+            />
+            <span class="switch-slider round"></span>
+          </label>
+        </div>
+        <div>
+          <span>FR</span>
+        </div>
       </div>
     </div>
 
     <div class="mm__slidepanel-infos">
-      <h5>{{ this.data[0].filename }}</h5>
+      <h5>{{ this.data.filename }}</h5>
       <p>
-        Type: <span>{{ this.data[0].mime_type }}</span>
+        Type: <span>{{ this.data.mime_type }}</span>
       </p>
       <p>
         File Size: <span>{{ this.data[0].size | fileSize }}</span>
       </p>
       <p>
         Upload Date:
-        <span>{{ this.data[0].created_at | moment("MMMM Do, YYYY") }}</span>
+        <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
-          <input v-model="title" value="" id="title" type="text" />
+          <input v-model="title" id="title" type="text" />
         </div>
         <div>
           <label for="alt">{{ $t("slidepanel.alt_text") }}</label>
-          <input v-model="alt" value="" id="alt" type="text" />
+          <input v-model="alt" id="alt" type="text" />
         </div>
         <div>
           <label for="caption">{{ $t("slidepanel.caption") }}</label>
@@ -95,7 +113,7 @@
         </div>
         <div class="columns__1">
           <a
-            v-on:click.prevent="openDeleteModal"
+            @click.prevent="openDeleteModal"
             :title="$t('actions.delete')"
             class="btn btn-delete text-center"
             :style="styleBtnDefault"
@@ -113,9 +131,15 @@ import { EventBus } from "../../event-bus.js";
 
 export default {
   name: "mmslidepanel",
+  props: {
+    showLang: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       slideOpen: false,
+      langSwitch: "",
       data: [],
       disk: "",
       id: "",
@@ -126,6 +150,9 @@ export default {
     };
   },
   methods: {
+    setLang: function () {
+      this.$store.dispatch("setLang", this.langSwitch);
+    },
     close: function () {
       this.slideOpen = false;
     },
@@ -135,31 +162,57 @@ export default {
     },
     updateMedia: function () {
       this.$store.dispatch("updateMedia", {
+        locale: this.langSwitch,
         vm: this,
         disk: this.disk,
         id: this.id,
+        title: this.title,
         alt: this.alt,
         credit: this.credit,
         caption: this.caption,
       });
     },
+    selectFile: function () {
+        handleContent(this.$store.state.selectedElem);
+        this.close();
+    }
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
+        console.log(value);
       this.slideOpen = true;
       this.data = value;
-      this.disk = this.data[0].disk;
-      this.id = this.data[0].id;
-      this.alt = this.data[0].alt;
-      this.credit = this.data[0].credit;
-      this.caption = this.data[0].caption;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.alt = this.data.alt;
+      this.title = this.data.title;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
     });
 
-    EventBus.$on("close-slide-panel", () => {
-        this.slideOpen = false;
-    });
+    this.langSwitch = this.$store.state.lang;
+  },
+  watch: {
+    getSelectedTranslation() {
+      this.data = this.$store.state.selectedTranslation;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.title = this.data.title;
+      this.alt = this.data.alt;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
+    },
+    getSelectedLang(newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+    },
   },
   computed: {
+    getSelectedTranslation() {
+      return this.$store.state.selectedTranslation;
+    },
+    getSelectedLang() {
+      return this.$store.state.lang;
+    },
     getColor() {
       return this.$store.state.mainColor;
     },
@@ -182,29 +235,29 @@ export default {
 
 <style lang="scss" scoped>
 .btn-default {
-	background: var(--bg-color);
-	border-color: var(--bg-color);
+  background: var(--bg-color);
+  border-color: var(--bg-color);
 
-	&:hover {
-		background: #fff;
-		border-color: var(--bg-color);
-		color: var(--bg-color);
-		transition: all 0.2s ease-in-out;
-	}
+  &:hover {
+    background: #fff;
+    border-color: var(--bg-color);
+    color: var(--bg-color);
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .btn-default-border {
-	border: var(--bg-color);
-	color: var(--bg-color);
+  border: var(--bg-color);
+  color: var(--bg-color);
 
-	&:hover {
-		background: var(--bg-color);
-		color: #fff;
-		transition: all 0.2s ease-in-out;
-	}
+  &:hover {
+    background: var(--bg-color);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .btn-delete {
-	color: var(--bg-color);
+  color: var(--bg-color);
 }
 </style>

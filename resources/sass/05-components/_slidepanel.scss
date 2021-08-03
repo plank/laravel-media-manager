@@ -12,6 +12,14 @@
 	box-shadow: 0 1px 1px 0 rgba(59, 72, 77, 0.08), 0 1px 3px 1px rgba(59, 72, 77, 0.16);
 	z-index: 999;
 
+	&-loader {
+		position: absolute;
+		display: block;
+		background-color: red;
+		width: 100%;
+		height: 100%;
+	}
+
 	&-btn-container {
 		text-align: center;
 
@@ -26,8 +34,9 @@
 		}
 
 		.btn {
-			width: auto;
 			margin: 0 auto;
+			display: block;
+			width: 100%;
 		}
 	}
 
@@ -40,6 +49,7 @@
 		margin: em(20px);
 	}
 
+	&-lang,
 	&-infos {
 		margin: 0 auto;
 		width: 90%;
@@ -69,6 +79,18 @@
 		}
 	}
 
+	&-lang {
+		display: grid;
+		grid-template-columns: minmax(220px, 1fr) 1fr;
+		margin-top: 1em;
+
+		&-container {
+			display: grid;
+			grid-template-columns: auto auto auto;
+			text-align: center;
+		}
+	}
+
 	.video-player,
 	.audio-player {
 		margin-top: 4em;
@@ -85,6 +107,7 @@
 	width: 100%;
 	display: flex;
 	min-height: 250px;
+	margin-bottom: 2em;
 
 	.placeholder {
 		display: grid;

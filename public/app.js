@@ -1960,17 +1960,23 @@ __webpack_require__.r(__webpack_exports__);
   props: ["item"],
   methods: {
     openRootDirectory: function openRootDirectory(directoryPath) {
-      this.$store.dispatch("getDirectory", directoryPath);
-      this.$store.dispatch("resetSelected");
+      var _this = this;
+
+      this.$store.dispatch("getDirectory", directoryPath).then(function () {
+        _this.$store.dispatch("resetSelected");
+      });
     },
     openDirectory: function openDirectory(directoryPath) {
+      var _this2 = this;
+
       var newBreadcrumbArray = this.createBreadcrumb;
       newBreadcrumbArray.length = directoryPath.index + 1;
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
       }).join("/");
-      this.$store.dispatch("getDirectory", qs);
-      this.$store.dispatch("resetSelected");
+      this.$store.dispatch("getDirectory", qs).then(function () {
+        _this2.$store.dispatch("resetSelected");
+      });
     }
   },
   computed: {
@@ -2295,6 +2301,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "media-manager",
+  props: {
+    showLang: {
+      type: Boolean,
+      required: false,
+      "default": true
+    }
+  },
   components: {
     mmsearch: _mm_search__WEBPACK_IMPORTED_MODULE_0__["default"],
     mmresults: _mm_results__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2436,6 +2449,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -2462,6 +2476,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmcard",
   props: ["item"],
@@ -2471,13 +2487,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    openSelectedMedia: function openSelectedMedia(item) {
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", item);
+    },
     pushSelected: function pushSelected(value) {
       this.current = value.id;
       this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
     },
     setBackground: function setBackground(item) {
-      return "background: url(" + item.conversion_urls.thumb + ")";
+      return "background: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
     }
   },
   computed: {
@@ -2609,9 +2628,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     openDirectory: function openDirectory(value) {
+      var _this = this;
+
       this.current = value.name;
-      this.$store.dispatch("setSelectedDirectory", null);
-      this.$store.dispatch("getDirectory", value.name);
+      this.$store.dispatch("setSelectedDirectory", null).then(function () {
+        _this.$store.dispatch("getDirectory", value.name);
+      });
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
@@ -2794,6 +2816,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getMedia: function getMedia() {
+      console.log('get Media');
       return this.$store.state.mediaCollection;
     }
   }
@@ -3368,15 +3391,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmmodal",
   components: {},
@@ -3721,12 +3735,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
+  props: {
+    showLang: {
+      type: Boolean
+    }
+  },
   data: function data() {
     return {
       slideOpen: false,
+      langSwitch: "",
       data: [],
       disk: "",
       id: "",
@@ -3737,6 +3775,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    setLang: function setLang() {
+      this.$store.dispatch("setLang", this.langSwitch);
+    },
     close: function close() {
       this.slideOpen = false;
     },
@@ -3746,32 +3787,58 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateMedia: function updateMedia() {
       this.$store.dispatch("updateMedia", {
+        locale: this.langSwitch,
         vm: this,
         disk: this.disk,
         id: this.id,
+        title: this.title,
         alt: this.alt,
         credit: this.credit,
         caption: this.caption
       });
+    },
+    selectFile: function selectFile() {
+      handleContent(this.$store.state.selectedElem);
+      this.close();
     }
   },
   mounted: function mounted() {
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+      console.log(value);
       _this.slideOpen = true;
       _this.data = value;
-      _this.disk = _this.data[0].disk;
-      _this.id = _this.data[0].id;
-      _this.alt = _this.data[0].alt;
-      _this.credit = _this.data[0].credit;
-      _this.caption = _this.data[0].caption;
+      _this.disk = _this.data.disk;
+      _this.id = _this.data.id;
+      _this.alt = _this.data.alt;
+      _this.title = _this.data.title;
+      _this.credit = _this.data.credit;
+      _this.caption = _this.data.caption;
     });
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
-      _this.slideOpen = false;
-    });
+    this.langSwitch = this.$store.state.lang;
+  },
+  watch: {
+    getSelectedTranslation: function getSelectedTranslation() {
+      this.data = this.$store.state.selectedTranslation;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.title = this.data.title;
+      this.alt = this.data.alt;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
+    },
+    getSelectedLang: function getSelectedLang(newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+    }
   },
   computed: {
+    getSelectedTranslation: function getSelectedTranslation() {
+      return this.$store.state.selectedTranslation;
+    },
+    getSelectedLang: function getSelectedLang() {
+      return this.$store.state.lang;
+    },
     getColor: function getColor() {
       return this.$store.state.mainColor;
     },
@@ -12367,7 +12434,12 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("span", { attrs: { name: "slide-fade" } }, [_c("mmslidepanel")], 1),
+      _c(
+        "span",
+        { attrs: { name: "slide-fade" } },
+        [_c("mmslidepanel", { attrs: { showLang: this.$props.showLang } })],
+        1
+      ),
       _vm._v(" "),
       _c(
         "transition",
@@ -12594,6 +12666,9 @@ var render = function() {
       staticClass: "mm__card",
       class: { selected: _vm.setSelected },
       on: {
+        dblclick: function($event) {
+          return _vm.openSelectedMedia(_vm.item)
+        },
         click: function($event) {
           return _vm.pushSelected(_vm.item)
         }
@@ -13019,7 +13094,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        return _vm.setCurrent(_vm.getSelected)
+                        return _vm.setCurrent(_vm.getSelected[0])
                       }
                     }
                   },
@@ -13625,47 +13700,20 @@ var render = function() {
           "svg",
           {
             attrs: {
-              width: "22px",
-              height: "22px",
-              viewBox: "0 0 22 22",
-              version: "1.1",
-              xmlns: "http://www.w3.org/2000/svg",
-              "xmlns:xlink": "http://www.w3.org/1999/xlink"
+              width: "22",
+              height: "22",
+              xmlns: "http://www.w3.org/2000/svg"
             }
           },
           [
-            _c(
-              "g",
-              {
-                attrs: {
-                  id: "Page-1",
-                  stroke: "none",
-                  "stroke-width": "1",
-                  fill: "none",
-                  "fill-rule": "evenodd"
-                }
-              },
-              [
-                _c(
-                  "g",
-                  {
-                    attrs: {
-                      id: "icon_cancel_default",
-                      fill: _vm.getColor,
-                      "fill-rule": "nonzero"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M21.5976567,0.402297444 C21.0611867,-0.134099148 20.2008278,-0.134099148 19.66437,0.402297444 L11,9.06567624 L2.33563,0.402297444 C1.79917222,-0.134099148 0.938813333,-0.134099148 0.402343333,0.402297444 C-0.134114444,0.938706259 -0.134114444,1.79896725 0.402343333,2.33536384 L9.06671333,10.9987304 L0.402343333,19.6621092 C-0.134114444,20.1985058 -0.134114444,21.0587668 0.402343333,21.5951756 C0.665512222,21.8583078 1.01978556,22 1.36392667,22 C1.70808,22 2.06234111,21.8684278 2.32551,21.5951756 L10.98988,12.9317968 L19.65425,21.5951756 C19.9174189,21.8583078 20.27168,22 20.6158211,22 C20.9700944,22 21.3142356,21.8684278 21.5774044,21.5951756 C22.1138744,21.0587668 22.1138744,20.1985058 21.5774044,19.6621092 L12.9332867,10.9987304 L21.5976567,2.33536384 C22.1341144,1.79896725 22.1341144,0.938706259 21.5976567,0.402297444 Z"
-                      }
-                    })
-                  ]
-                )
-              ]
-            )
+            _c("path", {
+              attrs: {
+                d:
+                  "M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z",
+                "fill-rule": "nonzero",
+                fill: "#666"
+              }
+            })
           ]
         )
       ]
@@ -13903,6 +13951,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.slideOpen
     ? _c("div", { staticClass: "mm__slidepanel" }, [
+        this.$store.state.isLoadingSidePanel
+          ? _c("div", { staticClass: "loader__overlay" }, [
+              _c("div", { staticClass: "loader" })
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "a",
           {
@@ -13911,7 +13965,7 @@ var render = function() {
             on: {
               click: function($event) {
                 $event.preventDefault()
-                return _vm.close($event)
+                return _vm.close()
               }
             }
           },
@@ -13920,69 +13974,42 @@ var render = function() {
               "svg",
               {
                 attrs: {
-                  width: "22px",
-                  height: "22px",
-                  viewBox: "0 0 22 22",
-                  version: "1.1",
-                  xmlns: "http://www.w3.org/2000/svg",
-                  "xmlns:xlink": "http://www.w3.org/1999/xlink"
+                  width: "22",
+                  height: "22",
+                  xmlns: "http://www.w3.org/2000/svg"
                 }
               },
               [
-                _c(
-                  "g",
-                  {
-                    attrs: {
-                      id: "Page-1",
-                      stroke: "none",
-                      "stroke-width": "1",
-                      fill: "none",
-                      "fill-rule": "evenodd"
-                    }
-                  },
-                  [
-                    _c(
-                      "g",
-                      {
-                        attrs: {
-                          id: "icon_cancel_default",
-                          fill: _vm.getColor,
-                          "fill-rule": "nonzero"
-                        }
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d:
-                              "M21.5976567,0.402297444 C21.0611867,-0.134099148 20.2008278,-0.134099148 19.66437,0.402297444 L11,9.06567624 L2.33563,0.402297444 C1.79917222,-0.134099148 0.938813333,-0.134099148 0.402343333,0.402297444 C-0.134114444,0.938706259 -0.134114444,1.79896725 0.402343333,2.33536384 L9.06671333,10.9987304 L0.402343333,19.6621092 C-0.134114444,20.1985058 -0.134114444,21.0587668 0.402343333,21.5951756 C0.665512222,21.8583078 1.01978556,22 1.36392667,22 C1.70808,22 2.06234111,21.8684278 2.32551,21.5951756 L10.98988,12.9317968 L19.65425,21.5951756 C19.9174189,21.8583078 20.27168,22 20.6158211,22 C20.9700944,22 21.3142356,21.8684278 21.5774044,21.5951756 C22.1138744,21.0587668 22.1138744,20.1985058 21.5774044,19.6621092 L12.9332867,10.9987304 L21.5976567,2.33536384 C22.1341144,1.79896725 22.1341144,0.938706259 21.5976567,0.402297444 Z"
-                          }
-                        })
-                      ]
-                    )
-                  ]
-                )
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M21.598.402a1.362 1.362 0 00-1.934 0L11 9.066 2.336.402a1.362 1.362 0 00-1.934 0 1.362 1.362 0 000 1.933L9.067 11 .402 19.662a1.362 1.362 0 000 1.933c.264.263.618.405.962.405s.698-.132.962-.405l8.664-8.663 8.664 8.663c.263.263.618.405.962.405.354 0 .698-.132.961-.405a1.362 1.362 0 000-1.933L12.933 11l8.665-8.664a1.362 1.362 0 000-1.933z",
+                    "fill-rule": "nonzero",
+                    fill: "#000"
+                  }
+                })
               ]
             )
           ]
         ),
         _vm._v(" "),
         _c("div", [
-          this.data[0].aggregate_type === "image"
+          this.data.aggregate_type === "image"
             ? _c("img", {
-                attrs: { width: "100%", src: this.data[0].url, alt: "" }
+                attrs: { width: "100%", src: this.data.url, alt: "" }
               })
-            : this.data[0].aggregate_type === "video"
+            : this.data.aggregate_type === "video"
             ? _c("div", { staticClass: "video-player" }, [
                 _c(
                   "video",
                   { attrs: { width: "100%", height: "240", controls: "" } },
                   [
                     _c("source", {
-                      attrs: { src: this.data[0].url, type: "video/mp4" }
+                      attrs: { src: this.data.url, type: "video/mp4" }
                     }),
                     _vm._v(" "),
                     _c("source", {
-                      attrs: { src: this.data[0].url, type: "video/ogg" }
+                      attrs: { src: this.data.url, type: "video/ogg" }
                     }),
                     _vm._v(
                       "\n        Your browser does not support the video tag.\n      "
@@ -13990,15 +14017,15 @@ var render = function() {
                   ]
                 )
               ])
-            : this.data[0].aggregate_type === "audio"
+            : this.data.aggregate_type === "audio"
             ? _c("div", { staticClass: "audio-player" }, [
                 _c("audio", { attrs: { controls: "" } }, [
                   _c("source", {
-                    attrs: { src: this.data[0].url, type: "audio/ogg" }
+                    attrs: { src: this.data.url, type: "audio/ogg" }
                   }),
                   _vm._v(" "),
                   _c("source", {
-                    attrs: { src: this.data[0].url, type: "audio/mpeg" }
+                    attrs: { src: this.data.url, type: "audio/mpeg" }
                   }),
                   _vm._v(
                     "\n        Your browser does not support the audio element.\n      "
@@ -14010,18 +14037,81 @@ var render = function() {
                 { staticClass: "mm_slidepanel-placeholder-container" },
                 [
                   _c("div", { staticClass: "placeholder" }, [
-                    _vm._v(_vm._s(this.data[0].extension))
+                    _vm._v(_vm._s(this.data.extension))
                   ])
                 ]
               )
         ]),
         _vm._v(" "),
+        this.$props.showLang
+          ? _c("div", { staticClass: "mm__slidepanel-lang" }, [
+              _c("div"),
+              _vm._v(" "),
+              _c("div", { staticClass: "mm__slidepanel-lang-container" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", [
+                  _c("label", { staticClass: "switch" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.langSwitch,
+                          expression: "langSwitch"
+                        }
+                      ],
+                      attrs: {
+                        "true-value": "fr",
+                        "false-value": "en",
+                        type: "checkbox"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.langSwitch)
+                          ? _vm._i(_vm.langSwitch, null) > -1
+                          : _vm._q(_vm.langSwitch, "fr")
+                      },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$a = _vm.langSwitch,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? "fr" : "en"
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 && (_vm.langSwitch = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.langSwitch = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.langSwitch = $$c
+                            }
+                          },
+                          _vm.setLang
+                        ]
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "switch-slider round" })
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(1)
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "mm__slidepanel-infos" }, [
-          _c("h5", [_vm._v(_vm._s(this.data[0].filename))]),
+          _c("h5", [_vm._v(_vm._s(this.data.filename))]),
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      Type: "),
-            _c("span", [_vm._v(_vm._s(this.data[0].mime_type))])
+            _c("span", [_vm._v(_vm._s(this.data.mime_type))])
           ]),
           _vm._v(" "),
           _c("p", [
@@ -14033,9 +14123,7 @@ var render = function() {
             _vm._v("\n      Upload Date:\n      "),
             _c("span", [
               _vm._v(
-                _vm._s(
-                  _vm._f("moment")(this.data[0].created_at, "MMMM Do, YYYY")
-                )
+                _vm._s(_vm._f("moment")(this.data.created_at, "MMMM Do, YYYY"))
               )
             ])
           ]),
@@ -14055,7 +14143,7 @@ var render = function() {
                     expression: "title"
                   }
                 ],
-                attrs: { value: "", id: "title", type: "text" },
+                attrs: { id: "title", type: "text" },
                 domProps: { value: _vm.title },
                 on: {
                   input: function($event) {
@@ -14082,7 +14170,7 @@ var render = function() {
                     expression: "alt"
                   }
                 ],
-                attrs: { value: "", id: "alt", type: "text" },
+                attrs: { id: "alt", type: "text" },
                 domProps: { value: _vm.alt },
                 on: {
                   input: function($event) {
@@ -14206,7 +14294,20 @@ var render = function() {
       ])
     : _vm._e()
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("EN")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("span", [_vm._v("FR")])])
+  }
+]
 render._withStripped = true
 
 
@@ -35307,14 +35408,18 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"]({
   locale: "en",
   messages: loadLocaleMessages()
 });
-new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
-  VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_3___default.a,
-  render: function render(h) {
-    return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"]);
-  },
-  i18n: i18n
-}).$mount("#media-manager");
+var mediamanager = document.getElementById('media-manager');
+
+if (mediamanager) {
+  new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
+    VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_3___default.a,
+    render: function render(h) {
+      return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    },
+    i18n: i18n
+  }).$mount("#media-manager");
+}
 
 /***/ }),
 
@@ -37321,10 +37426,36 @@ var actions = {
     context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
-  getDirectory: function getDirectory(_ref, value) {
+  getTranslatedDirectory: function getTranslatedDirectory(_ref, value) {
     var _this = this;
 
     var commit = _ref.commit;
+    var route;
+    this.state.isLoadingSidePanel = true;
+
+    if (value) {
+      this.state.currentDirectory = value;
+      route = this.state.routeGetMedia + value;
+    } else {
+      this.state.currentDirectory = "";
+      route = this.state.routeGetDirectory;
+    }
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
+      if (response.data) {
+        _this.state.selectedTranslation = response.data;
+        _this.state.isLoadingSidePanel = false;
+      }
+    });
+  },
+  getDirectory: function getDirectory(_ref2, value) {
+    var _this2 = this;
+
+    var commit = _ref2.commit;
     var route;
     this.state.isLoading = true;
 
@@ -37336,20 +37467,24 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);
         commit("SET_MEDIATYPES", response.data.media);
-        _this.state.isLoading = false;
+        _this2.state.isLoading = false;
       }
 
       commit("SET_DIRECTORY", response.data.subdirectories);
     });
   },
-  getMoveDirectory: function getMoveDirectory(_ref2, value) {
-    var _this2 = this;
+  getMoveDirectory: function getMoveDirectory(_ref3, value) {
+    var _this3 = this;
 
-    var commit = _ref2.commit;
+    var commit = _ref3.commit;
     var route;
     this.state.isLoading = true;
 
@@ -37359,15 +37494,19 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+      params: {
+        locale: this.state.lang
+      }
+    }).then(function (response) {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
-      _this2.state.isLoading = false;
+      _this3.state.isLoading = false;
     });
   },
-  createDirectory: function createDirectory(_ref3, value) {
-    var _this3 = this;
+  createDirectory: function createDirectory(_ref4, value) {
+    var _this4 = this;
 
-    var commit = _ref3.commit;
+    var commit = _ref4.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
       commit("CLOSE_MODAL_CREATE", true);
       value.vm.$toast.open({
@@ -37376,25 +37515,25 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this3.dispatch("getDirectory", _this3.state.currentDirectory);
+      _this4.dispatch("getDirectory", _this4.state.currentDirectory);
     });
   },
-  moveSelected: function moveSelected(_ref4, value) {
-    var _this4 = this;
+  moveSelected: function moveSelected(_ref5, value) {
+    var _this5 = this;
 
-    var commit = _ref4.commit;
+    var commit = _ref5.commit;
 
     if (value.folder) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeMoveDirectory, {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
-        _this4.dispatch("closeModal");
+        _this5.dispatch("closeModal");
 
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
-          message: _this4.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
+          message: _this5.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
         });
         value.vm.$store.dispatch("getDirectory", value.vm.$store.state.currentDirectory);
       });
@@ -37408,10 +37547,10 @@ var actions = {
       });
     }
   },
-  deleteSelected: function deleteSelected(_ref5, value) {
-    var _this5 = this;
+  deleteSelected: function deleteSelected(_ref6, value) {
+    var _this6 = this;
 
-    var commit = _ref5.commit;
+    var commit = _ref6.commit;
 
     if (value.folder) {
       var route;
@@ -37427,7 +37566,7 @@ var actions = {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this5.dispatch("getDirectory", response.data.parentFolder);
+        _this6.dispatch("getDirectory", response.data.parentFolder);
 
         value.vm.$toast.open({
           type: "success",
@@ -37447,23 +37586,23 @@ var actions = {
   setSelectedDirectory: function setSelectedDirectory(context, value) {
     context.commit("SET_SELECTED_DIRECTORY", value);
   },
-  moveSelectedMedia: function moveSelectedMedia(_ref6, value) {
-    var _this6 = this;
+  moveSelectedMedia: function moveSelectedMedia(_ref7, value) {
+    var _this7 = this;
 
-    var commit = _ref6.commit,
-        context = _ref6.context;
+    var commit = _ref7.commit,
+        context = _ref7.context;
     var media = [];
     var promises = [];
 
     var _loop = function _loop(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this6.state.routeUpdateMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeUpdateMedia, {
         id: value.media[i].id,
         disk: value.media[i].disk,
         path: value.destination
       }).then(function (response) {
         commit("CLOSE_MODAL");
 
-        _this6.dispatch("getDirectory", _this6.state.currentDirectory);
+        _this7.dispatch("getDirectory", _this7.state.currentDirectory);
 
         value.vm.$toast.open({
           type: "success",
@@ -37482,16 +37621,16 @@ var actions = {
       return console.log("move selected");
     });
   },
-  deleteSelectedMedia: function deleteSelectedMedia(_ref7, value) {
-    var _this7 = this;
+  deleteSelectedMedia: function deleteSelectedMedia(_ref8, value) {
+    var _this8 = this;
 
-    var commit = _ref7.commit,
-        context = _ref7.context;
+    var commit = _ref8.commit,
+        context = _ref8.context;
     var media = [];
     var promises = [];
 
     var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeDeleteMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this8.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
@@ -37516,16 +37655,16 @@ var actions = {
       return console.log("delete selected");
     });
   },
-  makeSearch: function makeSearch(_ref8, value) {
-    var _this8 = this;
+  makeSearch: function makeSearch(_ref9, value) {
+    var _this9 = this;
 
-    var commit = _ref8.commit;
+    var commit = _ref9.commit;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
-      _this8.state.mediaCollection = response.data;
-      _this8.state.hideDirectory = true;
-      _this8.state.isSearch = true;
+      _this9.state.mediaCollection = response.data;
+      _this9.state.hideDirectory = true;
+      _this9.state.isSearch = true;
     })["catch"](function (error) {
-      _this8.state.isSearch = false;
+      _this9.state.isSearch = false;
       value.vm.$toast.open({
         type: "error",
         position: "bottom-left",
@@ -37533,10 +37672,10 @@ var actions = {
       });
     });
   },
-  updateOrderBy: function updateOrderBy(_ref9, data) {
-    var commit = _ref9.commit,
-        state = _ref9.state,
-        dispatch = _ref9.dispatch;
+  updateOrderBy: function updateOrderBy(_ref10, data) {
+    var commit = _ref10.commit,
+        state = _ref10.state,
+        dispatch = _ref10.dispatch;
     var directoryArray = Object.values(this.state.directoryCollection);
     var mediasArray = Object.values(this.state.mediaCollection);
     this.state.mediaCollection = mediasArray.sort(function (value1, value2) {
@@ -37575,23 +37714,36 @@ var actions = {
     });
   },
   updateMedia: function updateMedia(context, value) {
-    var _this9 = this;
+    var _this10 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
+      locale: value.locale,
       disk: value.disk,
+      title: value.title,
       id: value.id,
       alt: value.alt,
       credit: value.credit,
       caption: value.caption
     }).then(function (response) {
+      // replace object element in mediaCollection with new one base on specific id
+      var newMedia = _this10.state.mediaCollection.findIndex(function (q) {
+        return q.id === response.data.id;
+      }); // I want to replace a specific element on object collection
+
+
+      context.commit('UPDATE_MEDIA_VALUE', {
+        id: newMedia,
+        value: response.data
+      });
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
       });
-
-      _this9.dispatch("getDirectory", _this9.state.currentDirectory);
     });
+  },
+  setLang: function setLang(context, value) {
+    context.commit("SET_LANG", value);
   }
 };
 
@@ -37676,6 +37828,17 @@ var mutations = {
   SET_MEDIA: function SET_MEDIA(state, items) {
     state.mediaCollection = items;
   },
+  UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
+    var id = _ref.id,
+        value = _ref.value;
+    var mediaElement = state.mediaCollection.find(function (q) {
+      return q.id === value.id;
+    });
+    mediaElement.credit = value.credit;
+    mediaElement.title = value.title;
+    mediaElement.alt = value.alt;
+    mediaElement.caption = value.caption;
+  },
   SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
     var _this = this;
 
@@ -37704,6 +37867,9 @@ var mutations = {
   },
   DELETE_SELECTED_MEDIAS: function DELETE_SELECTED_MEDIAS(state, items) {
     console.log("delete selected medias");
+  },
+  SET_LANG: function SET_LANG(state, value) {
+    state.lang = value;
   }
 };
 
@@ -37722,6 +37888,7 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   mainColor: "#9C1820",
   routeGetDirectory: "/media-api/index/",
+  routeGetMedia: "/media-api/show/",
   routeCreateDirectory: "/media-api/directory/create",
   routeDeleteDirectory: "/media-api/directory/destroy",
   routeDeleteMedia: "/media-api/destroy",
@@ -37731,6 +37898,7 @@ var state = {
   hideDirectory: false,
   currentDirectory: null,
   selectedDirectory: null,
+  selectedTranslation: null,
   totalSelected: 0,
   modalState: {
     add: false,
@@ -37748,8 +37916,10 @@ var state = {
   orderBy: "created_at",
   orderDirection: "asc",
   isLoading: true,
+  isLoadingSidePanel: false,
   isSearch: false,
-  haveContextMenu: false
+  haveContextMenu: false,
+  lang: 'en'
 };
 
 /***/ }),
@@ -37815,8 +37985,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

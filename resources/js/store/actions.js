@@ -60,6 +60,28 @@ export const actions = {
     context.commit("RESET_SELECTED", true);
     this.state.totalSelected = this.state.selectedElem.length;
   },
+
+  getTranslatedDirectory({ commit }, value) {
+    let route;
+    this.state.isLoadingSidePanel = true;
+    if (value) {
+      this.state.currentDirectory = value;
+      route = this.state.routeGetMedia + value;
+    } else {
+      this.state.currentDirectory = "";
+      route = this.state.routeGetDirectory;
+    }
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
+      if (response.data) {
+        this.state.selectedTranslation = response.data;
+        this.state.isLoadingSidePanel = false;
+      }
+    });
+  },
   getDirectory({ commit }, value) {
     let route;
     this.state.isLoading = true;
@@ -70,7 +92,11 @@ export const actions = {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
-    axios.get(route, {}).then(response => {
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);
         commit("SET_MEDIATYPES", response.data.media);
@@ -87,7 +113,11 @@ export const actions = {
     } else {
       route = this.state.routeGetDirectory;
     }
-    axios.get(route, {}).then(response => {
+    axios.get(route, {
+        params: {
+            locale: this.state.lang
+        }
+    }).then(response => {
       commit("SET_MOVE_DIRECTORY", response.data.subdirectories);
       this.state.isLoading = false;
     });
@@ -290,19 +320,29 @@ export const actions = {
   updateMedia(context, value) {
     axios
       .post(this.state.routeUpdateMedia, {
+        locale: value.locale,
         disk: value.disk,
+        title: value.title,
         id: value.id,
         alt: value.alt,
         credit: value.credit,
         caption: value.caption
       })
       .then(response => {
+
+        // replace object element in mediaCollection with new one base on specific id
+        const newMedia = this.state.mediaCollection.findIndex(q => q.id === response.data.id);
+        // I want to replace a specific element on object collection
+        context.commit('UPDATE_MEDIA_VALUE', {id: newMedia, value: response.data});
+
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-        this.dispatch("getDirectory", this.state.currentDirectory);
       });
-  }
+  },
+  setLang(context, value) {
+    context.commit("SET_LANG", value);
+  },
 };

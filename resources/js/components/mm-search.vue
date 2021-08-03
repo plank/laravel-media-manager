@@ -26,7 +26,7 @@
       <div class="mm__search-actions">
         <ul>
           <li class="mm__search-icon" v-if="showInformationsBtn">
-            <a v-on:click.prevent="setCurrent(getSelected)" href="">
+            <a v-on:click.prevent="setCurrent(getSelected[0])" href="">
               <iconinfo></iconinfo>
             </a>
           </li>

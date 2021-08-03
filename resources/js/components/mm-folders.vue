@@ -70,8 +70,9 @@ export default {
     },
     openDirectory: function (value) {
       this.current = value.name;
-      this.$store.dispatch("setSelectedDirectory", null);
-      this.$store.dispatch("getDirectory", value.name);
+      this.$store.dispatch("setSelectedDirectory", null).then( () => {
+        this.$store.dispatch("getDirectory", value.name);
+      });
     },
     showOptions(index, item) {
       this.cardItem = index;

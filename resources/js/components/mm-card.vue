@@ -2,6 +2,7 @@
   <div
     class="mm__card"
     v-bind:class="{ selected: setSelected }"
+    v-on:dblclick="openSelectedMedia(item)"
     v-on:click="pushSelected(item)"
   >
     <div class="mm__card-background" :style="setBackground(item)">
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import { EventBus } from "../event-bus.js";
 export default {
   name: "mmcard",
   props: ["item"],
@@ -34,13 +36,16 @@ export default {
     };
   },
   methods: {
+    openSelectedMedia: function (item) {
+        EventBus.$emit("open-slide-panel", item);
+    },
     pushSelected: function (value) {
       this.current = value.id;
       this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
     },
     setBackground: function (item) {
-      return "background: url(" + item.conversion_urls.thumb + ")";
+      return "background: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
     },
   },
   computed: {
