@@ -2816,7 +2816,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     getMedia: function getMedia() {
-      console.log('get Media');
       return this.$store.state.mediaCollection;
     }
   }
@@ -3806,7 +3805,6 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
-      console.log(value);
       _this.slideOpen = true;
       _this.data = value;
       _this.disk = _this.data.disk;
@@ -14116,7 +14114,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      File Size: "),
-            _c("span", [_vm._v(_vm._s(_vm._f("fileSize")(this.data[0].size)))])
+            _c("span", [_vm._v(_vm._s(_vm._f("fileSize")(this.data.size)))])
           ]),
           _vm._v(" "),
           _c("p", [
@@ -37985,8 +37983,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

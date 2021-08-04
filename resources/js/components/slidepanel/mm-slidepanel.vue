@@ -69,7 +69,7 @@
         Type: <span>{{ this.data.mime_type }}</span>
       </p>
       <p>
-        File Size: <span>{{ this.data[0].size | fileSize }}</span>
+        File Size: <span>{{ this.data.size | fileSize }}</span>
       </p>
       <p>
         Upload Date:
@@ -179,7 +179,6 @@ export default {
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
-        console.log(value);
       this.slideOpen = true;
       this.data = value;
       this.disk = this.data.disk;
