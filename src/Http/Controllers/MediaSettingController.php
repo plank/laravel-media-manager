@@ -8,7 +8,7 @@ use Plank\MediaManager\Models\Media;
 use Plank\MediaManager\Exceptions\MediaManagerException;
 use Plank\MediaManager\MediaManager;
 
-class MediaSearchController extends BaseController
+class MediaSettingController extends BaseController
 {
     protected $manager;
 
