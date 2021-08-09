@@ -1,6 +1,5 @@
 # Laravel Media Manager
 
-
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/plank/laravel-checkpoint/tests?label=tests)](https://github.com/plank/laravel-media-manager/actions?query=workflow%3Atests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
