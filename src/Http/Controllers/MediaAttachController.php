@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Plank\MediaManager\Actions\DiscoverMediables;
 
 class MediaAttachController extends BaseController
 {
@@ -20,7 +21,7 @@ class MediaAttachController extends BaseController
      */
     public function store(Request $request)
     {
-        $allowedModels = config('media-manager.mediable_models') ?: ["get models somehow"];
+        $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
         $table = app($request->get('model'))->getTable();
         $mediaTable = app(config('media-manager.model'))->getTable();
         $validated = $request->validate([
