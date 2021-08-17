@@ -3698,6 +3698,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/filter.js */ "./resources/js/helpers/filter.js");
 //
 //
 //
@@ -3826,6 +3827,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmslidepanel",
@@ -3905,6 +3907,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    fileSize: function fileSize() {
+      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this.data.size);
+    },
     getSelectedTranslation: function getSelectedTranslation() {
       return this.$store.state.selectedTranslation;
     },
@@ -3918,14 +3923,6 @@ __webpack_require__.r(__webpack_exports__);
       return {
         "--bg-color": this.$store.state.mainColor
       };
-    }
-  },
-  filters: {
-    fileSize: function fileSize(_fileSize) {
-      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
-      if (_fileSize == 0) return "0 Byte";
-      var i = parseInt(Math.floor(Math.log(_fileSize) / Math.log(1024)));
-      return Math.round(_fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
     }
   }
 });
@@ -14958,7 +14955,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _vm._v("\n      File Size: "),
-            _c("span", [_vm._v(_vm._s(_vm._f("fileSize")(this.data.size)))])
+            _c("span", [_vm._v(_vm._s(_vm.fileSize))])
           ]),
           _vm._v(" "),
           _c("p", [
@@ -38847,8 +38844,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jasoncameron/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jasoncameron/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
