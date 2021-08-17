@@ -14262,6 +14262,7 @@ var render = function() {
                   attrs: { href: "" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.close($event)
                     }
                   }

@@ -106,7 +106,7 @@
           <a
             :style="styleBtnDefault"
             class="btn btn-default"
-            v-on:click="close($event)"
+            v-on:click.prevent="close($event)"
             href=""
             >{{ $t('actions.close') }}</a
           >
