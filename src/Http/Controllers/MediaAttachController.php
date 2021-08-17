@@ -21,6 +21,8 @@ class MediaAttachController extends BaseController
      */
     public function store(Request $request)
     {
+        // If no models are configured as mediable attempt auto-discovery
+        // Note: it's highly recommended to register models as Mediable in the config file.
         $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
         $table = app($request->get('model'))->getTable();
         $mediaTable = app(config('media-manager.model'))->getTable();
