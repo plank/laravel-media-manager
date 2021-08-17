@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Plank\MediaManager\Actions\DiscoverMediables;
+use Plank\MediaManager\Models\Media;
 
 class MediaAttachController extends BaseController
 {
@@ -36,11 +37,13 @@ class MediaAttachController extends BaseController
 
         $model = $validated['model'];
         $attach = $model::find($validated['model_id']);
-        $method = $validated['sync'] ? "syncMedia" : "attachMedia";
+        $sync = $validated['sync'] ?? false;
+        $method = $sync ? "syncMedia" : "attachMedia";
+        $attach->$method($validated['media'], $validated['tag']);
 
         return response([
             'success' => true,
-            'data' => $attach->$method($validated['media'], $validated['tags'])
+            'data' => $attach->loadMedia($validated['tag'])->media
         ]);
     }
 }
