@@ -69,7 +69,7 @@
         Type: <span>{{ this.data.mime_type }}</span>
       </p>
       <p>
-        File Size: <span>{{ this.data.size | fileSize }}</span>
+        File Size: <span>{{ fileSize }}</span>
       </p>
       <p>
         Upload Date:
@@ -128,6 +128,7 @@
 
 <script>
 import { EventBus } from "../../event-bus.js";
+import fileSizeFilter from "../../helpers/filter.js";
 
 export default {
   name: "mmslidepanel",
@@ -206,6 +207,9 @@ export default {
     },
   },
   computed: {
+    fileSize() {
+      return fileSizeFilter(this.data.size);
+    },
     getSelectedTranslation() {
       return this.$store.state.selectedTranslation;
     },
@@ -219,14 +223,6 @@ export default {
       return {
         "--bg-color": this.$store.state.mainColor,
       };
-    },
-  },
-  filters: {
-    fileSize: function (fileSize) {
-      var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
-      if (fileSize == 0) return "0 Byte";
-      var i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
-      return Math.round(fileSize / Math.pow(1024, i), 2) + " " + sizesPrefix[i];
     },
   },
 };
