@@ -25,8 +25,10 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.', 'namespace' => 'Pla
     Route::post('destroy', 'MediaController@destroy')->name('destroy');
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
 
+    Route::post('attach', 'MediaAttachController@store')->name('attach.store');
+
     Route::get('settings', 'MediaSettingController@index')->name('settings.index');
-    
+
     Route::get('show/{id}', 'MediaController@show')->name('show');
     Route::get('/search', 'MediaSearchController@index')->name('search.index');
     Route::get('index/{path?}', 'MediaController@index')->name('index')

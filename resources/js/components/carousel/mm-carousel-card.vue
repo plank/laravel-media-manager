@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     backgroundImage: () => (item) => {
-      return 'background-image: url("' + item.conversion_urls.thumb + '")';
+      return "background-image: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
     },
   },
 };

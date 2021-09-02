@@ -2042,7 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     backgroundImage: function backgroundImage() {
       return function (item) {
-        return 'background-image: url("' + item.conversion_urls.thumb + '")';
+        return "background-image: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
       };
     }
   }
@@ -15103,6 +15103,7 @@ var render = function() {
                   attrs: { href: "" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       return _vm.close($event)
                     }
                   }
