@@ -23,6 +23,9 @@
       <!-- Results Panel -->
       <mmresults></mmresults>
 
+      <!-- Attach Button -->
+      <mmattachbutton v-if="this.$store.state.selectedElem.length > 0" v-bind:selectedElem="this.$store.state.selectedElem" ></mmattachbutton>
+
       <!-- Add Button -->
       <mmaddbutton></mmaddbutton>
 
@@ -101,6 +104,7 @@ import mmlistresults from "./mm-list-results";
 import mmfolders from "./mm-folders";
 import mmcarousel from "./carousel/mm-carousel";
 import mmempty from "./mm-empty";
+import mmattachbutton from "./mm-attach-button"
 import { EventBus } from '../event-bus';
 
 export default {
@@ -125,8 +129,12 @@ export default {
     mmmodaldeletefolder,
     mmmodalmove,
     mmempty,
+    mmattachbutton,
   },
   methods: {
+    log: function (item) {
+      console.log(item)
+    },
     triggerClick: function ($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);

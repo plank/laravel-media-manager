@@ -322,6 +322,18 @@
   transition: all 0.2s ease-in-out;
 }
 
+.mm .btn-attach {
+  position: fixed;
+  right: 3em;
+  bottom: 11.25em;
+  z-index: 999;
+}
+
+.mm .btn-attach:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
 .mm .btn-default {
   display: flex;
   align-items: center;

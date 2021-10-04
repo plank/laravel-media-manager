@@ -2207,7 +2207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_folders__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mm-folders */ "./resources/js/components/mm-folders.vue");
 /* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
-/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+/* harmony import */ var _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./mm-attach-button */ "./resources/js/components/mm-attach-button.vue");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
 //
 //
 //
@@ -2298,6 +2299,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -2332,15 +2337,19 @@ __webpack_require__.r(__webpack_exports__);
     mmmodaladdfolder: _modals_folders_mm_modal_add_folder__WEBPACK_IMPORTED_MODULE_5__["default"],
     mmmodaldeletefolder: _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_6__["default"],
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
-    mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"]
+    mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"],
+    mmattachbutton: _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__["default"]
   },
   methods: {
+    log: function log(item) {
+      console.log(item);
+    },
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);
         this.$store.dispatch("resetSelected", true); // close slidepane
 
-        _event_bus__WEBPACK_IMPORTED_MODULE_12__["EventBus"].$emit('close-slide-panel', false);
+        _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit('close-slide-panel', false);
         var card = document.getElementsByClassName("mm__results-single");
 
         for (var i = 0; i < card.length; i++) {
@@ -2406,6 +2415,58 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     openModal: function openModal() {
       this.$store.dispatch("openModalAdd");
+    }
+  },
+  computed: {
+    getColor: function getColor() {
+      return this.$store.state.mainColor;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icons/icon-add-media.vue */ "./resources/js/components/icons/icon-add-media.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "mmattachbutton",
+  props: ["selectedElem"],
+  components: {
+    iconaddmedia: _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    attachImage: function attachImage(selectedElem) {
+      var imagesToAttach = [];
+      selectedElem.forEach(function (element) {
+        console.log(element.model);
+        return imagesToAttach.push({
+          model: "",
+          model_id: "",
+          media: element.id,
+          tag: ""
+        });
+      });
+      console.log(imagesToAttach, "imagesToAttach");
     }
   },
   computed: {
@@ -13255,6 +13316,12 @@ var render = function() {
           _vm._v(" "),
           _c("mmresults"),
           _vm._v(" "),
+          this.$store.state.selectedElem.length > 0
+            ? _c("mmattachbutton", {
+                attrs: { selectedElem: this.$store.state.selectedElem }
+              })
+            : _vm._e(),
+          _vm._v(" "),
           _c("mmaddbutton"),
           _vm._v(" "),
           _c("mmcarousel")
@@ -13393,6 +13460,42 @@ var render = function() {
     },
     [_c("iconaddmedia")],
     1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-rounded btn-attach",
+      style: { background: _vm.getColor },
+      on: {
+        click: function($event) {
+          return _vm.attachImage(_vm.selectedElem)
+        }
+      }
+    },
+    [_c("span", [_vm._v("attach!")])]
   )
 }
 var staticRenderFns = []
@@ -37050,6 +37153,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/mm-attach-button.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/mm-attach-button.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-attach-button.vue?vue&type=template&id=b486dbd0& */ "./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0&");
+/* harmony import */ var _mm_attach_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-attach-button.vue?vue&type=script&lang=js& */ "./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _mm_attach_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/mm-attach-button.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_attach_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./mm-attach-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mm-attach-button.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_attach_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./mm-attach-button.vue?vue&type=template&id=b486dbd0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/mm-attach-button.vue?vue&type=template&id=b486dbd0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_attach_button_vue_vue_type_template_id_b486dbd0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/mm-card-folder.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/mm-card-folder.vue ***!
@@ -38845,8 +39017,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
