@@ -33,9 +33,9 @@
             <mmattachbutton
                 v-if="this.$store.state.selectedElem.length > 0"
                 v-bind:selectedElem="this.$store.state.selectedElem"
-                v-bind:model="'model prop'"
-                v-bind:model_id="'model id prop'"
-                v-bind:tag="'tag prop'"
+                v-bind:model="this.$props.model"
+                v-bind:model_id="this.$props.model_id"
+                v-bind:tag="this.$props.tag"
             ></mmattachbutton>
 
             <!-- Add Button -->
@@ -126,6 +126,18 @@ export default {
             type: Boolean,
             required: false,
             default: true
+        },
+        model: {
+            type: String,
+            required: false
+        },
+        model_id: {
+            type: Number,
+            required: false
+        },
+        tag: {
+            type: String,
+            required: false
         }
     },
     components: {

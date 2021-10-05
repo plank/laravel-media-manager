@@ -2335,6 +2335,18 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       "default": true
+    },
+    model: {
+      type: String,
+      required: false
+    },
+    model_id: {
+      type: Number,
+      required: false
+    },
+    tag: {
+      type: String,
+      required: false
     }
   },
   components: {
@@ -13346,9 +13358,9 @@ var render = function() {
             ? _c("mmattachbutton", {
                 attrs: {
                   selectedElem: this.$store.state.selectedElem,
-                  model: "model prop",
-                  model_id: "model id prop",
-                  tag: "tag prop"
+                  model: this.$props.model,
+                  model_id: this.$props.model_id,
+                  tag: this.$props.tag
                 }
               })
             : _vm._e(),
@@ -36355,6 +36367,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_7__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -36394,7 +36412,9 @@ if (mediamanager) {
     store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
     VueToast: vue_toast_notification__WEBPACK_IMPORTED_MODULE_3___default.a,
     render: function render(h) {
-      return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"]);
+      return h(_components_media_manager__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        props: _objectSpread({}, mediamanager.dataset)
+      });
     },
     i18n: i18n
   }).$mount("#media-manager");
