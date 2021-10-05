@@ -2302,6 +2302,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2349,7 +2361,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$store.dispatch("setSelectedDirectory", null);
         this.$store.dispatch("resetSelected", true); // close slidepane
 
-        _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit('close-slide-panel', false);
+        _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("close-slide-panel", false);
         var card = document.getElementsByClassName("mm__results-single");
 
         for (var i = 0; i < card.length; i++) {
@@ -2436,6 +2448,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icons/icon-add-media.vue */ "./resources/js/components/icons/icon-add-media.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2448,25 +2462,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+ // We import axios for ajax requests
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmattachbutton",
-  props: ["selectedElem"],
+  props: ["selectedElem", "tag", "model", "model_id"],
   components: {
     iconaddmedia: _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    attachImage: function attachImage(selectedElem) {
+    attachImage: function attachImage(selectedElem, model, model_id, tag) {
       var imagesToAttach = [];
       selectedElem.forEach(function (element) {
-        console.log(element.model);
         return imagesToAttach.push({
-          model: "",
-          model_id: "",
+          model: model,
+          model_id: model_id,
           media: element.id,
-          tag: ""
+          tag: tag
         });
       });
       console.log(imagesToAttach, "imagesToAttach");
+
+      if (imagesToAttach.length > 0) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", {
+          data: imagesToAttach[0] // just sending the first index for now until the backend can handle multiple attachments 
+
+        }).then(function (response) {
+          console.log(response, "response");
+        })["catch"](function (e) {
+          console.log(e, "error");
+        });
+      }
     }
   },
   computed: {
@@ -13283,7 +13309,7 @@ var render = function() {
                 this.$store.state.isLoading &&
                 this.$store.state.modalState.move == false,
               expression:
-                "this.$store.state.isLoading && this.$store.state.modalState.move == false"
+                "\n            this.$store.state.isLoading &&\n                this.$store.state.modalState.move == false\n        "
             }
           ],
           staticClass: "loader__overlay"
@@ -13318,7 +13344,12 @@ var render = function() {
           _vm._v(" "),
           this.$store.state.selectedElem.length > 0
             ? _c("mmattachbutton", {
-                attrs: { selectedElem: this.$store.state.selectedElem }
+                attrs: {
+                  selectedElem: this.$store.state.selectedElem,
+                  model: "model prop",
+                  model_id: "model id prop",
+                  tag: "tag prop"
+                }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -13491,7 +13522,12 @@ var render = function() {
       style: { background: _vm.getColor },
       on: {
         click: function($event) {
-          return _vm.attachImage(_vm.selectedElem)
+          return _vm.attachImage(
+            _vm.selectedElem,
+            _vm.model,
+            _vm.model_id,
+            _vm.tag
+          )
         }
       }
     },
