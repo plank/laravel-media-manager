@@ -2370,6 +2370,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
+    // we do this so we can reset the selected media when the modal is closed and reopened
     var selectButtons = Array.from(document.getElementsByClassName("select-media-btn"));
     selectButtons.forEach(function (button) {
       button.addEventListener("click", function () {

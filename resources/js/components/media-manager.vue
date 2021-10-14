@@ -159,6 +159,7 @@ export default {
         mmattachbutton
     },
     mounted () {
+        // we do this so we can reset the selected media when the modal is closed and reopened
         let selectButtons = Array.from(document.getElementsByClassName("select-media-btn"));
         selectButtons.forEach(button => {
             button.addEventListener("click", () => {
