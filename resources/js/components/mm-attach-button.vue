@@ -20,22 +20,26 @@ export default {
         iconaddmedia
     },
     methods: {
-        attachImage: function(selectedElem, model, model_id, tag) {
-            let imagesToAttach = [];
+        attachImage: function(selectedElem, model, model_id) {
+            // get the tag value and stard building the body of the req
+            let tag = document.getElementById("tag").value;
+            let imagesToAttach = {
+                model: model,
+                model_id: model_id,
+                tag: tag,
+                media: []
+            };
+            // add the attached medid to the body of the request -- pictures to attach
             selectedElem.forEach(element => {
-                return imagesToAttach.push({
-                    model: model,
-                    model_id: model_id,
-                    media: element.id,
-                    tag: tag
-                });
+                return imagesToAttach.media.push(element.id);
             });
+
             console.log(imagesToAttach, "imagesToAttach");
 
-            if (imagesToAttach.length > 0) {
+            if (imagesToAttach.media.length > 0) {
                 axios
                     .post("/media-api/attach", {
-                        data: imagesToAttach[0] // just sending the first index for now until the backend can handle multiple attachments 
+                        data: imagesToAttach
                     })
                     .then(response => {
                         console.log(response, "response");

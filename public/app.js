@@ -2314,6 +2314,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2363,6 +2366,16 @@ __webpack_require__.r(__webpack_exports__);
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"],
     mmattachbutton: _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__["default"]
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    var selectButtons = Array.from(document.getElementsByClassName("select-media-btn"));
+    selectButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        _this.$store.dispatch("resetSelected", true);
+      });
+    });
   },
   methods: {
     log: function log(item) {
@@ -2483,22 +2496,24 @@ __webpack_require__.r(__webpack_exports__);
     iconaddmedia: _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    attachImage: function attachImage(selectedElem, model, model_id, tag) {
-      var imagesToAttach = [];
+    attachImage: function attachImage(selectedElem, model, model_id) {
+      // get the tag value and stard building the body of the req
+      var tag = document.getElementById("tag").value;
+      var imagesToAttach = {
+        model: model,
+        model_id: model_id,
+        tag: tag,
+        media: []
+      }; // add the attached medid to the body of the request -- pictures to attach
+
       selectedElem.forEach(function (element) {
-        return imagesToAttach.push({
-          model: model,
-          model_id: model_id,
-          media: element.id,
-          tag: tag
-        });
+        return imagesToAttach.media.push(element.id);
       });
       console.log(imagesToAttach, "imagesToAttach");
 
-      if (imagesToAttach.length > 0) {
+      if (imagesToAttach.media.length > 0) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", {
-          data: imagesToAttach[0] // just sending the first index for now until the backend can handle multiple attachments 
-
+          data: imagesToAttach
         }).then(function (response) {
           console.log(response, "response");
         })["catch"](function (e) {
@@ -13334,6 +13349,8 @@ var render = function() {
           _c("h1", [_vm._v(_vm._s(_vm.$t("general.title")))])
         ])
       ]),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "tag", type: "hidden" } }),
       _vm._v(" "),
       _c(
         "div",
