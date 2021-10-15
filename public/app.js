@@ -2132,7 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showCarousel: true,
-      isMinify: false,
+      isMinify: true,
       isMinimize: false
     };
   },
@@ -2345,10 +2345,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     model_id: {
       type: Number,
-      required: false
-    },
-    tag: {
-      type: String,
       required: false
     }
   },

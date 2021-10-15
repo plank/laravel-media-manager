@@ -138,10 +138,6 @@ export default {
             type: Number,
             required: false
         },
-        tag: {
-            type: String,
-            required: false
-        }
     },
     components: {
         mmsearch,
