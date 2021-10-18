@@ -26,7 +26,7 @@ class MediaAttachController extends BaseController
         // Note: it's highly recommended to register models as Mediable in the config file.
         $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
         $model = ucfirst($request->get('model'));
-        $table = app("App\\Model\\{$model}")->getTable();
+        $table = app("App\\Models\\{$model}")->getTable();
         $mediaTable = app(config('media-manager.model'))->getTable();
         $validated = $request->validate(array_merge([
             'model' => [Rule::in($allowedModels), 'required'],
