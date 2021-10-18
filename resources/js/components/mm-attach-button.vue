@@ -43,7 +43,7 @@ export default {
                 axios
                     .post("/media-api/attach", imagesToAttach)
                     .then(response => {
-                        console.log(response, "response");
+                        location.reload();
                     })
                     .catch(e => {
                         console.log(e, "error");

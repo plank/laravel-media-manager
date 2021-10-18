@@ -2513,7 +2513,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (imagesToAttach.media.length > 0) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", imagesToAttach).then(function (response) {
-          console.log(response, "response");
+          location.reload();
         })["catch"](function (e) {
           console.log(e, "error");
         });
