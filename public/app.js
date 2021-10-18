@@ -2493,11 +2493,14 @@ __webpack_require__.r(__webpack_exports__);
     iconaddmedia: _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
+    capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
     attachImage: function attachImage(selectedElem, model, model_id) {
       // get the tag value and stard building the body of the req
       var tag = document.getElementById("tag").value;
       var imagesToAttach = {
-        model: "App\\Models\\".concat(model),
+        model: "App\\Models\\".concat(this.capitalize(model)),
         model_id: model_id,
         tag: tag,
         media: []

@@ -20,11 +20,14 @@ export default {
         iconaddmedia
     },
     methods: {
+        capitalize(string) {
+           return string.charAt(0).toUpperCase() + string.slice(1);
+        },
         attachImage: function(selectedElem, model, model_id) {
             // get the tag value and stard building the body of the req
             let tag = document.getElementById("tag").value;
             let imagesToAttach = {
-                model: `App\\Models\\${model}`,
+                model: `App\\Models\\${this.capitalize(model)}`,
                 model_id: model_id,
                 tag: tag,
                 media: []
