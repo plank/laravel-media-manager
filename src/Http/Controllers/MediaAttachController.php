@@ -36,16 +36,17 @@ class MediaAttachController extends BaseController
 
         $model = $validated['model'];
         $attach = $model::find($validated['model_id']);
-        $sync = $validated['sync'] ?? false;
+        $sync = $validated['sync'] ?? true;
+        $method = $sync ? "syncMedia" : "attachMedia";
+
         try {
-            $method = $sync ? "syncMedia" : "attachMedia";
+            $attach->$method($validated['media'], $validated['tag']);
         } catch (QueryException $e) {
             return response([
                 'success' => false,
                 'message' => "That media is already attached with that tag."
             ]);
         }
-        $attach->$method($validated['media'], $validated['tag']);
 
         return response([
             'success' => true,
