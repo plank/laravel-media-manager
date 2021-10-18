@@ -31,7 +31,7 @@ class MediaAttachController extends BaseController
         $validated = $request->validate(array_merge([
             'model' => [Rule::in($allowedModels), 'required'],
             'model_id' => "required|exists:{$table},id",
-            'tag' => "required|array",
+            'tag' => "required|string",
             'sync' => "nullable|boolean",
         ], is_array($request->get('media')) ? ['media' => 'required|array'] : ['media' => "required|exists:{$mediaTable},id"]));
 

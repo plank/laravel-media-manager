@@ -16,6 +16,9 @@
             </div>
         </div>
 
+        <!-- we use  a hidden input to get the tag value -->
+        <input id="tag"  type="hidden"/>
+
         <div class="wrapper" v-on:click="triggerClick($event)">
             <!-- Search Panel -->
             <mmsearch></mmsearch>
@@ -135,10 +138,6 @@ export default {
             type: Number,
             required: false
         },
-        tag: {
-            type: String,
-            required: false
-        }
     },
     components: {
         mmsearch,
@@ -154,6 +153,15 @@ export default {
         mmmodalmove,
         mmempty,
         mmattachbutton
+    },
+    mounted () {
+        // we do this so we can reset the selected media when the modal is closed and reopened
+        let selectButtons = Array.from(document.getElementsByClassName("select-media-btn"));
+        selectButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                this.$store.dispatch("resetSelected", true)
+            })
+        })
     },
     methods: {
         log: function(item) {
