@@ -24,7 +24,7 @@ export default {
             // get the tag value and stard building the body of the req
             let tag = document.getElementById("tag").value;
             let imagesToAttach = {
-                model: `App\\Models\\${model}`,
+                model: model,
                 model_id: model_id,
                 tag: tag,
                 media: []
