@@ -2497,7 +2497,7 @@ __webpack_require__.r(__webpack_exports__);
       // get the tag value and stard building the body of the req
       var tag = document.getElementById("tag").value;
       var imagesToAttach = {
-        model: "App\\Models\\Article",
+        model: "App\\Models\\".concat(model),
         model_id: model_id,
         tag: tag,
         media: []
