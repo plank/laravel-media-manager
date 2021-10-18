@@ -3,6 +3,7 @@
 
 namespace Plank\MediaManager\Http\Controllers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +25,8 @@ class MediaAttachController extends BaseController
         // If no models are configured as mediable attempt auto-discovery
         // Note: it's highly recommended to register models as Mediable in the config file.
         $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
-        $table = app($request->get('model'))->getTable();
+        $model = ucfirst($request->get('model'));
+        $table = app("App\\Model\\{$model}")->getTable();
         $mediaTable = app(config('media-manager.model'))->getTable();
         $validated = $request->validate(array_merge([
             'model' => [Rule::in($allowedModels), 'required'],
@@ -36,7 +38,14 @@ class MediaAttachController extends BaseController
         $model = $validated['model'];
         $attach = $model::find($validated['model_id']);
         $sync = $validated['sync'] ?? false;
-        $method = $sync ? "syncMedia" : "attachMedia";
+        try {
+            $method = $sync ? "syncMedia" : "attachMedia";
+        } catch (QueryException $e) {
+            return response([
+                'success' => false,
+                'message' => "That media is already attached with that tag."
+            ]);
+        }
         $attach->$method($validated['media'], $validated['tag']);
 
         return response([
