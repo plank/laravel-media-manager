@@ -24,7 +24,7 @@ export default {
             // get the tag value and stard building the body of the req
             let tag = document.getElementById("tag").value;
             let imagesToAttach = {
-                model: model,
+                model: "App\\Models\\Article",
                 model_id: model_id,
                 tag: tag,
                 media: []
@@ -38,9 +38,7 @@ export default {
 
             if (imagesToAttach.media.length > 0) {
                 axios
-                    .post("/media-api/attach", {
-                        data: imagesToAttach
-                    })
+                    .post("/media-api/attach", imagesToAttach)
                     .then(response => {
                         console.log(response, "response");
                     })

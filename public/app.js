@@ -2497,7 +2497,7 @@ __webpack_require__.r(__webpack_exports__);
       // get the tag value and stard building the body of the req
       var tag = document.getElementById("tag").value;
       var imagesToAttach = {
-        model: model,
+        model: "App\\Models\\Article",
         model_id: model_id,
         tag: tag,
         media: []
@@ -2509,9 +2509,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(imagesToAttach, "imagesToAttach");
 
       if (imagesToAttach.media.length > 0) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", {
-          data: imagesToAttach
-        }).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", imagesToAttach).then(function (response) {
           console.log(response, "response");
         })["catch"](function (e) {
           console.log(e, "error");
