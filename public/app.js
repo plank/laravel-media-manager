@@ -2374,6 +2374,11 @@ __webpack_require__.r(__webpack_exports__);
       });
     });
   },
+  data: function data() {
+    return {
+      showAttach: !location.pathname.includes("media")
+    };
+  },
   methods: {
     log: function log(item) {
       console.log(item);
@@ -13369,7 +13374,7 @@ var render = function() {
           _vm._v(" "),
           _c("mmresults"),
           _vm._v(" "),
-          this.$store.state.selectedElem.length > 0
+          this.$store.state.selectedElem.length > 0 && _vm.showAttach
             ? _c("mmattachbutton", {
                 attrs: {
                   selectedElem: this.$store.state.selectedElem,

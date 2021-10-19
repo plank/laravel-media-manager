@@ -34,7 +34,7 @@
 
             <!-- Attach Button -->
             <mmattachbutton
-                v-if="this.$store.state.selectedElem.length > 0"
+                v-if="this.$store.state.selectedElem.length > 0 && showAttach"
                 v-bind:selectedElem="this.$store.state.selectedElem"
                 v-bind:model="this.$props.model"
                 v-bind:model_id="this.$props.model_id"
@@ -162,6 +162,11 @@ export default {
                 this.$store.dispatch("resetSelected", true)
             })
         })
+    },
+    data() {
+        return {
+            showAttach: !location.pathname.includes("media")
+        }
     },
     methods: {
         log: function(item) {
