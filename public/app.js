@@ -2132,7 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showCarousel: true,
-      isMinify: true,
+      isMinify: false,
       isMinimize: false
     };
   },
@@ -2363,6 +2363,12 @@ __webpack_require__.r(__webpack_exports__);
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"],
     mmattachbutton: _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__["default"]
   },
+  data: function data() {
+    return {
+      showAttach: !location.pathname.includes("media"),
+      tag: ""
+    };
+  },
   mounted: function mounted() {
     var _this = this;
 
@@ -2373,16 +2379,20 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.dispatch("resetSelected", true);
       });
     });
-  },
-  data: function data() {
-    return {
-      showAttach: !location.pathname.includes("media")
-    };
+    var updataFunc = this.updateTag;
+    var tag = document.getElementById("tag");
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.type === "attributes") {
+          updataFunc(mutation.target.attributes["data-tag"].value);
+        }
+      });
+    });
+    observer.observe(tag, {
+      attributes: true
+    });
   },
   methods: {
-    log: function log(item) {
-      console.log(item);
-    },
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
         this.$store.dispatch("setSelectedDirectory", null);
@@ -2395,6 +2405,9 @@ __webpack_require__.r(__webpack_exports__);
           card.item(i).classList.remove("active");
         }
       }
+    },
+    updateTag: function updateTag(val) {
+      this.tag = val;
     }
   },
   computed: {
@@ -2501,9 +2514,7 @@ __webpack_require__.r(__webpack_exports__);
     capitalize: function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    attachImage: function attachImage(selectedElem, model, model_id) {
-      // get the tag value and stard building the body of the req
-      var tag = document.getElementById("tag").value;
+    attachImage: function attachImage(selectedElem, model, model_id, tag) {
       var imagesToAttach = {
         model: "App\\Models\\".concat(this.capitalize(model)),
         model_id: model_id,
@@ -13374,20 +13385,22 @@ var render = function() {
           _vm._v(" "),
           _c("mmresults"),
           _vm._v(" "),
-          this.$store.state.selectedElem.length > 0 && _vm.showAttach
+          this.$store.state.selectedElem.length > 0 &&
+          _vm.showAttach &&
+          _vm.tag !== ""
             ? _c("mmattachbutton", {
                 attrs: {
                   selectedElem: this.$store.state.selectedElem,
                   model: this.$props.model,
                   model_id: this.$props.model_id,
-                  tag: this.$props.tag
+                  tag: _vm.tag
                 }
               })
             : _vm._e(),
           _vm._v(" "),
           _c("mmaddbutton"),
           _vm._v(" "),
-          _c("mmcarousel")
+          _vm.tag == "" ? _c("mmcarousel") : _vm._e()
         ],
         1
       ),

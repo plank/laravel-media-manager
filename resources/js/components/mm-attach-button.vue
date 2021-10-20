@@ -21,11 +21,9 @@ export default {
     },
     methods: {
         capitalize(string) {
-           return string.charAt(0).toUpperCase() + string.slice(1);
+            return string.charAt(0).toUpperCase() + string.slice(1);
         },
-        attachImage: function(selectedElem, model, model_id) {
-            // get the tag value and stard building the body of the req
-            let tag = document.getElementById("tag").value;
+        attachImage: function(selectedElem, model, model_id, tag) {
             let imagesToAttach = {
                 model: `App\\Models\\${this.capitalize(model)}`,
                 model_id: model_id,

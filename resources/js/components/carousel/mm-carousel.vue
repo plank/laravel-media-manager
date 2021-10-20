@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       showCarousel: true,
-      isMinify: true,
+      isMinify: false,
       isMinimize: false,
     };
   },

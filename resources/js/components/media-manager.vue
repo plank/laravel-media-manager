@@ -34,18 +34,18 @@
 
             <!-- Attach Button -->
             <mmattachbutton
-                v-if="this.$store.state.selectedElem.length > 0 && showAttach"
+                v-if="this.$store.state.selectedElem.length > 0 && showAttach && tag !== ''"
                 v-bind:selectedElem="this.$store.state.selectedElem"
                 v-bind:model="this.$props.model"
                 v-bind:model_id="this.$props.model_id"
-                v-bind:tag="this.$props.tag"
+                v-bind:tag="tag"
             ></mmattachbutton>
 
             <!-- Add Button -->
             <mmaddbutton></mmaddbutton>
 
             <!-- Carousel Panel -->
-            <mmcarousel></mmcarousel>
+            <mmcarousel v-if="tag == ''"></mmcarousel>
         </div>
 
         <!-- Slidepanel -->
@@ -154,6 +154,12 @@ export default {
         mmempty,
         mmattachbutton
     },
+    data() {
+        return {
+            showAttach: !location.pathname.includes("media"),
+            tag: ""
+        };
+    },
     mounted() {
         // we do this so we can reset the selected media when the modal is closed and reopened
         let selectButtons = Array.from(
@@ -164,16 +170,20 @@ export default {
                 this.$store.dispatch("resetSelected", true);
             });
         });
-    },
-    data() {
-        return {
-            showAttach: !location.pathname.includes("media")
-        };
+        let updataFunc = this.updateTag;
+
+        let tag = document.getElementById("tag");
+        let observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes") {
+                    updataFunc(mutation.target.attributes["data-tag"].value);
+                }
+            });
+        });
+
+        observer.observe(tag, { attributes: true });
     },
     methods: {
-        log: function(item) {
-            console.log(item);
-        },
         triggerClick: function($event) {
             if ($event.target.classList.contains("mm__results-grid")) {
                 this.$store.dispatch("setSelectedDirectory", null);
@@ -187,6 +197,9 @@ export default {
                     card.item(i).classList.remove("active");
                 }
             }
+        },
+        updateTag: function(val) {
+            this.tag = val;
         }
     },
     computed: {
