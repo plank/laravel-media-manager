@@ -171,8 +171,9 @@ export default {
             });
         });
         let updataFunc = this.updateTag;
-
+        // we do this because we need a way to keep track of the tag
         let tag = document.getElementById("tag");
+        // mutation observer takes a call back that will excute when mutations are observed
         let observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
                 if (mutation.type === "attributes") {
@@ -180,7 +181,7 @@ export default {
                 }
             });
         });
-
+        // note : we can also disconnect the oberver if needed
         observer.observe(tag, { attributes: true });
     },
     methods: {

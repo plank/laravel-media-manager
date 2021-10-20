@@ -2379,15 +2379,18 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.dispatch("resetSelected", true);
       });
     });
-    var updataFunc = this.updateTag;
-    var tag = document.getElementById("tag");
+    var updataFunc = this.updateTag; // we do this because we need a way to keep track of the tag
+
+    var tag = document.getElementById("tag"); // mutation observer takes a call back that will excute when mutations are observed
+
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         if (mutation.type === "attributes") {
           updataFunc(mutation.target.attributes["data-tag"].value);
         }
       });
-    });
+    }); // note : we can also disconnect the oberver if needed
+
     observer.observe(tag, {
       attributes: true
     });
