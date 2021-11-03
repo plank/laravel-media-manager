@@ -552,6 +552,10 @@
   height: 100%;
 }
 
+.mm__slidepanel .html-button {
+  padding: 0.2em 1em;
+}
+
 .mm__slidepanel-btn-container {
   text-align: center;
 }

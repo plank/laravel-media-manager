@@ -5,7 +5,7 @@
         class="btn btn-rounded btn-attach"
     >
         <!-- Icon -->
-        <span>attach!</span>
+        <span>Attach</span>
     </button>
 </template>
 

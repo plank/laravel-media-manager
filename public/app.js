@@ -2148,7 +2148,26 @@ __webpack_require__.r(__webpack_exports__);
       document.body.appendChild(dummyTextarea);
       dummyTextarea.value = text;
       dummyTextarea.select();
-      document.execCommand("copy");
+      dummyTextarea.focus();
+
+      try {
+        var success = document.execCommand("copy");
+
+        if (success) {
+          this.$toast.open({
+            type: "success",
+            position: "bottom-left",
+            message: this.$i18n.t("actions.copyToClipboard")
+          });
+        }
+      } catch (e) {
+        this.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.copyToClipboard")
+        });
+      }
+
       document.body.removeChild(dummyTextarea);
     },
     copyCarouselDOM: function copyCarouselDOM() {
@@ -3958,6 +3977,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4006,6 +4026,34 @@ __webpack_require__.r(__webpack_exports__);
     selectFile: function selectFile() {
       handleContent(this.$store.state.selectedElem);
       this.close();
+    },
+    copyImageHtml: function copyImageHtml(image) {
+      var imageHtml = '<div><img src="' + image.url + '" alt="' + image.alt + '"/> </div>';
+      var dummyTextarea = document.createElement("textarea");
+      dummyTextarea.innerHTML = imageHtml;
+      document.body.appendChild(dummyTextarea);
+      dummyTextarea.select();
+      dummyTextarea.focus();
+
+      try {
+        var success = document.execCommand("copy");
+
+        if (success) {
+          this.$toast.open({
+            type: "success",
+            position: "bottom-left",
+            message: this.$i18n.t("actions.copyToClipboard")
+          });
+        }
+      } catch (e) {
+        this.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.copyToClipboard")
+        });
+      }
+
+      document.body.removeChild(dummyTextarea);
     }
   },
   mounted: function mounted() {
@@ -13579,7 +13627,7 @@ var render = function() {
         }
       }
     },
-    [_c("span", [_vm._v("attach!")])]
+    [_c("span", [_vm._v("Attach")])]
   )
 }
 var staticRenderFns = []
@@ -15153,6 +15201,20 @@ var render = function() {
               )
             ])
           ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default html-button",
+              style: _vm.styleBtnDefault,
+              on: {
+                click: function($event) {
+                  return _vm.copyImageHtml(_vm.data)
+                }
+              }
+            },
+            [_vm._v("Copy Html")]
+          ),
           _vm._v(" "),
           _c("form", { attrs: { id: "media__update", action: "" } }, [
             _c("div", [
