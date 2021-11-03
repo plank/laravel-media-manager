@@ -7,6 +7,7 @@
             v-model="searchTerm"
             type="text"
             v-bind:placeholder="$t('search.input_placeholder')"
+            v-on:keyup.enter="makeSearch"
           />
           <div class="mm__search-launch">
             <a v-on:click.prevent="makeSearch" href="#">

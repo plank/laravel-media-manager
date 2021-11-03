@@ -3108,6 +3108,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -14092,6 +14093,15 @@ var render = function() {
             },
             domProps: { value: _vm.searchTerm },
             on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.makeSearch($event)
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
