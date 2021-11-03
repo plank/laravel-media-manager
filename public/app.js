@@ -2336,6 +2336,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2398,19 +2403,31 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.dispatch("resetSelected", true);
       });
     });
-    var updataFunc = this.updateTag; // we do this because we need a way to keep track of the tag
+    var updataFunc = this.updateTag;
+    var openAttachedMediaFunc = this.openAttachedMedia; // we do this because we need a way to keep track of the tag
 
-    var tag = document.getElementById("tag"); // mutation observer takes a call back that will excute when mutations are observed
+    var tag = document.getElementById("tag");
+    var attachedMedia = document.getElementById("attachedMedia");
+    console.log(attachedMedia, "attachedMedia"); // mutation observer takes a call back that will excute when mutations are observed
 
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
+        console.log(mutation, "mutation");
+
         if (mutation.type === "attributes") {
-          updataFunc(mutation.target.attributes["data-tag"].value);
+          if (mutation.target.attributes["data-tag"]) {
+            updataFunc(mutation.target.attributes["data-tag"].value);
+          } else if (mutation.target.attributes["data-attachedmedia"]) {
+            openAttachedMediaFunc(mutation.target.attributes["data-attachedmedia"].value);
+          }
         }
       });
     }); // note : we can also disconnect the oberver if needed
 
     observer.observe(tag, {
+      attributes: true
+    });
+    observer.observe(attachedMedia, {
       attributes: true
     });
   },
@@ -2430,6 +2447,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateTag: function updateTag(val) {
       this.tag = val;
+    },
+    openAttachedMedia: function openAttachedMedia(item) {
+      console.log(item, "item");
+      _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("open-slide-panel", JSON.parse(item));
     }
   },
   computed: {
@@ -13417,6 +13438,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("input", { attrs: { id: "tag", type: "hidden" } }),
+      _vm._v(" "),
+      _c("input", { attrs: { id: "attachedMedia", type: "hidden" } }),
       _vm._v(" "),
       _c(
         "div",

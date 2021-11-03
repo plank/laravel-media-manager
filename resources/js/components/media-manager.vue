@@ -18,6 +18,7 @@
 
         <!-- we use  a hidden input to get the tag value -->
         <input id="tag" type="hidden" />
+        <input id="attachedMedia" type="hidden" />
 
         <div class="wrapper" v-on:click="triggerClick($event)">
             <!-- Search Panel -->
@@ -34,7 +35,11 @@
 
             <!-- Attach Button -->
             <mmattachbutton
-                v-if="this.$store.state.selectedElem.length > 0 && showAttach && tag !== ''"
+                v-if="
+                    this.$store.state.selectedElem.length > 0 &&
+                        showAttach &&
+                        tag !== ''
+                "
                 v-bind:selectedElem="this.$store.state.selectedElem"
                 v-bind:model="this.$props.model"
                 v-bind:model_id="this.$props.model_id"
@@ -171,18 +176,34 @@ export default {
             });
         });
         let updataFunc = this.updateTag;
+        let openAttachedMediaFunc = this.openAttachedMedia;
         // we do this because we need a way to keep track of the tag
         let tag = document.getElementById("tag");
+        let attachedMedia = document.getElementById("attachedMedia");
+        console.log(attachedMedia, "attachedMedia");
         // mutation observer takes a call back that will excute when mutations are observed
         let observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
+                console.log(mutation, "mutation");
                 if (mutation.type === "attributes") {
-                    updataFunc(mutation.target.attributes["data-tag"].value);
+                    if (mutation.target.attributes["data-tag"]) {
+                        updataFunc(
+                            mutation.target.attributes["data-tag"].value
+                        );
+                    } else if (
+                        mutation.target.attributes["data-attachedmedia"]
+                    ) {
+                        openAttachedMediaFunc(
+                            mutation.target.attributes["data-attachedmedia"]
+                                .value
+                        );
+                    }
                 }
             });
         });
         // note : we can also disconnect the oberver if needed
         observer.observe(tag, { attributes: true });
+        observer.observe(attachedMedia, { attributes: true });
     },
     methods: {
         triggerClick: function($event) {
@@ -201,6 +222,10 @@ export default {
         },
         updateTag: function(val) {
             this.tag = val;
+        },
+        openAttachedMedia: function(item) {
+            console.log(item, "item");
+            EventBus.$emit("open-slide-panel", JSON.parse(item));
         }
     },
     computed: {
