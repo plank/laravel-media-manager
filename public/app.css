@@ -261,6 +261,7 @@
 }
 
 .mm__results-single {
+  width: 100%;
   position: relative;
   border: 2px solid transparent;
   transition: all 0.2s ease-in-out;
@@ -520,6 +521,7 @@
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.5em;
+  word-break: break-all;
 }
 
 .mm .mm__card-infos .type,
