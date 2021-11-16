@@ -56,10 +56,9 @@ class MediaController extends BaseController
         $diskString = $this->manager->verifyDisk($request->disk);
         $disk = Storage::disk($diskString);
         $path = $this->manager->verifyDirectory($diskString, $path);
-        $page = $request->page;
         $model = config('media-manager.model');
 
-        $media = $model::inDirectory($diskString, $path)->get()->forPage($page, 20);
+        $media = $model::inDirectory($diskString, $path)->paginate(20);
         $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
         $key = trim("root." . implode(".", explode('/', $path)), "\.");
@@ -84,7 +83,7 @@ class MediaController extends BaseController
                 return $modified->sortBy('name')->values();
         });
 
-        return response(['subdirectories' => $subdirectories->sortBy('name'), 'media' => $media]);
+        return response(['subdirectories' => $subdirectories->sortBy('name'), 'media' => $media['data'], 'page_count' => $media['last_page']]);
     }
 
     /**
