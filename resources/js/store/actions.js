@@ -84,18 +84,20 @@ export const actions = {
   },
   getDirectory({ commit }, value) {
     let route;
+    let paramsObj = { locale: this.state.lang }
     this.state.isLoading = true;
-    if (value) {
-      this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+    if (value && value.directory) {
+      this.state.currentDirectory = value.directory;
+      route = this.state.routeGetDirectory + value.directory;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
+    if (value && value.page) {
+      paramsObj = {...paramsObj, page: value.page}
+    }
     axios.get(route, {
-        params: {
-            locale: this.state.lang
-        }
+        params: paramsObj
     }).then(response => {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);

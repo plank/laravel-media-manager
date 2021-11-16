@@ -1,5 +1,5 @@
 <template>
-  <div class="mm">
+  <div class="mm" id="mm">
     <div v-show="this.$store.state.isLoading && this.$store.state.modalState.move == false" class="loader__overlay">
       <div class="loader"></div>
     </div>
@@ -126,6 +126,18 @@ export default {
     mmmodalmove,
     mmempty,
   },
+  data() {
+    return {
+        scrollHandler: this.searchResultsInfiniteScroll(),
+        atBottom: false, // Track whether we are at the bottom of the page for infinite scroll
+        page: 1,
+        mediaManagerContainer: document.getElementById("mm")
+    }
+  },
+  mounted() {
+    // Set the scroll handler for infinite scroll in search
+    document.getElementById("mm").onscroll = this.scrollHandler;
+  },
   methods: {
     triggerClick: function ($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
@@ -139,6 +151,35 @@ export default {
         }
       }
     },
+  },
+  methods: {
+    searchResultsInfiniteScroll() {
+        return () => {
+            let container = document.getElementById("mm");
+
+            // if (this.atBottom) {
+            //     return;
+            // }
+
+            this.atBottom =
+                container.scrollHeight - container.scrollTop ==
+                container.offsetHeight;
+
+            if (this.atBottom) {
+                this.page++; // increament the page
+                console.log(
+                    this.$store.state.currentDirectory,
+                    "this.$store.state.currentDirectory"
+                );
+                this.$store.dispatch("getDirectory", {
+                    directory: this.$store.state.currentDirectory,
+                    page: this.page
+                });
+            } else {
+                console.log("not at bottom of div with page " + this.page);
+            }
+        };
+    }
   },
   computed: {
     modalStateMoveFolder() {
@@ -166,5 +207,9 @@ export default {
       );
     },
   },
+   beforeDestroy() {
+       // TO DO: add the correct remove listner
+        // window.removeEventListener("onscroll", this.scrollHandler);
+    }
 };
 </script>

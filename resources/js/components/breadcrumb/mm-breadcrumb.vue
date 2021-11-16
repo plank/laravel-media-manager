@@ -24,7 +24,7 @@ export default {
   props: ["item"],
   methods: {
     openRootDirectory: function (directoryPath) {
-      this.$store.dispatch("getDirectory", directoryPath).then( () => {
+      this.$store.dispatch("getDirectory",{directory: directoryPath}).then( () => {
             this.$store.dispatch("resetSelected");
       });
     },
@@ -34,7 +34,7 @@ export default {
       const qs = Object.keys(newBreadcrumbArray)
         .map((key) => `${newBreadcrumbArray[key]}`)
         .join("/");
-      this.$store.dispatch("getDirectory", qs).then( () => {
+      this.$store.dispatch("getDirectory", { directory: qs }).then( () => {
             this.$store.dispatch("resetSelected");
       });
 
