@@ -58,7 +58,7 @@ class MediaController extends BaseController
         $path = $this->manager->verifyDirectory($diskString, $path);
         $model = config('media-manager.model');
 
-        $media = $model::inDirectory($diskString, $path)->paginate(20);
+        $media = $model::inDirectory($diskString, $path)->paginate(20)->toArray();
         $subdirectories = array_diff($disk->directories($path), $this->ignore);
 
         $key = trim("root." . implode(".", explode('/', $path)), "\.");
