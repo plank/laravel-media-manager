@@ -1974,7 +1974,9 @@ __webpack_require__.r(__webpack_exports__);
     openRootDirectory: function openRootDirectory(directoryPath) {
       var _this = this;
 
-      this.$store.dispatch("getDirectory", directoryPath).then(function () {
+      this.$store.dispatch("getDirectory", {
+        directory: directoryPath
+      }).then(function () {
         _this.$store.dispatch("resetSelected");
       });
     },
@@ -1986,7 +1988,9 @@ __webpack_require__.r(__webpack_exports__);
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
       }).join("/");
-      this.$store.dispatch("getDirectory", qs).then(function () {
+      this.$store.dispatch("getDirectory", {
+        directory: qs
+      }).then(function () {
         _this2.$store.dispatch("resetSelected");
       });
     }
@@ -2208,6 +2212,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+var _name$props$component;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2311,7 +2319,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_name$props$component = {
   name: "media-manager",
   props: {
     showLang: {
@@ -2334,6 +2342,19 @@ __webpack_require__.r(__webpack_exports__);
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
+  data: function data() {
+    return {
+      scrollHandler: this.searchResultsInfiniteScroll(),
+      atBottom: false,
+      // Track whether we are at the bottom of the page for infinite scroll
+      page: 1,
+      mediaManagerContainer: document.getElementById("mm")
+    };
+  },
+  mounted: function mounted() {
+    // Set the scroll handler for infinite scroll in search
+    document.getElementById("mm").onscroll = this.scrollHandler;
+  },
   methods: {
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
@@ -2348,31 +2369,57 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-  },
-  computed: {
-    modalStateMoveFolder: function modalStateMoveFolder() {
-      return this.$store.state.modalState.move;
-    },
-    modalStateCreateFolder: function modalStateCreateFolder() {
-      return this.$store.state.modalState.create;
-    },
-    modalStateDeleteFolder: function modalStateDeleteFolder() {
-      return this.$store.state.modalState["delete"];
-    },
-    modalStateAddMedia: function modalStateAddMedia() {
-      return this.$store.state.modalState.add;
-    },
-    viewState: function viewState() {
-      return this.$store.state.viewState;
-    },
-    folderState: function folderState() {
-      return this.$store.state.folderState;
-    },
-    isEmpty: function isEmpty() {
-      return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
-    }
   }
-});
+}, _defineProperty(_name$props$component, "methods", {
+  searchResultsInfiniteScroll: function searchResultsInfiniteScroll() {
+    var _this = this;
+
+    return function () {
+      var container = document.getElementById("mm"); // if (this.atBottom) {
+      //     return;
+      // }
+
+      _this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+
+      if (_this.atBottom) {
+        _this.page++; // increament the page
+
+        console.log(_this.$store.state.currentDirectory, "this.$store.state.currentDirectory");
+
+        _this.$store.dispatch("getDirectory", {
+          directory: _this.$store.state.currentDirectory,
+          page: _this.page
+        });
+      } else {
+        console.log("not at bottom of div with page " + _this.page);
+      }
+    };
+  }
+}), _defineProperty(_name$props$component, "computed", {
+  modalStateMoveFolder: function modalStateMoveFolder() {
+    return this.$store.state.modalState.move;
+  },
+  modalStateCreateFolder: function modalStateCreateFolder() {
+    return this.$store.state.modalState.create;
+  },
+  modalStateDeleteFolder: function modalStateDeleteFolder() {
+    return this.$store.state.modalState["delete"];
+  },
+  modalStateAddMedia: function modalStateAddMedia() {
+    return this.$store.state.modalState.add;
+  },
+  viewState: function viewState() {
+    return this.$store.state.viewState;
+  },
+  folderState: function folderState() {
+    return this.$store.state.folderState;
+  },
+  isEmpty: function isEmpty() {
+    return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
+  }
+}), _defineProperty(_name$props$component, "beforeDestroy", function beforeDestroy() {// TO DO: add the correct remove listner
+  // window.removeEventListener("onscroll", this.scrollHandler);
+}), _name$props$component);
 
 /***/ }),
 
@@ -2644,7 +2691,10 @@ __webpack_require__.r(__webpack_exports__);
 
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then(function () {
-        _this.$store.dispatch("getDirectory", value.name);
+        // this.$store.dispatch("getDirectory", value.name);
+        _this.$store.dispatch("getDirectory", {
+          directory: value.name
+        });
       });
     },
     showOptions: function showOptions(index, item) {
@@ -2852,6 +2902,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _icons_icon_move_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./icons/icon-move.vue */ "./resources/js/components/icons/icon-move.vue");
 /* harmony import */ var _icons_icon_close_search_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./icons/icon-close-search.vue */ "./resources/js/components/icons/icon-close-search.vue");
 /* harmony import */ var _breadcrumb_mm_breadcrumb__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./breadcrumb/mm-breadcrumb */ "./resources/js/components/breadcrumb/mm-breadcrumb.vue");
+//
 //
 //
 //
@@ -3202,7 +3253,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     uploadSuccess: function uploadSuccess($event) {
       this.$store.dispatch("closeModalAdd");
-      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
+      this.$store.dispatch("getDirectory", {
+        directory: this.$store.state.currentDirectory
+      });
       this.$toast.open({
         type: "success",
         position: "bottom-left",
@@ -13209,7 +13262,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "mm" },
+    { staticClass: "mm", attrs: { id: "mm" } },
     [
       _c(
         "div",
@@ -13857,6 +13910,15 @@ var render = function() {
             },
             domProps: { value: _vm.searchTerm },
             on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.makeSearch($event)
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38229,6 +38291,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var actions = {
   closeModal: function closeModal(context) {
@@ -38317,20 +38385,27 @@ var actions = {
 
     var commit = _ref2.commit;
     var route;
+    var paramsObj = {
+      locale: this.state.lang
+    };
     this.state.isLoading = true;
 
-    if (value) {
-      this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+    if (value && value.directory) {
+      this.state.currentDirectory = value.directory;
+      route = this.state.routeGetDirectory + value.directory;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
 
+    if (value && value.page) {
+      paramsObj = _objectSpread(_objectSpread({}, paramsObj), {}, {
+        page: value.page
+      });
+    }
+
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
-      params: {
-        locale: this.state.lang
-      }
+      params: paramsObj
     }).then(function (response) {
       if (response.data.media) {
         commit("SET_MEDIA", response.data.media);
@@ -38845,8 +38920,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -71,7 +71,8 @@ export default {
     openDirectory: function (value) {
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then( () => {
-        this.$store.dispatch("getDirectory", value.name);
+        // this.$store.dispatch("getDirectory", value.name);
+        this.$store.dispatch("getDirectory", { directory: value.name });
       });
     },
     showOptions(index, item) {
