@@ -93,14 +93,20 @@ export const actions = {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
-    if (value && value.page) {
-      paramsObj = {...paramsObj, page: value.page}
+    if (value && value.pageNumber) {
+      paramsObj = {...paramsObj, page: value.pageNumber}
     }
     axios.get(route, {
         params: paramsObj
     }).then(response => {
       if (response.data.media) {
-        commit("SET_MEDIA", response.data.media);
+        commit("SET_MEDIA", {
+          media: response.data.media, 
+          pageNumber: value && value.pageNumber && value.pageNumber, 
+          directory: this.state.currentDirectory, 
+          lazyLoad: value && value.lazyLoad && value.lazyLoad 
+        });
+        commit("SET_PAGE_COUNT", response.data.page_count);
         commit("SET_MEDIATYPES", response.data.media);
         this.state.isLoading = false;
       }

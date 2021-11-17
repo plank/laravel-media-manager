@@ -50,6 +50,9 @@ export default {
           slug: "move",
         },
       ],
+      scrollHandler: this.mediaResaultsInfiniteScroll(),
+      atBottom: false,
+      pageNumber: 1
     };
   },
   methods: {
@@ -72,12 +75,33 @@ export default {
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then( () => {
         // this.$store.dispatch("getDirectory", value.name);
-        this.$store.dispatch("getDirectory", { directory: value.name });
+        this.pageNumber = 1;
+        this.$store.dispatch("getDirectory", { 
+          directory: value.name , 
+          pageNumber: this.pageNumber, 
+          lazyload: false
+          });
       });
     },
     showOptions(index, item) {
       this.cardItem = index;
       this.$store.dispatch("setSelectedDirectory", item);
+    },
+    mediaResaultsInfiniteScroll() {
+      return () => {
+        if (this.pageNumber !== this.$store.state.pageCount) {
+          let container = document.getElementById("mm");
+          this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+          if (this.atBottom) {
+            this.pageNumber++; // increament the pageNumber
+            this.$store.dispatch("getDirectory", { 
+              directory: this.$store.state.currentDirectory, 
+              pageNumber: this.pageNumber, 
+              lazyLoad: true
+              });
+          }
+        }
+      }
     },
   },
   computed: {
@@ -87,6 +111,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDirectory");
+    document.getElementById("mm").onscroll = this.scrollHandler;
   },
 };
 </script>

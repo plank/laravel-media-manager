@@ -2212,10 +2212,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _carousel_mm_carousel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./carousel/mm-carousel */ "./resources/js/components/carousel/mm-carousel.vue");
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
-var _name$props$component;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2319,7 +2315,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (_name$props$component = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   name: "media-manager",
   props: {
     showLang: {
@@ -2342,19 +2338,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
-  data: function data() {
-    return {
-      scrollHandler: this.searchResultsInfiniteScroll(),
-      atBottom: false,
-      // Track whether we are at the bottom of the page for infinite scroll
-      page: 1,
-      mediaManagerContainer: document.getElementById("mm")
-    };
-  },
-  mounted: function mounted() {
-    // Set the scroll handler for infinite scroll in search
-    document.getElementById("mm").onscroll = this.scrollHandler;
-  },
   methods: {
     triggerClick: function triggerClick($event) {
       if ($event.target.classList.contains("mm__results-grid")) {
@@ -2369,57 +2352,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
     }
+  },
+  computed: {
+    modalStateMoveFolder: function modalStateMoveFolder() {
+      return this.$store.state.modalState.move;
+    },
+    modalStateCreateFolder: function modalStateCreateFolder() {
+      return this.$store.state.modalState.create;
+    },
+    modalStateDeleteFolder: function modalStateDeleteFolder() {
+      return this.$store.state.modalState["delete"];
+    },
+    modalStateAddMedia: function modalStateAddMedia() {
+      return this.$store.state.modalState.add;
+    },
+    viewState: function viewState() {
+      return this.$store.state.viewState;
+    },
+    folderState: function folderState() {
+      return this.$store.state.folderState;
+    },
+    isEmpty: function isEmpty() {
+      return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
+    }
+  },
+  beforeDestroy: function beforeDestroy() {// TO DO: add the correct remove listner
+    // window.removeEventListener("onscroll", this.scrollHandler);
   }
-}, _defineProperty(_name$props$component, "methods", {
-  searchResultsInfiniteScroll: function searchResultsInfiniteScroll() {
-    var _this = this;
-
-    return function () {
-      var container = document.getElementById("mm"); // if (this.atBottom) {
-      //     return;
-      // }
-
-      _this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
-
-      if (_this.atBottom) {
-        _this.page++; // increament the page
-
-        console.log(_this.$store.state.currentDirectory, "this.$store.state.currentDirectory");
-
-        _this.$store.dispatch("getDirectory", {
-          directory: _this.$store.state.currentDirectory,
-          page: _this.page
-        });
-      } else {
-        console.log("not at bottom of div with page " + _this.page);
-      }
-    };
-  }
-}), _defineProperty(_name$props$component, "computed", {
-  modalStateMoveFolder: function modalStateMoveFolder() {
-    return this.$store.state.modalState.move;
-  },
-  modalStateCreateFolder: function modalStateCreateFolder() {
-    return this.$store.state.modalState.create;
-  },
-  modalStateDeleteFolder: function modalStateDeleteFolder() {
-    return this.$store.state.modalState["delete"];
-  },
-  modalStateAddMedia: function modalStateAddMedia() {
-    return this.$store.state.modalState.add;
-  },
-  viewState: function viewState() {
-    return this.$store.state.viewState;
-  },
-  folderState: function folderState() {
-    return this.$store.state.folderState;
-  },
-  isEmpty: function isEmpty() {
-    return this.$store.state.directoryCollection.length === 0 && this.$store.state.mediaCollection.length === 0;
-  }
-}), _defineProperty(_name$props$component, "beforeDestroy", function beforeDestroy() {// TO DO: add the correct remove listner
-  // window.removeEventListener("onscroll", this.scrollHandler);
-}), _name$props$component);
+});
 
 /***/ }),
 
@@ -2667,7 +2627,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: this.$i18n.t("actions.move"),
         slug: "move"
-      }]
+      }],
+      scrollHandler: this.mediaResaultsInfiniteScroll(),
+      atBottom: false,
+      pageNumber: 1
     };
   },
   methods: {
@@ -2692,14 +2655,38 @@ __webpack_require__.r(__webpack_exports__);
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then(function () {
         // this.$store.dispatch("getDirectory", value.name);
+        _this.pageNumber = 1;
+
         _this.$store.dispatch("getDirectory", {
-          directory: value.name
+          directory: value.name,
+          pageNumber: _this.pageNumber,
+          lazyload: false
         });
       });
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
       this.$store.dispatch("setSelectedDirectory", item);
+    },
+    mediaResaultsInfiniteScroll: function mediaResaultsInfiniteScroll() {
+      var _this2 = this;
+
+      return function () {
+        if (_this2.pageNumber !== _this2.$store.state.pageCount) {
+          var container = document.getElementById("mm");
+          _this2.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+
+          if (_this2.atBottom) {
+            _this2.pageNumber++; // increament the pageNumber
+
+            _this2.$store.dispatch("getDirectory", {
+              directory: _this2.$store.state.currentDirectory,
+              pageNumber: _this2.pageNumber,
+              lazyLoad: true
+            });
+          }
+        }
+      };
     }
   },
   computed: {
@@ -2709,6 +2696,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch("getDirectory");
+    document.getElementById("mm").onscroll = this.scrollHandler;
   }
 });
 
@@ -38398,9 +38386,9 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    if (value && value.page) {
+    if (value && value.pageNumber) {
       paramsObj = _objectSpread(_objectSpread({}, paramsObj), {}, {
-        page: value.page
+        page: value.pageNumber
       });
     }
 
@@ -38408,7 +38396,13 @@ var actions = {
       params: paramsObj
     }).then(function (response) {
       if (response.data.media) {
-        commit("SET_MEDIA", response.data.media);
+        commit("SET_MEDIA", {
+          media: response.data.media,
+          pageNumber: value && value.pageNumber && value.pageNumber,
+          directory: _this2.state.currentDirectory,
+          lazyLoad: value && value.lazyLoad && value.lazyLoad
+        });
+        commit("SET_PAGE_COUNT", response.data.page_count);
         commit("SET_MEDIATYPES", response.data.media);
         _this2.state.isLoading = false;
       }
@@ -38760,8 +38754,25 @@ var mutations = {
   SET_ACTIVE_DIRECTORY: function SET_ACTIVE_DIRECTORY(state, value) {
     state.folderState = false;
   },
-  SET_MEDIA: function SET_MEDIA(state, items) {
-    state.mediaCollection = items;
+  SET_MEDIA: function SET_MEDIA(state, values) {
+    console.log(values, "values inside SET_MEDIA mutation");
+
+    if (values.media.length > 0) {
+      // check for the value received if its empy clear the state
+      var media = values.media;
+
+      if (values.lazyLoad) {
+        // check if the request is to lazyload and add to the array instead of reseting it with new values
+        //for some reason i couldnt spread ... so i just did this instead
+        media.map(function (item) {
+          return state.mediaCollection.push(item);
+        });
+      } else {
+        state.mediaCollection = media;
+      }
+    } else {
+      state.mediaCollection = [];
+    }
   },
   UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
     var id = _ref.id,
@@ -38805,6 +38816,9 @@ var mutations = {
   },
   SET_LANG: function SET_LANG(state, value) {
     state.lang = value;
+  },
+  SET_PAGE_COUNT: function SET_PAGE_COUNT(state, value) {
+    state.pageCount = value;
   }
 };
 
@@ -38854,7 +38868,8 @@ var state = {
   isLoadingSidePanel: false,
   isSearch: false,
   haveContextMenu: false,
-  lang: 'en'
+  lang: 'en',
+  pageCount: null
 };
 
 /***/ }),

@@ -40,8 +40,20 @@ export const mutations = {
   SET_ACTIVE_DIRECTORY(state, value) {
     state.folderState = false;
   },
-  SET_MEDIA(state, items) {
-    state.mediaCollection = items;
+  SET_MEDIA(state, values) {
+    console.log(values, "values inside SET_MEDIA mutation")
+    if (values.media.length > 0) { // check for the value received if its empy clear the state
+      let media = values.media;
+      if (values.lazyLoad) { // check if the request is to lazyload and add to the array instead of reseting it with new values
+        //for some reason i couldnt spread ... so i just did this instead
+        media.map(item => state.mediaCollection.push(item));
+      } else {
+        state.mediaCollection = media
+      }
+    } else {
+      state.mediaCollection = [];
+    }
+
   },
   UPDATE_MEDIA_VALUE(state, { id, value }) {
     const mediaElement = state.mediaCollection.find(q => q.id === value.id);
@@ -74,5 +86,8 @@ export const mutations = {
   },
   SET_LANG(state, value) {
     state.lang = value;
+  },
+  SET_PAGE_COUNT(state, value) {
+    state.pageCount = value;
   },
 };
