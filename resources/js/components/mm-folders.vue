@@ -89,9 +89,9 @@ export default {
     },
     mediaResaultsInfiniteScroll() {
       return () => {
-        if (this.pageNumber !== this.$store.state.pageCount) {
           let container = document.getElementById("mm");
           this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+        if (!this.$store.state.allMediaLoaded) {
           if (this.atBottom) {
             this.pageNumber++; // increament the pageNumber
             this.$store.dispatch("getDirectory", { 
@@ -100,7 +100,7 @@ export default {
               lazyLoad: true
               });
           }
-        }
+        } 
       }
     },
   },
@@ -108,6 +108,17 @@ export default {
     getDir() {
       return this.$store.getters.getDirectory;
     },
+  },
+  watch: {
+    "$store.state.allMediaLoaded": function() {
+      if(this.$store.state.allMediaLoaded) {
+        this.$toast.open({
+          type: "success",
+          position: "bottom-left",
+          message: "All media loaded"
+        })
+      }
+    }
   },
   mounted() {
     this.$store.dispatch("getDirectory");

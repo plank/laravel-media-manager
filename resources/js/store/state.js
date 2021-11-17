@@ -33,5 +33,6 @@ export const state = {
     isSearch: false,
     haveContextMenu: false,
     lang: 'en',
-    pageCount: null
+    pageCount: null,
+    allMediaLoaded: false
 };

@@ -102,7 +102,8 @@ export const actions = {
       if (response.data.media) {
         commit("SET_MEDIA", {
           media: response.data.media, 
-          pageNumber: value && value.pageNumber && value.pageNumber, 
+          currentPage: value && value.pageNumber && value.pageNumber,
+          pageCount: response.data.page_count,
           directory: this.state.currentDirectory, 
           lazyLoad: value && value.lazyLoad && value.lazyLoad 
         });

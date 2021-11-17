@@ -48,12 +48,16 @@ export const mutations = {
         //for some reason i couldnt spread ... so i just did this instead
         media.map(item => state.mediaCollection.push(item));
       } else {
-        state.mediaCollection = media
+        state.mediaCollection = media;
       }
     } else {
       state.mediaCollection = [];
     }
-
+    
+    //handle what happens when all media is loaded
+    if(values.currentPage == values.pageCount) {
+      state.allMediaLoaded = true;
+    }
   },
   UPDATE_MEDIA_VALUE(state, { id, value }) {
     const mediaElement = state.mediaCollection.find(q => q.id === value.id);

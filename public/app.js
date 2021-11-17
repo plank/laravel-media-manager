@@ -2672,10 +2672,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       return function () {
-        if (_this2.pageNumber !== _this2.$store.state.pageCount) {
-          var container = document.getElementById("mm");
-          _this2.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+        var container = document.getElementById("mm");
+        _this2.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
 
+        if (!_this2.$store.state.allMediaLoaded) {
           if (_this2.atBottom) {
             _this2.pageNumber++; // increament the pageNumber
 
@@ -2692,6 +2692,17 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     getDir: function getDir() {
       return this.$store.getters.getDirectory;
+    }
+  },
+  watch: {
+    "$store.state.allMediaLoaded": function $storeStateAllMediaLoaded() {
+      if (this.$store.state.allMediaLoaded) {
+        this.$toast.open({
+          type: "success",
+          position: "bottom-left",
+          message: "All media loaded"
+        });
+      }
     }
   },
   mounted: function mounted() {
@@ -38398,7 +38409,8 @@ var actions = {
       if (response.data.media) {
         commit("SET_MEDIA", {
           media: response.data.media,
-          pageNumber: value && value.pageNumber && value.pageNumber,
+          currentPage: value && value.pageNumber && value.pageNumber,
+          pageCount: response.data.page_count,
           directory: _this2.state.currentDirectory,
           lazyLoad: value && value.lazyLoad && value.lazyLoad
         });
@@ -38772,6 +38784,11 @@ var mutations = {
       }
     } else {
       state.mediaCollection = [];
+    } //handle what happens when all media is loaded
+
+
+    if (values.currentPage == values.pageCount) {
+      state.allMediaLoaded = true;
     }
   },
   UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
@@ -38869,7 +38886,8 @@ var state = {
   isSearch: false,
   haveContextMenu: false,
   lang: 'en',
-  pageCount: null
+  pageCount: null,
+  allMediaLoaded: false
 };
 
 /***/ }),
