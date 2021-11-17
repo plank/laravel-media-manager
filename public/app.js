@@ -38789,6 +38789,8 @@ var mutations = {
 
     if (values.currentPage == values.pageCount) {
       state.allMediaLoaded = true;
+    } else {
+      state.allMediaLoaded = false;
     }
   },
   UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {

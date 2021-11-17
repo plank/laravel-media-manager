@@ -55,8 +55,10 @@ export const mutations = {
     }
     
     //handle what happens when all media is loaded
-    if(values.currentPage == values.pageCount) {
+    if (values.currentPage == values.pageCount) {
       state.allMediaLoaded = true;
+    } else {
+      state.allMediaLoaded = false;
     }
   },
   UPDATE_MEDIA_VALUE(state, { id, value }) {
