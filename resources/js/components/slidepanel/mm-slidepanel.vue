@@ -216,6 +216,15 @@ export default {
       this.credit = this.data.credit;
       this.caption = this.data.caption;
     });
+    EventBus.$on("close-slide-panel", () => {
+      this.slideOpen = false;
+      this.data = null;
+      this.disk = null;
+      this.id =  null; 
+      this.title = null;
+      this.credit = null;
+      this.caption = null;
+    });
 
     this.langSwitch = this.$store.state.lang;
   },

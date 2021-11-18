@@ -2411,13 +2411,10 @@ __webpack_require__.r(__webpack_exports__);
     var openAttachedMediaFunc = this.openAttachedMedia; // we do this because we need a way to keep track of the tag
 
     var tag = document.getElementById("tag");
-    var attachedMedia = document.getElementById("attachedMedia");
-    console.log(attachedMedia, "attachedMedia"); // mutation observer takes a call back that will excute when mutations are observed
+    var attachedMedia = document.getElementById("attachedMedia"); // mutation observer takes a call back that will excute when mutations are observed
 
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
-        console.log(mutation, "mutation");
-
         if (mutation.type === "attributes") {
           if (mutation.target.attributes["data-tag"]) {
             updataFunc(mutation.target.attributes["data-tag"].value);
@@ -2453,7 +2450,6 @@ __webpack_require__.r(__webpack_exports__);
       this.tag = val;
     },
     openAttachedMedia: function openAttachedMedia(item) {
-      console.log(item, "item");
       _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("open-slide-panel", JSON.parse(item));
     }
   },
@@ -2572,7 +2568,6 @@ __webpack_require__.r(__webpack_exports__);
       selectedElem.forEach(function (element) {
         return imagesToAttach.media.push(element.id);
       });
-      console.log(imagesToAttach, "imagesToAttach");
 
       if (imagesToAttach.media.length > 0) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", imagesToAttach).then(function (response) {
@@ -2681,6 +2676,7 @@ __webpack_require__.r(__webpack_exports__);
       this.current = value.id;
       this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("close-slide-panel");
     },
     setBackground: function setBackground(item) {
       return "background: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
@@ -4138,6 +4134,15 @@ __webpack_require__.r(__webpack_exports__);
       _this.title = _this.data.title;
       _this.credit = _this.data.credit;
       _this.caption = _this.data.caption;
+    });
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
+      _this.slideOpen = false;
+      _this.data = null;
+      _this.disk = null;
+      _this.id = null;
+      _this.title = null;
+      _this.credit = null;
+      _this.caption = null;
     });
     this.langSwitch = this.$store.state.lang;
   },

@@ -35,7 +35,6 @@ export default {
                 return imagesToAttach.media.push(element.id);
             });
 
-            console.log(imagesToAttach, "imagesToAttach");
 
             if (imagesToAttach.media.length > 0) {
                 axios

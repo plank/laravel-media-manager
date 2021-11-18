@@ -180,11 +180,9 @@ export default {
         // we do this because we need a way to keep track of the tag
         let tag = document.getElementById("tag");
         let attachedMedia = document.getElementById("attachedMedia");
-        console.log(attachedMedia, "attachedMedia");
         // mutation observer takes a call back that will excute when mutations are observed
         let observer = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
-                console.log(mutation, "mutation");
                 if (mutation.type === "attributes") {
                     if (mutation.target.attributes["data-tag"]) {
                         updataFunc(
@@ -224,7 +222,6 @@ export default {
             this.tag = val;
         },
         openAttachedMedia: function(item) {
-            console.log(item, "item");
             EventBus.$emit("open-slide-panel", JSON.parse(item));
         }
     },
