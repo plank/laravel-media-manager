@@ -3,8 +3,8 @@
 
 namespace Plank\MediaManager\Http\Controllers;
 
-
-use App\Http\Controllers\Admin\BaseController;
+use Illuminate\Database\QueryException;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -27,19 +27,26 @@ class MediaAttachController extends BaseController
         $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
         $table = app($request->get('model'))->getTable();
         $mediaTable = app(config('media-manager.model'))->getTable();
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'model' => [Rule::in($allowedModels), 'required'],
             'model_id' => "required|exists:{$table},id",
-            'media' => "required|exists:{$mediaTable},id",
-            'tag' => "required|array",
-            'sync' => "nullable|boolean"
-        ]);
+            'tag' => "required|string",
+            'sync' => "nullable|boolean",
+        ], is_array($request->get('media')) ? ['media' => 'required|array'] : ['media' => "required|exists:{$mediaTable},id"]));
 
         $model = $validated['model'];
         $attach = $model::find($validated['model_id']);
-        $sync = $validated['sync'] ?? false;
+        $sync = $validated['sync'] ?? true;
         $method = $sync ? "syncMedia" : "attachMedia";
-        $attach->$method($validated['media'], $validated['tag']);
+
+        try {
+            $attach->$method($validated['media'], $validated['tag']);
+        } catch (QueryException $e) {
+            return response([
+                'success' => false,
+                'message' => "That media is already attached with that tag."
+            ]);
+        }
 
         return response([
             'success' => true,

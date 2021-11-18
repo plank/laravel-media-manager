@@ -75,6 +75,7 @@
         Upload Date:
         <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
+      <button :style="styleBtnDefault"  class="btn btn-default html-button" v-on:click="copyImageHtml(data)">Copy Html</button>
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
@@ -176,6 +177,32 @@ export default {
     selectFile: function () {
         handleContent(this.$store.state.selectedElem);
         this.close();
+    },
+    copyImageHtml: function(image) {
+      let imageHtml = '<div><img src="' + image.url + '" alt="' + image.alt + '"/> </div>';
+      let dummyTextarea = document.createElement( "textarea" ); 
+      dummyTextarea.innerHTML = imageHtml;  
+      document.body.appendChild( dummyTextarea ); 
+      dummyTextarea.select(); 
+      dummyTextarea.focus(); 
+  
+      try { 
+          let success = document.execCommand( "copy" ); 
+          if (success) {
+            this.$toast.open({
+              type: "success",
+              position: "bottom-left",
+              message: this.$i18n.t("actions.copyToClipboard"),
+            });
+        }
+      } catch( e ) { 
+        this.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.copyToClipboard"),
+        });
+      } 
+      document.body.removeChild(dummyTextarea);  
     }
   },
   mounted() {
