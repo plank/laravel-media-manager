@@ -11,7 +11,6 @@
 
 <script>
 import iconaddmedia from "./icons/icon-add-media.vue";
-import axios from "axios"; // We import axios for ajax requests
 
 export default {
     name: "mmattachbutton",
@@ -35,16 +34,8 @@ export default {
                 return imagesToAttach.media.push(element.id);
             });
 
-
             if (imagesToAttach.media.length > 0) {
-                axios
-                    .post("/media-api/attach", imagesToAttach)
-                    .then(response => {
-                        location.reload();
-                    })
-                    .catch(e => {
-                        console.log(e, "error");
-                    });
+                this.$store.dispatch("attatchMedia", imagesToAttach)
             }
         }
     },

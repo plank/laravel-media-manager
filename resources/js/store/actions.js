@@ -345,4 +345,22 @@ export const actions = {
   setLang(context, value) {
     context.commit("SET_LANG", value);
   },
+  attatchMedia(context, value) {
+    axios
+    .post("/media-api/attach", value)
+    .then(response => {
+      location.reload()
+    }).catch(e => {
+      console.log(e, "error when attaching")
+    })
+  },
+  removeAttachedMedia(context, value) {
+    axios
+    .delete("/media-api/attach", value)
+    .then(response => {
+      location.reload()
+    }).catch(e => {
+      console.log(e, "error when attaching")
+    })
+  }
 };

@@ -55,7 +55,12 @@
 
         <!-- Slidepanel -->
         <span name="slide-fade">
-            <mmslidepanel :showLang="this.$props.showLang"></mmslidepanel>
+            <mmslidepanel  
+            :showLang="this.$props.showLang" 
+            :model="this.$props.model"
+            :model_id="this.$props.model_id"
+            :tag="tag"
+            ></mmslidepanel>
         </span>
 
         <!-- Modal Add -->
@@ -140,7 +145,7 @@ export default {
             required: false
         },
         model_id: {
-            type: Number,
+            type: String, // it should be Number but because its coming through data attributes its a string
             required: false
         }
     },
@@ -222,7 +227,8 @@ export default {
             this.tag = val;
         },
         openAttachedMedia: function(item) {
-            EventBus.$emit("open-slide-panel", JSON.parse(item));
+            let media = {...JSON.parse(item), isAttached: true}
+            EventBus.$emit("open-slide-panel", media);
         }
     },
     computed: {

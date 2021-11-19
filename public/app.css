@@ -554,10 +554,6 @@
   height: 100%;
 }
 
-.mm__slidepanel .html-button {
-  padding: 0.2em 1em;
-}
-
 .mm__slidepanel-btn-container {
   text-align: center;
 }
@@ -593,6 +589,17 @@
   margin: 0 auto;
   width: 90%;
   font-family: "Open Sans", sans-serif;
+}
+
+.mm__slidepanel-lang__buttons,
+.mm__slidepanel-infos__buttons {
+  display: flex;
+}
+
+.mm__slidepanel-lang__buttons .btn,
+.mm__slidepanel-infos__buttons .btn {
+  padding: 0.2em 1em;
+  margin-right: 0.5rem;
 }
 
 .mm__slidepanel-lang h5,
