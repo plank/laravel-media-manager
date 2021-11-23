@@ -26,6 +26,7 @@ Route::group(['prefix' => 'media-api', 'as' => 'media-api.', 'namespace' => 'Pla
     Route::post('directory/destroy', 'MediaManagerController@destroy')->name('directory.destroy');
 
     Route::post('attach', 'MediaAttachController@store')->name('attach.store');
+    Route::delete('attach', 'MediaAttachController@destroy')->name('attach.destroy');
 
     Route::get('settings', 'MediaSettingController@index')->name('settings.index');
 

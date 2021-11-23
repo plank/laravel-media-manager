@@ -53,4 +53,23 @@ class MediaAttachController extends BaseController
             'data' => $attach->loadMedia($validated['tag'])->media
         ]);
     }
+
+    public function destroy(Request $request)
+    {
+        $allowedModels = config('media-manager.mediable_models') ?: DiscoverMediables::execute();
+        $table = app($request->get('model'))->getTable();
+        $mediaTable = app(config('media-manager.model'))->getTable();
+        $validated = $request->validate([
+            'model' => [Rule::in($allowedModels), 'required'],
+            'model_id' => "required|exists:{$table},id",
+            'media' => "required|exists:{$mediaTable},id",
+            'tag' => "required|array",
+            'sync' => "nullable|boolean"
+        ]);
+
+        $model = $validated['model'];
+        $detach = $model::find($validated['model_id']);
+
+        return $detach->detachMedia($validated['media'], $validated['tag']);
+    }
 }
