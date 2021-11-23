@@ -2232,6 +2232,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
 /* harmony import */ var _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./mm-attach-button */ "./resources/js/components/mm-attach-button.vue");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2372,7 +2383,8 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
     model_id: {
-      type: Number,
+      type: String,
+      // it should be Number but because its coming through data attributes its a string
       required: false
     }
   },
@@ -2450,7 +2462,11 @@ __webpack_require__.r(__webpack_exports__);
       this.tag = val;
     },
     openAttachedMedia: function openAttachedMedia(item) {
-      _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("open-slide-panel", JSON.parse(item));
+      var media = _objectSpread(_objectSpread({}, JSON.parse(item)), {}, {
+        isAttached: true
+      });
+
+      _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("open-slide-panel", media);
     }
   },
   computed: {
@@ -2531,8 +2547,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _icons_icon_add_media_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./icons/icon-add-media.vue */ "./resources/js/components/icons/icon-add-media.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2544,8 +2558,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
- // We import axios for ajax requests
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmattachbutton",
@@ -2570,11 +2582,7 @@ __webpack_require__.r(__webpack_exports__);
       });
 
       if (imagesToAttach.media.length > 0) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", imagesToAttach).then(function (response) {
-          location.reload();
-        })["catch"](function (e) {
-          console.log(e, "error");
-        });
+        this.$store.dispatch("attatchMedia", imagesToAttach);
       }
     }
   },
@@ -4044,6 +4052,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4051,6 +4063,15 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     showLang: {
       type: Boolean
+    },
+    model: {
+      type: String
+    },
+    model_id: {
+      type: String
+    },
+    tag: {
+      type: String
     }
   },
   data: function data() {
@@ -4120,6 +4141,18 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       document.body.removeChild(dummyTextarea);
+    },
+    removeAttachment: function removeAttachment(media, tag, model, model_id) {
+      var imageToRemove = {
+        model: "App\\Models\\".concat(this.capitalize(model)),
+        model_id: model_id,
+        tag: tag,
+        media: media.id
+      };
+      this.$store.dispatch("removeAttachedMedia", imageToRemove);
+    },
+    capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
   },
   mounted: function mounted() {
@@ -13536,7 +13569,16 @@ var render = function() {
       _c(
         "span",
         { attrs: { name: "slide-fade" } },
-        [_c("mmslidepanel", { attrs: { showLang: this.$props.showLang } })],
+        [
+          _c("mmslidepanel", {
+            attrs: {
+              showLang: this.$props.showLang,
+              model: this.$props.model,
+              model_id: this.$props.model_id,
+              tag: _vm.tag
+            }
+          })
+        ],
         1
       ),
       _vm._v(" "),
@@ -15288,19 +15330,42 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default html-button",
-              style: _vm.styleBtnDefault,
-              on: {
-                click: function($event) {
-                  return _vm.copyImageHtml(_vm.data)
+          _c("div", { staticClass: "mm__slidepanel-infos__buttons" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default",
+                style: _vm.styleBtnDefault,
+                on: {
+                  click: function($event) {
+                    return _vm.copyImageHtml(_vm.data)
+                  }
                 }
-              }
-            },
-            [_vm._v("Copy Html")]
-          ),
+              },
+              [_vm._v("Copy Html")]
+            ),
+            _vm._v(" "),
+            _vm.data.isAttached
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default",
+                    style: _vm.styleBtnDefault,
+                    on: {
+                      click: function($event) {
+                        return _vm.removeAttachment(
+                          _vm.data,
+                          _vm.tag,
+                          _vm.model,
+                          _vm.model_id
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v("Remove attachment")]
+                )
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c("form", { attrs: { id: "media__update", action: "" } }, [
             _c("div", [
@@ -39036,6 +39101,20 @@ var actions = {
   },
   setLang: function setLang(context, value) {
     context.commit("SET_LANG", value);
+  },
+  attatchMedia: function attatchMedia(context, value) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/attach", value).then(function (response) {
+      location.reload();
+    })["catch"](function (e) {
+      console.log(e, "error when attaching");
+    });
+  },
+  removeAttachedMedia: function removeAttachedMedia(context, value) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/detach", value).then(function (response) {
+      location.reload();
+    })["catch"](function (e) {
+      console.log(e, "error when attaching");
+    });
   }
 };
 

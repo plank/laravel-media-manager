@@ -75,7 +75,11 @@
         Upload Date:
         <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
-      <button :style="styleBtnDefault"  class="btn btn-default html-button" v-on:click="copyImageHtml(data)">Copy Html</button>
+      <div class="mm__slidepanel-infos__buttons">
+        <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyImageHtml(data)">Copy Html</button>
+        <button v-if="data.isAttached" :style="styleBtnDefault"  class="btn btn-default" 
+        v-on:click="removeAttachment(data, tag, model, model_id)">Remove attachment</button>
+      </div>
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
@@ -137,6 +141,15 @@ export default {
     showLang: {
       type: Boolean,
     },
+    model: {
+      type: String,
+    },
+    model_id: {
+      type: String,
+    },
+    tag: {
+      type: String,
+    }
   },
   data() {
     return {
@@ -203,7 +216,19 @@ export default {
         });
       } 
       document.body.removeChild(dummyTextarea);  
-    }
+    },
+    removeAttachment: function(media, tag, model, model_id) {
+      let imageToRemove = {
+        model: `App\\Models\\${this.capitalize(model)}`,
+        model_id: model_id,
+        tag: tag,
+        media: media.id
+      };
+      this.$store.dispatch("removeAttachedMedia", imageToRemove)
+    },
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {

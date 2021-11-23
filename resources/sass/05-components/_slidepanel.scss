@@ -20,10 +20,6 @@
 		height: 100%;
 	}
 
-	.html-button {
-		padding: 0.2em 1em;
-	}
-
 	&-btn-container {
 		text-align: center;
 
@@ -58,6 +54,16 @@
 		margin: 0 auto;
 		width: 90%;
 		font-family: $font-family-base;
+
+		&__buttons {
+			display: flex;
+
+			.btn {
+				padding: 0.2em 1em;
+				margin-right: .5rem;
+			}
+
+		}
 
 		h5 {
 			font-size: em-calc(18px);
