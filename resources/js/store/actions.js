@@ -356,7 +356,7 @@ export const actions = {
   },
   removeAttachedMedia(context, value) {
     axios
-    .delete("/media-api/attach", value)
+    .post("/media-api/detach", value)
     .then(response => {
       location.reload()
     }).catch(e => {
