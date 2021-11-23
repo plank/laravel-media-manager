@@ -63,8 +63,7 @@ class MediaAttachController extends BaseController
             'model' => [Rule::in($allowedModels), 'required'],
             'model_id' => "required|exists:{$table},id",
             'media' => "required|exists:{$mediaTable},id",
-            'tag' => "required|array",
-            'sync' => "nullable|boolean"
+            'tag' => "required|string"
         ]);
 
         $model = $validated['model'];
