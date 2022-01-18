@@ -222,7 +222,7 @@ export default {
         model: `App\\Models\\${this.capitalize(model)}`,
         model_id: model_id,
         tag: tag,
-        media: [media.id]
+        media: media.id
       };
       this.$store.dispatch("removeAttachedMedia", imageToRemove)
     },

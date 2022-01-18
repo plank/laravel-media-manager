@@ -4099,7 +4099,7 @@ __webpack_require__.r(__webpack_exports__);
         model: "App\\Models\\".concat(this.capitalize(model)),
         model_id: model_id,
         tag: tag,
-        media: [media.id]
+        media: media.id
       };
       this.$store.dispatch("removeAttachedMedia", imageToRemove);
     },
@@ -39042,7 +39042,7 @@ var actions = {
     });
   },
   removeAttachedMedia: function removeAttachedMedia(context, value) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/media-api/attach", value).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/detach", value).then(function (response) {
       location.reload();
     })["catch"](function (e) {
       console.log(e, "error when attaching");
