@@ -3417,7 +3417,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       document.getElementsByClassName("dropzone")[0].click();
     },
     getUploadURL: function getUploadURL() {
-      return "media-api/create?path=" + this.$store.state.currentDirectory + "";
+      return "/media-api/create?path=" + this.$store.state.currentDirectory + "";
     },
     closeModal: function closeModal() {
       this.$store.dispatch("closeModalAdd");
@@ -39385,8 +39385,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
