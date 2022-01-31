@@ -41,7 +41,6 @@ export const mutations = {
     state.folderState = false;
   },
   SET_MEDIA(state, values) {
-    console.log(values, "values inside SET_MEDIA mutation")
     if (values.media.length > 0) { // check for the value received if its empy clear the state
       let media = values.media;
       if (values.lazyLoad) { // check if the request is to lazyload and add to the array instead of reseting it with new values
