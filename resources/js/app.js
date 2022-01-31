@@ -41,7 +41,7 @@ if(mediamanager)  {
     new Vue({
     store,
     VueToast,
-    render: h => h(mediaManager),
+    render: h => h(mediaManager, { props: { ...mediamanager.dataset }}),
     i18n
     }).$mount("#media-manager");
 }

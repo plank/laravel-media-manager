@@ -75,6 +75,11 @@
         Upload Date:
         <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
+      <div class="mm__slidepanel-infos__buttons">
+        <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyImageHtml(data)">Copy Html</button>
+        <button v-if="data.isAttached" :style="styleBtnDefault"  class="btn btn-default" 
+        v-on:click="removeAttachment(data, tag, model, model_id)">Remove attachment</button>
+      </div>
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
@@ -136,6 +141,15 @@ export default {
     showLang: {
       type: Boolean,
     },
+    model: {
+      type: String,
+    },
+    model_id: {
+      type: String,
+    },
+    tag: {
+      type: String,
+    }
   },
   data() {
     return {
@@ -176,7 +190,45 @@ export default {
     selectFile: function () {
         handleContent(this.$store.state.selectedElem);
         this.close();
-    }
+    },
+    copyImageHtml: function(image) {
+      let imageHtml = '<div><img src="' + image.url + '" alt="' + image.alt + '"/> </div>';
+      let dummyTextarea = document.createElement( "textarea" ); 
+      dummyTextarea.innerHTML = imageHtml;  
+      document.body.appendChild( dummyTextarea ); 
+      dummyTextarea.select(); 
+      dummyTextarea.focus(); 
+  
+      try { 
+          let success = document.execCommand( "copy" ); 
+          if (success) {
+            this.$toast.open({
+              type: "success",
+              position: "bottom-left",
+              message: this.$i18n.t("actions.copyToClipboard"),
+            });
+        }
+      } catch( e ) { 
+        this.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.copyToClipboard"),
+        });
+      } 
+      document.body.removeChild(dummyTextarea);  
+    },
+    removeAttachment: function(media, tag, model, model_id) {
+      let imageToRemove = {
+        model: `App\\Models\\${this.capitalize(model)}`,
+        model_id: model_id,
+        tag: tag,
+        media: media.id
+      };
+      this.$store.dispatch("removeAttachedMedia", imageToRemove)
+    },
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
   },
   mounted() {
     EventBus.$on("open-slide-panel", (value) => {
@@ -188,6 +240,15 @@ export default {
       this.title = this.data.title;
       this.credit = this.data.credit;
       this.caption = this.data.caption;
+    });
+    EventBus.$on("close-slide-panel", () => {
+      this.slideOpen = false;
+      this.data = null;
+      this.disk = null;
+      this.id =  null; 
+      this.title = null;
+      this.credit = null;
+      this.caption = null;
     });
 
     this.langSwitch = this.$store.state.lang;

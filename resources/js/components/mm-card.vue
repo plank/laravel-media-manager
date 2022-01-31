@@ -43,6 +43,7 @@ export default {
       this.current = value.id;
       this.$store.dispatch("pushSelected", value);
       this.isSelected = !this.isSelected;
+      EventBus.$emit("close-slide-panel");
     },
     setBackground: function (item) {
       return "background: url(" + item.conversion_urls[Object.keys(item.conversion_urls)[0]] + ")";
