@@ -86,8 +86,25 @@ export default {
       document.body.appendChild(dummyTextarea);
       dummyTextarea.value = text;
       dummyTextarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(dummyTextarea);
+      dummyTextarea.focus(); 
+      
+      try { 
+          let success = document.execCommand( "copy" ); 
+          if (success) {
+            this.$toast.open({
+              type: "success",
+              position: "bottom-left",
+              message: this.$i18n.t("actions.copyToClipboard"),
+            });
+        }
+      } catch( e ) { 
+        this.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: this.$i18n.t("actions.copyToClipboard"),
+        });
+      } 
+      document.body.removeChild(dummyTextarea);  
     },
     copyCarouselDOM: function () {
       const imagesArray = [];

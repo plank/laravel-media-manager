@@ -261,6 +261,7 @@
 }
 
 .mm__results-single {
+  width: 100%;
   position: relative;
   border: 2px solid transparent;
   transition: all 0.2s ease-in-out;
@@ -318,6 +319,18 @@
 }
 
 .mm .btn-add:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.mm .btn-attach {
+  position: fixed;
+  right: 3em;
+  bottom: 11.25em;
+  z-index: 999;
+}
+
+.mm .btn-attach:hover {
   transform: scale(1.1);
   transition: all 0.2s ease-in-out;
 }
@@ -508,6 +521,7 @@
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.5em;
+  word-break: break-all;
 }
 
 .mm .mm__card-infos .type,
@@ -575,6 +589,17 @@
   margin: 0 auto;
   width: 90%;
   font-family: "Open Sans", sans-serif;
+}
+
+.mm__slidepanel-lang__buttons,
+.mm__slidepanel-infos__buttons {
+  display: flex;
+}
+
+.mm__slidepanel-lang__buttons .btn,
+.mm__slidepanel-infos__buttons .btn {
+  padding: 0.2em 1em;
+  margin-right: 0.5rem;
 }
 
 .mm__slidepanel-lang h5,
@@ -964,7 +989,6 @@
   overflow-y: scroll;
   position: fixed;
   width: 100%;
-  height: 300px;
   background: #f9f9f9;
   bottom: 0;
   left: 0;
@@ -974,7 +998,7 @@
 }
 
 .mm .mm__carousel.minify {
-  bottom: -14.375em;
+  bottom: -24.375em;
   overflow: hidden;
   padding: 1.625em;
 }

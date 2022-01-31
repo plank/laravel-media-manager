@@ -91,7 +91,7 @@ export default {
         },
         getUploadURL: function() {
             return (
-                "media-api/create?path=" +
+                "/media-api/create?path=" +
                 this.$store.state.currentDirectory +
                 ""
             );
