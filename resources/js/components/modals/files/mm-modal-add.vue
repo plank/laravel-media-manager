@@ -103,7 +103,7 @@ export default {
             this.$store.dispatch("closeModalAdd");
             this.$store.dispatch(
                 "getDirectory",
-                this.$store.state.currentDirectory
+                { directory: this.$store.state.currentDirectory }
             );
             this.$toast.open({
                 type: "success",

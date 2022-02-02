@@ -84,21 +84,30 @@ export const actions = {
   },
   getDirectory({ commit }, value) {
     let route;
+    let paramsObj = { locale: this.state.lang }
     this.state.isLoading = true;
-    if (value) {
-      this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+    if (value && value.directory) {
+      this.state.currentDirectory = value.directory;
+      route = this.state.routeGetDirectory + value.directory;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
+    if (value && value.pageNumber) {
+      paramsObj = {...paramsObj, page: value.pageNumber}
+    }
     axios.get(route, {
-        params: {
-            locale: this.state.lang
-        }
+        params: paramsObj
     }).then(response => {
       if (response.data.media) {
-        commit("SET_MEDIA", response.data.media);
+        commit("SET_MEDIA", {
+          media: response.data.media, 
+          currentPage: value && value.pageNumber && value.pageNumber,
+          pageCount: response.data.page_count,
+          directory: this.state.currentDirectory, 
+          lazyLoad: value && value.lazyLoad && value.lazyLoad 
+        });
+        commit("SET_PAGE_COUNT", response.data.page_count);
         commit("SET_MEDIATYPES", response.data.media);
         this.state.isLoading = false;
       }

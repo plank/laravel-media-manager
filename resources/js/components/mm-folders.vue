@@ -50,6 +50,9 @@ export default {
           slug: "move",
         },
       ],
+      scrollHandler: this.mediaResaultsInfiniteScroll(),
+      atBottom: false,
+      pageNumber: 1
     };
   },
   methods: {
@@ -71,12 +74,34 @@ export default {
     openDirectory: function (value) {
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then( () => {
-        this.$store.dispatch("getDirectory", value.name);
+        // this.$store.dispatch("getDirectory", value.name);
+        this.pageNumber = 1;
+        this.$store.dispatch("getDirectory", { 
+          directory: value.name , 
+          pageNumber: this.pageNumber, 
+          lazyload: false
+          });
       });
     },
     showOptions(index, item) {
       this.cardItem = index;
       this.$store.dispatch("setSelectedDirectory", item);
+    },
+    mediaResaultsInfiniteScroll() {
+      return () => {
+          let container = document.getElementById("mm");
+          this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+        if (!this.$store.state.allMediaLoaded) {
+          if (this.atBottom) {
+            this.pageNumber++; // increament the pageNumber
+            this.$store.dispatch("getDirectory", { 
+              directory: this.$store.state.currentDirectory, 
+              pageNumber: this.pageNumber, 
+              lazyLoad: true
+              });
+          }
+        } 
+      }
     },
   },
   computed: {
@@ -84,8 +109,20 @@ export default {
       return this.$store.getters.getDirectory;
     },
   },
+  watch: {
+    "$store.state.allMediaLoaded": function() {
+      if(this.$store.state.allMediaLoaded) {
+        this.$toast.open({
+          type: "success",
+          position: "bottom-left",
+          message: "All media loaded"
+        })
+      }
+    }
+  },
   mounted() {
     this.$store.dispatch("getDirectory");
+    document.getElementById("mm").onscroll = this.scrollHandler;
   },
 };
 </script>

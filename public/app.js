@@ -1974,7 +1974,9 @@ __webpack_require__.r(__webpack_exports__);
     openRootDirectory: function openRootDirectory(directoryPath) {
       var _this = this;
 
-      this.$store.dispatch("getDirectory", directoryPath).then(function () {
+      this.$store.dispatch("getDirectory", {
+        directory: directoryPath
+      }).then(function () {
         _this.$store.dispatch("resetSelected");
       });
     },
@@ -1986,7 +1988,9 @@ __webpack_require__.r(__webpack_exports__);
       var qs = Object.keys(newBreadcrumbArray).map(function (key) {
         return "".concat(newBreadcrumbArray[key]);
       }).join("/");
-      this.$store.dispatch("getDirectory", qs).then(function () {
+      this.$store.dispatch("getDirectory", {
+        directory: qs
+      }).then(function () {
         _this2.$store.dispatch("resetSelected");
       });
     }
@@ -2234,12 +2238,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2795,7 +2793,10 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         name: this.$i18n.t("actions.move"),
         slug: "move"
-      }]
+      }],
+      scrollHandler: this.mediaResaultsInfiniteScroll(),
+      atBottom: false,
+      pageNumber: 1
     };
   },
   methods: {
@@ -2819,12 +2820,39 @@ __webpack_require__.r(__webpack_exports__);
 
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then(function () {
-        _this.$store.dispatch("getDirectory", value.name);
+        // this.$store.dispatch("getDirectory", value.name);
+        _this.pageNumber = 1;
+
+        _this.$store.dispatch("getDirectory", {
+          directory: value.name,
+          pageNumber: _this.pageNumber,
+          lazyload: false
+        });
       });
     },
     showOptions: function showOptions(index, item) {
       this.cardItem = index;
       this.$store.dispatch("setSelectedDirectory", item);
+    },
+    mediaResaultsInfiniteScroll: function mediaResaultsInfiniteScroll() {
+      var _this2 = this;
+
+      return function () {
+        var container = document.getElementById("mm");
+        _this2.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
+
+        if (!_this2.$store.state.allMediaLoaded) {
+          if (_this2.atBottom) {
+            _this2.pageNumber++; // increament the pageNumber
+
+            _this2.$store.dispatch("getDirectory", {
+              directory: _this2.$store.state.currentDirectory,
+              pageNumber: _this2.pageNumber,
+              lazyLoad: true
+            });
+          }
+        }
+      };
     }
   },
   computed: {
@@ -2832,8 +2860,20 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getDirectory;
     }
   },
+  watch: {
+    "$store.state.allMediaLoaded": function $storeStateAllMediaLoaded() {
+      if (this.$store.state.allMediaLoaded) {
+        this.$toast.open({
+          type: "success",
+          position: "bottom-left",
+          message: "All media loaded"
+        });
+      }
+    }
+  },
   mounted: function mounted() {
     this.$store.dispatch("getDirectory");
+    document.getElementById("mm").onscroll = this.scrollHandler;
   }
 });
 
@@ -3378,7 +3418,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     uploadSuccess: function uploadSuccess($event) {
       this.$store.dispatch("closeModalAdd");
-      this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
+      this.$store.dispatch("getDirectory", {
+        directory: this.$store.state.currentDirectory
+      });
       this.$toast.open({
         type: "success",
         position: "bottom-left",
@@ -13448,7 +13490,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "mm" },
+    { staticClass: "mm", attrs: { id: "mm" } },
     [
       _c(
         "div",
@@ -13461,7 +13503,7 @@ var render = function() {
                 this.$store.state.isLoading &&
                 this.$store.state.modalState.move == false,
               expression:
-                "\n            this.$store.state.isLoading &&\n                this.$store.state.modalState.move == false\n        "
+                "this.$store.state.isLoading && this.$store.state.modalState.move == false"
             }
           ],
           staticClass: "loader__overlay"
@@ -38658,6 +38700,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var actions = {
   closeModal: function closeModal(context) {
@@ -38746,23 +38794,37 @@ var actions = {
 
     var commit = _ref2.commit;
     var route;
+    var paramsObj = {
+      locale: this.state.lang
+    };
     this.state.isLoading = true;
 
-    if (value) {
-      this.state.currentDirectory = value;
-      route = this.state.routeGetDirectory + value;
+    if (value && value.directory) {
+      this.state.currentDirectory = value.directory;
+      route = this.state.routeGetDirectory + value.directory;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
     }
 
+    if (value && value.pageNumber) {
+      paramsObj = _objectSpread(_objectSpread({}, paramsObj), {}, {
+        page: value.pageNumber
+      });
+    }
+
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
-      params: {
-        locale: this.state.lang
-      }
+      params: paramsObj
     }).then(function (response) {
       if (response.data.media) {
-        commit("SET_MEDIA", response.data.media);
+        commit("SET_MEDIA", {
+          media: response.data.media,
+          currentPage: value && value.pageNumber && value.pageNumber,
+          pageCount: response.data.page_count,
+          directory: _this2.state.currentDirectory,
+          lazyLoad: value && value.lazyLoad && value.lazyLoad
+        });
+        commit("SET_PAGE_COUNT", response.data.page_count);
         commit("SET_MEDIATYPES", response.data.media);
         _this2.state.isLoading = false;
       }
@@ -39128,8 +39190,30 @@ var mutations = {
   SET_ACTIVE_DIRECTORY: function SET_ACTIVE_DIRECTORY(state, value) {
     state.folderState = false;
   },
-  SET_MEDIA: function SET_MEDIA(state, items) {
-    state.mediaCollection = items;
+  SET_MEDIA: function SET_MEDIA(state, values) {
+    if (values.media.length > 0) {
+      // check for the value received if its empy clear the state
+      var media = values.media;
+
+      if (values.lazyLoad) {
+        // check if the request is to lazyload and add to the array instead of reseting it with new values
+        //for some reason i couldnt spread ... so i just did this instead
+        media.map(function (item) {
+          return state.mediaCollection.push(item);
+        });
+      } else {
+        state.mediaCollection = media;
+      }
+    } else {
+      state.mediaCollection = [];
+    } //handle what happens when all media is loaded
+
+
+    if (values.currentPage == values.pageCount) {
+      state.allMediaLoaded = true;
+    } else {
+      state.allMediaLoaded = false;
+    }
   },
   UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
     var id = _ref.id,
@@ -39173,6 +39257,9 @@ var mutations = {
   },
   SET_LANG: function SET_LANG(state, value) {
     state.lang = value;
+  },
+  SET_PAGE_COUNT: function SET_PAGE_COUNT(state, value) {
+    state.pageCount = value;
   }
 };
 
@@ -39222,7 +39309,9 @@ var state = {
   isLoadingSidePanel: false,
   isSearch: false,
   haveContextMenu: false,
-  lang: 'en'
+  lang: 'en',
+  pageCount: null,
+  allMediaLoaded: false
 };
 
 /***/ }),
@@ -39288,8 +39377,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
