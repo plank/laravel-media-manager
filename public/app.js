@@ -2180,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
         imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
       }); // Create General BxSlider Structure
 
-      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + "</div>";
+      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + "</div>" + "</div>";
       this.copyToClipboard(customDOM);
       this.$toast.open({
         type: "success",
@@ -2238,12 +2238,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -13509,7 +13503,7 @@ var render = function() {
                 this.$store.state.isLoading &&
                 this.$store.state.modalState.move == false,
               expression:
-                "\n            this.$store.state.isLoading &&\n                this.$store.state.modalState.move == false\n        "
+                "this.$store.state.isLoading && this.$store.state.modalState.move == false"
             }
           ],
           staticClass: "loader__overlay"
@@ -38872,7 +38866,11 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this4.dispatch("getDirectory", _this4.state.currentDirectory);
+      _this4.dispatch("getDirectory", {
+        directory: value.name,
+        pageNumber: 1,
+        lazyload: false
+      });
     });
   },
   moveSelected: function moveSelected(_ref5, value) {
@@ -39197,8 +39195,6 @@ var mutations = {
     state.folderState = false;
   },
   SET_MEDIA: function SET_MEDIA(state, values) {
-    console.log(values, "values inside SET_MEDIA mutation");
-
     if (values.media.length > 0) {
       // check for the value received if its empy clear the state
       var media = values.media;
@@ -39385,8 +39381,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
