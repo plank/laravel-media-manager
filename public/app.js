@@ -2180,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
         imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
       }); // Create General BxSlider Structure
 
-      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + "</div>";
+      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + "</div>" + "</div>";
       this.copyToClipboard(customDOM);
       this.$toast.open({
         type: "success",
