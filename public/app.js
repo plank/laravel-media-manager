@@ -38868,7 +38868,7 @@ var actions = {
 
       _this4.dispatch("getDirectory", {
         directory: value.name,
-        pageNumber: _this4.pageNumber,
+        pageNumber: 1,
         lazyload: false
       });
     });

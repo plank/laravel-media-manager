@@ -143,7 +143,7 @@ export const actions = {
         });
         this.dispatch("getDirectory", { 
           directory: value.name , 
-          pageNumber: this.pageNumber, 
+          pageNumber: 1, 
           lazyload: false
           });
       });
