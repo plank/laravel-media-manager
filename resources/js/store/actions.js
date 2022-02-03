@@ -141,7 +141,11 @@ export const actions = {
           position: "bottom-left",
           message: value.name + " " + value.vm.$i18n.t("actions.created")
         });
-        this.dispatch("getDirectory", this.state.currentDirectory);
+        this.dispatch("getDirectory", { 
+          directory: value.name , 
+          pageNumber: this.pageNumber, 
+          lazyload: false
+          });
       });
   },
   moveSelected({ commit }, value) {

@@ -38866,7 +38866,11 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this4.dispatch("getDirectory", _this4.state.currentDirectory);
+      _this4.dispatch("getDirectory", {
+        directory: value.name,
+        pageNumber: _this4.pageNumber,
+        lazyload: false
+      });
     });
   },
   moveSelected: function moveSelected(_ref5, value) {
