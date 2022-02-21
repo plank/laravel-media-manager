@@ -13,7 +13,7 @@
               <label for="folder-name" class="form__label">{{
                 $t("modal.folder_name")
               }}</label>
-              <input v-model="name" type="text" id="name" required="required" />
+              <input v-model="name" type="text" id="name" required="required"  @keydown.space.prevent />
               <div class="bar"></div>
             </div>
           </div>

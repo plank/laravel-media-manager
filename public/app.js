@@ -2568,7 +2568,8 @@ __webpack_require__.r(__webpack_exports__);
         model: "App\\Models\\".concat(this.capitalize(model)),
         model_id: model_id,
         tag: tag,
-        media: []
+        media: [],
+        sync: false
       }; // add the attached medid to the body of the request -- pictures to attach
 
       selectedElem.forEach(function (element) {
@@ -14674,6 +14675,18 @@ var render = function() {
                 attrs: { type: "text", id: "name", required: "required" },
                 domProps: { value: _vm.name },
                 on: {
+                  keydown: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "space", 32, $event.key, [
+                        " ",
+                        "Spacebar"
+                      ])
+                    ) {
+                      return null
+                    }
+                    $event.preventDefault()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
