@@ -27,7 +27,8 @@ export default {
                 model: `App\\Models\\${this.capitalize(model)}`,
                 model_id: model_id,
                 tag: tag,
-                media: []
+                media: [],
+                sync: false
             };
             // add the attached medid to the body of the request -- pictures to attach
             selectedElem.forEach(element => {
