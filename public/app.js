@@ -4110,7 +4110,9 @@ __webpack_require__.r(__webpack_exports__);
       this.close();
     },
     copyImageHtml: function copyImageHtml(image) {
-      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : ""].filter(function (attr) {
+      var _ref;
+
+      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : (_ref = "alt=\"".concat(image.title, "\"")) !== null && _ref !== void 0 ? _ref : ""].filter(function (attr) {
         return attr !== "";
       });
       var imageHtml = "<div><img ".concat(attributes.join(" "), " /> </div>");

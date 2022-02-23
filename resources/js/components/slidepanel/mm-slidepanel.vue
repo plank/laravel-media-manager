@@ -194,8 +194,8 @@ export default {
     copyImageHtml: function(image) {
       let attributes = [
           image.url ? `src="${image.url}"` : "",
-          image.alt ? `alt="${image.alt}"` : "",
-          image.title ? `title="${image.title}"` : ""
+          image.title ? `title="${image.title}"` : "",
+          image.alt ? `alt="${image.alt}"` : `alt="${image.title}"` ?? "",
       ].filter(attr => attr !== "")
       let imageHtml = `<div><img ${attributes.join(" ")} /> </div>`;
       let dummyTextarea = document.createElement( "textarea" );
