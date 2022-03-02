@@ -119,7 +119,7 @@ export default {
         '<div class="slider">' +
         '<div class="bxslider">' +
         imagesArray.join("") +
-        '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' +
+        "</div>" +
         "</div>";
 
       this.copyToClipboard(customDOM);

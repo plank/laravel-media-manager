@@ -77,7 +77,7 @@
       </p>
       <div class="mm__slidepanel-infos__buttons">
         <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyImageHtml(data)">Copy Html</button>
-        <button v-if="data.isAttached" :style="styleBtnDefault"  class="btn btn-default" 
+        <button v-if="data.isAttached" :style="styleBtnDefault"  class="btn btn-default"
         v-on:click="removeAttachment(data, tag, model, model_id)">Remove attachment</button>
       </div>
       <form id="media__update" action="">
@@ -192,15 +192,20 @@ export default {
         this.close();
     },
     copyImageHtml: function(image) {
-      let imageHtml = '<div><img src="' + image.url + '" alt="' + image.alt + '"/> </div>';
-      let dummyTextarea = document.createElement( "textarea" ); 
-      dummyTextarea.innerHTML = imageHtml;  
-      document.body.appendChild( dummyTextarea ); 
-      dummyTextarea.select(); 
-      dummyTextarea.focus(); 
-  
-      try { 
-          let success = document.execCommand( "copy" ); 
+      let attributes = [
+          image.url ? `src="${image.url}"` : "",
+          image.title ? `title="${image.title}"` : "",
+          image.alt ? `alt="${image.alt}"` : `alt="${image.title}"` ?? "",
+      ].filter(attr => attr !== "")
+      let imageHtml = `<div><img ${attributes.join(" ")} /> </div>`;
+      let dummyTextarea = document.createElement( "textarea" );
+      dummyTextarea.innerHTML = imageHtml;
+      document.body.appendChild( dummyTextarea );
+      dummyTextarea.select();
+      dummyTextarea.focus();
+
+      try {
+          let success = document.execCommand( "copy" );
           if (success) {
             this.$toast.open({
               type: "success",
@@ -208,14 +213,14 @@ export default {
               message: this.$i18n.t("actions.copyToClipboard"),
             });
         }
-      } catch( e ) { 
+      } catch( e ) {
         this.$toast.open({
           type: "error",
           position: "bottom-left",
           message: this.$i18n.t("actions.copyToClipboard"),
         });
-      } 
-      document.body.removeChild(dummyTextarea);  
+      }
+      document.body.removeChild(dummyTextarea);
     },
     removeAttachment: function(media, tag, model, model_id) {
       let imageToRemove = {
@@ -245,7 +250,7 @@ export default {
       this.slideOpen = false;
       this.data = null;
       this.disk = null;
-      this.id =  null; 
+      this.id =  null;
       this.title = null;
       this.credit = null;
       this.caption = null;

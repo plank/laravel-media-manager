@@ -2180,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
         imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
       }); // Create General BxSlider Structure
 
-      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + '<div class="bxslider-controls"><a href="#" class="bx-prev">Précédent</a><a href="#" class="bx-next">Suivant</a></div>' + "</div>";
+      var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + "</div>" + "</div>";
       this.copyToClipboard(customDOM);
       this.$toast.open({
         type: "success",
@@ -2568,7 +2568,8 @@ __webpack_require__.r(__webpack_exports__);
         model: "App\\Models\\".concat(this.capitalize(model)),
         model_id: model_id,
         tag: tag,
-        media: []
+        media: [],
+        sync: false
       }; // add the attached medid to the body of the request -- pictures to attach
 
       selectedElem.forEach(function (element) {
@@ -4109,7 +4110,12 @@ __webpack_require__.r(__webpack_exports__);
       this.close();
     },
     copyImageHtml: function copyImageHtml(image) {
-      var imageHtml = '<div><img src="' + image.url + '" alt="' + image.alt + '"/> </div>';
+      var _ref;
+
+      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : (_ref = "alt=\"".concat(image.title, "\"")) !== null && _ref !== void 0 ? _ref : ""].filter(function (attr) {
+        return attr !== "";
+      });
+      var imageHtml = "<div><img ".concat(attributes.join(" "), " /> </div>");
       var dummyTextarea = document.createElement("textarea");
       dummyTextarea.innerHTML = imageHtml;
       document.body.appendChild(dummyTextarea);
@@ -14674,6 +14680,18 @@ var render = function() {
                 attrs: { type: "text", id: "name", required: "required" },
                 domProps: { value: _vm.name },
                 on: {
+                  keydown: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "space", 32, $event.key, [
+                        " ",
+                        "Spacebar"
+                      ])
+                    ) {
+                      return null
+                    }
+                    $event.preventDefault()
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38866,7 +38884,11 @@ var actions = {
         message: value.name + " " + value.vm.$i18n.t("actions.created")
       });
 
-      _this4.dispatch("getDirectory", _this4.state.currentDirectory);
+      _this4.dispatch("getDirectory", {
+        directory: value.name,
+        pageNumber: 1,
+        lazyload: false
+      });
     });
   },
   moveSelected: function moveSelected(_ref5, value) {
@@ -39377,8 +39399,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
