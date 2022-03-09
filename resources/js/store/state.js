@@ -1,7 +1,7 @@
 export const state = {
     mainColor: "#9C1820",
     routeGetDirectory: `${window.location["origin"]}/media-api/index`,
-    routeGetMedia: `${window.location["origin"]}/media-api/show/`,
+    routeGetMedia: `${window.location["origin"]}/media-api/show`,
     routeCreateDirectory: `${window.location["origin"]}/media-api/directory/create`,
     routeDeleteDirectory: `${window.location["origin"]}/media-api/directory/destroy`,
     routeDeleteMedia: `${window.location["origin"]}/media-api/destroy`,
