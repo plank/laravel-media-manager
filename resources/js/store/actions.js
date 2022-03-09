@@ -112,6 +112,8 @@ export const actions = {
         this.state.isLoading = false;
       }
       commit("SET_DIRECTORY", response.data.subdirectories);
+    }).catch(e => {
+      console.log(e, "get directory error")
     });
   },
   getMoveDirectory({ commit }, value) {
