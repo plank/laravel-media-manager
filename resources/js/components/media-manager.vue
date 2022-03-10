@@ -16,10 +16,10 @@
 
         <div class="wrapper" v-on:click="triggerClick($event)">
             <!-- Search Panel -->
-            <mmsearch></mmsearch>
+            <mmsearch :resetPageNumber="resetPageNumber"></mmsearch>
 
             <!-- Folders List -->
-            <mmfolders v-if="folderState && !viewState"></mmfolders>
+            <mmfolders v-if="folderState && !viewState" :resetPageNumber="resetPageNumber" ></mmfolders>
 
             <!-- Results List -->
             <mmlistresults v-if="viewState && !folderState"></mmlistresults>
@@ -107,6 +107,11 @@
                 class="overlay"
             ></div>
         </transition>
+
+        <button v-on:click="loadMore" :disabled="this.$store.state.allMediaLoaded" :style="styleBtnDefault" class="btn btn-default btn-load-more" >
+            <span v-if="!this.$store.state.allMediaLoaded">Load more</span>
+            <span v-else> All media loaded</span>
+        </button>
     </div>
 </template>
 
@@ -161,7 +166,8 @@ export default {
     data() {
         return {
             showAttach: !location.pathname.includes("media"),
-            tag: ""
+            tag: "",
+            pageNumber: 1
         };
     },
     mounted() {
@@ -223,6 +229,17 @@ export default {
         openAttachedMedia: function(item) {
             let media = {...JSON.parse(item), isAttached: true}
             EventBus.$emit("open-slide-panel", media);
+        },
+        loadMore() {
+            this.pageNumber++; // increament the pageNumber
+            this.$store.dispatch("getDirectory", { 
+            directory: this.$store.state.currentDirectory, 
+            pageNumber: this.pageNumber, 
+            lazyLoad: true
+            });
+        },
+        resetPageNumber() {
+            this.pageNumber = 1
         }
     },
     computed: {
@@ -249,6 +266,11 @@ export default {
                 this.$store.state.directoryCollection.length === 0 &&
                 this.$store.state.mediaCollection.length === 0
             );
+        },
+        styleBtnDefault() {
+            return {
+                "--bg-color": this.$store.state.mainColor,
+            }
         }
     }
 };

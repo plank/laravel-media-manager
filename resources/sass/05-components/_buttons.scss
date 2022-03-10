@@ -78,5 +78,17 @@
 			text-decoration: underline;
 			font-weight: 600;
 		}
+
+		&-load-more {
+			padding-bottom: 1rem;
+			display: block;
+			margin: 0 auto 15px;
+		}
+
+		&-disabled {
+			background-color: lightgray;
+			color: grey;
+			pointer-events: none;
+		}
 	}
 }

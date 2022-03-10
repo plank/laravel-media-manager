@@ -12,7 +12,6 @@ Vue.component("vue-simple-context-menu", VueSimpleContextMenu);
 Vue.use(VueI18n);
 Vue.use(VueToast);
 Vue.use(require("vue-moment"));
-
 function loadLocaleMessages() {
   const locales = require.context(
     "./locales",
