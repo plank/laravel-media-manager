@@ -2,7 +2,7 @@
   <div id="breadcrumb">
     <ul>
       <li v-if="this.createBreadcrumb.length > 0">
-        <a v-on:click.prevent="openRootDirectory('/')" href="#">home</a>
+        <a v-on:click.prevent="openRootDirectory()" href="#">home</a>
       </li>
       <li v-for="(elem, index) in breadCrumb" :key="index">
         <span v-if="elem">
@@ -23,8 +23,8 @@ export default {
   name: "mmbreadcrumb",
   props: ["item", "resetPageNumber"],
   methods: {
-    openRootDirectory: function (directoryPath) {
-      this.$store.dispatch("getDirectory",{directory: directoryPath, pageNumber: 1}).then( () => {
+    openRootDirectory: function () {
+      this.$store.dispatch("getDirectory",{pageNumber: 1}).then( () => {
             this.$store.dispatch("resetSelected");
             this.resetPageNumber();
       });
