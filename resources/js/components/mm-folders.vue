@@ -25,12 +25,16 @@
 </template>
 
 <script>
+import { props } from 'vue2-dropzone';
 import mmfoldercard from "./mm-card-folder";
 
 export default {
   name: "mmfolders",
   components: {
     mmfoldercard,
+  },
+  props: {
+    resetPageNumber: {type: Function}
   },
   data() {
     return {
@@ -50,9 +54,7 @@ export default {
           slug: "move",
         },
       ],
-      scrollHandler: this.mediaResaultsInfiniteScroll(),
-      atBottom: false,
-      pageNumber: 1
+
     };
   },
   methods: {
@@ -74,11 +76,10 @@ export default {
     openDirectory: function (value) {
       this.current = value.name;
       this.$store.dispatch("setSelectedDirectory", null).then( () => {
-        // this.$store.dispatch("getDirectory", value.name);
-        this.pageNumber = 1;
+        this.resetPageNumber();
         this.$store.dispatch("getDirectory", { 
           directory: value.name , 
-          pageNumber: this.pageNumber, 
+          pageNumber: 1, 
           lazyload: false
           });
       });
@@ -86,22 +87,6 @@ export default {
     showOptions(index, item) {
       this.cardItem = index;
       this.$store.dispatch("setSelectedDirectory", item);
-    },
-    mediaResaultsInfiniteScroll() {
-      return () => {
-          let container = document.getElementById("mm");
-          this.atBottom = container.scrollHeight - container.scrollTop == container.offsetHeight;
-        if (!this.$store.state.allMediaLoaded) {
-          if (this.atBottom) {
-            this.pageNumber++; // increament the pageNumber
-            this.$store.dispatch("getDirectory", { 
-              directory: this.$store.state.currentDirectory, 
-              pageNumber: this.pageNumber, 
-              lazyLoad: true
-              });
-          }
-        } 
-      }
     },
   },
   computed: {
@@ -122,7 +107,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDirectory");
-    document.getElementById("mm").onscroll = this.scrollHandler;
   },
 };
 </script>

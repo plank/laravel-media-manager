@@ -66,7 +66,7 @@ export const actions = {
     this.state.isLoadingSidePanel = true;
     if (value) {
       this.state.currentDirectory = value;
-      route = this.state.routeGetMedia + value;
+      route = this.state.routeGetMedia + "/" + value;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
@@ -88,7 +88,7 @@ export const actions = {
     this.state.isLoading = true;
     if (value && value.directory) {
       this.state.currentDirectory = value.directory;
-      route = this.state.routeGetDirectory + value.directory;
+      route = this.state.routeGetDirectory + "/" +value.directory;
     } else {
       this.state.currentDirectory = "";
       route = this.state.routeGetDirectory;
@@ -112,13 +112,15 @@ export const actions = {
         this.state.isLoading = false;
       }
       commit("SET_DIRECTORY", response.data.subdirectories);
+    }).catch(e => {
+      console.log(e, "get directory error")
     });
   },
   getMoveDirectory({ commit }, value) {
     let route;
     this.state.isLoading = true;
     if (value) {
-      route = this.state.routeGetDirectory + value;
+      route = this.state.routeGetDirectory + "/" + value;
     } else {
       route = this.state.routeGetDirectory;
     }
