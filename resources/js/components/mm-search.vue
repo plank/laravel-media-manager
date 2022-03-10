@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="mm__search-breadcrumb">
-        <mmbreadcrumb></mmbreadcrumb>
+        <mmbreadcrumb :resetPageNumber="this.resetPageNumber"></mmbreadcrumb>
       </div>
       <div class="mm__search-actions">
         <ul>
@@ -126,6 +126,9 @@ export default {
     iconclosesearch,
     mmbreadcrumb,
   },
+  props: {
+    resetPageNumber: {type: Function}
+  },
   data() {
     return {
       showInformations: false,
@@ -175,7 +178,11 @@ export default {
     closeSearch: function () {
       if (this.isSearch) {
         this.$store.state.hideDirectory = false;
-        this.$store.dispatch("getDirectory", this.$store.state.currentDirectory);
+        this.$store.dispatch("getDirectory", {
+          directory: this.$store.state.currentDirectory,
+          pageNumber:1
+        });
+        resetPageNumber();
       }
       this.isSearch = !this.isSearch;
     },

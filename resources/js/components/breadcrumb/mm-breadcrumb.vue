@@ -21,11 +21,12 @@
 <script>
 export default {
   name: "mmbreadcrumb",
-  props: ["item"],
+  props: ["item", "resetPageNumber"],
   methods: {
     openRootDirectory: function (directoryPath) {
-      this.$store.dispatch("getDirectory",{directory: directoryPath}).then( () => {
+      this.$store.dispatch("getDirectory",{directory: directoryPath, pageNumber: 1}).then( () => {
             this.$store.dispatch("resetSelected");
+            this.resetPageNumber();
       });
     },
     openDirectory: function (directoryPath) {
@@ -34,8 +35,9 @@ export default {
       const qs = Object.keys(newBreadcrumbArray)
         .map((key) => `${newBreadcrumbArray[key]}`)
         .join("/");
-      this.$store.dispatch("getDirectory", { directory: qs }).then( () => {
+      this.$store.dispatch("getDirectory", { directory: qs, pageNumber: 1 }).then( () => {
             this.$store.dispatch("resetSelected");
+            this.resetPageNumber();
       });
 
     },
