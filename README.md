@@ -1,8 +1,12 @@
 # Laravel Media Manager
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/plank/laravel-checkpoint/tests?label=tests)](https://github.com/plank/laravel-media-manager/actions?query=workflow%3Atests+branch%3Amaster)
-[![Total Downloads](https://img.shields.io/packagist/dt/plank/media-manager.svg?style=flat-square)](https://packagist.org/packages/plank/media-manager)
+[comment]: <> ([![Latest Version on Packagist]&#40;https://img.shields.io/packagist/v/plank/media-manager.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/plank/media-manager&#41;)
+
+[comment]: <> ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/workflow/status/plank/laravel-checkpoint/tests?label=tests&#41;]&#40;https://github.com/plank/laravel-media-manager/actions?query=workflow%3Atests+branch%3Amaster&#41;)
+
+[comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/plank/media-manager.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/plank/media-manager&#41;)
+
+⚠️ This package is not ready for public use ⚠️
 
 This package builds upon [Laravel-Mediable](https://github.com/plank/laravel-mediable) with an API implementing it, 
 as well as adding a set of VueJS components that can be dropped anywhere on your site for an instant media manager. 
