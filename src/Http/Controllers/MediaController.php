@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Exceptions\MediaMoveException;
+use Plank\MediaManager\Http\Requests\MediaUpdateRequest;
 use Plank\MediaManager\Models\Media;
 use Plank\Mediable\MediaUploader;
 use Plank\MediaManager\MediaManager;
@@ -135,17 +136,10 @@ class MediaController extends BaseController
      * @return \Exception|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|MediaMoveException
      * @throws \Plank\MediaManager\Exceptions\MediaManagerException
      */
-    public function update(Request $request)
+    public function update(MediaUpdateRequest $request)
     {
         $model = config('media-manager.model');
-        $table = (new $model())->getTable();
-        $valid = $request->validate([
-            'id' => "required|exists:{$table}",
-            'disk' => "string",
-            'path' => "string|nullable",
-            'rename' => "string|nullable",
-        ]);
-
+        $valid = $request->validated();
 
         $media = $model::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
