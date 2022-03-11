@@ -144,9 +144,11 @@ class MediaController extends BaseController
         $media = $model::find($valid['id']);
         $disk = $this->manager->verifyDisk($valid['disk']);
         $path = $this->manager->verifyDirectory($disk, $valid['path'] ?? $media->directory);
-        $details = $request->only(['title', 'alt', 'caption', 'credit']);
 
-        $media->fill($details);
+        if (!$request->has('path')) {
+            $details = $request->only(['title', 'alt', 'caption', 'credit']);
+            $media->fill($details);
+        }
 
         if ($path != $media->directory) {
             $media->move($path, $valid['rename'] ?? null);
