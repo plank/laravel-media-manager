@@ -39158,6 +39158,15 @@ var actions = {
         position: "bottom-left",
         message: value.vm.$i18n.t("actions.uploaded")
       });
+    })["catch"](function (e) {
+      for (var _i = 0, _Object$values = Object.values(e.response.data.data.errors); _i < _Object$values.length; _i++) {
+        var messages = _Object$values[_i];
+        value.vm.$toast.open({
+          type: "error",
+          position: "bottom-left",
+          message: messages.toString()
+        });
+      }
     });
   },
   setLang: function setLang(context, value) {
@@ -39444,8 +39453,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/massimo/Sites/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
