@@ -364,7 +364,17 @@ export const actions = {
     axios
     .post("/media-api/attach", value)
     .then(response => {
-      location.reload()
+      const myEvent = new CustomEvent("customEvent", {
+        detail: {
+          tag: value.tag,
+          data: response.data.data
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: false,
+      });
+      document.getElementsByClassName("media-picker-thumbs")[0].dispatchEvent(myEvent);
+
     }).catch(e => {
       console.log(e, "error when attaching")
     })
