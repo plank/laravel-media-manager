@@ -373,7 +373,7 @@ export const actions = {
         cancelable: true,
         composed: false,
       });
-      document.getElementsByClassName("media-picker-thumbs")[0].dispatchEvent(myEvent);
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(myEvent);
 
     }).catch(e => {
       console.log(e, "error when attaching")
