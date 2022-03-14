@@ -109,6 +109,7 @@ If you discover any security related issues, please email massimo@plankdesign.co
 - [Massimo Triassi](https://github.com/m-triassi)
 - [Evan Dimopoulos](https://github.com/EvanDime)
 - [Jerome Devillers](https://github.com/JeromeDevillers/)
+- [Nasouh Altark](https://github.com/nasouh94)
 
 ## License
 
