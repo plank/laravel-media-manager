@@ -101,11 +101,11 @@ export const actions = {
     }).then(response => {
       if (response.data.media) {
         commit("SET_MEDIA", {
-          media: response.data.media, 
+          media: response.data.media,
           currentPage: value && value.pageNumber && value.pageNumber,
           pageCount: response.data.page_count,
-          directory: this.state.currentDirectory, 
-          lazyLoad: value && value.lazyLoad && value.lazyLoad 
+          directory: this.state.currentDirectory,
+          lazyLoad: value && value.lazyLoad && value.lazyLoad
         });
         commit("SET_PAGE_COUNT", response.data.page_count);
         commit("SET_MEDIATYPES", response.data.media);
@@ -143,9 +143,9 @@ export const actions = {
           position: "bottom-left",
           message: value.name + " " + value.vm.$i18n.t("actions.created")
         });
-        this.dispatch("getDirectory", { 
-          directory: value.name , 
-          pageNumber: 1, 
+        this.dispatch("getDirectory", {
+          directory: value.name ,
+          pageNumber: 1,
           lazyload: false
           });
       });
@@ -355,7 +355,16 @@ export const actions = {
           position: "bottom-left",
           message: value.vm.$i18n.t("actions.uploaded")
         });
-      });
+      })
+        .catch(e => {
+            for (const messages of Object.values(e.response.data.data.errors)) {
+                value.vm.$toast.open({
+                    type: "error",
+                    position: "bottom-left",
+                    message: messages.toString(),
+                })
+            }
+        });
   },
   setLang(context, value) {
     context.commit("SET_LANG", value);
