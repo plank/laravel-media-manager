@@ -39165,7 +39165,16 @@ var actions = {
   },
   attatchMedia: function attatchMedia(context, value) {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/attach", value).then(function (response) {
-      location.reload();
+      var attachEvent = new CustomEvent("mediaAttachEvent", {
+        detail: {
+          tag: value.tag,
+          data: response.data.data
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: false
+      });
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(attachEvent);
     })["catch"](function (e) {
       console.log(e, "error when attaching");
     });
