@@ -373,7 +373,17 @@ export const actions = {
     axios
     .post("/media-api/attach", value)
     .then(response => {
-      location.reload()
+      const attachEvent = new CustomEvent("mediaAttachEvent", {
+        detail: {
+          tag: value.tag,
+          data: response.data.data
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: false,
+      });
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(attachEvent);
+
     }).catch(e => {
       console.log(e, "error when attaching")
     })
