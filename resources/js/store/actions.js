@@ -364,7 +364,7 @@ export const actions = {
     axios
     .post("/media-api/attach", value)
     .then(response => {
-      const myEvent = new CustomEvent("customEvent", {
+      const attachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
           tag: value.tag,
           data: response.data.data
@@ -373,7 +373,7 @@ export const actions = {
         cancelable: true,
         composed: false,
       });
-      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(myEvent);
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(attachEvent);
 
     }).catch(e => {
       console.log(e, "error when attaching")
