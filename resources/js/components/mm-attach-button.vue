@@ -36,7 +36,7 @@ export default {
             });
 
             if (imagesToAttach.media.length > 0) {
-                this.$store.dispatch("attatchMedia", imagesToAttach)
+                this.$store.dispatch("attatchMedia", {imagesToAttach: imagesToAttach , vm: this})
             }
         }
     },

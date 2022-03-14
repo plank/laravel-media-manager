@@ -2605,7 +2605,10 @@ __webpack_require__.r(__webpack_exports__);
       });
 
       if (imagesToAttach.media.length > 0) {
-        this.$store.dispatch("attatchMedia", imagesToAttach);
+        this.$store.dispatch("attatchMedia", {
+          imagesToAttach: imagesToAttach,
+          vm: this
+        });
       }
     }
   },
@@ -39164,10 +39167,10 @@ var actions = {
     context.commit("SET_LANG", value);
   },
   attatchMedia: function attatchMedia(context, value) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/attach", value).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/attach", value.imagesToAttach).then(function (response) {
       var attachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
-          tag: value.tag,
+          tag: value.imagesToAttach.tag,
           data: response.data.data
         },
         bubbles: true,
@@ -39175,6 +39178,11 @@ var actions = {
         composed: false
       });
       document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(attachEvent);
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: value.vm.$i18n.t("actions.uploaded")
+      });
     })["catch"](function (e) {
       console.log(e, "error when attaching");
     });

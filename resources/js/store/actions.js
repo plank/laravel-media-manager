@@ -362,11 +362,11 @@ export const actions = {
   },
   attatchMedia(context, value) {
     axios
-    .post("/media-api/attach", value)
+    .post("/media-api/attach", value.imagesToAttach)
     .then(response => {
       const attachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
-          tag: value.tag,
+          tag: value.imagesToAttach.tag,
           data: response.data.data
         },
         bubbles: true,
@@ -374,6 +374,12 @@ export const actions = {
         composed: false,
       });
       document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(attachEvent);
+
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: value.vm.$i18n.t("actions.uploaded")
+      });
 
     }).catch(e => {
       console.log(e, "error when attaching")
