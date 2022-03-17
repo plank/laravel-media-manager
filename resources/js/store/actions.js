@@ -1,4 +1,5 @@
 import axios from "axios";
+import { EventBus } from "../event-bus.js"
 
 export const actions = {
   closeModal(context) {
@@ -398,7 +399,26 @@ export const actions = {
     axios
     .post("/media-api/detach", value)
     .then(response => {
-      location.reload()
+
+      const detachEvent = new CustomEvent("mediaAttachEvent", {
+        detail: {
+          tag: value.imagesToAttach.tag,
+          data: response.data.data
+        },
+        bubbles: true,
+        cancelable: true,
+        composed: false,
+      });
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent);
+
+      // to do display a success message and then close down the side panel 
+      // value.vm.$toast.open({
+      //   type: "success",
+      //   position: "bottom-left",
+      //   message: value.vm.$i18n.t("actions.uploaded")
+      // });
+      // EventBus.$emit("close-slide-panel");
+
     }).catch(e => {
       console.log(e, "error when attaching")
     })
