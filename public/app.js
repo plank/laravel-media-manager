@@ -4171,7 +4171,10 @@ __webpack_require__.r(__webpack_exports__);
         tag: tag,
         media: media.id
       };
-      this.$store.dispatch("removeAttachedMedia", imageToRemove);
+      this.$store.dispatch("removeAttachedMedia", {
+        imageToRemove: imageToRemove,
+        vm: this
+      });
     },
     capitalize: function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -39218,23 +39221,24 @@ var actions = {
     });
   },
   removeAttachedMedia: function removeAttachedMedia(context, value) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/detach", value).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/detach", value.imageToRemove).then(function (response) {
       var detachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
-          tag: value.imagesToAttach.tag,
-          data: response.data.data
+          tag: value.imageToRemove.tag,
+          data: response.data.media
         },
         bubbles: true,
         cancelable: true,
         composed: false
       });
       document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent); // to do display a success message and then close down the side panel 
-      // value.vm.$toast.open({
-      //   type: "success",
-      //   position: "bottom-left",
-      //   message: value.vm.$i18n.t("actions.uploaded")
-      // });
-      // EventBus.$emit("close-slide-panel");
+
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: "image removed"
+      });
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit("close-slide-panel");
     })["catch"](function (e) {
       console.log(e, "error when attaching");
     });

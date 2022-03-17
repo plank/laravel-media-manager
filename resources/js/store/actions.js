@@ -397,13 +397,13 @@ export const actions = {
   },
   removeAttachedMedia(context, value) {
     axios
-    .post("/media-api/detach", value)
+    .post("/media-api/detach", value.imageToRemove)
     .then(response => {
 
       const detachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
-          tag: value.imagesToAttach.tag,
-          data: response.data.data
+          tag: value.imageToRemove.tag,
+          data: response.data.media
         },
         bubbles: true,
         cancelable: true,
@@ -412,12 +412,12 @@ export const actions = {
       document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent);
 
       // to do display a success message and then close down the side panel 
-      // value.vm.$toast.open({
-      //   type: "success",
-      //   position: "bottom-left",
-      //   message: value.vm.$i18n.t("actions.uploaded")
-      // });
-      // EventBus.$emit("close-slide-panel");
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: "image removed"
+      });
+      EventBus.$emit("close-slide-panel");
 
     }).catch(e => {
       console.log(e, "error when attaching")

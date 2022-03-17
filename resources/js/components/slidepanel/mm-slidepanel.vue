@@ -225,7 +225,7 @@ export default {
         tag: tag,
         media: media.id
       };
-      this.$store.dispatch("removeAttachedMedia", imageToRemove)
+      this.$store.dispatch("removeAttachedMedia", {imageToRemove : imageToRemove , vm: this})
     },
     capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
