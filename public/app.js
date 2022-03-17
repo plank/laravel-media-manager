@@ -2182,7 +2182,10 @@ __webpack_require__.r(__webpack_exports__);
     copyCarouselDOM: function copyCarouselDOM() {
       var imagesArray = [];
       this.$store.state.selectedElem.forEach(function (element) {
-        imagesArray.push('<div><img src="' + element.url + '" alt="' + element.alt + '"></div>');
+        var attributes = [element.url ? "src=\"".concat(element.url, "\"") : "", element.title ? "title=\"".concat(element.title, "\"") : "", element.alt ? "alt=\"".concat(element.alt, "\"") : ""].filter(function (attr) {
+          return attr !== "";
+        });
+        imagesArray.push("<div><img ".concat(attributes.join(" "), "/></div>"));
       }); // Create General BxSlider Structure
 
       var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + "</div>" + "</div>";
@@ -4133,9 +4136,7 @@ __webpack_require__.r(__webpack_exports__);
       this.close();
     },
     copyImageHtml: function copyImageHtml(image) {
-      var _ref;
-
-      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : (_ref = "alt=\"".concat(image.title, "\"")) !== null && _ref !== void 0 ? _ref : ""].filter(function (attr) {
+      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : ""].filter(function (attr) {
         return attr !== "";
       });
       var imageHtml = "<div><img ".concat(attributes.join(" "), " /> </div>");

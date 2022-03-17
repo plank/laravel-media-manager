@@ -195,7 +195,7 @@ export default {
       let attributes = [
           image.url ? `src="${image.url}"` : "",
           image.title ? `title="${image.title}"` : "",
-          image.alt ? `alt="${image.alt}"` : `alt="${image.title}"` ?? "",
+          image.alt ? `alt="${image.alt}"` :  "",
       ].filter(attr => attr !== "")
       let imageHtml = `<div><img ${attributes.join(" ")} /> </div>`;
       let dummyTextarea = document.createElement( "textarea" );

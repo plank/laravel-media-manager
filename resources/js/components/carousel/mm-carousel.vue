@@ -109,8 +109,13 @@ export default {
     copyCarouselDOM: function () {
       const imagesArray = [];
       this.$store.state.selectedElem.forEach(function (element) {
+        let attributes = [
+          element.url ? `src="${element.url}"` : "",
+          element.title ? `title="${element.title}"` : "",
+          element.alt ? `alt="${element.alt}"` : "",
+      ].filter(attr => attr !== "")
         imagesArray.push(
-          '<div><img src="' + element.url + '" alt="' + element.alt + '"></div>'
+          `<div><img ${attributes.join(" ")}/></div>`
         );
       });
 
