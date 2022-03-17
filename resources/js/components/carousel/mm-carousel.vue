@@ -60,6 +60,7 @@
 <script>
 import mmcarouselcard from "./mm-carousel-card";
 import draggable from "vuedraggable";
+import getAttributes from "../../helpers/attributes";
 
 export default {
   name: "mmcarousel",
@@ -109,13 +110,8 @@ export default {
     copyCarouselDOM: function () {
       const imagesArray = [];
       this.$store.state.selectedElem.forEach(function (element) {
-        let attributes = [
-          element.url ? `src="${element.url}"` : "",
-          element.title ? `title="${element.title}"` : "",
-          element.alt ? `alt="${element.alt}"` : "",
-      ].filter(attr => attr !== "")
         imagesArray.push(
-          `<div><img ${attributes.join(" ")}/></div>`
+          `<div><img ${getAttributes(element)}/></div>`
         );
       });
 

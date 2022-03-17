@@ -134,6 +134,7 @@
 <script>
 import { EventBus } from "../../event-bus.js";
 import fileSizeFilter from "../../helpers/filter.js";
+import getAttributes from "../../helpers/attributes";
 
 export default {
   name: "mmslidepanel",
@@ -192,12 +193,7 @@ export default {
         this.close();
     },
     copyImageHtml: function(image) {
-      let attributes = [
-          image.url ? `src="${image.url}"` : "",
-          image.title ? `title="${image.title}"` : "",
-          image.alt ? `alt="${image.alt}"` :  "",
-      ].filter(attr => attr !== "")
-      let imageHtml = `<div><img ${attributes.join(" ")} /> </div>`;
+      let imageHtml = `<div><img ${getAttributes(image)} /> </div>`;
       let dummyTextarea = document.createElement( "textarea" );
       dummyTextarea.innerHTML = imageHtml;
       document.body.appendChild( dummyTextarea );

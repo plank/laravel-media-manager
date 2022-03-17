@@ -2071,6 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_carousel_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-carousel-card */ "./resources/js/components/carousel/mm-carousel-card.vue");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.umd.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers_attributes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/attributes */ "./resources/js/helpers/attributes.js");
 //
 //
 //
@@ -2130,6 +2131,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2182,10 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
     copyCarouselDOM: function copyCarouselDOM() {
       var imagesArray = [];
       this.$store.state.selectedElem.forEach(function (element) {
-        var attributes = [element.url ? "src=\"".concat(element.url, "\"") : "", element.title ? "title=\"".concat(element.title, "\"") : "", element.alt ? "alt=\"".concat(element.alt, "\"") : ""].filter(function (attr) {
-          return attr !== "";
-        });
-        imagesArray.push("<div><img ".concat(attributes.join(" "), "/></div>"));
+        imagesArray.push("<div><img ".concat(Object(_helpers_attributes__WEBPACK_IMPORTED_MODULE_2__["default"])(element), "/></div>"));
       }); // Create General BxSlider Structure
 
       var customDOM = '<div class="slider">' + '<div class="bxslider">' + imagesArray.join("") + "</div>" + "</div>";
@@ -3944,6 +3943,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/filter.js */ "./resources/js/helpers/filter.js");
+/* harmony import */ var _helpers_attributes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/attributes */ "./resources/js/helpers/attributes.js");
 //
 //
 //
@@ -4077,6 +4077,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4136,10 +4137,7 @@ __webpack_require__.r(__webpack_exports__);
       this.close();
     },
     copyImageHtml: function copyImageHtml(image) {
-      var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : ""].filter(function (attr) {
-        return attr !== "";
-      });
-      var imageHtml = "<div><img ".concat(attributes.join(" "), " /> </div>");
+      var imageHtml = "<div><img ".concat(Object(_helpers_attributes__WEBPACK_IMPORTED_MODULE_2__["default"])(image), " /> </div>");
       var dummyTextarea = document.createElement("textarea");
       dummyTextarea.innerHTML = imageHtml;
       document.body.appendChild(dummyTextarea);
@@ -38674,6 +38672,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
 var EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+
+/***/ }),
+
+/***/ "./resources/js/helpers/attributes.js":
+/*!********************************************!*\
+  !*** ./resources/js/helpers/attributes.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var getAttributes = function getAttributes(image) {
+  var attributes = [image.url ? "src=\"".concat(image.url, "\"") : "", image.title ? "title=\"".concat(image.title, "\"") : "", image.alt ? "alt=\"".concat(image.alt, "\"") : ""].filter(function (attr) {
+    return attr !== "";
+  });
+  return attributes.join(" ");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (getAttributes);
 
 /***/ }),
 
