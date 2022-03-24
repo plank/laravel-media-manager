@@ -69,8 +69,11 @@ class MediaAttachController extends BaseController
         $model = $validated['model'];
         $detach = $model::find($validated['model_id']);
 
+
         return response([
-            'success' => $detach->detachMedia($validated['media'], $validated['tag']
-        )]);
+            'success' => $detach->detachMedia($validated['media'], $validated['tag']),
+            // Show the remaining attached media for the given tag
+            'media' => $detach->getMedia($validated['tag'])
+        ]);
     }
 }
