@@ -13,13 +13,15 @@ trait Convertible
 
     protected static function bootConvertible()
     {
-        static::saved(function (Model $model) {
-            $model->saveConversions();
-        });
+        if (config("media-manager.conversions_enabled")) {
+            static::saved(function (Model $model) {
+                $model->saveConversions();
+            });
 
-        static::deleted(function (Model $model) {
-            $model->deleteConversions();
-        });
+            static::deleted(function (Model $model) {
+                $model->deleteConversions();
+            });
+        }
     }
 
     protected function initializeConvertible()

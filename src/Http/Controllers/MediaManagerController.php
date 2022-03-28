@@ -60,9 +60,6 @@ class MediaManagerController extends BaseController
     /**
      * Move an entire directory, and it's contained media to another folder. Supports renaming folders as well.
      *
-     * Note: An edge case bug exists where if you move a folder from the root, which contains folders with the
-     * containing folder's name as substrings for those folders, the action of moving will also rename those subfolders
-     * resulting faulty move results
      * @param  Request  $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws MediaManagerException
@@ -71,19 +68,15 @@ class MediaManagerController extends BaseController
     {
         $disk = $this->manager->verifyDisk($request->disk);
         $source = $this->manager->verifyDirectory($disk, $request->source);
-        $destination = trim($request->destination, '/');
         $container = collect(explode('/', $source))->last();
-        $rename = $request->rename ?? $container;
-        $destination .= "/" . $rename;
-        $filesystem = Storage::disk($disk);
+        $destination = trim($request->destination, '/') . "/" . $container;
 
-        $filesystem->move($source, $destination);
-        $moved = collect();
-        Media::inOrUnderDirectory($disk, $source)->get()->each(function ($media) use ($source, $destination, $moved) {
-            $media->directory = trim(str_replace($source, $destination, $media->directory), '/');
-            $media->save();
-            $moved[] = $media->fresh();
+        $moved = Media::inOrUnderDirectory($disk, $source)->get()->each(function ($media) use ($destination) {
+            $media->move($destination);
         });
+
+        // only the files themselves were moved, so delete the remaining folder structure.
+        Storage::disk($disk)->deleteDirectory($source);
 
         return response([
             'success' => true,
