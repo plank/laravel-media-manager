@@ -83,19 +83,19 @@
       <form id="media__update" action="">
         <div>
           <label for="title">{{ $t("slidepanel.title") }}</label>
-          <input v-model="title" id="title" type="text" />
+          <input v-model="formValues.title" id="title" type="text"/>
         </div>
         <div>
           <label for="alt">{{ $t("slidepanel.alt_text") }}</label>
-          <input v-model="alt" id="alt" type="text" />
+          <input v-model="formValues.alt" id="alt"  type="text" />
         </div>
         <div>
           <label for="caption">{{ $t("slidepanel.caption") }}</label>
-          <textarea v-model="caption" id="caption" />
+          <textarea v-model="formValues.caption" id="caption" />
         </div>
         <div>
           <label for="credit">{{ $t("slidepanel.credit") }}</label>
-          <input v-model="credit" id="credit" type="text" />
+          <input v-model="formValues.credit" id="credit" type="text" />
         </div>
       </form>
 
@@ -158,10 +158,15 @@ export default {
       data: [],
       disk: "",
       id: "",
-      title: "",
-      alt: "",
-      credit: "",
-      caption: "",
+      formValues: {
+        title: "",
+        alt: "",
+        credit: "",
+        caption: "",
+      },
+      intialDataIsLoaded: false,
+      formIsDirty: false,
+      isPayloadChange: false
     };
   },
   methods: {
@@ -181,11 +186,13 @@ export default {
         vm: this,
         disk: this.disk,
         id: this.id,
-        title: this.title,
-        alt: this.alt,
-        credit: this.credit,
-        caption: this.caption,
-      });
+        title: this.formValues.title,
+        alt: this.formValues.alt,
+        credit: this.formValues.credit,
+        caption: this.formValues.caption, 
+      }).then(() => {
+        this.intialDataIsLoaded = false;
+      })
     },
     selectFile: function () {
         handleContent(this.$store.state.selectedElem);
@@ -236,24 +243,37 @@ export default {
     },
   },
   mounted() {
-    EventBus.$on("open-slide-panel", (value) => {
-      this.slideOpen = true;
-      this.data = value;
-      this.disk = this.data.disk;
-      this.id = this.data.id;
-      this.alt = this.data.alt;
-      this.title = this.data.title;
-      this.credit = this.data.credit;
-      this.caption = this.data.caption;
+    let openPanelPromise =  new Promise((resolve) => {
+      EventBus.$on("open-slide-panel", (value) => {
+        this.slideOpen = true;
+        this.data = value;
+        this.disk = this.data.disk;
+        this.id = this.data.id;
+        this.formValues = {
+          title: this.data.title,
+          alt: this.data.alt,
+          credit: this.data.credit,
+          caption: this.data.caption
+        }
+          resolve();
+      })
     });
+    openPanelPromise.then(() => {
+      this.intialDataIsLoaded = true;
+      // this.isPayloadChange = true;
+    });
+
     EventBus.$on("close-slide-panel", () => {
       this.slideOpen = false;
       this.data = null;
       this.disk = null;
       this.id =  null;
-      this.title = null;
-      this.credit = null;
-      this.caption = null;
+      this.formValues = {
+        title: null,
+        alt: null,
+        credit: null,
+        caption: null
+      };
     });
 
     this.langSwitch = this.$store.state.lang;
@@ -263,15 +283,30 @@ export default {
       this.data = this.$store.state.selectedTranslation;
       this.disk = this.data.disk;
       this.id = this.data.id;
-      this.title = this.data.title;
-      this.alt = this.data.alt;
-      this.credit = this.data.credit;
-      this.caption = this.data.caption;
+      this.formValues = {
+        title: this.data.title,
+        alt: this.data.alt,
+        credit: this.data.credit,
+        caption: this.data.caption
+      };
     },
     getSelectedLang(newLang, oldLang) {
       this.$store.dispatch("getTranslatedDirectory", this.data.id);
     },
+    formValues: {
+      deep: true,
+      handler(newValue, oldValue) {
+        // only watch form values after the intial data is loaded 
+
+        console.log(this.intialDataIsLoaded, "this.intialDataIsLoaded")
+        if(this.intialDataIsLoaded) {
+          console.log("intialDataIsLoaded so we set form to dirty")
+          this.formIsDirty = true;
+        }
+      }
+    }
   },
+
   computed: {
     fileSize() {
       return fileSizeFilter(this.data.size);
