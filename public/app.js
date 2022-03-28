@@ -3317,6 +3317,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../helpers/filter.js */ "./resources/js/helpers/filter.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../event-bus */ "./resources/js/event-bus.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3382,6 +3383,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmmodaladd",
   components: {
@@ -3442,11 +3444,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     closeModal: function closeModal() {
       this.$store.dispatch("closeModalAdd");
     },
-    uploadSuccess: function uploadSuccess($event) {
+    uploadSuccess: function uploadSuccess($event, response) {
       this.$store.dispatch("closeModalAdd");
       this.$store.dispatch("getDirectory", {
         directory: this.$store.state.currentDirectory
-      });
+      }); // we do this bc uses can upload multiple images so we only open the side panel if 1 image was uploaded
+
+      if (response.length == 1) {
+        _event_bus__WEBPACK_IMPORTED_MODULE_5__["EventBus"].$emit("open-slide-panel", response[0]);
+      }
+
       this.$toast.open({
         type: "success",
         position: "bottom-left",
@@ -14632,9 +14639,7 @@ var render = function() {
             options: _vm.dropzoneOptions
           },
           on: {
-            "vdropzone-success": function($event) {
-              return _vm.uploadSuccess($event)
-            },
+            "vdropzone-success": _vm.uploadSuccess,
             "vdropzone-error": function($event) {
               return _vm.showError($event)
             }
