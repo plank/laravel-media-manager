@@ -163,6 +163,7 @@ export default {
       alt: "",
       credit: "",
       caption: "",
+      isNewMedia: false,
     };
   },
   methods: {
@@ -186,6 +187,7 @@ export default {
         alt: this.alt,
         credit: this.credit,
         caption: this.caption,
+        isNewMedia: this.isNewMedia
       });
     },
     selectFile: function () {
@@ -241,6 +243,7 @@ export default {
       this.title = this.data.title;
       this.credit = this.data.credit;
       this.caption = this.data.caption;
+      this.isNewMedia = this.data.isNewMedia;
     });
     EventBus.$on("close-slide-panel", () => {
       this.slideOpen = false;
@@ -250,6 +253,7 @@ export default {
       this.title = null;
       this.credit = null;
       this.caption = null;
+      this.isNewMedia = false;
     });
 
     this.langSwitch = this.$store.state.lang;

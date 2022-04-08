@@ -106,9 +106,12 @@ export default {
                 "getDirectory",
                 { directory: this.$store.state.currentDirectory }
             );
+
             // we do this bc uses can upload multiple images so we only open the side panel if 1 image was uploaded
             if(response.length == 1) {
-                EventBus.$emit("open-slide-panel", response[0]);
+                let uploadedMedia = {...response[0], isNewMedia: true}
+                console.log(uploadedMedia, "uploadedMedia")
+                EventBus.$emit("open-slide-panel", uploadedMedia);
             }
             this.$toast.open({
                 type: "success",
