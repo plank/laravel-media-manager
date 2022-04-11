@@ -5,6 +5,7 @@ namespace Plank\MediaManager\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Plank\MediaManager\Rules\FileArray;
 
 class MediaStoreRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ class MediaStoreRequest extends FormRequest
         $table = (new $model())->getTable();
 
         return [
-            'file' => ['required', 'file_array'],
+            'file' => ['required', new FileArray()],
             'title' => ['sometimes', 'string'],
             'alt' => ['sometimes', 'string'],
             'caption' => ['sometimes', 'string'],
