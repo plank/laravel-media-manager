@@ -2,8 +2,6 @@
 
 namespace Plank\MediaManager;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Illuminate\Support\Facades\Validator;
 use Plank\MediaManager\Commands\GenerateConversions;
 use Plank\MediaManager\Commands\InstallManager;
 use Illuminate\Contracts\Container\Container;
@@ -22,18 +20,6 @@ class MediaManagerServiceProvider extends ServiceProvider
         if (!defined('MANAGER_PATH')) {
             define('MANAGER_PATH', realpath(__DIR__.'/../'));
         }
-
-
-        Validator::extend('file_array', function ($attribute, $value, $parameters, $validator) {
-
-            $areFiles = false;
-            if (is_array($value)) {
-                foreach ($value as $item) {
-                    $areFiles = $areFiles && ($item instanceof UploadedFile && $item->isValid());
-                }
-            }
-            return ($value instanceof UploadedFile && $value->isValid()) || $areFiles;
-        });
 
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
          $this->loadMigrationsFrom(MANAGER_PATH.'/database/migrations');
