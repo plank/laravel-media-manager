@@ -16,13 +16,14 @@ class FileArray implements Rule
      */
     public function passes($attribute, $value)
     {
-        $areFiles = false;
+        $areFiles = true;
+
         if (is_array($value)) {
             foreach ($value as $item) {
                 $areFiles = $areFiles && ($item instanceof UploadedFile && $item->isValid());
             }
         }
-        return ($value instanceof UploadedFile && $value->isValid()) || $areFiles;
+        return $areFiles;
     }
 
     /**
