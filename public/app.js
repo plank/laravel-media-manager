@@ -3461,7 +3461,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           isNewMedia: true
         });
 
-        console.log(uploadedMedia, "uploadedMedia");
         _event_bus__WEBPACK_IMPORTED_MODULE_5__["EventBus"].$emit("open-slide-panel", uploadedMedia);
       }
 
@@ -39190,8 +39189,6 @@ var actions = {
       credit: value.credit,
       caption: value.caption
     }).then(function (response) {
-      console.log(value, "value");
-
       if (!value.isNewMedia) {
         // replace object element in mediaCollection with new one base on specific id
         var newMedia = _this10.state.mediaCollection.findIndex(function (q) {

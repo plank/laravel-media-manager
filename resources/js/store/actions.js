@@ -345,8 +345,6 @@ export const actions = {
         caption: value.caption
       })
       .then(response => {
-
-        console.log(value, "value");
         
         if(!value.isNewMedia) {
           // replace object element in mediaCollection with new one base on specific id
