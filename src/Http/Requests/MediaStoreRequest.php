@@ -27,11 +27,4 @@ class MediaStoreRequest extends FormRequest
             'credit' => ['sometimes', 'string'],
         ];
     }
-
-//    public function messages()
-//    {
-//        return [
-//            'title.required_without' => 'A title is required',
-//        ];
-//    }
 }
