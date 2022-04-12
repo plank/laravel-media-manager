@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Plank\Mediable\Exceptions\MediaMoveException;
+use Plank\MediaManager\Http\Requests\MediaStoreRequest;
 use Plank\MediaManager\Http\Requests\MediaUpdateRequest;
 use Plank\MediaManager\Models\Media;
 use Plank\Mediable\MediaUploader;
@@ -16,6 +17,8 @@ use Plank\MediaManager\MediaManager;
 class MediaController extends BaseController
 {
     protected $manager;
+
+    protected $model;
 
     protected $uploader;
 
@@ -28,6 +31,7 @@ class MediaController extends BaseController
     public function __construct(MediaUploader $uploader, array $ignore = [])
     {
         $this->manager = new MediaManager();
+        $this->model = config('media-manager.model');
         $this->uploader = $uploader;
         $this->ignore = array_merge($ignore, $this->ignore);
     }
@@ -40,8 +44,7 @@ class MediaController extends BaseController
      */
     public function show($id)
     {
-        $model = config('media-manager.model');
-        return response($model::findOrFail($id));
+        return response($this->model::findOrFail($id));
     }
 
     /**
@@ -100,32 +103,39 @@ class MediaController extends BaseController
      * @throws \Plank\Mediable\Exceptions\MediaUpload\FileSizeException
      * @throws \Plank\Mediable\Exceptions\MediaUpload\ForbiddenException
      */
-    public function create(Request $request)
+    public function create(MediaStoreRequest $request)
     {
+        // Set up data we need for uploads, turn file into an array so we can always iterate over it.
         $media = is_array($request->file) ? $request->file : [$request->file] ;
         $data = collect($request->only(['title', 'alt', 'caption', 'credit']));
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, trim($request->path, "/"));
         $response = [];
-        foreach ($media as $index => $m) {
+
+
+        foreach ($media as $m) {
+
+            // Prep an uploader instance with the file.
             $model = $this->uploader
                 ->toDestination($disk, $path)
                 ->fromSource($m);
-                if ($data->isNotEmpty() &&
-                    (is_array($data['title']) || is_array($data['alt']) || is_array($data['caption']) || is_array($data['credit']))) {
-                    $model->beforeSave(function (Media $m) use ($data, $index) {
-                        $details = $data->mapWithKeys(function ($entries, $field) use ($index) {
-                            return [$field => $entries[$index] ?? null];
-                        });
-                        $m->fill($details->toArray());
-                    });
-                } elseif (count($media) == 1) {
-                    $model->beforeSave(function (Media $m) use ($data, $index) {
-                        $m->fill($data->toArray());
-                    });
-                }
+
+            // If the request has meta data about the file, apply that meta data as part of the upload.
+            if ($data->isNotEmpty()) {
+                $model->beforeSave(function (Media $m) use ($data) {
+                    $m->fill($data->toArray());
+                });
+            }
+
+            // Check that the file we're uploading doesn't already exist
+            if ($c = $this->model::inDirectory($disk, $path)->where('filename', $m->getClientOriginalName())->count()) {
+                $model = $model->useFilename("{$m->getClientOriginalName()}_{$c}");
+            }
+
             $response[] = $model->upload();
         }
+
+        // Return all the media.
         return response($response);
     }
 
