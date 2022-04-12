@@ -128,7 +128,7 @@ class MediaController extends BaseController
             }
 
             // Check that the file we're uploading doesn't already exist
-            if ($c = $this->model::inOrUnderDirectory($disk, $path)->where('filename', $m->getClientOriginalName())->count()) {
+            if ($c = $this->model::inDirectory($disk, $path)->where('filename', $m->getClientOriginalName())->count()) {
                 $model = $model->useFilename("{$m->getClientOriginalName()}_{$c}");
             }
 
