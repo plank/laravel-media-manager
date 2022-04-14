@@ -242,37 +242,27 @@ export const actions = {
     Promise.all(promises).then(() => console.log("move selected"));
   },
   deleteSelectedMedia({ commit, context }, value) {
-    const media = [];
-    const promises = [];
-    for (let i = 0; i < value.media.length; i++) {
-      promises.push(
-        axios
-          .post(this.state.routeDeleteMedia, {
-            id: value.media[i].id
-          })
-          .then(response => {
-            value.vm.$toast.open({
-              type: "success",
-              position: "bottom-left",
-              message:
-                value.media[i].filename +
-                " " +
-                value.vm.$i18n.t("actions.deleted")
-            });
-            media.push(response);
-          })
-      );
-    }
 
-    commit("CLOSE_MODAL");
-    const self = this;
+    let mediaIds = value.media && value.media.map(m => m.id); 
+    axios.post(this.state.routeDeleteMedia, {
+      id: mediaIds
+    }).then(response => {
 
-    setTimeout(
-      () => self.dispatch("getDirectory", self.state.currentDirectory),
-      500
-    );
-
-    Promise.all(promises).then(() => console.log("delete selected"));
+      commit("CLOSE_MODAL");
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: value.vm.$i18n.t("actions.deleted")
+      });
+      const self = this;
+      self.dispatch("getDirectory", {
+        directory: self.state.currentDirectory,
+        pageNumber: 1
+      })
+      commit("RESET_SELECTED", true); 
+    }).catch(e => {
+      console.log("error when attaching")
+    }) 
   },
   makeSearch({ commit }, value) {
     axios

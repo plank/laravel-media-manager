@@ -39091,33 +39091,26 @@ var actions = {
 
     var commit = _ref8.commit,
         context = _ref8.context;
-    var media = [];
-    var promises = [];
-
-    var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this8.state.routeDeleteMedia, {
-        id: value.media[i].id
-      }).then(function (response) {
-        value.vm.$toast.open({
-          type: "success",
-          position: "bottom-left",
-          message: value.media[i].filename + " " + value.vm.$i18n.t("actions.deleted")
-        });
-        media.push(response);
-      }));
-    };
-
-    for (var i = 0; i < value.media.length; i++) {
-      _loop2(i);
-    }
-
-    commit("CLOSE_MODAL");
-    var self = this;
-    setTimeout(function () {
-      return self.dispatch("getDirectory", self.state.currentDirectory);
-    }, 500);
-    Promise.all(promises).then(function () {
-      return console.log("delete selected");
+    var mediaIds = value.media && value.media.map(function (m) {
+      return m.id;
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeDeleteMedia, {
+      id: mediaIds
+    }).then(function (response) {
+      commit("CLOSE_MODAL");
+      value.vm.$toast.open({
+        type: "success",
+        position: "bottom-left",
+        message: value.vm.$i18n.t("actions.deleted")
+      });
+      var self = _this8;
+      self.dispatch("getDirectory", {
+        directory: self.state.currentDirectory,
+        pageNumber: 1
+      });
+      commit("RESET_SELECTED", true);
+    })["catch"](function (e) {
+      console.log("error when attaching");
     });
   },
   makeSearch: function makeSearch(_ref9, value) {

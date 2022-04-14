@@ -64,7 +64,7 @@ export default {
       this.$store.dispatch("deleteSelected", {
         vm: this,
         folder: this.$store.state.selectedDirectory,
-        mediaCollection: this.$store.state.selectedElem,
+        mediaCollection: this.$store.state.selectedElem, 
       });
     },
   },

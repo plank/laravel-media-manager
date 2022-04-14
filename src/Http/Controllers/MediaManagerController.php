@@ -94,10 +94,13 @@ class MediaManagerController extends BaseController
     {
         $disk = $this->manager->verifyDisk($request->disk);
         $path = $this->manager->verifyDirectory($disk, $request->path);
-        $string = $request->path;
-        $string = substr($string, 0, strrpos($string, "/"));
+        $parent = collect(explode("/", $path))->slice(-1)->implode("/");
+
+        Cache::forget("root.{$parent}");
+        Cache::forget("root.{$path}");
         Storage::disk($disk)->deleteDirectory($path);
         Media::where('directory', $path)->delete();
-        return response(["success" => true, 'parentFolder' => $string]);
+
+        return response(["success" => true, 'parentFolder' => $parent]);
     }
 }
