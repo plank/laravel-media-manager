@@ -39074,8 +39074,6 @@ var actions = {
     var mediaIds = value.media && value.media.map(function (m) {
       return m.id;
     });
-    console.log(value, "value");
-    console.log(mediaIds, "mediaIds");
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeDeleteMedia, {
       id: mediaIds
     }).then(function (response) {
@@ -39086,41 +39084,14 @@ var actions = {
         message: value.vm.$i18n.t("actions.deleted")
       });
       var self = _this8;
-      console.log(self.state.currentDirectory, "self.state.currentDirectory");
       self.dispatch("getDirectory", {
         directory: self.state.currentDirectory,
         pageNumber: 1
       });
       commit("RESET_SELECTED", true);
-      console.log(response, "responde after delete media");
-    }); // const media = [];
-    // const promises = [];
-    // for (let i = 0; i < value.media.length; i++) {
-    //   promises.push(
-    //     axios
-    //       .post(this.state.routeDeleteMedia, {
-    //         id: value.media[i].id
-    //       })
-    //       .then(response => {
-    //         value.vm.$toast.open({
-    //           type: "success",
-    //           position: "bottom-left",
-    //           message:
-    //             value.media[i].filename +
-    //             " " +
-    //             value.vm.$i18n.t("actions.deleted")
-    //         });
-    //         media.push(response);
-    //       })
-    //   );
-    // }
-    // commit("CLOSE_MODAL");
-    // const self = this;
-    // setTimeout(
-    //   () => self.dispatch("getDirectory", self.state.currentDirectory),
-    //   500
-    // );
-    // Promise.all(promises).then(() => console.log("delete selected"));
+    })["catch"](function (e) {
+      console.log("error when attaching");
+    });
   },
   makeSearch: function makeSearch(_ref9, value) {
     var _this9 = this;
@@ -39340,7 +39311,6 @@ var mutations = {
     state.selectedElem.push(value);
   },
   RESET_SELECTED: function RESET_SELECTED(state, value) {
-    console.log("trying to reset selected");
     state.selectedElem = [];
   },
   SET_ACTIVE_DIRECTORY: function SET_ACTIVE_DIRECTORY(state, value) {

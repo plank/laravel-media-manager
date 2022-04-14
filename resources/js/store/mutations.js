@@ -35,7 +35,6 @@ export const mutations = {
     state.selectedElem.push(value);
   },
   RESET_SELECTED(state, value) {
-    console.log("trying to reset selected")
     state.selectedElem = [];
   },
   SET_ACTIVE_DIRECTORY(state, value) {

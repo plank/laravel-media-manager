@@ -244,9 +244,6 @@ export const actions = {
   deleteSelectedMedia({ commit, context }, value) {
 
     let mediaIds = value.media && value.media.map(m => m.id); 
-    console.log(value, "value")
-    console.log(mediaIds, "mediaIds");
-
     axios.post(this.state.routeDeleteMedia, {
       id: mediaIds
     }).then(response => {
@@ -258,47 +255,14 @@ export const actions = {
         message: value.vm.$i18n.t("actions.deleted")
       });
       const self = this;
-      console.log(self.state.currentDirectory, "self.state.currentDirectory")
       self.dispatch("getDirectory", {
         directory: self.state.currentDirectory,
         pageNumber: 1
       })
-
       commit("RESET_SELECTED", true); 
-      
-      console.log(response, "responde after delete media")
+    }).catch(e => {
+      console.log("error when attaching")
     }) 
-    // const media = [];
-    // const promises = [];
-    // for (let i = 0; i < value.media.length; i++) {
-    //   promises.push(
-    //     axios
-    //       .post(this.state.routeDeleteMedia, {
-    //         id: value.media[i].id
-    //       })
-    //       .then(response => {
-    //         value.vm.$toast.open({
-    //           type: "success",
-    //           position: "bottom-left",
-    //           message:
-    //             value.media[i].filename +
-    //             " " +
-    //             value.vm.$i18n.t("actions.deleted")
-    //         });
-    //         media.push(response);
-    //       })
-    //   );
-    // }
-
-    // commit("CLOSE_MODAL");
-    // const self = this;
-
-    // setTimeout(
-    //   () => self.dispatch("getDirectory", self.state.currentDirectory),
-    //   500
-    // );
-
-    // Promise.all(promises).then(() => console.log("delete selected"));
   },
   makeSearch({ commit }, value) {
     axios
