@@ -350,13 +350,13 @@ export const actions = {
           // replace object element in mediaCollection with new one base on specific id
           const newMedia = this.state.mediaCollection.findIndex(q => q.id === response.data.id);
           // I want to replace a specific element on object collection
-          context.commit('UPDATE_MEDIA_VALUE', {id: newMedia, value: response.data});
+          context.commit('UPDATE_MEDIA_VALUE', {id: newMedia, value: response.data}); 
         }
 
         value.vm.$toast.open({
           type: "success",
           position: "bottom-left",
-          message: value.vm.$i18n.t("actions.uploaded")
+          message: value.vm.$i18n.t("actions.updated")
         });
       })
         .catch(e => {

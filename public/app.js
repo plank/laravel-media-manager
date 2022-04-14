@@ -39205,7 +39205,7 @@ var actions = {
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",
-        message: value.vm.$i18n.t("actions.uploaded")
+        message: value.vm.$i18n.t("actions.updated")
       });
     })["catch"](function (e) {
       for (var _i = 0, _Object$values = Object.values(e.response.data.data.errors); _i < _Object$values.length; _i++) {
