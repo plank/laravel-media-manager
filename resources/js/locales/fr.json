@@ -61,6 +61,7 @@
       "modal": {
         "title_createFolder": "Créer un dossier",
         "title_deleteFolder": "Supprimer répertoire",
+        "title_deleteitems": "supprimer des éléments",
         "title_moveFolder": "Déplacer répertoire vers :",
         "confirmation_msg": "Êtes vous certains de vouloir supprimer ces éléments ?",
         "confirmation_msg_medias": "Êtes vous certains de vouloir supprimer cet élément ?",

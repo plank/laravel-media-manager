@@ -1,6 +1,6 @@
 <template>
   <mmmodal extraClassContainer="modal-delete-folder">
-    <h2 slot="title">{{ $t("modal.title_deleteFolder") }}</h2>
+    <h2 slot="title">{{ $t("modal.title_deleteitems") }}</h2>
 
     <div slot="content">
       <div class="content-grid">
