@@ -33,7 +33,7 @@
             <vue-dropzone
                 ref="myVueDropzone"
                 :style="styleBtnDefault"
-                v-on:vdropzone-success="uploadSuccess($event)"
+                v-on:vdropzone-success="uploadSuccess"
                 v-on:vdropzone-error="showError($event)"
                 id="dropzone"
                 name="media"
@@ -58,6 +58,7 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import fileSizeFilter from "../../../helpers/filter.js";
 import axios from "axios";
+import { EventBus } from "../../../event-bus";
 
 export default {
     name: "mmmodaladd",
@@ -99,12 +100,18 @@ export default {
         closeModal: function() {
             this.$store.dispatch("closeModalAdd");
         },
-        uploadSuccess: function($event) {
+        uploadSuccess: function($event, response) {
             this.$store.dispatch("closeModalAdd");
             this.$store.dispatch(
                 "getDirectory",
                 { directory: this.$store.state.currentDirectory }
             );
+
+            // we do this bc uses can upload multiple images so we only open the side panel if 1 image was uploaded
+            if(response.length == 1) {
+                let uploadedMedia = {...response[0], isNewMedia: true}
+                EventBus.$emit("open-slide-panel", uploadedMedia);
+            }
             this.$toast.open({
                 type: "success",
                 position: "bottom-left",
