@@ -157,7 +157,10 @@ class MediaController extends BaseController
 
         if (!$request->has('path')) {
             $details = $request->only(['title', 'alt', 'caption', 'credit']);
-            $media->fill($details);
+            // Can't call fill due to backwards compatibility (fill doesn't trigger mutators)... Use loop instead.
+            foreach ($details as $attribute => $detail) {
+                $media->$attribute = $detail;
+            }
         }
 
         if ($path != $media->directory) {
