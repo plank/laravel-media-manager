@@ -24,6 +24,7 @@ class MediaUpdateRequest extends FormRequest
             'path' => ["string", "nullable"],
             'rename' => ["string", "nullable"],
             'title' => ["required_without:path", "string"],
+            'credit' => ["nullable", "string"]
         ];
     }
 

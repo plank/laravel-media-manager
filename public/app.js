@@ -3461,7 +3461,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           isNewMedia: true
         });
 
-        console.log(uploadedMedia, "uploadedMedia");
         _event_bus__WEBPACK_IMPORTED_MODULE_5__["EventBus"].$emit("open-slide-panel", uploadedMedia);
       }
 
@@ -39183,8 +39182,6 @@ var actions = {
       credit: value.credit,
       caption: value.caption
     }).then(function (response) {
-      console.log(value, "value");
-
       if (!value.isNewMedia) {
         // replace object element in mediaCollection with new one base on specific id
         var newMedia = _this10.state.mediaCollection.findIndex(function (q) {
@@ -39201,7 +39198,7 @@ var actions = {
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",
-        message: value.vm.$i18n.t("actions.uploaded")
+        message: value.vm.$i18n.t("actions.updated")
       });
     })["catch"](function (e) {
       for (var _i = 0, _Object$values = Object.values(e.response.data.data.errors); _i < _Object$values.length; _i++) {
