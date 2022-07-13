@@ -268,6 +268,9 @@ export default {
       this.credit = this.data.credit;
       this.caption = this.data.caption;
     },
+    getSelectedLang(newLang, oldLang) {
+      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+    },
   },
   computed: {
     fileSize() {
