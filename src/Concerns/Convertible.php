@@ -14,11 +14,15 @@ trait Convertible
     protected static function bootConvertible()
     {
         static::saved(function (Model $model) {
-            $model->saveConversions();
+            if( config('media-manager.use-conversions') ) {
+                $model->saveConversions();
+            }
         });
 
         static::deleted(function (Model $model) {
-            $model->deleteConversions();
+            if( config('media-manager.use-conversions') ) {
+                $model->deleteConversions();
+            }
         });
     }
 
