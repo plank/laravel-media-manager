@@ -75,20 +75,31 @@ class MediaManagerController extends BaseController
 
         $moved = collect();
 
+        $directories = Storage::disk($disk)->allDirectories($source);
+
+        // create destination directories
+        if (count($directories) > 0) {
+            foreach ($directories as $directory) {
+                $destinationDirectory = $destination . str_replace($source, '', $directory);
+                Storage::disk($disk)->makeDirectory($destinationDirectory);
+            }
+        } else {
+            Storage::disk($disk)->makeDirectory($destination);
+        }
+
         $files = Media::where('disk', $disk)->where(function (Builder $q) use ($source) {
             $source = str_replace(['%', '_'], ['\%', '\_'], $source);
             $q->where('directory', $source);
             $q->orWhere('directory', 'like', $source . '/%');
         })->get();
 
+        // move files
         if ($files->count() > 0) {
             $files->each(function ($media) use ($source, $destination, $moved) {
                     $directory = trim(str_replace($source, $destination, $media->directory), '/');
                     $media->move($directory);
                     $moved[] = $media->fresh();
             });
-        } else {
-            Storage::disk($disk)->makeDirectory($destination);
         }
 
         Storage::disk($disk)->deleteDirectory($source);
