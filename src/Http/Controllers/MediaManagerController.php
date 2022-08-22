@@ -37,7 +37,7 @@ class MediaManagerController extends BaseController
      */
     public function create(Request $request)
     {
-        $disk = $this->manager->verifyDisk($request->disk);
+            $disk = $this->manager->verifyDisk($request->disk);
         $path = $request->path;
 
         if (Storage::disk($disk)->has($path)) {
@@ -73,32 +73,41 @@ class MediaManagerController extends BaseController
         $rename = $request->rename ?? $container;
         $destination .= "/" . $rename;
 
-        $moved = collect();
-
-        $directories = Storage::disk($disk)->allDirectories($source);
-
-        // create destination directories
-        if (count($directories) > 0) {
-            foreach ($directories as $directory) {
-                $destinationDirectory = $destination . str_replace($source, '', $directory);
-                Storage::disk($disk)->makeDirectory($destinationDirectory);
-            }
-        } else {
-            Storage::disk($disk)->makeDirectory($destination);
+        if ($source === $destination) {
+            throw MediaManagerException::directoryAlreadyExists($disk, $destination);
         }
 
+        $moved = collect();
+
+        // create destination directories
+        $directories = Storage::disk($disk)->allDirectories($source);
+        $destinationDirectories = array_map(function ($directory) use ($source, $container, $destination) {
+            return $destination . str_replace($source, '', $directory);
+        }, $directories);
+        array_unshift($destinationDirectories, $destination);
+
+        foreach ($destinationDirectories as $destinationDirectory) {
+            if (Storage::disk($disk)->has($destinationDirectory)) {
+                throw MediaManagerException::directoryAlreadyExists($disk, $destinationDirectory);
+            }
+            Storage::disk($disk)->makeDirectory($destinationDirectory);
+        }
+
+        // move files
         $files = Media::where('disk', $disk)->where(function (Builder $q) use ($source) {
             $source = str_replace(['%', '_'], ['\%', '\_'], $source);
             $q->where('directory', $source);
             $q->orWhere('directory', 'like', $source . '/%');
         })->get();
 
-        // move files
         if ($files->count() > 0) {
-            $files->each(function ($media) use ($source, $destination, $moved) {
-                    $directory = trim(str_replace($source, $destination, $media->directory), '/');
-                    $media->move($directory);
-                    $moved[] = $media->fresh();
+            $files->each(function ($media) use ($disk, $source, $destination, $moved) {
+                $directory = trim(str_replace($source, $destination, $media->directory), '/');
+                if (Storage::disk($disk)->has($directory)) {
+                    throw MediaManagerException::directoryAlreadyExists($disk, $directory);
+                }
+                $media->move($directory);
+                $moved[] = $media->fresh();
             });
         }
 
