@@ -2434,6 +2434,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
+        // check if the button in the WYSIWYG editor is pressed
+        if (mutation.attributeName === 'value') {
+          updataFunc('');
+          return;
+        }
+
+        ;
+
         if (mutation.type === "attributes") {
           if (mutation.target.attributes["data-tag"]) {
             updataFunc(mutation.target.attributes["data-tag"].value);
@@ -2486,6 +2494,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     resetPageNumber: function resetPageNumber() {
       this.pageNumber = 1;
+    }
+  },
+  watch: {
+    // everytime user opens MM from a different button - it changes the tag
+    //  we want to reset the selected images
+    tag: function tag() {
+      this.$store.dispatch('resetSelected', null);
     }
   },
   computed: {
@@ -13611,7 +13626,7 @@ var render = function() {
           _vm._v(" "),
           _c("mmaddbutton"),
           _vm._v(" "),
-          _vm.tag == "" ? _c("mmcarousel") : _vm._e()
+          _vm.tag === "" ? _c("mmcarousel") : _vm._e()
         ],
         1
       ),
@@ -38878,7 +38893,6 @@ var actions = {
     this.state.isLoadingSidePanel = true;
 
     if (value) {
-      this.state.currentDirectory = value;
       route = this.state.routeGetMedia + "/" + value;
     } else {
       this.state.currentDirectory = "";
@@ -38892,6 +38906,7 @@ var actions = {
     }).then(function (response) {
       if (response.data) {
         _this.state.selectedTranslation = response.data;
+        _this.state.currentDirectory = response.data.directory;
         _this.state.isLoadingSidePanel = false;
       }
     });
@@ -39246,7 +39261,7 @@ var actions = {
         cancelable: true,
         composed: false
       });
-      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent); // to do display a success message and then close down the side panel 
+      document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent); // to do display a success message and then close down the side panel
 
       value.vm.$toast.open({
         type: "success",
@@ -39525,8 +39540,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/nasouh/plank/packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/rileymcmaster/Projects/Packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/rileymcmaster/Projects/Packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -66,7 +66,6 @@ export const actions = {
     let route;
     this.state.isLoadingSidePanel = true;
     if (value) {
-      this.state.currentDirectory = value;
       route = this.state.routeGetMedia + "/" + value;
     } else {
       this.state.currentDirectory = "";
@@ -79,6 +78,7 @@ export const actions = {
     }).then(response => {
       if (response.data) {
         this.state.selectedTranslation = response.data;
+        this.state.currentDirectory = response.data.directory;
         this.state.isLoadingSidePanel = false;
       }
     });
@@ -335,12 +335,12 @@ export const actions = {
         caption: value.caption
       })
       .then(response => {
-        
+
         if(!value.isNewMedia) {
           // replace object element in mediaCollection with new one base on specific id
           const newMedia = this.state.mediaCollection.findIndex(q => q.id === response.data.id);
           // I want to replace a specific element on object collection
-          context.commit('UPDATE_MEDIA_VALUE', {id: newMedia, value: response.data}); 
+          context.commit('UPDATE_MEDIA_VALUE', {id: newMedia, value: response.data});
         }
 
         value.vm.$toast.open({
@@ -403,7 +403,7 @@ export const actions = {
       });
       document.getElementsByClassName("attach-media-listener")[0].dispatchEvent(detachEvent);
 
-      // to do display a success message and then close down the side panel 
+      // to do display a success message and then close down the side panel
       value.vm.$toast.open({
         type: "success",
         position: "bottom-left",

@@ -44,7 +44,7 @@
             <mmaddbutton></mmaddbutton>
 
             <!-- Carousel Panel -->
-            <mmcarousel v-if="tag == ''"></mmcarousel>
+            <mmcarousel v-if="tag === ''"></mmcarousel>
         </div>
 
         <!-- Slidepanel -->
@@ -187,7 +187,13 @@ export default {
         let attachedMedia = document.getElementById("attachedMedia");
         // mutation observer takes a call back that will excute when mutations are observed
         let observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
+            mutations.forEach(function (mutation) {
+                // check if the button in the WYSIWYG editor is pressed
+                if (mutation.attributeName === 'value') {
+                    updataFunc('')
+                    return;
+                };
+
                 if (mutation.type === "attributes") {
                     if (mutation.target.attributes["data-tag"]) {
                         updataFunc(
@@ -200,7 +206,7 @@ export default {
                             mutation.target.attributes["data-attachedmedia"]
                                 .value
                         );
-                    }
+                    } 
                 }
             });
         });
@@ -209,7 +215,7 @@ export default {
         observer.observe(attachedMedia, { attributes: true });
     },
     methods: {
-        triggerClick: function($event) {
+        triggerClick: function ($event) {
             if ($event.target.classList.contains("mm__results-grid")) {
                 this.$store.dispatch("setSelectedDirectory", null);
                 this.$store.dispatch("resetSelected", true);
@@ -223,7 +229,7 @@ export default {
                 }
             }
         },
-        updateTag: function(val) {
+        updateTag: function (val) {
             this.tag = val;
         },
         openAttachedMedia: function(item) {
@@ -240,6 +246,13 @@ export default {
         },
         resetPageNumber() {
             this.pageNumber = 1
+        }
+    },
+    watch: {
+        // everytime user opens MM from a different button - it changes the tag
+        //  we want to reset the selected images
+        tag() {
+            this.$store.dispatch('resetSelected', null)
         }
     },
     computed: {
