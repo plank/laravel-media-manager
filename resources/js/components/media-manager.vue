@@ -248,6 +248,13 @@ export default {
             this.pageNumber = 1
         }
     },
+    watch: {
+        // everytime user opens MM from a different button - it changes the tag
+        //  we want to reset the selected images
+        tag() {
+            this.$store.dispatch('resetSelected', null)
+        }
+    },
     computed: {
         modalStateMoveFolder() {
             return this.$store.state.modalState.move;
