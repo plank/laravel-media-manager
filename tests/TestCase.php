@@ -3,10 +3,26 @@
 namespace Plank\MediaManager\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
+use Plank\Mediable\MediableServiceProvider;
 use Plank\MediaManager\MediaManagerServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
+    /**
+     * @return void
+     */
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadMigrationsFrom([
+            '--path' => dirname(__DIR__, 1) . '/vendor/plank/laravel-mediable/migrations',
+            '--database' => 'sqlite'
+        ]);
+        $this->loadMigrationsFrom([
+            '--path' => dirname(__DIR__, 1) . '/database/migrations',
+            '--database' => 'sqlite'
+        ]);
+    }
+
     /**
      * @param \Illuminate\Foundation\Application $app
      *
@@ -20,6 +36,10 @@ abstract class TestCase extends Orchestra
             'driver' => 'sqlite',
             'database' => ':memory:'
         ]);
+
+        /*
+        * Filesystems that can be used for media storage
+        */
         $app['config']->set('mediable.allowed_disks', [
             'uploads',
             'local',
@@ -45,7 +65,8 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            MediaManagerServiceProvider::class
+            MediaManagerServiceProvider::class,
+            MediableServiceProvider::class,
         ];
     }
 }

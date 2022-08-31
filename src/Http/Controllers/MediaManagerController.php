@@ -37,7 +37,7 @@ class MediaManagerController extends BaseController
      */
     public function create(Request $request)
     {
-            $disk = $this->manager->verifyDisk($request->disk);
+        $disk = $this->manager->verifyDisk($request->disk);
         $path = $request->path;
 
         if (Storage::disk($disk)->has($path)) {
@@ -79,21 +79,24 @@ class MediaManagerController extends BaseController
 
         $moved = collect();
 
-        // create destination directories
+        // get a list of directories that need to be created in the destination directory
         $directories = Storage::disk($disk)->allDirectories($source);
         $destinationDirectories = array_map(function ($directory) use ($source, $container, $destination) {
             return $destination . str_replace($source, '', $directory);
         }, $directories);
         array_unshift($destinationDirectories, $destination);
 
+        // check if a directory with the same name as root already exists in the destination directory
+        if (Storage::disk($disk)->has($destinationDirectories[0])) {
+            throw MediaManagerException::directoryAlreadyExists($disk, $destinationDirectories[0]);
+        }
+
+        // create directories in the destination directory
         foreach ($destinationDirectories as $destinationDirectory) {
-            if (Storage::disk($disk)->has($destinationDirectory)) {
-                throw MediaManagerException::directoryAlreadyExists($disk, $destinationDirectory);
-            }
             Storage::disk($disk)->makeDirectory($destinationDirectory);
         }
 
-        // move files
+        // get list of files that need to be moved
         $files = Media::where('disk', $disk)->where(function (Builder $q) use ($source) {
             $source = str_replace(['%', '_'], ['\%', '\_'], $source);
             $q->where('directory', $source);
@@ -103,9 +106,6 @@ class MediaManagerController extends BaseController
         if ($files->count() > 0) {
             $files->each(function ($media) use ($disk, $source, $destination, $moved) {
                 $directory = trim(str_replace($source, $destination, $media->directory), '/');
-                if (Storage::disk($disk)->has($directory)) {
-                    throw MediaManagerException::directoryAlreadyExists($disk, $directory);
-                }
                 $media->move($directory);
                 $moved[] = $media->fresh();
             });
@@ -134,7 +134,11 @@ class MediaManagerController extends BaseController
         $parent = collect(explode("/", $path))->slice(-1)->implode("/");
 
         Storage::disk($disk)->deleteDirectory($path);
-        Media::where('directory', $path)->delete();
+        Media::where('disk', $disk)->where(function (Builder $q) use ($path) {
+            $path = str_replace(['%', '_'], ['\%', '\_'], $path);
+            $q->where('directory', $path);
+            $q->orWhere('directory', 'like', $path . '/%');
+        })->delete();
         $this->invalidateFolderCache($path);
 
         return response(["success" => true, 'parentFolder' => $parent]);
