@@ -233,49 +233,64 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
   },
-  mounted() {
-    EventBus.$on("open-slide-panel", (value) => {
-      this.slideOpen = true;
-      this.data = value;
-      this.disk = this.data.disk;
-      this.id = this.data.id;
-      this.alt = this.data.alt;
-      this.title = this.data.title;
-      this.credit = this.data.credit;
-      this.caption = this.data.caption;
-      this.isNewMedia = this.data.isNewMedia;
-    });
-    EventBus.$on("close-slide-panel", () => {
-      this.slideOpen = false;
-      this.data = null;
-      this.disk = null;
-      this.id =  null;
-      this.title = null;
-      this.credit = null;
-      this.caption = null;
-      this.isNewMedia = false;
-    });
+	mounted() {
+		EventBus.$on("open-slide-panel", (value) => {
+			const findCorrectTranslation = value.translations.find((translation) => {
+				return translation.locale === this.getSelectedLang
+			})
+			// the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+			const dataWithCorrectTranslation = { ...value, ...findCorrectTranslation, id: value.id }
 
-    this.langSwitch = this.$store.state.lang;
-  },
-  watch: {
-    getSelectedTranslation() {
-      this.data = this.$store.state.selectedTranslation;
-      this.disk = this.data.disk;
-      this.id = this.data.id;
-      this.title = this.data.title;
-      this.alt = this.data.alt;
-      this.credit = this.data.credit;
-      this.caption = this.data.caption;
-    },
-    getSelectedLang(newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory", this.data.id);
-    },
-  },
-  computed: {
-    fileSize() {
-      return fileSizeFilter(this.data.size);
-    },
+			this.slideOpen = true
+			this.data = dataWithCorrectTranslation
+			this.disk = this.data.disk
+			this.id = this.data.id
+			this.alt = this.data.alt
+			this.title = this.data.title
+			this.credit = this.data.credit
+			this.caption = this.data.caption
+			this.isNewMedia = this.data.isNewMedia ? true : false
+		})
+		EventBus.$on("close-slide-panel", () => {
+			this.slideOpen = false
+			this.data = null
+			this.disk = null
+			this.id = null
+			this.alt = null
+			this.title = null
+			this.credit = null
+			this.caption = null
+			this.isNewMedia = false
+		})
+
+		this.langSwitch = this.$store.state.lang
+	},
+	watch: {
+		getSelectedTranslation() {
+			if (!this.data || this.data.length >= 0) return
+			const findCorrectTranslation = this.data?.translations.find((translation) => {
+				return translation.locale === this.langSwitch
+			})
+			// the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+			const dataWithCorrectTranslation = { ...this.data, ...findCorrectTranslation, id: this.data.id }
+
+			this.data = dataWithCorrectTranslation
+			this.disk = this.data.disk
+			this.id = this.data.id
+			this.alt = this.data.alt
+			this.title = this.data.title
+			this.credit = this.data.credit
+			this.caption = this.data.caption
+			this.isNewMedia = this.data.isNewMedia ? true : false
+		},
+		getSelectedLang(newLang, oldLang) {
+			this.$store.dispatch("getTranslatedDirectory", this.id)
+		},
+	},
+	computed: {
+		fileSize() {
+			return fileSizeFilter(this.data?.size)
+		},
     getSelectedTranslation() {
       return this.$store.state.selectedTranslation;
     },

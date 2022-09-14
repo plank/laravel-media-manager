@@ -3976,6 +3976,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/filter.js */ "./resources/js/helpers/filter.js");
 /* harmony import */ var _helpers_attributes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/attributes */ "./resources/js/helpers/attributes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4218,21 +4224,30 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+      var findCorrectTranslation = value.translations.find(function (translation) {
+        return translation.locale === _this.getSelectedLang;
+      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+
+      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, value), findCorrectTranslation), {}, {
+        id: value.id
+      });
+
       _this.slideOpen = true;
-      _this.data = value;
+      _this.data = dataWithCorrectTranslation;
       _this.disk = _this.data.disk;
       _this.id = _this.data.id;
       _this.alt = _this.data.alt;
       _this.title = _this.data.title;
       _this.credit = _this.data.credit;
       _this.caption = _this.data.caption;
-      _this.isNewMedia = _this.data.isNewMedia;
+      _this.isNewMedia = _this.data.isNewMedia ? true : false;
     });
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
       _this.slideOpen = false;
       _this.data = null;
       _this.disk = null;
       _this.id = null;
+      _this.alt = null;
       _this.title = null;
       _this.credit = null;
       _this.caption = null;
@@ -4242,21 +4257,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     getSelectedTranslation: function getSelectedTranslation() {
-      this.data = this.$store.state.selectedTranslation;
+      var _this$data,
+          _this2 = this;
+
+      if (!this.data || this.data.length >= 0) return;
+      var findCorrectTranslation = (_this$data = this.data) === null || _this$data === void 0 ? void 0 : _this$data.translations.find(function (translation) {
+        return translation.locale === _this2.langSwitch;
+      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+
+      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, this.data), findCorrectTranslation), {}, {
+        id: this.data.id
+      });
+
+      this.data = dataWithCorrectTranslation;
       this.disk = this.data.disk;
       this.id = this.data.id;
-      this.title = this.data.title;
       this.alt = this.data.alt;
+      this.title = this.data.title;
       this.credit = this.data.credit;
       this.caption = this.data.caption;
+      this.isNewMedia = this.data.isNewMedia ? true : false;
     },
     getSelectedLang: function getSelectedLang(newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+      this.$store.dispatch("getTranslatedDirectory", this.id);
     }
   },
   computed: {
     fileSize: function fileSize() {
-      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this.data.size);
+      var _this$data2;
+
+      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])((_this$data2 = this.data) === null || _this$data2 === void 0 ? void 0 : _this$data2.size);
     },
     getSelectedTranslation: function getSelectedTranslation() {
       return this.$store.state.selectedTranslation;
@@ -38741,7 +38771,8 @@ var getAttributes = function getAttributes(image) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var fileSizeFilter = function fileSizeFilter(fileSize) {
+var fileSizeFilter = function fileSizeFilter() {
+  var fileSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
   var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
   if (fileSize == 0) return "0 Byte";
   var i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
