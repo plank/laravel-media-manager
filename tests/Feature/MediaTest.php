@@ -26,8 +26,5 @@ class MediaTest extends TestCase
     public function a_list_of_all_images_and_directories_can_be_retrieved()
     {
         $this->assertTrue(true);
-
     }
-
-
 }

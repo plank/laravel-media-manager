@@ -2,6 +2,7 @@
 
 namespace Plank\MediaManager\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
@@ -36,7 +37,7 @@ class MediaManagerController extends BaseController
      */
     public function create(Request $request)
     {
-        $disk = $this->manager->verifyDisk($request->disk);
+            $disk = $this->manager->verifyDisk($request->disk);
         $path = $request->path;
 
         if (Storage::disk($disk)->has($path)) {
@@ -44,12 +45,8 @@ class MediaManagerController extends BaseController
         }
 
         Storage::disk($disk)->makeDirectory($path);
-
-        $key = explode('/', $path);
-        array_pop($key);
-        $key = trim("root." . implode('.', $key), "\.");
         // Invalidate the cache when a new folder is created.
-        Cache::forget("media.manager.folders.{$key}");
+        $this->invalidateFolderCache($path);
 
         return response([
             'success' => true,
@@ -75,15 +72,48 @@ class MediaManagerController extends BaseController
         $container = collect(explode('/', $source))->last();
         $rename = $request->rename ?? $container;
         $destination .= "/" . $rename;
-        $filesystem = Storage::disk($disk);
 
-        $filesystem->move($source, $destination);
+        if ($source === $destination) {
+            throw MediaManagerException::directoryAlreadyExists($disk, $destination);
+        }
+
         $moved = collect();
-        Media::inOrUnderDirectory($disk, $source)->get()->each(function ($media) use ($source, $destination, $moved) {
-            $media->directory = trim(str_replace($source, $destination, $media->directory), '/');
-            $media->save();
-            $moved[] = $media->fresh();
-        });
+
+        // create destination directories
+        $directories = Storage::disk($disk)->allDirectories($source);
+        $destinationDirectories = array_map(function ($directory) use ($source, $container, $destination) {
+            return $destination . str_replace($source, '', $directory);
+        }, $directories);
+        array_unshift($destinationDirectories, $destination);
+
+        foreach ($destinationDirectories as $destinationDirectory) {
+            if (Storage::disk($disk)->has($destinationDirectory)) {
+                throw MediaManagerException::directoryAlreadyExists($disk, $destinationDirectory);
+            }
+            Storage::disk($disk)->makeDirectory($destinationDirectory);
+        }
+
+        // move files
+        $files = Media::where('disk', $disk)->where(function (Builder $q) use ($source) {
+            $source = str_replace(['%', '_'], ['\%', '\_'], $source);
+            $q->where('directory', $source);
+            $q->orWhere('directory', 'like', $source . '/%');
+        })->get();
+
+        if ($files->count() > 0) {
+            $files->each(function ($media) use ($disk, $source, $destination, $moved) {
+                $directory = trim(str_replace($source, $destination, $media->directory), '/');
+                if (Storage::disk($disk)->has($directory)) {
+                    throw MediaManagerException::directoryAlreadyExists($disk, $directory);
+                }
+                $media->move($directory);
+                $moved[] = $media->fresh();
+            });
+        }
+
+        Storage::disk($disk)->deleteDirectory($source);
+        $this->invalidateFolderCache($source);
+        $this->invalidateFolderCache($destination);
 
         return response([
             'success' => true,
@@ -103,11 +133,19 @@ class MediaManagerController extends BaseController
         $path = $this->manager->verifyDirectory($disk, $request->path);
         $parent = collect(explode("/", $path))->slice(-1)->implode("/");
 
-        Cache::forget("root.{$parent}");
-        Cache::forget("root.{$path}");
         Storage::disk($disk)->deleteDirectory($path);
         Media::where('directory', $path)->delete();
+        $this->invalidateFolderCache($path);
 
         return response(["success" => true, 'parentFolder' => $parent]);
+    }
+
+    private function invalidateFolderCache($path)
+    {
+        $key = explode('/', $path);
+        array_pop($key);
+        $key = trim("root." . implode('.', $key), "\.");
+
+        Cache::forget("media.manager.folders.{$key}");
     }
 }

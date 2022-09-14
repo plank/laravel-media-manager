@@ -2434,6 +2434,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
+        // check if the button in the WYSIWYG editor is pressed
+        if (mutation.attributeName === 'value') {
+          updataFunc('');
+          return;
+        }
+
+        ;
+
         if (mutation.type === "attributes") {
           if (mutation.target.attributes["data-tag"]) {
             updataFunc(mutation.target.attributes["data-tag"].value);
@@ -2486,6 +2494,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     resetPageNumber: function resetPageNumber() {
       this.pageNumber = 1;
+    }
+  },
+  watch: {
+    // everytime user opens MM from a different button - it changes the tag
+    //  we want to reset the selected images
+    tag: function tag() {
+      this.$store.dispatch('resetSelected', null);
     }
   },
   computed: {
@@ -13641,7 +13656,7 @@ var render = function() {
           _vm._v(" "),
           _c("mmaddbutton"),
           _vm._v(" "),
-          _vm.tag == "" ? _c("mmcarousel") : _vm._e()
+          _vm.tag === "" ? _c("mmcarousel") : _vm._e()
         ],
         1
       ),
