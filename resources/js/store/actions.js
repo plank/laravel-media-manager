@@ -39,6 +39,12 @@ export const actions = {
   closeModalMove(context) {
     context.commit("CLOSE_MODAL_MOVE", false);
   },
+  setModalError(context, value) {
+    context.commit('SET_MODAL_ERROR', value);
+  },
+  clearModalError(context) {
+    context.commit("CLEAR_MODAL_ERROR");
+  },
   viewState(context, value) {
     context.commit("VIEW_STATE", value);
   },
@@ -153,12 +159,14 @@ export const actions = {
   },
   moveSelected({ commit }, value) {
     if (value.folder) {
+      value.vm.$store.dispatch('clearModalError');
       axios
         .post(this.state.routeMoveDirectory, {
           source: this.state.selectedDirectory.name,
           destination: value.destination.name
         })
         .then(response => {
+          console.log("RESPONSE", response);
           this.dispatch("closeModal");
           value.vm.$toast.open({
             type: "success",
@@ -172,7 +180,11 @@ export const actions = {
             "getDirectory",
             value.vm.$store.state.currentDirectory
           );
-        });
+        })
+        .catch((error)=> {
+          let errorMsg = error.response.data.message;
+          value.vm.$store.dispatch('setModalError', errorMsg);
+        })
     }
     if (value.mediaCollection) {
       this.dispatch("moveSelectedMedia", {
@@ -236,6 +248,10 @@ export const actions = {
                 value.vm.$i18n.t("actions.move")
             });
             media.push(response);
+          })
+          // ***************************
+          .catch((err)=> {
+            console.log("move select media - err", err);
           })
       );
     }
