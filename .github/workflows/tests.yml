@@ -23,7 +23,12 @@ jobs:
         php: [7.4, 8.0]
         laravel: [6.*, 8.*, 9.*]
         stability: [prefer-stable]
+        exclude:
+          - php: 7.4
+            laravel: 9.*
         include:
+          - laravel: 9.*
+            testbench: 7.*
           - laravel: 9.*
             testbench: 7.*
           - laravel: 8.*
@@ -49,11 +54,16 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-stability-${{ matrix.stability }}-composer-${{ hashFiles('composer.json') }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: dependencies-os-${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-stability-${{ matrix.stability }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: dependencies-os-${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-stability-${{ matrix.stability }}-composer-
 
       - name: Install dependencies
         run: |
