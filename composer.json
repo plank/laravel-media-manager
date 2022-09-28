@@ -34,8 +34,8 @@
     },
     "require-dev": {
         "doctrine/dbal": "^2.6",
-        "orchestra/testbench": "4.x",
-        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "^4.8 || ^5.2 || ^6.0 || ^7.0",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.7"
     },
     "autoload": {
