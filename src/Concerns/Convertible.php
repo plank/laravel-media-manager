@@ -71,6 +71,6 @@ trait Convertible
 
     public function getConversionsDirectory($disk = null)
     {
-        return Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix() . config('media-manager.conversions-directory');
+        return Storage::disk($disk)->path(config('media-manager.conversions-directory'));
     }
 }
