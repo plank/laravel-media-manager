@@ -166,7 +166,6 @@ export const actions = {
           destination: value.destination.name
         })
         .then(response => {
-          console.log("RESPONSE", response);
           this.dispatch("closeModal");
           value.vm.$toast.open({
             type: "success",
@@ -184,6 +183,7 @@ export const actions = {
         .catch((error)=> {
           let errorMsg = error.response.data.message;
           value.vm.$store.dispatch('setModalError', errorMsg);
+          throw new Error(error.message);
         })
     }
     if (value.mediaCollection) {
@@ -250,12 +250,14 @@ export const actions = {
             media.push(response);
           })
           // ***************************
-          .catch((err)=> {
-            console.log("move select media - err", err);
+          .catch((error)=> {
+            let errorMsg = error.response.data.message;
+            value.vm.$store.dispatch('setModalError', errorMsg);
+            throw new Error(error.message);
           })
       );
     }
-    Promise.all(promises).then(() => console.log("move selected"));
+    Promise.all(promises);
   },
   deleteSelectedMedia({ commit, context }, value) {
     const media = [];

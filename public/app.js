@@ -39062,8 +39062,6 @@ var actions = {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
-        console.log("RESPONSE", response);
-
         _this5.dispatch("closeModal");
 
         value.vm.$toast.open({
@@ -39075,6 +39073,7 @@ var actions = {
       })["catch"](function (error) {
         var errorMsg = error.response.data.message;
         value.vm.$store.dispatch('setModalError', errorMsg);
+        throw new Error(error.message);
       });
     }
 
@@ -39150,8 +39149,10 @@ var actions = {
         });
         media.push(response);
       }) // ***************************
-      ["catch"](function (err) {
-        console.log("move select media - err", err);
+      ["catch"](function (error) {
+        var errorMsg = error.response.data.message;
+        value.vm.$store.dispatch('setModalError', errorMsg);
+        throw new Error(error.message);
       }));
     };
 
@@ -39159,9 +39160,7 @@ var actions = {
       _loop(i);
     }
 
-    Promise.all(promises).then(function () {
-      return console.log("move selected");
-    });
+    Promise.all(promises);
   },
   deleteSelectedMedia: function deleteSelectedMedia(_ref8, value) {
     var _this8 = this;
