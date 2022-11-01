@@ -19,6 +19,7 @@
           </div>
         </div>
       </div>
+      <p class="error-message" v-if="errorMessage">{{errorMessage}}</p>
     </div>
 
     <div class="buttons__container-wrapper" slot="buttons">
@@ -79,6 +80,9 @@ export default {
     },
   },
   computed: {
+    errorMessage() {
+      return this.$store.state.modalState.errorMessage;
+    },
     styleBtnDefault() {
       return {
         "--bg-color": this.$store.state.mainColor,

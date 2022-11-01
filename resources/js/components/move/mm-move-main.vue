@@ -49,6 +49,7 @@ export default {
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       }
 
+      this.$store.dispatch("clearModalError");
       this.current = directoryTarget;
       this.$store.dispatch("getMoveDirectory", directoryTarget);
     },
@@ -57,9 +58,15 @@ export default {
       EventBus.$emit("allowMove", value);
     },
     goDeeper: function (directoryName) {
+      this.$store.dispatch("clearModalError");
       this.current = directoryName;
       this.$store.dispatch("getMoveDirectory", directoryName);
     },
+  },
+  watch: {
+    folderIndex(){
+      this.$store.dispatch("clearModalError");
+    }
   },
   filters: {
     clearname: function (name) {

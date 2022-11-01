@@ -28,6 +28,12 @@ export const mutations = {
   CLOSE_MODAL_MOVE(state) {
     state.modalState.move = false;
   },
+  SET_MODAL_ERROR(state, value) {
+    state.modalState.errorMessage = value;
+  },
+  CLEAR_MODAL_ERROR(state) {
+    if (state.modalState.errorMessage) state.modalState.errorMessage = '';
+  },
   VIEW_STATE(state, value) {
     state.viewState = value;
   },

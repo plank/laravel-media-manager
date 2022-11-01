@@ -17,7 +17,8 @@ export const state = {
         add: false,
         create: false,
         delete: false,
-        move: false
+        move: false,
+        errorMessage: ''
     },
     folderState: true,
     viewState: false,
