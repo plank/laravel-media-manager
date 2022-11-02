@@ -4189,9 +4189,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     copyImageHtml: function copyImageHtml(image) {
       var imageHtml = "<div><img ".concat(Object(_helpers_attributes__WEBPACK_IMPORTED_MODULE_2__["default"])(image), " /> </div>");
-      var dummyTextarea = document.createElement("textarea");
+      var dummyTextarea = document.createElement("textarea"); // add styles so the main page doesn't scroll when this is focused
+
+      dummyTextarea.style.top = "0";
+      dummyTextarea.style.left = "0";
+      dummyTextarea.style.position = "fixed";
+      document.body.append(dummyTextarea);
       dummyTextarea.innerHTML = imageHtml;
-      document.body.appendChild(dummyTextarea);
       dummyTextarea.select();
       dummyTextarea.focus();
 

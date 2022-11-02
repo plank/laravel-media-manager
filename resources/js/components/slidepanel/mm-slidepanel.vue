@@ -196,9 +196,16 @@ export default {
     },
     copyImageHtml: function(image) {
       let imageHtml = `<div><img ${getAttributes(image)} /> </div>`;
+
       let dummyTextarea = document.createElement( "textarea" );
+
+      // add styles so the main page doesn't scroll when this is focused
+      dummyTextarea.style.top = "0";
+      dummyTextarea.style.left = "0";
+      dummyTextarea.style.position = "fixed";
+
+      document.body.append(dummyTextarea);
       dummyTextarea.innerHTML = imageHtml;
-      document.body.appendChild( dummyTextarea );
       dummyTextarea.select();
       dummyTextarea.focus();
 
