@@ -1,0 +1,74 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [ opened, synchronize, closed ]
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README.md
+      - CHANGELOG.md
+      - .gitignore
+      - .github/**
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        php: [7.4, 8.0]
+        laravel: [6.*, 8.*, 9.*]
+        stability: [prefer-stable]
+        exclude:
+          - php: 7.4
+            laravel: 9.*
+        include:
+          - laravel: 9.*
+            testbench: 7.*
+          - laravel: 9.*
+            testbench: 7.*
+          - laravel: 8.*
+            testbench: 6.*
+          - laravel: 6.*
+            testbench: 4.*
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: dependencies-os-${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-stability-${{ matrix.stability }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: dependencies-os-${{ matrix.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-stability-${{ matrix.stability }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/phpunit

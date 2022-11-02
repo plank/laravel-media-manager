@@ -18,33 +18,33 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function boot()
     {
         if (!defined('MANAGER_PATH')) {
-            define('MANAGER_PATH', realpath(__DIR__.'/../'));
+            define('MANAGER_PATH', realpath(__DIR__ . '/../'));
         }
 
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'media-manager');
-         $this->loadMigrationsFrom(MANAGER_PATH.'/database/migrations');
+        // $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'media-manager');
+         $this->loadMigrationsFrom(MANAGER_PATH . '/database/migrations');
         if (MediaManager::$registerRoutes) {
-            $this->loadRoutesFrom(MANAGER_PATH.'/routes/web.php');
+            $this->loadRoutesFrom(MANAGER_PATH . '/routes/web.php');
         }
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                MANAGER_PATH.'/config/config.php' => config_path('media-manager.php'),
+                MANAGER_PATH . '/config/config.php' => config_path('media-manager.php'),
 
             ], 'manager-config');
 
-            $this->publishes([
-                MANAGER_PATH.'/resources/js' => resource_path('assets/plank/laravel-media-manager')],
-                'vue-components');
+            $this->publishes(
+                [MANAGER_PATH . '/resources/js' => resource_path('assets/plank/laravel-media-manager')],
+                'vue-components'
+            );
 
             $this->publishes([
-                MANAGER_PATH.'/public' => public_path('vendor/laravel-media-manager'),
+                MANAGER_PATH . '/public' => public_path('vendor/laravel-media-manager'),
             ], 'manager-assets');
 
 
             // Registering package commands.
              $this->commands([InstallManager::class, GenerateConversions::class]);
-
         }
     }
 
@@ -54,11 +54,11 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function register()
     {
         if (!defined('MANAGER_PATH')) {
-            define('MANAGER_PATH', realpath(__DIR__.'/../'));
+            define('MANAGER_PATH', realpath(__DIR__ . '/../'));
         }
 
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(MANAGER_PATH.'/config/media-manager.php', 'media-manager');
+        $this->mergeConfigFrom(MANAGER_PATH . '/config/media-manager.php', 'media-manager');
         // Make sure Mediable uses this packages model instead
         Config::set('mediable.model', config('media-manager.model'));
 

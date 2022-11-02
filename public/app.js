@@ -3830,6 +3830,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3865,6 +3866,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    errorMessage: function errorMessage() {
+      return this.$store.state.modalState.errorMessage;
+    },
     styleBtnDefault: function styleBtnDefault() {
       return {
         "--bg-color": this.$store.state.mainColor
@@ -3934,6 +3938,7 @@ __webpack_require__.r(__webpack_exports__);
         directoryTarget = directoryLevel[directoryLevel.length - 2];
       }
 
+      this.$store.dispatch("clearModalError");
       this.current = directoryTarget;
       this.$store.dispatch("getMoveDirectory", directoryTarget);
     },
@@ -3942,8 +3947,14 @@ __webpack_require__.r(__webpack_exports__);
       _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("allowMove", value);
     },
     goDeeper: function goDeeper(directoryName) {
+      this.$store.dispatch("clearModalError");
       this.current = directoryName;
       this.$store.dispatch("getMoveDirectory", directoryName);
+    }
+  },
+  watch: {
+    folderIndex: function folderIndex() {
+      this.$store.dispatch("clearModalError");
     }
   },
   filters: {
@@ -3976,6 +3987,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/filter.js */ "./resources/js/helpers/filter.js");
 /* harmony import */ var _helpers_attributes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/attributes */ "./resources/js/helpers/attributes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4218,21 +4235,30 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
+      var findCorrectTranslation = value.translations.find(function (translation) {
+        return translation.locale === _this.getSelectedLang;
+      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+
+      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, value), findCorrectTranslation), {}, {
+        id: value.id
+      });
+
       _this.slideOpen = true;
-      _this.data = value;
+      _this.data = dataWithCorrectTranslation;
       _this.disk = _this.data.disk;
       _this.id = _this.data.id;
       _this.alt = _this.data.alt;
       _this.title = _this.data.title;
       _this.credit = _this.data.credit;
       _this.caption = _this.data.caption;
-      _this.isNewMedia = _this.data.isNewMedia;
+      _this.isNewMedia = _this.data.isNewMedia ? true : false;
     });
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
       _this.slideOpen = false;
       _this.data = null;
       _this.disk = null;
       _this.id = null;
+      _this.alt = null;
       _this.title = null;
       _this.credit = null;
       _this.caption = null;
@@ -4242,21 +4268,36 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     getSelectedTranslation: function getSelectedTranslation() {
-      this.data = this.$store.state.selectedTranslation;
+      var _this$data,
+          _this2 = this;
+
+      if (!this.data || this.data.length >= 0) return;
+      var findCorrectTranslation = (_this$data = this.data) === null || _this$data === void 0 ? void 0 : _this$data.translations.find(function (translation) {
+        return translation.locale === _this2.langSwitch;
+      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
+
+      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, this.data), findCorrectTranslation), {}, {
+        id: this.data.id
+      });
+
+      this.data = dataWithCorrectTranslation;
       this.disk = this.data.disk;
       this.id = this.data.id;
-      this.title = this.data.title;
       this.alt = this.data.alt;
+      this.title = this.data.title;
       this.credit = this.data.credit;
       this.caption = this.data.caption;
+      this.isNewMedia = this.data.isNewMedia ? true : false;
     },
     getSelectedLang: function getSelectedLang(newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory", this.data.id);
+      this.$store.dispatch("getTranslatedDirectory", this.id);
     }
   },
   computed: {
     fileSize: function fileSize() {
-      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])(this.data.size);
+      var _this$data2;
+
+      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])((_this$data2 = this.data) === null || _this$data2 === void 0 ? void 0 : _this$data2.size);
     },
     getSelectedTranslation: function getSelectedTranslation() {
       return this.$store.state.selectedTranslation;
@@ -14864,7 +14905,7 @@ var render = function() {
     { attrs: { extraClassContainer: "modal-delete-folder" } },
     [
       _c("h2", { attrs: { slot: "title" }, slot: "title" }, [
-        _vm._v(_vm._s(_vm.$t("modal.title_deleteitems")))
+        _vm._v(_vm._s(_vm.$t("modal.title_deleteFolder")))
       ]),
       _vm._v(" "),
       _c("div", { attrs: { slot: "content" }, slot: "content" }, [
@@ -15079,7 +15120,13 @@ var render = function() {
               _c("div", { staticClass: "group" })
             ])
           ])
-        ])
+        ]),
+        _vm._v(" "),
+        _vm.errorMessage
+          ? _c("p", { staticClass: "error-message" }, [
+              _vm._v(_vm._s(_vm.errorMessage))
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -38741,7 +38788,8 @@ var getAttributes = function getAttributes(image) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var fileSizeFilter = function fileSizeFilter(fileSize) {
+var fileSizeFilter = function fileSizeFilter() {
+  var fileSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
   var sizesPrefix = ["Bytes", "KB", "MB", "GB", "TB"];
   if (fileSize == 0) return "0 Byte";
   var i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
@@ -38793,7 +38841,7 @@ webpackContext.id = "./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"delete_file\":\"Delete File\",\"save\":\"Save\",\"close\":\"Close\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"modified_on\":\"Last modified on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_deleteitems\":\"Delete Items\",\"title_moveFolder\":\"Move Item To :\",\"max_uploadSize\":\"Max file size: \",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"delete_file\":\"Delete File\",\"save\":\"Save\",\"close\":\"Close\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"modified_on\":\"Last modified on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_moveFolder\":\"Move Item To :\",\"max_uploadSize\":\"Max file size: \",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
 
 /***/ }),
 
@@ -38804,7 +38852,7 @@ module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_deleteitems\":\"supprimer des éléments\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
 
 /***/ }),
 
@@ -38861,6 +38909,12 @@ var actions = {
   },
   closeModalMove: function closeModalMove(context) {
     context.commit("CLOSE_MODAL_MOVE", false);
+  },
+  setModalError: function setModalError(context, value) {
+    context.commit('SET_MODAL_ERROR', value);
+  },
+  clearModalError: function clearModalError(context) {
+    context.commit("CLEAR_MODAL_ERROR");
   },
   viewState: function viewState(context, value) {
     context.commit("VIEW_STATE", value);
@@ -39003,6 +39057,7 @@ var actions = {
     var commit = _ref5.commit;
 
     if (value.folder) {
+      value.vm.$store.dispatch('clearModalError');
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeMoveDirectory, {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
@@ -39015,6 +39070,10 @@ var actions = {
           message: _this5.state.selectedDirectory.name + " " + value.vm.$i18n.t("actions.moved")
         });
         value.vm.$store.dispatch("getDirectory", value.vm.$store.state.currentDirectory);
+      })["catch"](function (error) {
+        var errorMsg = error.response.data.message;
+        value.vm.$store.dispatch('setModalError', errorMsg);
+        throw new Error(error.message);
       });
     }
 
@@ -39089,6 +39148,11 @@ var actions = {
           message: value.destination + value.media[i].filename + " " + value.vm.$i18n.t("actions.move")
         });
         media.push(response);
+      }) // ***************************
+      ["catch"](function (error) {
+        var errorMsg = error.response.data.message;
+        value.vm.$store.dispatch('setModalError', errorMsg);
+        throw new Error(error.message);
       }));
     };
 
@@ -39096,35 +39160,40 @@ var actions = {
       _loop(i);
     }
 
-    Promise.all(promises).then(function () {
-      return console.log("move selected");
-    });
+    Promise.all(promises);
   },
   deleteSelectedMedia: function deleteSelectedMedia(_ref8, value) {
     var _this8 = this;
 
     var commit = _ref8.commit,
         context = _ref8.context;
-    var mediaIds = value.media && value.media.map(function (m) {
-      return m.id;
-    });
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeDeleteMedia, {
-      id: mediaIds
-    }).then(function (response) {
-      commit("CLOSE_MODAL");
-      value.vm.$toast.open({
-        type: "success",
-        position: "bottom-left",
-        message: value.vm.$i18n.t("actions.deleted")
-      });
-      var self = _this8;
-      self.dispatch("getDirectory", {
-        directory: self.state.currentDirectory,
-        pageNumber: 1
-      });
-      commit("RESET_SELECTED", true);
-    })["catch"](function (e) {
-      console.log("error when attaching");
+    var media = [];
+    var promises = [];
+
+    var _loop2 = function _loop2(i) {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this8.state.routeDeleteMedia, {
+        id: value.media[i].id
+      }).then(function (response) {
+        value.vm.$toast.open({
+          type: "success",
+          position: "bottom-left",
+          message: value.media[i].filename + " " + value.vm.$i18n.t("actions.deleted")
+        });
+        media.push(response);
+      }));
+    };
+
+    for (var i = 0; i < value.media.length; i++) {
+      _loop2(i);
+    }
+
+    commit("CLOSE_MODAL");
+    var self = this;
+    setTimeout(function () {
+      return self.dispatch("getDirectory", self.state.currentDirectory);
+    }, 500);
+    Promise.all(promises).then(function () {
+      return console.log("delete selected");
     });
   },
   makeSearch: function makeSearch(_ref9, value) {
@@ -39341,6 +39410,12 @@ var mutations = {
   CLOSE_MODAL_MOVE: function CLOSE_MODAL_MOVE(state) {
     state.modalState.move = false;
   },
+  SET_MODAL_ERROR: function SET_MODAL_ERROR(state, value) {
+    state.modalState.errorMessage = value;
+  },
+  CLEAR_MODAL_ERROR: function CLEAR_MODAL_ERROR(state) {
+    if (state.modalState.errorMessage) state.modalState.errorMessage = '';
+  },
   VIEW_STATE: function VIEW_STATE(state, value) {
     state.viewState = value;
   },
@@ -39457,7 +39532,8 @@ var state = {
     add: false,
     create: false,
     "delete": false,
-    move: false
+    move: false,
+    errorMessage: ''
   },
   folderState: true,
   viewState: false,

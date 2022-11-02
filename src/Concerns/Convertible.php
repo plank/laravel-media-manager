@@ -13,15 +13,17 @@ trait Convertible
 
     protected static function bootConvertible()
     {
-        if (config("media-manager.conversions_enabled")) {
-            static::saved(function (Model $model) {
+        static::saved(function (Model $model) {
+            if (config('media-manager.use-conversions')) {
                 $model->saveConversions();
-            });
+            }
+        });
 
-            static::deleted(function (Model $model) {
+        static::deleted(function (Model $model) {
+            if (config('media-manager.use-conversions')) {
                 $model->deleteConversions();
-            });
-        }
+            }
+        });
     }
 
     protected function initializeConvertible()
@@ -41,16 +43,16 @@ trait Convertible
 
     public function getConversion($tag, $disk = null)
     {
-        return Storage::disk($disk)->url(config('media-manager.conversions-directory').$this->getConversionName($tag));
+        return Storage::disk($disk)->url(config('media-manager.conversions-directory') . $this->getConversionName($tag));
     }
 
     public function getConversions($diskName = null)
     {
         $disk = Storage::disk($diskName);
-        return collect(File::glob($this->getConversionsDirectory($diskName)."{$this->id}-*"))->mapWithKeys(function ($path, $count) use ($disk) {
+        return collect(File::glob($this->getConversionsDirectory($diskName) . "{$this->id}-*"))->mapWithKeys(function ($path, $count) use ($disk) {
             $parts = explode('/', $path);
             $tags = $this->conversions->keys();
-            return [$tags[$count] => $disk->url(config('media-manager.conversions-directory').end($parts))];
+            return [$tags[$count] => $disk->url(config('media-manager.conversions-directory') . end($parts))];
         });
     }
 
@@ -64,12 +66,11 @@ trait Convertible
 
     public function deleteConversions(): void
     {
-        File::delete(File::glob($this->getConversionsDirectory($this->disk)."{$this->id}-*"));
+        File::delete(File::glob($this->getConversionsDirectory($this->disk) . "{$this->id}-*"));
     }
 
     public function getConversionsDirectory($disk = null)
     {
-        return Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix().config('media-manager.conversions-directory');
+        return Storage::disk($disk)->path(config('media-manager.conversions-directory'));
     }
-
 }

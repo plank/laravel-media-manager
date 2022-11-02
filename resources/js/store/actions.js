@@ -39,6 +39,12 @@ export const actions = {
   closeModalMove(context) {
     context.commit("CLOSE_MODAL_MOVE", false);
   },
+  setModalError(context, value) {
+    context.commit('SET_MODAL_ERROR', value);
+  },
+  clearModalError(context) {
+    context.commit("CLEAR_MODAL_ERROR");
+  },
   viewState(context, value) {
     context.commit("VIEW_STATE", value);
   },
@@ -153,6 +159,7 @@ export const actions = {
   },
   moveSelected({ commit }, value) {
     if (value.folder) {
+      value.vm.$store.dispatch('clearModalError');
       axios
         .post(this.state.routeMoveDirectory, {
           source: this.state.selectedDirectory.name,
@@ -172,7 +179,12 @@ export const actions = {
             "getDirectory",
             value.vm.$store.state.currentDirectory
           );
-        });
+        })
+        .catch((error)=> {
+          let errorMsg = error.response.data.message;
+          value.vm.$store.dispatch('setModalError', errorMsg);
+          throw new Error(error.message);
+        })
     }
     if (value.mediaCollection) {
       this.dispatch("moveSelectedMedia", {
@@ -237,9 +249,15 @@ export const actions = {
             });
             media.push(response);
           })
+          // ***************************
+          .catch((error)=> {
+            let errorMsg = error.response.data.message;
+            value.vm.$store.dispatch('setModalError', errorMsg);
+            throw new Error(error.message);
+          })
       );
     }
-    Promise.all(promises).then(() => console.log("move selected"));
+    Promise.all(promises);
   },
   deleteSelectedMedia({ commit, context }, value) {
 
