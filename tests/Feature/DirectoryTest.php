@@ -100,6 +100,7 @@ class DirectoryTest extends TestCase
                 ],
                 'directoryToCreate' => 'folder01',
                 'expectedSuccess' => true,
+                'expectedMessage' => "",
             ],
             'test_directory_with_same_name_already_exists' => [
                 'initialState' => [
@@ -114,6 +115,7 @@ class DirectoryTest extends TestCase
                 ],
                 'directoryToCreate' => 'folder01',
                 'expectedSuccess' => false,
+                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01` as another file or directory by that name already exists.",
             ],
         ];
     }
@@ -123,11 +125,12 @@ class DirectoryTest extends TestCase
      * @param array  $finalState
      * @param string $directoryToCreate
      * @param bool   $expectedSuccess
+     * @param string $expectedMessage
      *
      * @test
      * @dataProvider creatingProvider
      * */
-    public function a_directory_can_be_created(array $initialState, array $finalState, string $directoryToCreate, bool $expectedSuccess): void
+    public function a_directory_can_be_created(array $initialState, array $finalState, string $directoryToCreate, bool $expectedSuccess, string $expectedMessage): void
     {
         // setup
         $this->testSetup($initialState);
@@ -151,7 +154,7 @@ class DirectoryTest extends TestCase
         } else {
             $response->assertStatus(500);
             $this->assertTrue(isset($response->exception));
-            $this->assertTrue($response->exception->getMessage() == "Cannot create directory `{$directoryToCreate}` on filesystem `{$this->disk}` as another file or directory by that name already exists.");
+            $this->assertTrue($response->exception->getMessage() == $expectedMessage);
         }
 
         $this->assertTrue(Storage::disk($this->disk)->has($directoryToCreate));
@@ -330,6 +333,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder02',
                 'rename' => null,
                 'expectedSuccess' => true,
+                'expectedMessage' => '',
             ],
             'test_directory_with_one_file' => [
                 'initialState' => [
@@ -354,6 +358,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder02',
                 'rename' => null,
                 'expectedSuccess' => true,
+                'expectedMessage' => '',
             ],
             'test_directory_with_multiple_files' => [
                 'initialState' => [
@@ -382,6 +387,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder02',
                 'rename' => null,
                 'expectedSuccess' => true,
+                'expectedMessage' => '',
             ],
             'test_directory_with_no_files_name_collision' => [
                 'initialState' => [
@@ -402,6 +408,187 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder02',
                 'rename' => null,
                 'expectedSuccess' => false,
+                'expectedMessage' => "Cannot create directory `{$this->disk}://folder02/folder01` as another file or directory by that name already exists.",
+            ],
+            'test_directory_two_levels_with_no_files_name_collision' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder02',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder02',
+                    ],
+                ],
+                'directoryToMove' => 'folder02',
+                'destination' => 'folder01',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01/folder02` as another file or directory by that name already exists.",
+            ],
+            'test_directory_three_levels_with_no_files_name_collision' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                        'folder02',
+                        'folder02/folder03',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                        'folder02',
+                        'folder02/folder03',
+                    ],
+                ],
+                'directoryToMove' => 'folder02/folder03',
+                'destination' => 'folder01/folder02',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01/folder02/folder03` as another file or directory by that name already exists.",
+            ],
+            'test_directory_multiple_levels_with_no_files' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder02',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder02',
+                    ],
+                ],
+                'directoryToMove' => 'folder02',
+                'destination' => 'folder01/folder02',
+                'rename' => null,
+                'expectedSuccess' => true,
+                'expectedMessage' => "",
+            ],
+            'test_directory_multiple_levels_with_multiple_files' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder02',
+                    ],
+                    'files' => [
+                        'folder01/file01.jpg',
+                        'folder01/file02.jpg',
+                        'folder01/folder02/file03.jpg',
+                        'folder01/folder02/file04.jpg',
+                        'folder02/file05.jpg',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder02',
+                    ],
+                    'files' => [
+                        'folder01/file01.jpg',
+                        'folder01/file02.jpg',
+                        'folder01/folder02/file03.jpg',
+                        'folder01/folder02/file04.jpg',
+                        'folder01/folder02/folder02/file05.jpg',
+                    ],
+                ],
+                'directoryToMove' => 'folder02',
+                'destination' => 'folder01/folder02',
+                'rename' => null,
+                'expectedSuccess' => true,
+                'expectedMessage' => "",
+            ],
+            'test_directory_with_no_files_into_itself' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                    ],
+                ],
+                'directoryToMove' => 'folder01',
+                'destination' => 'folder01',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01` to `{$this->disk}://folder01`",
+            ],
+            'test_directory_two_levels_with_no_files_into_itself' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                    ],
+                ],
+                'directoryToMove' => 'folder01/folder02',
+                'destination' => 'folder01/folder02',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02` to `{$this->disk}://folder01/folder02`",
+            ],
+            'test_directory_three_levels_with_no_files_into_itself' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                    ],
+                ],
+                'directoryToMove' => 'folder01/folder02/folder03',
+                'destination' => 'folder01/folder02/folder03',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02/folder03` to `{$this->disk}://folder01/folder02/folder03`",
+            ],
+            'test_directory_three_levels_with_no_files_into_child' => [
+                'initialState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                    ],
+                ],
+                'finalState' => [
+                    'directories' => [
+                        'folder01',
+                        'folder01/folder02',
+                        'folder01/folder02/folder03',
+                    ],
+                ],
+                'directoryToMove' => 'folder01/folder02',
+                'destination' => 'folder01/folder02/folder03',
+                'rename' => null,
+                'expectedSuccess' => false,
+                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02` to `{$this->disk}://folder01/folder02/folder03`",
             ],
         ];
     }
@@ -413,11 +600,12 @@ class DirectoryTest extends TestCase
      * @param string      $destination
      * @param string|null $rename
      * @param bool        $expectedSuccess
+     * @param string      $expectedMessage
      *
      * @test
      * @dataProvider movingProvider
      * */
-    public function a_directory_can_be_moved(array $initialState, array $finalState, string $directoryToMove, string $destination, $rename, bool $expectedSuccess): void
+    public function a_directory_can_be_moved(array $initialState, array $finalState, string $directoryToMove, string $destination, $rename, bool $expectedSuccess, string $expectedMessage): void
     {
         // setup
         $this->testSetup($initialState);
@@ -439,12 +627,12 @@ class DirectoryTest extends TestCase
                 'success' => true,
             ]);
             $this->assertFalse(Storage::disk($this->disk)->has($directoryToMove));
+            $this->assertTrue(Storage::disk($this->disk)->has($finalPath));
         } else {
             $response->assertStatus(500);
             $this->assertTrue(isset($response->exception));
-            $this->assertTrue($response->exception->getMessage() == "Cannot create directory `{$finalPath}` on filesystem `{$this->disk}` as another file or directory by that name already exists.");
+            $this->assertTrue($response->exception->getMessage() == $expectedMessage);
         }
-        $this->assertTrue(Storage::disk($this->disk)->has($finalPath));
         $this->checkFinalState($finalState);
 
         // cleanup
