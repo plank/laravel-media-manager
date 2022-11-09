@@ -235,11 +235,11 @@ export default {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
     loadImageData() {
-      //pull the media from the index of global state mediaCollection
+      //pull the media based on the index of global state mediaCollection
       let mediaItem = this.$store.state.mediaCollection[this.index]
 
       if (!mediaItem) {
-        this.slideOpen = false;
+        this.close();
         return;
       }
       // reorganize the media item into an object based on the translations
@@ -283,7 +283,10 @@ export default {
   },
 	mounted() {
 		EventBus.$on("open-slide-panel", (index) => {
-      if (!index) return;
+      if (!index) {
+        this.close()
+        return
+      };
 
       this.slideOpen = true
       this.index = index
@@ -305,7 +308,7 @@ export default {
 		this.langSwitch = this.$store.state.lang
 	},
 	watch: {
-		getSelectedLang(newLang, oldLang) {
+		getSelectedLang() {
       this.loadImageData();
 		},
 	},
