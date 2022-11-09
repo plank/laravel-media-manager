@@ -65,11 +65,17 @@ class MediaManagerController extends BaseController
     {
         $disk = $this->manager->verifyDisk($request->disk);
         $source = $this->manager->verifyDirectory($disk, $request->source);
+        $destination = trim($request->destination, '/');
+
+        if (substr($destination, 0, strlen($source)) === $source) {
+            throw MediaManagerException::cannotMoveDirectoryToDestination($disk, $source, $destination);
+        }
+
         $container = collect(explode('/', $source))->last();
         $rename = $request->rename ?? $container;
         $destination .= "/" . $rename;
 
-        if ($source === $destination) {
+        if (Storage::disk($disk)->has($destination)) {
             throw MediaManagerException::directoryAlreadyExists($disk, $destination);
         }
 

@@ -2713,15 +2713,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmcard",
-  props: ["item"],
+  props: ["item", "index"],
   data: function data() {
     return {
-      isSelected: false
+      isSelected: false,
+      mediaItem: this.item
     };
   },
   methods: {
-    openSelectedMedia: function openSelectedMedia(item) {
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", item);
+    openSelectedMedia: function openSelectedMedia() {
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", this.index);
     },
     pushSelected: function pushSelected(value) {
       this.current = value.id;
@@ -3005,8 +3006,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
-/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _mm_card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-card */ "./resources/js/components/mm-card.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3035,12 +3043,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmresults",
   components: {
-    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_1__["default"]
+    mmcard: _mm_card__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -3069,15 +3078,11 @@ __webpack_require__.r(__webpack_exports__);
       if (JSON.stringify(event.option.slug) === '"delete"') {
         this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"details"') {
-        _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", [event.item]);
+        _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit("open-slide-panel", [event.item]);
       }
     }
   },
-  computed: {
-    getMedia: function getMedia() {
-      return this.$store.state.mediaCollection;
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getMediaArray']))
 });
 
 /***/ }),
@@ -3987,6 +3992,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
 /* harmony import */ var _helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../helpers/filter.js */ "./resources/js/helpers/filter.js");
 /* harmony import */ var _helpers_attributes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/attributes */ "./resources/js/helpers/attributes.js");
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4149,6 +4158,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       slideOpen: false,
       langSwitch: "",
+      index: null,
       data: [],
       disk: "",
       id: "",
@@ -4233,29 +4243,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     capitalize: function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    loadImageData: function loadImageData() {
+      //pull the media from the index of global state mediaCollection
+      var mediaItem = this.$store.state.mediaCollection[this.index];
+
+      if (!mediaItem) {
+        this.slideOpen = false;
+        return;
+      } // reorganize the media item into an object based on the translations
+      // makes it easier to switch between languages
+
+
+      var mediaByLanguage = {
+        en: _objectSpread({}, mediaItem),
+        fr: _objectSpread({}, mediaItem)
+      }; // loop over the translations for the media item, populating the above object. 
+
+      var mediaTranslations = mediaItem.translations; // in testing, some media didn't have translations
+      // in that case, the object is populated with the non-translation specific data
+      // submitting changes to the media will update the object on the DB and populate its translations array
+
+      if (mediaTranslations && mediaTranslations.length > 0) {
+        mediaTranslations.forEach(function (translation) {
+          // the media data has an id
+          // and each translation has its own id
+          // I am removing the translation's id here so it doesn't overwrite the media data's id
+          // the media's id is necessary for updating the object
+          var id = translation.id,
+              restOfTranslation = _objectWithoutProperties(translation, ["id"]); // rebuild each language's object to contain all fields 
+          // even non-language specific fields 
+          // use the language "locale" as the key to populate the mediaByLanguage object
+
+
+          mediaByLanguage[translation.locale] = _objectSpread(_objectSpread({}, mediaByLanguage[translation.locale]), restOfTranslation);
+        });
+      } // every time we switch language, it will check with the global state and make sure 
+
+
+      var dataWithCorrectTranslation = mediaByLanguage[this.langSwitch];
+      this.data = dataWithCorrectTranslation;
+      this.disk = this.data.disk;
+      this.id = this.data.id;
+      this.alt = this.data.alt;
+      this.title = this.data.title;
+      this.credit = this.data.credit;
+      this.caption = this.data.caption;
+      this.isNewMedia = this.data.isNewMedia ? true : false;
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (value) {
-      var findCorrectTranslation = value.translations.find(function (translation) {
-        return translation.locale === _this.getSelectedLang;
-      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
-
-      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, value), findCorrectTranslation), {}, {
-        id: value.id
-      });
-
+    _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (index) {
+      if (!index) return;
       _this.slideOpen = true;
-      _this.data = dataWithCorrectTranslation;
-      _this.disk = _this.data.disk;
-      _this.id = _this.data.id;
-      _this.alt = _this.data.alt;
-      _this.title = _this.data.title;
-      _this.credit = _this.data.credit;
-      _this.caption = _this.data.caption;
-      _this.isNewMedia = _this.data.isNewMedia ? true : false;
+      _this.index = index;
+
+      _this.loadImageData();
     });
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("close-slide-panel", function () {
       _this.slideOpen = false;
@@ -4271,40 +4316,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.langSwitch = this.$store.state.lang;
   },
   watch: {
-    getSelectedTranslation: function getSelectedTranslation() {
-      var _this$data,
-          _this2 = this;
-
-      if (!this.data || this.data.length >= 0) return;
-      var findCorrectTranslation = (_this$data = this.data) === null || _this$data === void 0 ? void 0 : _this$data.translations.find(function (translation) {
-        return translation.locale === _this2.langSwitch;
-      }); // the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
-
-      var dataWithCorrectTranslation = _objectSpread(_objectSpread(_objectSpread({}, this.data), findCorrectTranslation), {}, {
-        id: this.data.id
-      });
-
-      this.data = dataWithCorrectTranslation;
-      this.disk = this.data.disk;
-      this.id = this.data.id;
-      this.alt = this.data.alt;
-      this.title = this.data.title;
-      this.credit = this.data.credit;
-      this.caption = this.data.caption;
-      this.isNewMedia = this.data.isNewMedia ? true : false;
-    },
     getSelectedLang: function getSelectedLang(newLang, oldLang) {
-      this.$store.dispatch("getTranslatedDirectory", this.id);
+      this.loadImageData();
     }
   },
   computed: {
     fileSize: function fileSize() {
-      var _this$data2;
+      var _this$data;
 
-      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])((_this$data2 = this.data) === null || _this$data2 === void 0 ? void 0 : _this$data2.size);
-    },
-    getSelectedTranslation: function getSelectedTranslation() {
-      return this.$store.state.selectedTranslation;
+      return Object(_helpers_filter_js__WEBPACK_IMPORTED_MODULE_1__["default"])((_this$data = this.data) === null || _this$data === void 0 ? void 0 : _this$data.size);
     },
     getSelectedLang: function getSelectedLang() {
       return this.$store.state.lang;
@@ -13974,10 +13994,10 @@ var render = function() {
       class: { selected: _vm.setSelected },
       on: {
         dblclick: function($event) {
-          return _vm.openSelectedMedia(_vm.item)
+          return _vm.openSelectedMedia(_vm.mediaItem)
         },
         click: function($event) {
-          return _vm.pushSelected(_vm.item)
+          return _vm.pushSelected(_vm.mediaItem)
         }
       }
     },
@@ -13986,30 +14006,34 @@ var render = function() {
         "div",
         {
           staticClass: "mm__card-background",
-          style: _vm.setBackground(_vm.item)
+          style: _vm.setBackground(_vm.mediaItem)
         },
         [
-          _vm.item.aggregate_type === "document" ||
-          _vm.item.aggregate_type === "pdf" ||
-          _vm.item.aggregate_type === "audio" ||
-          _vm.item.aggregate_type === "video"
+          _vm.mediaItem.aggregate_type === "document" ||
+          _vm.mediaItem.aggregate_type === "pdf" ||
+          _vm.mediaItem.aggregate_type === "audio" ||
+          _vm.mediaItem.aggregate_type === "video"
             ? _c(
                 "div",
                 {
                   staticClass:
                     "mm__card-placeholder mm__card-default-placeholder"
                 },
-                [_vm._v("\n      " + _vm._s(_vm.item.extension) + "\n    ")]
+                [
+                  _vm._v(
+                    "\n      " + _vm._s(_vm.mediaItem.extension) + "\n    "
+                  )
+                ]
               )
             : _vm._e()
         ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "mm__card-infos" }, [
-        _c("h6", [_vm._v(_vm._s(_vm.item.filename))]),
+        _c("h6", [_vm._v(_vm._s(_vm.mediaItem.filename))]),
         _vm._v(" "),
         _c("span", { staticClass: "type" }, [
-          _vm._v(_vm._s(_vm.item.aggregate_type))
+          _vm._v(_vm._s(_vm.mediaItem.aggregate_type))
         ])
       ])
     ]
@@ -14252,7 +14276,7 @@ var render = function() {
         "div",
         { staticClass: "mm__results-grid" },
         [
-          _vm._l(_vm.getMedia, function(item) {
+          _vm._l(_vm.getMediaArray, function(item, index) {
             return _c(
               "div",
               {
@@ -14268,14 +14292,18 @@ var render = function() {
               },
               [
                 _c("mmcard", {
-                  attrs: { "data-type": item.aggregate_type, item: item }
+                  attrs: {
+                    "data-type": item.aggregate_type,
+                    item: item,
+                    index: index
+                  }
                 })
               ],
               1
             )
           }),
           _vm._v(" "),
-          _vm.getMedia.length == 0 && this.$store.state.hideDirectory
+          _vm.getMediaArray.length == 0 && this.$store.state.hideDirectory
             ? _c("div", { staticClass: "mm__search-no-result" }, [
                 _c("h3", [_vm._v(_vm._s(_vm.$t("search.no_result")))])
               ])
@@ -39362,6 +39390,9 @@ var getters = {
   },
   getMoveDirectory: function getMoveDirectory(state) {
     return state.moveDirectoryCollection;
+  },
+  getMediaArray: function getMediaArray(state) {
+    return state.mediaCollection;
   }
 };
 
@@ -39377,6 +39408,12 @@ var getters = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mutations", function() { return mutations; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var mutations = {
   CLOSE_MODAL: function CLOSE_MODAL(state) {
     state.modalState.create = false;
@@ -39451,15 +39488,11 @@ var mutations = {
     }
   },
   UPDATE_MEDIA_VALUE: function UPDATE_MEDIA_VALUE(state, _ref) {
-    var id = _ref.id,
-        value = _ref.value;
-    var mediaElement = state.mediaCollection.find(function (q) {
+    var value = _ref.value;
+    var mediaIndex = state.mediaCollection.findIndex(function (q) {
       return q.id === value.id;
     });
-    mediaElement.credit = value.credit;
-    mediaElement.title = value.title;
-    mediaElement.alt = value.alt;
-    mediaElement.caption = value.caption;
+    state.mediaCollection[mediaIndex] = _objectSpread({}, value);
   },
   SET_MEDIATYPES: function SET_MEDIATYPES(state, items) {
     var _this = this;

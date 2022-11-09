@@ -156,6 +156,7 @@ export default {
     return {
       slideOpen: false,
       langSwitch: "",
+      index: null,
       data: [],
       disk: "",
       id: "",
@@ -189,6 +190,7 @@ export default {
         caption: this.caption,
         isNewMedia: this.isNewMedia
       });
+      
     },
     selectFile: function () {
         handleContent(this.$store.state.selectedElem);
@@ -239,16 +241,43 @@ export default {
     capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-  },
-	mounted() {
-		EventBus.$on("open-slide-panel", (value) => {
-			const findCorrectTranslation = value.translations.find((translation) => {
-				return translation.locale === this.getSelectedLang
-			})
-			// the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
-			const dataWithCorrectTranslation = { ...value, ...findCorrectTranslation, id: value.id }
+    loadImageData() {
+      //pull the media based on the index of global state mediaCollection
+      let mediaItem = this.$store.state.mediaCollection[this.index]
 
-			this.slideOpen = true
+      if (!mediaItem) {
+        this.close();
+        return;
+      }
+      // reorganize the media item into an object based on the translations
+      // makes it easier to switch between languages
+      let mediaByLanguage = {
+        en: {...mediaItem}, 
+        fr: {...mediaItem}
+      };
+      // loop over the translations for the media item, populating the above object. 
+      const mediaTranslations = mediaItem.translations;
+      
+      // in testing, some media didn't have translations
+      // in that case, the object is populated with the non-translation specific data
+      // submitting changes to the media will update the object on the DB and populate its translations array
+      if (mediaTranslations && mediaTranslations.length > 0) {
+
+        mediaTranslations.forEach((translation) => {
+          // the media data has an id
+          // and each translation has its own id
+          // I am removing the translation's id here so it doesn't overwrite the media data's id
+          // the media's id is necessary for updating the object
+          const {id, ...restOfTranslation} = translation;
+          // rebuild each language's object to contain all fields 
+          // even non-language specific fields 
+          // use the language "locale" as the key to populate the mediaByLanguage object
+          mediaByLanguage[translation.locale] = {...mediaByLanguage[translation.locale], ...restOfTranslation};
+        })
+      }
+      // every time we switch language, it will check with the global state and make sure 
+      const dataWithCorrectTranslation = mediaByLanguage[this.langSwitch];
+
 			this.data = dataWithCorrectTranslation
 			this.disk = this.data.disk
 			this.id = this.data.id
@@ -257,6 +286,19 @@ export default {
 			this.credit = this.data.credit
 			this.caption = this.data.caption
 			this.isNewMedia = this.data.isNewMedia ? true : false
+    }
+  },
+	mounted() {
+		EventBus.$on("open-slide-panel", (index) => {
+      if (!index) {
+        this.close()
+        return
+      };
+
+      this.slideOpen = true
+      this.index = index
+      
+      this.loadImageData()
 		})
 		EventBus.$on("close-slide-panel", () => {
 			this.slideOpen = false
@@ -273,34 +315,14 @@ export default {
 		this.langSwitch = this.$store.state.lang
 	},
 	watch: {
-		getSelectedTranslation() {
-			if (!this.data || this.data.length >= 0) return
-			const findCorrectTranslation = this.data?.translations.find((translation) => {
-				return translation.locale === this.langSwitch
-			})
-			// the translation sometimes has an id as well, so need to make sure that the value's id is used here, not the translation's id.
-			const dataWithCorrectTranslation = { ...this.data, ...findCorrectTranslation, id: this.data.id }
-
-			this.data = dataWithCorrectTranslation
-			this.disk = this.data.disk
-			this.id = this.data.id
-			this.alt = this.data.alt
-			this.title = this.data.title
-			this.credit = this.data.credit
-			this.caption = this.data.caption
-			this.isNewMedia = this.data.isNewMedia ? true : false
-		},
-		getSelectedLang(newLang, oldLang) {
-			this.$store.dispatch("getTranslatedDirectory", this.id)
+		getSelectedLang() {
+      this.loadImageData();
 		},
 	},
 	computed: {
 		fileSize() {
 			return fileSizeFilter(this.data?.size)
 		},
-    getSelectedTranslation() {
-      return this.$store.state.selectedTranslation;
-    },
     getSelectedLang() {
       return this.$store.state.lang;
     },
