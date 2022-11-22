@@ -2,16 +2,16 @@
   <div class="mm__results">
     <div class="mm__results-grid">
       <div
-        v-for="item in getMedia"
+        v-for="item, index in getMediaArray"
         :key="item.id"
         class="mm__results-single"
         @contextmenu.prevent.stop="handleClick($event, item)"
       >
-        <mmcard :data-type="item.aggregate_type" :item="item"></mmcard>
+        <mmcard :data-type="item.aggregate_type" :item="item" :index="index"></mmcard>
       </div>
       <div
         class="mm__search-no-result"
-        v-if="getMedia.length == 0 && this.$store.state.hideDirectory"
+        v-if="getMediaArray.length == 0 && this.$store.state.hideDirectory"
       >
         <h3>{{ $t("search.no_result") }}</h3>
       </div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { EventBus } from "../event-bus.js";
 import mmcard from "./mm-card";
 
@@ -70,10 +71,7 @@ export default {
     },
   },
   computed: {
-    getMedia() {
-      return this.$store.state.mediaCollection;
-    },
-
+    ...mapGetters(['getMediaArray']),
   },
 };
 </script>
