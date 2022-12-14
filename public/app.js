@@ -4322,11 +4322,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
     loadImageData: function loadImageData() {
-      //pull the media from the index of global state mediaCollection
+      //pull the media based on the index of global state mediaCollection
       var mediaItem = this.$store.state.mediaCollection[this.index];
 
       if (!mediaItem) {
-        this.slideOpen = false;
+        this.close();
         return;
       } // reorganize the media item into an object based on the translations
       // makes it easier to switch between languages
@@ -4373,7 +4373,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (index) {
-      if (!index) return;
+      if (!index) {
+        _this.close();
+
+        return;
+      }
+
+      ;
       _this.slideOpen = true;
       _this.index = index;
 
@@ -4393,7 +4399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.langSwitch = this.$store.state.lang;
   },
   watch: {
-    getSelectedLang: function getSelectedLang(newLang, oldLang) {
+    getSelectedLang: function getSelectedLang() {
       this.loadImageData();
     }
   },
@@ -39440,7 +39446,6 @@ var actions = {
     var _this6 = this;
 
     var commit = _ref6.commit;
-    console.log("del sel - VALUE", value);
 
     if (value.folder) {
       var route;
