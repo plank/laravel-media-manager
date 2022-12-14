@@ -848,15 +848,6 @@
        column-gap: 1em;
 }
 
-.mm .modal__container .buttons__container-wrapper div {
-  text-align: center;
-  width: 100%;
-}
-
-.mm .modal__container .buttons__container-wrapper div .btn {
-  display: block;
-}
-
 .mm .modal__container-upload {
   border: 2px dashed #848484;
   margin-top: 2.5em;

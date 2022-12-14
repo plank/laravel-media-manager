@@ -46,15 +46,6 @@
 					display: grid;
 					grid-template-columns: 1fr 1fr;
 					column-gap: 1em;
-
-					div {
-						text-align: center;
-						width: 100%;
-
-						.btn {
-							display: block;
-						}
-					}
 				}
 			}
 

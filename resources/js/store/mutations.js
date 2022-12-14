@@ -3,6 +3,7 @@ export const mutations = {
     state.modalState.create = false;
     state.modalState.delete = false;
     state.modalState.move = false;
+    state.modalState.deleteFile = false;
   },
   OPEN_MODAL_CREATE(state) {
     state.modalState.create = true;
@@ -15,6 +16,12 @@ export const mutations = {
   },
   CLOSE_MODAL_DELETE(state) {
     state.modalState.delete = false;
+  },
+  OPEN_MODAL_DELETE_FILE(state,value) {
+    state.modalState.deleteFile = value;
+  },
+  CLOSE_MODAL_DELETE_FILE(state) {
+    state.modalState.deleteFile = false;
   },
   OPEN_MODAL_ADD(state) {
     state.modalState.add = true;

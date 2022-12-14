@@ -63,8 +63,8 @@
         "title_deleteFolder": "Supprimer répertoire",
         "title_moveFolder": "Déplacer répertoire vers :",
         "confirmation_msg": "Êtes vous certains de vouloir supprimer ces éléments ?",
-        "confirmation_msg_medias": "Êtes vous certains de vouloir supprimer cet élément ?",
-        "confirmation_msg_medias_multiple": "Êtes vous certains de vouloir supprimer ces éléments ?",
+        "confirmation_msg_media": "Êtes vous certains de vouloir supprimer cet élément ?",
+        "confirmation_msg_media_multiple": "Êtes vous certains de vouloir supprimer ces éléments ?",
         "folder_name": "Nom du dossier"
       }
 }
