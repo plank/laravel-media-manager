@@ -4322,11 +4322,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
     loadImageData: function loadImageData() {
-      //pull the media from the index of global state mediaCollection
+      //pull the media based on the index of global state mediaCollection
       var mediaItem = this.$store.state.mediaCollection[this.index];
 
       if (!mediaItem) {
-        this.slideOpen = false;
+        this.close();
         return;
       } // reorganize the media item into an object based on the translations
       // makes it easier to switch between languages
@@ -4373,7 +4373,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (index) {
-      if (!index) return;
+      if (!index) {
+        _this.close();
+
+        return;
+      }
+
+      ;
       _this.slideOpen = true;
       _this.index = index;
 
@@ -4393,7 +4399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.langSwitch = this.$store.state.lang;
   },
   watch: {
-    getSelectedLang: function getSelectedLang(newLang, oldLang) {
+    getSelectedLang: function getSelectedLang() {
       this.loadImageData();
     }
   },
@@ -39195,7 +39201,7 @@ module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_media\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_media_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_deleteitems\":\"supprimer des éléments\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_media\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_media_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
 
 /***/ }),
 
