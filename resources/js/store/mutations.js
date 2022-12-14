@@ -73,12 +73,9 @@ export const mutations = {
       state.allMediaLoaded = false;
     }
   },
-  UPDATE_MEDIA_VALUE(state, { id, value }) {
-    const mediaElement = state.mediaCollection.find(q => q.id === value.id);
-    mediaElement.credit = value.credit;
-    mediaElement.title = value.title;
-    mediaElement.alt = value.alt;
-    mediaElement.caption = value.caption;
+  UPDATE_MEDIA_VALUE(state, { value }) {
+    const mediaIndex = state.mediaCollection.findIndex(q => q.id === value.id);
+    state.mediaCollection[mediaIndex] = {...value};
   },
   SET_MEDIATYPES(state, items) {
     for (let i = 0; i < items.length; i++) {

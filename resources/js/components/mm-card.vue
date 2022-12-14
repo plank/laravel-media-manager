@@ -2,25 +2,25 @@
   <div
     class="mm__card"
     v-bind:class="{ selected: setSelected }"
-    v-on:dblclick="openSelectedMedia(item)"
-    v-on:click="pushSelected(item)"
+    v-on:dblclick="openSelectedMedia(mediaItem)"
+    v-on:click="pushSelected(mediaItem)"
   >
-    <div class="mm__card-background" :style="setBackground(item)">
+    <div class="mm__card-background" :style="setBackground(mediaItem)">
       <div
         class="mm__card-placeholder mm__card-default-placeholder"
         v-if="
-          item.aggregate_type === 'document' ||
-          item.aggregate_type === 'pdf' ||
-          item.aggregate_type === 'audio' ||
-          item.aggregate_type === 'video'
+        mediaItem.aggregate_type === 'document' ||
+        mediaItem.aggregate_type === 'pdf' ||
+        mediaItem.aggregate_type === 'audio' ||
+        mediaItem.aggregate_type === 'video'
         "
       >
-        {{ item.extension }}
+        {{ mediaItem.extension }}
       </div>
     </div>
     <div class="mm__card-infos">
-      <h6>{{ item.filename }}</h6>
-      <span class="type">{{ item.aggregate_type }}</span>
+      <h6>{{ mediaItem.filename }}</h6>
+      <span class="type">{{ mediaItem.aggregate_type }}</span>
     </div>
   </div>
 </template>
@@ -29,15 +29,16 @@
 import { EventBus } from "../event-bus.js";
 export default {
   name: "mmcard",
-  props: ["item"],
+  props: ["item", "index"],
   data() {
     return {
       isSelected: false,
+      mediaItem: this.item
     };
   },
   methods: {
-    openSelectedMedia: function (item) {
-        EventBus.$emit("open-slide-panel", item);
+    openSelectedMedia: function () {
+      EventBus.$emit("open-slide-panel", this.index);
     },
     pushSelected: function (value) {
       this.current = value.id;

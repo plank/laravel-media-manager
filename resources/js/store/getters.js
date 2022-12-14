@@ -7,5 +7,8 @@ export const getters = {
   },
   getMoveDirectory: state => {
     return state.moveDirectoryCollection;
-  }
+  },
+  getMediaArray: state => {
+    return state.mediaCollection;
+  },
 };
