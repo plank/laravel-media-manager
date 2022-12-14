@@ -2239,6 +2239,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mm_empty__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./mm-empty */ "./resources/js/components/mm-empty.vue");
 /* harmony import */ var _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./mm-attach-button */ "./resources/js/components/mm-attach-button.vue");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+/* harmony import */ var _modals_files_mm_modal_delete_file_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modals/files/mm-modal-delete-file.vue */ "./resources/js/components/modals/files/mm-modal-delete-file.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2362,6 +2363,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2407,7 +2418,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     mmmodaldeletefolder: _modals_folders_mm_modal_delete_folder__WEBPACK_IMPORTED_MODULE_6__["default"],
     mmmodalmove: _move_mm_modal_move__WEBPACK_IMPORTED_MODULE_7__["default"],
     mmempty: _mm_empty__WEBPACK_IMPORTED_MODULE_11__["default"],
-    mmattachbutton: _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__["default"]
+    mmattachbutton: _mm_attach_button__WEBPACK_IMPORTED_MODULE_12__["default"],
+    ModalDeleteFile: _modals_files_mm_modal_delete_file_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
   },
   data: function data() {
     return {
@@ -2512,6 +2524,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     modalStateDeleteFolder: function modalStateDeleteFolder() {
       return this.$store.state.modalState["delete"];
+    },
+    modalStateDeleteFile: function modalStateDeleteFile() {
+      return this.$store.state.modalState.deleteFile;
     },
     modalStateAddMedia: function modalStateAddMedia() {
       return this.$store.state.modalState.add;
@@ -3514,6 +3529,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mm_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../mm-modal */ "./resources/js/components/modals/mm-modal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ModalDeleteFile",
+  components: {
+    mmmodal: _mm_modal__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    closeModal: function closeModal() {
+      this.$store.dispatch("closeModalDeleteFile");
+    },
+    deleteElement: function deleteElement() {
+      this.$store.dispatch("deleteSelected", {
+        vm: this,
+        file: [this.$store.state.modalState.deleteFile]
+      });
+    }
+  },
+  computed: {
+    styleBtnDefault: function styleBtnDefault() {
+      return {
+        "--bg-color": this.$store.state.mainColor
+      };
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=script&lang=js& ***!
@@ -4177,7 +4252,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.slideOpen = false;
     },
     openDeleteModal: function openDeleteModal() {
-      this.$store.dispatch("openModalDelete");
+      this.$store.dispatch("openModalDeleteFile", {
+        id: this.id
+      });
       this.slideOpen = false;
     },
     updateMedia: function updateMedia() {
@@ -4374,6 +4451,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".fileSize-text {\n  font-weight: bold;\n}\n.vue-dropzone .dz-preview .dz-details {\n  background: var(--bg-color) !important;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".btn-default {\n  background: var(--bg-color);\n  border-color: var(--bg-color);\n  justify-content: center;\n}\n.btn-default:hover {\n  background: #fff;\n  border-color: var(--bg-color);\n  color: var(--bg-color);\n  transition: all 0.2s ease-in-out;\n}\n.btn-default-border {\n  border: var(--bg-color);\n  color: var(--bg-color);\n}\n.btn-default-border:hover {\n  background: var(--bg-color);\n  color: #fff;\n  transition: all 0.2s ease-in-out;\n}", ""]);
 
 // exports
 
@@ -9527,6 +9623,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=style&index=0&lang=scss&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=style&index=0&lang=scss& ***!
@@ -13782,10 +13908,28 @@ var render = function() {
         1
       ),
       _vm._v(" "),
+      _c(
+        "transition",
+        { attrs: { name: "fade" } },
+        [
+          _vm.modalStateDeleteFile
+            ? _c("ModalDeleteFile", {
+                on: {
+                  close: function($event) {
+                    return this.$store.dispatch("closeModalDeleteFile")
+                  }
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [
         _vm.modalStateAddMedia ||
         _vm.modalStateCreateFolder ||
         _vm.modalStateDeleteFolder ||
+        _vm.modalStateDeleteFile ||
         _vm.modalStateMoveFolder
           ? _c("div", {
               staticClass: "overlay",
@@ -14788,6 +14932,88 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "mmmodal",
+    { attrs: { extraClassContainer: "modal-delete-file" } },
+    [
+      _c("h2", { attrs: { slot: "title" }, slot: "title" }, [
+        _vm._v(_vm._s(_vm.$t("modal.title_deleteFile")))
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { slot: "content" }, slot: "content" }, [
+        _c("div", { staticClass: "content-grid" }, [
+          _c("div", [
+            _c("div", { staticClass: "illustration__trash" }),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.$t("modal.confirmation_msg_media")))])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "buttons__container-wrapper",
+          attrs: { slot: "buttons" },
+          slot: "buttons"
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default",
+              style: _vm.styleBtnDefault,
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.deleteElement($event)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.$t("actions.yes")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default-border",
+              style: _vm.styleBtnDefault,
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.closeModal($event)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.$t("actions.cancel")))]
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=template&id=05094ddf&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modals/folders/mm-modal-add-folder.vue?vue&type=template&id=05094ddf& ***!
@@ -14961,16 +15187,14 @@ var render = function() {
                   this.$store.state.selectedElem.length <= 1
                     ? _c("div", [
                         _c("p", [
-                          _vm._v(
-                            _vm._s(_vm.$t("modal.confirmation_msg_medias"))
-                          )
+                          _vm._v(_vm._s(_vm.$t("modal.confirmation_msg_media")))
                         ])
                       ])
                     : _c("div", [
                         _c("p", [
                           _vm._v(
                             _vm._s(
-                              _vm.$t("modal.confirmation_msg_medias_multiple")
+                              _vm.$t("modal.confirmation_msg_media_multiple")
                             )
                           )
                         ])
@@ -38270,6 +38494,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/modals/files/mm-modal-delete-file.vue":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/modals/files/mm-modal-delete-file.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-modal-delete-file.vue?vue&type=template&id=47eb3577& */ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577&");
+/* harmony import */ var _mm_modal_delete_file_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-modal-delete-file.vue?vue&type=script&lang=js& */ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _mm_modal_delete_file_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/modals/files/mm-modal-delete-file.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./mm-modal-delete-file.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--7-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./mm-modal-delete-file.vue?vue&type=template&id=47eb3577& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/modals/files/mm-modal-delete-file.vue?vue&type=template&id=47eb3577&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_mm_modal_delete_file_vue_vue_type_template_id_47eb3577___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/modals/folders/mm-modal-add-folder.vue":
 /*!************************************************************************!*\
   !*** ./resources/js/components/modals/folders/mm-modal-add-folder.vue ***!
@@ -38873,7 +39184,7 @@ webpackContext.id = "./resources/js/locales sync recursive [A-Za-z0-9-_,\\s]+\\.
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"delete_file\":\"Delete File\",\"save\":\"Save\",\"close\":\"Close\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"modified_on\":\"Last modified on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_deleteitems\":\"Delete Items\",\"title_moveFolder\":\"Move Item To :\",\"max_uploadSize\":\"Max file size: \",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_medias\":\"Are you sure you want to delete this item?\",\"confirmation_msg_medias_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search\":{\"input_placeholder\":\"What are you looking for ? \",\"by_type\":\"Filter by Type\",\"by_date\":\"Filter by Date\",\"no_result\":\"Sorry, no result\",\"close_search\":\"Close Search\"},\"actions\":{\"delete\":\"Delete\",\"delete_file\":\"Delete File\",\"save\":\"Save\",\"close\":\"Close\",\"yes\":\"Yes\",\"no\":\"No\",\"create\":\"Create\",\"cancel\":\"Cancel\",\"move\":\"Move\",\"back\":\"Back\",\"copyToClipboard\":\"Code Copy To Clipboard\",\"more_details\":\"More Details\",\"createDirectory\":\"Create Directory\",\"viewGrid\":\"View Grid\",\"viewList\":\"View List\",\"search\":\"Search\",\"info\":\"Informations\",\"upload\":\"Upload\",\"add_folder\":\"Add Folder\",\"modified_on\":\"Last modified on\",\"error\":\"Error\",\"uploaded\":\"Uploaded\",\"updated\":\"Updated\",\"created\":\"Created\",\"deleted\":\"Deleted\",\"moved\":\"Moved\",\"deselectAll\":\"Deselect All\",\"empty_folder\":\"This folder is empty\",\"upload_text_click\":\"Click\",\"upload_text_here\":\"here\",\"upload_text_up\":\"to upload files\",\"drag_upload\":\"Drag items here or add files\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Alternative Text\",\"title\":\"Title\",\"source\":\"Source\",\"credit\":\"Credit\",\"caption\":\"Caption\"},\"carousel\":{\"title\":\"Create Carousel\",\"selected_items\":\"Item(s) Selected\",\"drag_text\":\"Drag photo to reorder\",\"btn_create\":\"Create\",\"btn_cancel\":\"Cancel\"},\"modal\":{\"title_createFolder\":\"Create Folder\",\"title_deleteFolder\":\"Delete Folder\",\"title_deleteitems\":\"Delete Items\",\"title_deleteFile\":\"Delete File\",\"title_moveFolder\":\"Move Item To :\",\"max_uploadSize\":\"Max file size: \",\"confirmation_msg\":\"Are you sure you want to delete this folder and all its items?\",\"confirmation_msg_media\":\"Are you sure you want to delete this item?\",\"confirmation_msg_media_multiple\":\"Are you sure you want to delete all these items? \",\"folder_name\":\"Folder Name\"}}");
 
 /***/ }),
 
@@ -38884,7 +39195,7 @@ module.exports = JSON.parse("{\"general\":{\"title\":\"Media Manager\"},\"search
 /*! exports provided: general, search, actions, slidepanel, carousel, modal, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_deleteitems\":\"supprimer des éléments\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_medias\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_medias_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
+module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"},\"search\":{\"input_placeholder\":\"Que cherchez-vous?\",\"by_type\":\"Filtrer par type\",\"by_date\":\"Filtrer par date\",\"no_result\":\"Désolé, aucun résultat\",\"close_search\":\"Fermer recherche\"},\"actions\":{\"delete\":\"Effacer\",\"delete_file\":\"Effacer Fichier\",\"save\":\"Enregistrer\",\"close\":\"Fermer\",\"yes\":\"Oui\",\"no\":\"Non\",\"create\":\"Creer\",\"cancel\":\"Annuler\",\"move\":\"Déplacer\",\"back\":\"Retour\",\"copyToClipboard\":\"Code copier dans le presse-papiers\",\"more_details\":\"Details\",\"createDirectory\":\"Nouveau dossier\",\"viewGrid\":\"Grille\",\"viewList\":\"Liste\",\"search\":\"Chercher\",\"add_folder\":\"Ajouter Répertoire\",\"info\":\"Informations\",\"modified_on\":\"Dernière modification le\",\"error\":\"Erreur\",\"upload\":\"Téverser\",\"updated\":\"Mis à jour\",\"created\":\"Créer\",\"deleted\":\"Supprimer\",\"moved\":\"Déplacer\",\"deselectAll\":\"Tout déselectionner\",\"empty_folder\":\"Ce dossier est vide\",\"upload_text_click\":\"Clique\",\"upload_text_here\":\"ici\",\"upload_text_up\":\"pour téléverser un fichier\",\"drag_upload\":\"Faites glisser des éléments ici ou ajoutez des fichiers\",\"sort\":{\"oldest\":\"Sort Oldest to Newest\",\"newest\":\"Sort Newest to Oldest\"}},\"slidepanel\":{\"alt_text\":\"Texte alternatif\",\"credit\":\"Crédit\",\"caption\":\"Légende\"},\"carousel\":{\"title\":\"Créer carousel\",\"selected_items\":\"Élément(s) Selectionnés\",\"drag_text\":\"Faites glisser la photo pour réorganiser\",\"btn_create\":\"Créer\",\"btn_cancel\":\"Annuler\"},\"modal\":{\"title_createFolder\":\"Créer un dossier\",\"title_deleteFolder\":\"Supprimer répertoire\",\"title_moveFolder\":\"Déplacer répertoire vers :\",\"confirmation_msg\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"confirmation_msg_media\":\"Êtes vous certains de vouloir supprimer cet élément ?\",\"confirmation_msg_media_multiple\":\"Êtes vous certains de vouloir supprimer ces éléments ?\",\"folder_name\":\"Nom du dossier\"}}");
 
 /***/ }),
 
@@ -38929,6 +39240,14 @@ var actions = {
   },
   closeModalDelete: function closeModalDelete(context) {
     context.commit("CLOSE_MODAL_DELETE", false);
+  },
+  openModalDeleteFile: function openModalDeleteFile(context, value) {
+    context.commit("OPEN_MODAL_DELETE_FILE", _objectSpread({
+      modal_state: true
+    }, value));
+  },
+  closeModalDeleteFile: function closeModalDeleteFile(context) {
+    context.commit("CLOSE_MODAL_DELETE_FILE");
   },
   openModalAdd: function openModalAdd(context) {
     context.commit("OPEN_MODAL_ADD", true);
@@ -39121,6 +39440,7 @@ var actions = {
     var _this6 = this;
 
     var commit = _ref6.commit;
+    console.log("del sel - VALUE", value);
 
     if (value.folder) {
       var route;
@@ -39150,6 +39470,13 @@ var actions = {
       this.dispatch("deleteSelectedMedia", {
         vm: value.vm,
         media: value.mediaCollection
+      });
+    }
+
+    if (value.file) {
+      this.dispatch("deleteSelectedMedia", {
+        vm: value.vm,
+        media: value.file
       });
     }
   },
@@ -39419,6 +39746,7 @@ var mutations = {
     state.modalState.create = false;
     state.modalState["delete"] = false;
     state.modalState.move = false;
+    state.modalState.deleteFile = false;
   },
   OPEN_MODAL_CREATE: function OPEN_MODAL_CREATE(state) {
     state.modalState.create = true;
@@ -39431,6 +39759,12 @@ var mutations = {
   },
   CLOSE_MODAL_DELETE: function CLOSE_MODAL_DELETE(state) {
     state.modalState["delete"] = false;
+  },
+  OPEN_MODAL_DELETE_FILE: function OPEN_MODAL_DELETE_FILE(state, value) {
+    state.modalState.deleteFile = value;
+  },
+  CLOSE_MODAL_DELETE_FILE: function CLOSE_MODAL_DELETE_FILE(state) {
+    state.modalState.deleteFile = false;
   },
   OPEN_MODAL_ADD: function OPEN_MODAL_ADD(state) {
     state.modalState.add = true;
@@ -39561,7 +39895,10 @@ var state = {
   modalState: {
     add: false,
     create: false,
+    // delete is for folders
     "delete": false,
+    // deleteFile is for deleting a file
+    deleteFile: false,
     move: false,
     errorMessage: ''
   },

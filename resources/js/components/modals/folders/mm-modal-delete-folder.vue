@@ -15,10 +15,10 @@
             v-if="this.$store.state.selectedElem && !this.$store.state.selectedDirectory"
           >
             <div v-if="this.$store.state.selectedElem.length <= 1">
-              <p>{{ $t("modal.confirmation_msg_medias") }}</p>
+              <p>{{ $t("modal.confirmation_msg_media") }}</p>
             </div>
             <div v-else>
-              <p>{{ $t("modal.confirmation_msg_medias_multiple") }}</p>
+              <p>{{ $t("modal.confirmation_msg_media_multiple") }}</p>
             </div>
           </div>
         </div>

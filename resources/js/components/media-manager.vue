@@ -94,6 +94,14 @@
             ></mmmodaldeletefolder>
         </transition>
 
+        <!-- Modal Delete File -->
+        <transition name="fade">
+            <ModalDeleteFile
+                v-if="modalStateDeleteFile"
+                @close="this.$store.dispatch('closeModalDeleteFile')"
+            />
+        </transition>
+
         <!-- Overlay -->
         <transition name="fade">
             <div
@@ -101,6 +109,7 @@
                     modalStateAddMedia ||
                         modalStateCreateFolder ||
                         modalStateDeleteFolder ||
+                        modalStateDeleteFile ||
                         modalStateMoveFolder
                 "
                 @close="this.$store.modalState.add = false"
@@ -130,6 +139,7 @@ import mmcarousel from "./carousel/mm-carousel";
 import mmempty from "./mm-empty";
 import mmattachbutton from "./mm-attach-button";
 import { EventBus } from "../event-bus";
+import ModalDeleteFile from "./modals/files/mm-modal-delete-file.vue";
 
 export default {
     name: "media-manager",
@@ -149,20 +159,21 @@ export default {
         }
     },
     components: {
-        mmsearch,
-        mmresults,
-        mmslidepanel,
-        mmaddbutton,
-        mmmodaladd,
-        mmlistresults,
-        mmfolders,
-        mmcarousel,
-        mmmodaladdfolder,
-        mmmodaldeletefolder,
-        mmmodalmove,
-        mmempty,
-        mmattachbutton
-    },
+    mmsearch,
+    mmresults,
+    mmslidepanel,
+    mmaddbutton,
+    mmmodaladd,
+    mmlistresults,
+    mmfolders,
+    mmcarousel,
+    mmmodaladdfolder,
+    mmmodaldeletefolder,
+    mmmodalmove,
+    mmempty,
+    mmattachbutton,
+    ModalDeleteFile
+},
     data() {
         return {
             showAttach: !location.pathname.includes("media"),
@@ -264,6 +275,9 @@ export default {
         },
         modalStateDeleteFolder() {
             return this.$store.state.modalState.delete;
+        },
+        modalStateDeleteFile() {
+            return this.$store.state.modalState.deleteFile;
         },
         modalStateAddMedia() {
             return this.$store.state.modalState.add;
