@@ -204,7 +204,6 @@ export const actions = {
     }
   },
   deleteSelected({ commit }, value) {
-    console.log("del sel - VALUE", value)
     if (value.folder) {
       let route;
       if (value.folder) {
