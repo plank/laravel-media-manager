@@ -27,6 +27,15 @@ export const actions = {
   closeModalDelete(context) {
     context.commit("CLOSE_MODAL_DELETE", false);
   },
+  openModalDeleteFile(context, value) {
+    context.commit("OPEN_MODAL_DELETE_FILE", {
+      modal_state: true,
+      ...value
+    });
+  },
+  closeModalDeleteFile(context) {
+    context.commit("CLOSE_MODAL_DELETE_FILE");
+  },
   openModalAdd(context) {
     context.commit("OPEN_MODAL_ADD", true);
   },
@@ -219,6 +228,12 @@ export const actions = {
         vm: value.vm,
         media: value.mediaCollection
       });
+    }
+    if (value.file) {
+      this.dispatch("deleteSelectedMedia", {
+        vm: value.vm,
+        media: value.file
+      });   
     }
   },
   setSelectedDirectory(context, value) {

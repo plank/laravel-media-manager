@@ -175,7 +175,7 @@ export default {
       this.slideOpen = false;
     },
     openDeleteModal: function () {
-      this.$store.dispatch("openModalDelete");
+      this.$store.dispatch("openModalDeleteFile", {id: this.id});
       this.slideOpen = false;
     },
     updateMedia: function () {

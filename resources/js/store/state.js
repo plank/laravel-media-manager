@@ -16,7 +16,10 @@ export const state = {
     modalState: {
         add: false,
         create: false,
+        // delete is for folders
         delete: false,
+        // deleteFile is for deleting a file
+        deleteFile: false,
         move: false,
         errorMessage: ''
     },
