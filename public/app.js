@@ -2493,7 +2493,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         isAttached: true
       });
 
-      _event_bus__WEBPACK_IMPORTED_MODULE_13__["EventBus"].$emit("open-slide-panel", media);
+      this.$store.dispatch("loadAttachedMedia", {
+        media: media,
+        pageNumber: this.pageNumber,
+        lazyLoad: true
+      });
     },
     loadMore: function loadMore() {
       this.pageNumber++; // increament the pageNumber
@@ -4335,7 +4339,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var mediaByLanguage = {
         en: _objectSpread({}, mediaItem),
         fr: _objectSpread({}, mediaItem)
-      }; // loop over the translations for the media item, populating the above object. 
+      }; // loop over the translations for the media item, populating the above object.
 
       var mediaTranslations = mediaItem.translations; // in testing, some media didn't have translations
       // in that case, the object is populated with the non-translation specific data
@@ -4348,14 +4352,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           // I am removing the translation's id here so it doesn't overwrite the media data's id
           // the media's id is necessary for updating the object
           var id = translation.id,
-              restOfTranslation = _objectWithoutProperties(translation, ["id"]); // rebuild each language's object to contain all fields 
-          // even non-language specific fields 
+              restOfTranslation = _objectWithoutProperties(translation, ["id"]); // rebuild each language's object to contain all fields
+          // even non-language specific fields
           // use the language "locale" as the key to populate the mediaByLanguage object
 
 
           mediaByLanguage[translation.locale] = _objectSpread(_objectSpread({}, mediaByLanguage[translation.locale]), restOfTranslation);
         });
-      } // every time we switch language, it will check with the global state and make sure 
+      } // every time we switch language, it will check with the global state and make sure
 
 
       var dataWithCorrectTranslation = mediaByLanguage[this.langSwitch];
@@ -4373,7 +4377,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$on("open-slide-panel", function (index) {
-      if (!index) {
+      if (index === null) {
         _this.close();
 
         return;
@@ -39215,9 +39219,17 @@ module.exports = JSON.parse("{\"general\":{\"title\":\"Gestionnaire de médias\"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../event-bus.js */ "./resources/js/event-bus.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -39310,7 +39322,7 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(route, {
       params: {
         locale: this.state.lang
       }
@@ -39346,7 +39358,7 @@ var actions = {
       });
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(route, {
       params: paramsObj
     }).then(function (response) {
       if (response.data.media) {
@@ -39380,7 +39392,7 @@ var actions = {
       route = this.state.routeGetDirectory;
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(route, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(route, {
       params: {
         locale: this.state.lang
       }
@@ -39393,7 +39405,7 @@ var actions = {
     var _this4 = this;
 
     var commit = _ref4.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.state.routeCreateDirectory + "?path=" + value.name, {}).then(function (response) {
       commit("CLOSE_MODAL_CREATE", true);
       value.vm.$toast.open({
         type: "success",
@@ -39415,7 +39427,7 @@ var actions = {
 
     if (value.folder) {
       value.vm.$store.dispatch('clearModalError');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeMoveDirectory, {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.state.routeMoveDirectory, {
         source: this.state.selectedDirectory.name,
         destination: value.destination.name
       }).then(function (response) {
@@ -39458,7 +39470,7 @@ var actions = {
         route = this.state.routeDeleteDirectory;
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(route, {}).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(route, {}).then(function (response) {
         commit("CLOSE_MODAL");
 
         _this6.dispatch("getDirectory", response.data.parentFolder);
@@ -39497,7 +39509,7 @@ var actions = {
     var promises = [];
 
     var _loop = function _loop(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this7.state.routeUpdateMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(_this7.state.routeUpdateMedia, {
         id: value.media[i].id,
         disk: value.media[i].disk,
         path: value.destination
@@ -39535,7 +39547,7 @@ var actions = {
     var promises = [];
 
     var _loop2 = function _loop2(i) {
-      promises.push(axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(_this8.state.routeDeleteMedia, {
+      promises.push(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(_this8.state.routeDeleteMedia, {
         id: value.media[i].id
       }).then(function (response) {
         value.vm.$toast.open({
@@ -39564,7 +39576,7 @@ var actions = {
     var _this9 = this;
 
     var commit = _ref9.commit;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
       _this9.state.mediaCollection = response.data;
       _this9.state.hideDirectory = true;
       _this9.state.isSearch = true;
@@ -39621,7 +39633,7 @@ var actions = {
   updateMedia: function updateMedia(context, value) {
     var _this10 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.state.routeUpdateMedia, {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(this.state.routeUpdateMedia, {
       locale: value.locale,
       disk: value.disk,
       title: value.title,
@@ -39662,8 +39674,38 @@ var actions = {
   setLang: function setLang(context, value) {
     context.commit("SET_LANG", value);
   },
+  loadAttachedMedia: function loadAttachedMedia(context, value) {
+    var _this11 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var index;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this11.dispatch("getDirectory", {
+                directory: value.media.directory,
+                pageNumber: value.pageNumber,
+                lazyLoad: value.lazyLoad
+              });
+
+            case 2:
+              index = _this11.state.mediaCollection.findIndex(function (q) {
+                return q.id === value.media.id;
+              });
+              _event_bus_js__WEBPACK_IMPORTED_MODULE_2__["EventBus"].$emit("open-slide-panel", index);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   attatchMedia: function attatchMedia(context, value) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/attach", value.imagesToAttach).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/attach", value.imagesToAttach).then(function (response) {
       var attachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
           tag: value.imagesToAttach.tag,
@@ -39684,7 +39726,7 @@ var actions = {
     });
   },
   removeAttachedMedia: function removeAttachedMedia(context, value) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/media-api/detach", value.imageToRemove).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/media-api/detach", value.imageToRemove).then(function (response) {
       var detachEvent = new CustomEvent("mediaAttachEvent", {
         detail: {
           tag: value.imageToRemove.tag,
@@ -39701,7 +39743,7 @@ var actions = {
         position: "bottom-left",
         message: "image removed"
       });
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit("close-slide-panel");
+      _event_bus_js__WEBPACK_IMPORTED_MODULE_2__["EventBus"].$emit("close-slide-panel");
     })["catch"](function (e) {
       console.log(e, "error when attaching");
     });
@@ -39995,8 +40037,8 @@ var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_4__["default"]({});
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/rileymcmaster/Projects/Packages/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/rileymcmaster/Projects/Packages/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/andrew/Dev/work/laravel-media-manager/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/andrew/Dev/work/laravel-media-manager/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

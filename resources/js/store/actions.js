@@ -405,6 +405,18 @@ export const actions = {
   setLang(context, value) {
     context.commit("SET_LANG", value);
   },
+
+  async loadAttachedMedia(context, value) {
+    await this.dispatch("getDirectory", {
+      directory: value.media.directory,
+      pageNumber: value.pageNumber,
+      lazyLoad: value.lazyLoad
+    });
+
+    let index = this.state.mediaCollection.findIndex(q => q.id === value.media.id);
+    EventBus.$emit("open-slide-panel", index);
+  },
+
   attatchMedia(context, value) {
     axios
     .post("/media-api/attach", value.imagesToAttach)

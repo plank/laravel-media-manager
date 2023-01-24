@@ -49,8 +49,8 @@
 
         <!-- Slidepanel -->
         <span name="slide-fade">
-            <mmslidepanel  
-            :showLang="this.$props.showLang" 
+            <mmslidepanel
+            :showLang="this.$props.showLang"
             :model="this.$props.model"
             :model_id="this.$props.model_id"
             :tag="tag"
@@ -217,7 +217,7 @@ export default {
                             mutation.target.attributes["data-attachedmedia"]
                                 .value
                         );
-                    } 
+                    }
                 }
             });
         });
@@ -245,13 +245,18 @@ export default {
         },
         openAttachedMedia: function(item) {
             let media = {...JSON.parse(item), isAttached: true}
-            EventBus.$emit("open-slide-panel", media);
+
+            this.$store.dispatch("loadAttachedMedia", {
+                media,
+                pageNumber: this.pageNumber,
+                lazyLoad: true
+            });
         },
         loadMore() {
             this.pageNumber++; // increament the pageNumber
-            this.$store.dispatch("getDirectory", { 
-            directory: this.$store.state.currentDirectory, 
-            pageNumber: this.pageNumber, 
+            this.$store.dispatch("getDirectory", {
+            directory: this.$store.state.currentDirectory,
+            pageNumber: this.pageNumber,
             lazyLoad: true
             });
         },
