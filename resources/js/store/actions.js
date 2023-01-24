@@ -112,7 +112,7 @@ export const actions = {
     if (value && value.pageNumber) {
       paramsObj = {...paramsObj, page: value.pageNumber}
     }
-    axios.get(route, {
+    return axios.get(route, {
         params: paramsObj
     }).then(response => {
       if (response.data.media) {

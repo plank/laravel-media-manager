@@ -39358,7 +39358,7 @@ var actions = {
       });
     }
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(route, {
+    return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(route, {
       params: paramsObj
     }).then(function (response) {
       if (response.data.media) {
