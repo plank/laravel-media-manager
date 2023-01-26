@@ -406,12 +406,10 @@ export const actions = {
     context.commit("SET_LANG", value);
   },
 
-  async loadAttachedMedia(context, value) {
-    await this.dispatch("getDirectory", {
-      directory: value.media.directory,
-      pageNumber: value.pageNumber,
-      lazyLoad: value.lazyLoad
-    });
+  async openSelectedMedia(context, value) {
+    if (this.state.currentDirectory !== value.directory) {
+      await this.dispatch("getDirectory", {directory: value.media.directory});
+    }
 
     let index = this.state.mediaCollection.findIndex(q => q.id === value.media.id);
     EventBus.$emit("open-slide-panel", index);

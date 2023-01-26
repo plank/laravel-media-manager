@@ -2493,7 +2493,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         isAttached: true
       });
 
-      this.$store.dispatch("loadAttachedMedia", {
+      this.$store.dispatch("openSelectedMedia", {
         media: media,
         pageNumber: this.pageNumber,
         lazyLoad: true
@@ -3097,7 +3097,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (JSON.stringify(event.option.slug) === '"delete"') {
         this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"details"') {
-        _event_bus_js__WEBPACK_IMPORTED_MODULE_1__["EventBus"].$emit("open-slide-panel", [event.item]);
+        this.$store.dispatch("openSelectedMedia", {
+          media: event.item
+        });
       }
     }
   },
@@ -3266,8 +3268,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     // Set Current State And Open Slidepanel
-    setCurrent: function setCurrent(id) {
-      _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit("open-slide-panel", id);
+    setCurrent: function setCurrent(media) {
+      this.$store.dispatch("openSelectedMedia", {
+        media: media
+      });
     },
     openModal: function openModal() {
       this.$store.dispatch("openModalCreate");
@@ -3500,7 +3504,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           isNewMedia: true
         });
 
-        _event_bus__WEBPACK_IMPORTED_MODULE_5__["EventBus"].$emit("open-slide-panel", uploadedMedia);
+        this.$store.dispatch("openSelectedMedia", {
+          media: uploadedMedia
+        });
       }
 
       this.$toast.open({
@@ -39674,7 +39680,7 @@ var actions = {
   setLang: function setLang(context, value) {
     context.commit("SET_LANG", value);
   },
-  loadAttachedMedia: function loadAttachedMedia(context, value) {
+  openSelectedMedia: function openSelectedMedia(context, value) {
     var _this11 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -39683,20 +39689,23 @@ var actions = {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              if (!(_this11.state.currentDirectory !== value.directory)) {
+                _context.next = 3;
+                break;
+              }
+
+              _context.next = 3;
               return _this11.dispatch("getDirectory", {
-                directory: value.media.directory,
-                pageNumber: value.pageNumber,
-                lazyLoad: value.lazyLoad
+                directory: value.media.directory
               });
 
-            case 2:
+            case 3:
               index = _this11.state.mediaCollection.findIndex(function (q) {
                 return q.id === value.media.id;
               });
               _event_bus_js__WEBPACK_IMPORTED_MODULE_2__["EventBus"].$emit("open-slide-panel", index);
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }

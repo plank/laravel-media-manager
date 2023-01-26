@@ -246,7 +246,7 @@ export default {
         openAttachedMedia: function(item) {
             let media = {...JSON.parse(item), isAttached: true}
 
-            this.$store.dispatch("loadAttachedMedia", {
+            this.$store.dispatch("openSelectedMedia", {
                 media,
                 pageNumber: this.pageNumber,
                 lazyLoad: true
