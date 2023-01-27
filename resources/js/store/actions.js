@@ -112,7 +112,7 @@ export const actions = {
     if (value && value.pageNumber) {
       paramsObj = {...paramsObj, page: value.pageNumber}
     }
-    axios.get(route, {
+    return axios.get(route, {
         params: paramsObj
     }).then(response => {
       if (response.data.media) {
@@ -405,6 +405,16 @@ export const actions = {
   setLang(context, value) {
     context.commit("SET_LANG", value);
   },
+
+  async openSelectedMedia(context, value) {
+    if (this.state.currentDirectory !== value.directory) {
+      await this.dispatch("getDirectory", {directory: value.media.directory});
+    }
+
+    let index = this.state.mediaCollection.findIndex(q => q.id === value.media.id);
+    EventBus.$emit("open-slide-panel", index);
+  },
+
   attatchMedia(context, value) {
     axios
     .post("/media-api/attach", value.imagesToAttach)

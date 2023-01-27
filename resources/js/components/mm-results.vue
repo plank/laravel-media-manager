@@ -66,7 +66,9 @@ export default {
       if (JSON.stringify(event.option.slug) === '"delete"') {
         this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"details"') {
-        EventBus.$emit("open-slide-panel", [event.item]);
+        this.$store.dispatch("openSelectedMedia", {
+          media: event.item
+        });
       }
     },
   },

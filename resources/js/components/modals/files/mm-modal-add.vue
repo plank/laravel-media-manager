@@ -110,7 +110,10 @@ export default {
             // we do this bc uses can upload multiple images so we only open the side panel if 1 image was uploaded
             if(response.length == 1) {
                 let uploadedMedia = {...response[0], isNewMedia: true}
-                EventBus.$emit("open-slide-panel", uploadedMedia);
+
+                this.$store.dispatch("openSelectedMedia", {
+                  media: uploadedMedia
+                });
             }
             this.$toast.open({
                 type: "success",

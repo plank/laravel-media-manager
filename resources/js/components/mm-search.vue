@@ -141,8 +141,8 @@ export default {
   mounted() {},
   methods: {
     // Set Current State And Open Slidepanel
-    setCurrent: function (id) {
-      EventBus.$emit("open-slide-panel", id);
+    setCurrent: function (media) {
+      this.$store.dispatch("openSelectedMedia", {media})
     },
     openModal: function () {
       this.$store.dispatch("openModalCreate");

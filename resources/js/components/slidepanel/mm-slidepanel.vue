@@ -190,7 +190,7 @@ export default {
         caption: this.caption,
         isNewMedia: this.isNewMedia
       });
-      
+
     },
     selectFile: function () {
         handleContent(this.$store.state.selectedElem);
@@ -252,12 +252,12 @@ export default {
       // reorganize the media item into an object based on the translations
       // makes it easier to switch between languages
       let mediaByLanguage = {
-        en: {...mediaItem}, 
+        en: {...mediaItem},
         fr: {...mediaItem}
       };
-      // loop over the translations for the media item, populating the above object. 
+      // loop over the translations for the media item, populating the above object.
       const mediaTranslations = mediaItem.translations;
-      
+
       // in testing, some media didn't have translations
       // in that case, the object is populated with the non-translation specific data
       // submitting changes to the media will update the object on the DB and populate its translations array
@@ -269,13 +269,13 @@ export default {
           // I am removing the translation's id here so it doesn't overwrite the media data's id
           // the media's id is necessary for updating the object
           const {id, ...restOfTranslation} = translation;
-          // rebuild each language's object to contain all fields 
-          // even non-language specific fields 
+          // rebuild each language's object to contain all fields
+          // even non-language specific fields
           // use the language "locale" as the key to populate the mediaByLanguage object
           mediaByLanguage[translation.locale] = {...mediaByLanguage[translation.locale], ...restOfTranslation};
         })
       }
-      // every time we switch language, it will check with the global state and make sure 
+      // every time we switch language, it will check with the global state and make sure
       const dataWithCorrectTranslation = mediaByLanguage[this.langSwitch];
 
 			this.data = dataWithCorrectTranslation
@@ -290,14 +290,14 @@ export default {
   },
 	mounted() {
 		EventBus.$on("open-slide-panel", (index) => {
-      if (!index) {
+      if (index === null) {
         this.close()
         return
       };
 
       this.slideOpen = true
       this.index = index
-      
+
       this.loadImageData()
 		})
 		EventBus.$on("close-slide-panel", () => {
