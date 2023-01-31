@@ -66,9 +66,7 @@ export default {
       if (JSON.stringify(event.option.slug) === '"delete"') {
         this.$store.dispatch("openModalDelete");
       } else if (JSON.stringify(event.option.slug) === '"details"') {
-        this.$store.dispatch("openSelectedMedia", {
-          media: event.item
-        });
+        this.$store.dispatch("openSelectedMedia", {media: event.item, goToDirectory: false});
       }
     },
   },

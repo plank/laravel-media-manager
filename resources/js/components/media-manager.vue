@@ -189,6 +189,7 @@ export default {
         selectButtons.forEach(button => {
             button.addEventListener("click", () => {
                 this.$store.dispatch("resetSelected", true);
+                EventBus.$emit("close-slide-panel", false);
             });
         });
         let updataFunc = this.updateTag;
@@ -245,12 +246,7 @@ export default {
         },
         openAttachedMedia: function(item) {
             let media = {...JSON.parse(item), isAttached: true}
-
-            this.$store.dispatch("openSelectedMedia", {
-                media,
-                pageNumber: this.pageNumber,
-                lazyLoad: true
-            });
+            this.$store.dispatch("openSelectedMedia", {media});
         },
         loadMore() {
             this.pageNumber++; // increament the pageNumber
