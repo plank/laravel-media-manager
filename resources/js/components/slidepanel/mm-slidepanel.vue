@@ -77,7 +77,7 @@
       </p>
       <div class="mm__slidepanel-infos__buttons">
         <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyImageHtml(data)">Copy Html</button>
-        <button v-if="data.isAttached" :style="styleBtnDefault"  class="btn btn-default"
+        <button v-if="isAttached" :style="styleBtnDefault"  class="btn btn-default"
         v-on:click="removeAttachment(data, tag, model, model_id)">Remove attachment</button>
       </div>
       <form id="media__update" action="">
@@ -135,6 +135,7 @@
 import { EventBus } from "../../event-bus.js";
 import fileSizeFilter from "../../helpers/filter.js";
 import getAttributes from "../../helpers/attributes";
+import axios from "axios";
 
 export default {
   name: "mmslidepanel",
@@ -156,7 +157,6 @@ export default {
     return {
       slideOpen: false,
       langSwitch: "",
-      index: null,
       data: [],
       disk: "",
       id: "",
@@ -165,6 +165,7 @@ export default {
       credit: "",
       caption: "",
       isNewMedia: false,
+      isAttached: false,
     };
   },
   methods: {
@@ -241,9 +242,23 @@ export default {
     capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    loadImageData() {
-      //pull the media based on the index of global state mediaCollection
-      let mediaItem = this.$store.state.mediaCollection[this.index]
+    async loadImageData(mediaItem = null) {
+      if (!mediaItem) {
+        //pull the media based on the index of global state mediaCollection
+        mediaItem = this.$store.state.mediaCollection.find(q => q.id === this.id);
+      }
+
+      if (!mediaItem) {
+        // fetch media from backend
+        mediaItem = (await axios.get(this.$store.state.routeGetMedia + '/' + this.id)
+            .catch(error => {
+              this.$toast.open({
+                type: "error",
+                position: "bottom-left",
+                message: error.toString()
+              });
+            })).data;
+      }
 
       if (!mediaItem) {
         this.close();
@@ -289,14 +304,16 @@ export default {
     }
   },
 	mounted() {
-		EventBus.$on("open-slide-panel", (index) => {
-      if (index === null) {
-        this.close()
-        return
+		EventBus.$on("open-slide-panel", ({id, isAttached = false, isNewMedia = false}) => {
+      if (id === null) {
+        this.close();
+        return;
       };
 
-      this.slideOpen = true
-      this.index = index
+      this.slideOpen = true;
+      this.id = id;
+      this.isNewMedia = isNewMedia;
+      this.isAttached = isAttached;
 
       this.loadImageData()
 		})
@@ -310,6 +327,7 @@ export default {
 			this.credit = null
 			this.caption = null
 			this.isNewMedia = false
+      this.isAttached = false;
 		})
 
 		this.langSwitch = this.$store.state.lang

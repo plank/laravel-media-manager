@@ -406,13 +406,16 @@ export const actions = {
     context.commit("SET_LANG", value);
   },
 
-  async openSelectedMedia(context, value) {
-    if (this.state.currentDirectory !== value.directory) {
-      await this.dispatch("getDirectory", {directory: value.media.directory});
+  async openSelectedMedia(context, {media, goToDirectory = true}) {
+    if (goToDirectory && this.state.currentDirectory !== media.directory) {
+      await this.dispatch("getDirectory", {directory: media.directory});
     }
 
-    let index = this.state.mediaCollection.findIndex(q => q.id === value.media.id);
-    EventBus.$emit("open-slide-panel", index);
+    EventBus.$emit("open-slide-panel", {
+      id: media.id,
+      isAttached: !!media.isAttached,
+      isNewMedia: !!media.isNewMedia
+    });
   },
 
   attatchMedia(context, value) {

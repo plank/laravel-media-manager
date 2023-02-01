@@ -111,9 +111,7 @@ export default {
             if(response.length == 1) {
                 let uploadedMedia = {...response[0], isNewMedia: true}
 
-                this.$store.dispatch("openSelectedMedia", {
-                  media: uploadedMedia
-                });
+                this.$store.dispatch("openSelectedMedia", {media: uploadedMedia});
             }
             this.$toast.open({
                 type: "success",

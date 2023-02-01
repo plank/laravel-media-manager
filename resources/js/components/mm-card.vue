@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     openSelectedMedia: function () {
-      EventBus.$emit("open-slide-panel", this.index);
+      this.$store.dispatch('openSelectedMedia', {media: this.mediaItem});
     },
     pushSelected: function (value) {
       this.current = value.id;

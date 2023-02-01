@@ -142,7 +142,7 @@ export default {
   methods: {
     // Set Current State And Open Slidepanel
     setCurrent: function (media) {
-      this.$store.dispatch("openSelectedMedia", {media})
+      this.$store.dispatch("openSelectedMedia", {media, goToDirectory: false})
     },
     openModal: function () {
       this.$store.dispatch("openModalCreate");
