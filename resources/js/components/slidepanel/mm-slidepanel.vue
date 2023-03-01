@@ -76,7 +76,7 @@
         <span>{{ this.data.created_at | moment("MMMM Do, YYYY") }}</span>
       </p>
       <div class="mm__slidepanel-infos__buttons">
-        <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyImageHtml(data)">Copy Html</button>
+        <button :style="styleBtnDefault"  class="btn btn-default" v-on:click="copyHtml(data)">Copy Html</button>
         <button v-if="isAttached" :style="styleBtnDefault"  class="btn btn-default"
         v-on:click="removeAttachment(data, tag, model, model_id)">Remove attachment</button>
       </div>
@@ -197,8 +197,36 @@ export default {
         handleContent(this.$store.state.selectedElem);
         this.close();
     },
-    copyImageHtml: function(image) {
-      let imageHtml = `<div><img ${getAttributes(image)} /> </div>`;
+    copyHtml: function(file) {
+      let content = ``;
+      
+      switch(file.aggregate_type) {
+
+        case 'image':
+          content = `<img ${getAttributes(file)}/>`;
+          break;
+
+        case 'video':
+          content = `<video width="100%" height="240" controls>
+              <source src="${file.url}" type="video/mp4"/>
+              <source src="${file.url}" type="video/ogg"/>
+              Your browser does not support the video tag.
+            </video>`;
+          break;
+        
+        case 'audio':
+          content = `<audio controls>
+              <source src="${file.url}" type="audio/ogg"/>
+              <source src="${file.url}" type="audio/mpeg"/>
+              Your browser does not support the audio element.
+            </audio>`;
+          break;
+        
+        default:
+          content = `<iframe src="${file.url}" width="640" height="1500" align="center" frameborder="0"/>`;
+      }
+
+      let html = `<div>` + content + `</div>`;
 
       let dummyTextarea = document.createElement( "textarea" );
 
@@ -208,7 +236,7 @@ export default {
       dummyTextarea.style.position = "fixed";
 
       document.body.append(dummyTextarea);
-      dummyTextarea.innerHTML = imageHtml;
+      dummyTextarea.innerHTML = html;
       dummyTextarea.select();
       dummyTextarea.focus();
 
