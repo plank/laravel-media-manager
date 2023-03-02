@@ -199,10 +199,11 @@ export default {
     },
     copyHtml: function(file) {
       let content = ``;
-      
+
       switch(file.aggregate_type) {
 
         case 'image':
+        case 'vector':
           content = `<img ${getAttributes(file)}/>`;
           break;
 
@@ -213,7 +214,7 @@ export default {
               Your browser does not support the video tag.
             </video>`;
           break;
-        
+
         case 'audio':
           content = `<audio controls>
               <source src="${file.url}" type="audio/ogg"/>
@@ -221,9 +222,14 @@ export default {
               Your browser does not support the audio element.
             </audio>`;
           break;
-        
-        default:
+
+        case 'pdf':
+        case 'spreadsheet':
           content = `<iframe src="${file.url}" width="640" height="1500" align="center" frameborder="0"/>`;
+          break;
+
+        default:
+          content = `<a href="${file.url}">Open ${file.title}</a>`
       }
 
       let html = `<div>` + content + `</div>`;
