@@ -234,35 +234,65 @@ export default {
 
       let html = `<div>` + content + `</div>`;
 
-      let dummyTextarea = document.createElement( "textarea" );
+      const copyToClipboard = async (text) => {
+				try {
+					const type = "text/plain";
+					const blob = new Blob([text], { type });
+					const data = [new ClipboardItem({ [type]: blob })];
+					await navigator.clipboard.write(data).then((res) => {
+						this.$toast.open({
+							type: "success",
+							position: "bottom-left",
+							message: this.$i18n.t("actions.copyToClipboard"),
+						});
+					});
+				} catch (e) {
+					this.$toast.open({
+						type: "error",
+						position: "bottom-left",
+						message: this.$i18n.t("actions.copyToClipboard"),
+					});
+				}
+			};
 
-      // add styles so the main page doesn't scroll when this is focused
-      dummyTextarea.style.top = "0";
-      dummyTextarea.style.left = "0";
-      dummyTextarea.style.position = "fixed";
+			if (window.isSecureContext && navigator.clipboard) {
+				copyToClipboard(html);
+			} else {
+				// fallback for testing purposes - local usually isn't secure
+				// navigator doesn't work on unsecure sites
+				// unsecure site on firefox won't work. But the promise will still say success
+				let dummyTextarea = document.createElement("textarea");
 
-      document.body.append(dummyTextarea);
-      dummyTextarea.innerHTML = html;
-      dummyTextarea.select();
-      dummyTextarea.focus();
+				// add styles so the main page doesn't scroll when this is focused
+				dummyTextarea.style.top = "0";
+				dummyTextarea.style.left = "0";
+				dummyTextarea.style.position = "fixed";
 
-      try {
-          let success = document.execCommand( "copy" );
-          if (success) {
-            this.$toast.open({
-              type: "success",
-              position: "bottom-left",
-              message: this.$i18n.t("actions.copyToClipboard"),
-            });
-        }
-      } catch( e ) {
-        this.$toast.open({
-          type: "error",
-          position: "bottom-left",
-          message: this.$i18n.t("actions.copyToClipboard"),
-        });
-      }
-      document.body.removeChild(dummyTextarea);
+				document.body.append(dummyTextarea);
+				dummyTextarea.innerHTML = html;
+				dummyTextarea.select();
+				dummyTextarea.focus();
+
+				try {
+					return Promise.resolve(document.execCommand("copy")).then((success) => {
+						if (success) {
+							this.$toast.open({
+								type: "success",
+								position: "bottom-left",
+								message: this.$i18n.t("actions.copyToClipboard"),
+							});
+							document.body.removeChild(dummyTextarea);
+						}
+					});
+				} catch (e) {
+					this.$toast.open({
+						type: "error",
+						position: "bottom-left",
+						message: this.$i18n.t("actions.copyToClipboard"),
+					});
+          document.body.removeChild(dummyTextarea);
+				}
+			}
     },
     removeAttachment: function(media, tag, model, model_id) {
       let imageToRemove = {
