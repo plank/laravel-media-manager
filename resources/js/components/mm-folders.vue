@@ -3,7 +3,7 @@
     <div v-if="this.$store.state.hideDirectory == false" class="mm__results-grid">
       <div
         v-for="(item, index) in getDir"
-        :key="index"
+        :key="item.name"
         class="mm__results-single"
         v-bind:class="[cardItem == index ? 'active' : '']"
         v-on:click="showOptions(index, item)"
@@ -16,7 +16,7 @@
       <vue-simple-context-menu
         v-if="this.$store.state.haveContextMenu"
         :elementId="'myUniqueId'"
-        :options="optionsArray1"
+        :options="optionsArray"
         :ref="'vueSimpleContextMenu'"
         @option-clicked="optionClicked"
       />
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import { props } from 'vue2-dropzone';
 import mmfoldercard from "./mm-card-folder";
 
 export default {
@@ -40,7 +39,7 @@ export default {
     return {
       current: null,
       cardItem: null,
-      optionsArray1: [
+      optionsArray: [
         {
           name: this.$i18n.t("actions.delete"),
           slug: "delete",
