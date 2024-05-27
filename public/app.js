@@ -2679,6 +2679,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmfoldercard",
   props: ["item"],
@@ -2818,9 +2831,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
+/* harmony import */ var _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mm-card-folder */ "./resources/js/components/mm-card-folder.vue");
 //
 //
 //
@@ -2847,12 +2858,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "mmfolders",
   components: {
-    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_1__["default"]
+    mmfoldercard: _mm_card_folder__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     resetPageNumber: {
@@ -2863,7 +2873,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       current: null,
       cardItem: null,
-      optionsArray1: [{
+      optionsArray: [{
         name: this.$i18n.t("actions.delete"),
         slug: "delete",
         "class": "delete-class"
@@ -14255,6 +14265,7 @@ var render = function() {
                     fill: "#AAA"
                   }
                 }),
+                _vm._v(" "),
                 _c("path", {
                   attrs: {
                     d:
@@ -14440,7 +14451,7 @@ var render = function() {
               return _c(
                 "div",
                 {
-                  key: index,
+                  key: item.name,
                   staticClass: "mm__results-single",
                   class: [_vm.cardItem == index ? "active" : ""],
                   on: {
@@ -14465,10 +14476,7 @@ var render = function() {
             this.$store.state.haveContextMenu
               ? _c("vue-simple-context-menu", {
                   ref: "vueSimpleContextMenu",
-                  attrs: {
-                    elementId: "myUniqueId",
-                    options: _vm.optionsArray1
-                  },
+                  attrs: { elementId: "myUniqueId", options: _vm.optionsArray },
                   on: { "option-clicked": _vm.optionClicked }
                 })
               : _vm._e()
@@ -39738,9 +39746,21 @@ var actions = {
 
     var commit = _ref9.commit;
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.state.routeSearchMedia + "?q=" + value.searchterm, {}).then(function (response) {
-      _this9.state.mediaCollection = response.data;
-      _this9.state.hideDirectory = true;
-      _this9.state.isSearch = true;
+      if (response.data.media) {
+        commit("SET_SEARCH", true);
+        commit("SET_MEDIA", {
+          media: response.data.media,
+          currentPage: value && value.pageNumber && value.pageNumber,
+          pageCount: response.data.page_count,
+          directory: _this9.state.currentDirectory,
+          lazyLoad: value && value.lazyLoad && value.lazyLoad
+        });
+        commit("SET_PAGE_COUNT", response.data.page_count);
+        commit("SET_MEDIATYPES", response.data.media);
+        _this9.state.isLoading = false;
+      }
+
+      commit("SET_DIRECTORY", response.data.subdirectories);
     })["catch"](function (error) {
       _this9.state.isSearch = false;
       value.vm.$toast.open({
@@ -40084,6 +40104,9 @@ var mutations = {
   },
   SET_PAGE_COUNT: function SET_PAGE_COUNT(state, value) {
     state.pageCount = value;
+  },
+  SET_SEARCH: function SET_SEARCH(state, value) {
+    state.isSearch = value;
   }
 };
 

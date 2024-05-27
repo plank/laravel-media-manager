@@ -99,8 +99,10 @@ export const actions = {
     });
   },
   getDirectory({ commit }, value) {
+    
     let route;
     let paramsObj = { locale: this.state.lang }
+    
     this.state.isLoading = true;
     if (value && value.directory) {
       this.state.currentDirectory = value.directory;
@@ -112,6 +114,7 @@ export const actions = {
     if (value && value.pageNumber) {
       paramsObj = {...paramsObj, page: value.pageNumber}
     }
+
     return axios.get(route, {
         params: paramsObj
     }).then(response => {
@@ -311,9 +314,20 @@ export const actions = {
     axios
       .get(this.state.routeSearchMedia + "?q=" + value.searchterm, {})
       .then(response => {
-        this.state.mediaCollection = response.data;
-        this.state.hideDirectory = true;
-        this.state.isSearch = true;
+        if (response.data.media) {
+          commit("SET_SEARCH", true);
+          commit("SET_MEDIA", {
+            media: response.data.media,
+            currentPage: value && value.pageNumber && value.pageNumber,
+            pageCount: response.data.page_count,
+            directory: this.state.currentDirectory,
+            lazyLoad: value && value.lazyLoad && value.lazyLoad
+          });
+          commit("SET_PAGE_COUNT", response.data.page_count);
+          commit("SET_MEDIATYPES", response.data.media);
+          this.state.isLoading = false;
+        }
+        commit("SET_DIRECTORY", response.data.subdirectories);
       })
       .catch(error => {
         this.state.isSearch = false;

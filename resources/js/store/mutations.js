@@ -105,4 +105,7 @@ export const mutations = {
   SET_PAGE_COUNT(state, value) {
     state.pageCount = value;
   },
+  SET_SEARCH(state, value) {
+    state.isSearch = value;
+  }
 };
