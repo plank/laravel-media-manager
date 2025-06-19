@@ -20,13 +20,19 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        php: [7.4, 8.0]
-        laravel: [6.*, 8.*, 9.*]
+        php: [7.4, 8.0, 8.1]
+        laravel: [6.*, 8.*, 9.*, 10.*]
         stability: [prefer-stable]
         exclude:
           - php: 7.4
             laravel: 9.*
+          - php: 7.4
+            laravel: 10.*
+          - php: 8.0
+            laravel: 10.*
         include:
+          - laravel: 10.*
+            testbench: 8.*
           - laravel: 9.*
             testbench: 7.*
           - laravel: 9.*
