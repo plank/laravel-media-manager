@@ -30,6 +30,7 @@ jobs:
             laravel: 10.*
           - php: 8.0
             laravel: 10.*
+
         include:
           - laravel: 10.*
             testbench: 8.*
