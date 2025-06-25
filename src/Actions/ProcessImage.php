@@ -6,8 +6,6 @@ namespace Plank\MediaManager\Actions;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManagerStatic as Image;
-use Plank\MediaManager\MediaManager;
 
 class ProcessImage
 {
@@ -23,8 +21,9 @@ class ProcessImage
 
         $destination = $filesystem->getDriver()->getAdapter()->getPathPrefix().$destination;
 
+        $media = app('media-manager');
         if (strpos($media->mime_type, 'image') === 0) {
-            Image::make($path)
+            $media->manager->make($path)
                 ->resize($conversionWidth, null, function ($contraint) {
                     $contraint->aspectRatio();
                 })

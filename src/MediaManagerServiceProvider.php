@@ -71,7 +71,7 @@ class MediaManagerServiceProvider extends ServiceProvider
     public function registerMediaManager()
     {
         $this->app->bind('media-manager', function (Container $app) {
-            return new MediaManager(config('media-manager.model'));
+            return new MediaManager(config('media-manager'));
         });
     }
 

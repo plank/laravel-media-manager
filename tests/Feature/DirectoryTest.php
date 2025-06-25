@@ -136,7 +136,7 @@ class DirectoryTest extends TestCase
         $this->testSetup($initialState);
 
         // call endpoint
-        $response = $this->withoutExceptionHandling()->post(
+        $response = $this->post(
             route('media-api.directory.create'),
             [
                 'disk' => $this->disk,
