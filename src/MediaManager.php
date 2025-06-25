@@ -5,7 +5,6 @@ use Plank\MediaManager\Exceptions\MediaManagerException;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
-use phpDocumentor\Reflection\Types\ClassString;
 use Plank\Mediable\Media;
 
 /**
@@ -28,16 +27,14 @@ class MediaManager
     public static $registerRoutes = true;
 
     /**
-     * Constructor.
-     * @param ClassString $media
      * @param array|null $config
      * @param string $imageDriver
      */
-    public function __construct($media = Media::class, array $config = null, $imageDriver = self::DRIVER_IMAGICK)
+    public function __construct(array $config = [], $imageDriver = self::DRIVER_IMAGICK)
     {
         $this->config = $config ?: config('media-manager', []);
         $this->manager = new ImageManager(['driver' => $imageDriver]);
-        $this->media = $media;
+        $this->media = $this->config['model'] ?? Media::class;
     }
 
     /**

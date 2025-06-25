@@ -30,8 +30,8 @@ class MediaController extends BaseController
 
     public function __construct(MediaUploader $uploader, array $ignore = [])
     {
-        $this->manager = new MediaManager();
-        $this->model = config('media-manager.model');
+        $this->manager = app(MediaManager::class);
+        $this->model = $this->manager->media;
         $this->uploader = $uploader;
         $this->ignore = array_merge($ignore, $this->ignore);
     }

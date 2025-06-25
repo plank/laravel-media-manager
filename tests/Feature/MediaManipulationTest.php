@@ -7,6 +7,10 @@ use Plank\MediaManager\MediaManagerServiceProvider;
 
 class MediaManipulationTest extends TestCase
 {
+
+    /**
+     * @test
+     */
     public function an_image_can_be_resized()
     {
         $this->assertTrue(true);

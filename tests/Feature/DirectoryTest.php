@@ -14,21 +14,21 @@ class DirectoryTest extends TestCase
     use WithFaker;
     use RefreshDatabase;
 
-    private $disk = 'local';
+    private static $disk = 'local';
 
     private function testSetup($initialState)
     {
         if (isset($initialState['directories'])) {
             $initialState['directories'] = array_unique($initialState['directories']);
             foreach ($initialState['directories'] as $directory) {
-                Storage::disk($this->disk)->makeDirectory($directory);
+                Storage::disk(self::$disk)->makeDirectory($directory);
             }
         }
 
         if (isset($initialState['files'])) {
             $initialState['files'] = array_unique($initialState['files']);
             foreach ($initialState['files'] as $file) {
-                Storage::disk($this->disk)->put($file, '');
+                Storage::disk(self::$disk)->put($file, '');
 
                 $pathItems = explode('/', $file);
                 $fullFilename = array_pop($pathItems);
@@ -38,7 +38,7 @@ class DirectoryTest extends TestCase
                 $directory = implode('/', $pathItems);
 
                 $media = new Media();
-                $media->disk = $this->disk;
+                $media->disk = self::$disk;
                 $media->directory = $directory;
                 $media->filename = $filename;
                 $media->extension = $extension;
@@ -62,7 +62,7 @@ class DirectoryTest extends TestCase
         }
 
         foreach ($items as $item) {
-            $this->assertTrue(Storage::disk($this->disk)->has($item));
+            $this->assertTrue(Storage::disk(self::$disk)->has($item));
         }
     }
 
@@ -70,16 +70,16 @@ class DirectoryTest extends TestCase
     {
         if (isset($finalState['files'])) {
             foreach ($finalState['files'] as $file) {
-                if (Storage::disk($this->disk)->exists($file)) {
-                    Storage::disk($this->disk)->delete($file);
+                if (Storage::disk(self::$disk)->exists($file)) {
+                    Storage::disk(self::$disk)->delete($file);
                 }
             }
         }
 
         if (isset($finalState['directories'])) {
             foreach ($finalState['directories'] as $directory) {
-                if (Storage::disk($this->disk)->exists($directory)) {
-                    Storage::disk($this->disk)->deleteDirectory($directory);
+                if (Storage::disk(self::$disk)->exists($directory)) {
+                    Storage::disk(self::$disk)->deleteDirectory($directory);
                 }
             }
         }
@@ -88,7 +88,7 @@ class DirectoryTest extends TestCase
     /**
      * Data provider to test creating directories
      */
-    public function creatingProvider()
+    public static function creatingProvider(): array
     {
         return [
             'test_directory_with_same_name_doesnt_exist' => [
@@ -115,7 +115,7 @@ class DirectoryTest extends TestCase
                 ],
                 'directoryToCreate' => 'folder01',
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01` as another file or directory by that name already exists.",
+                'expectedMessage' => "Cannot create directory `".self::$disk."://folder01` as another file or directory by that name already exists.",
             ],
         ];
     }
@@ -139,7 +139,7 @@ class DirectoryTest extends TestCase
         $response = $this->post(
             route('media-api.directory.create'),
             [
-                'disk' => $this->disk,
+                'disk' => self::$disk,
                 'path' => $directoryToCreate,
             ],
         );
@@ -157,7 +157,7 @@ class DirectoryTest extends TestCase
             $this->assertTrue($response->exception->getMessage() == $expectedMessage);
         }
 
-        $this->assertTrue(Storage::disk($this->disk)->has($directoryToCreate));
+        $this->assertTrue(Storage::disk(self::$disk)->has($directoryToCreate));
         $this->checkFinalState($finalState);
 
         //cleanup
@@ -167,7 +167,7 @@ class DirectoryTest extends TestCase
     /**
      * Data provider to test deleting directories
      */
-    public function deletingProvider()
+    public static function deletingProvider(): array
     {
         return [
             'test_directory_with_no_files' => [
@@ -285,7 +285,7 @@ class DirectoryTest extends TestCase
 
         // call endpoint
         $response = $this->post(route('media-api.directory.destroy'), [
-            'disk' => $this->disk,
+            'disk' => self::$disk,
             'path' => $directoryToDelete,
         ]);
 
@@ -296,14 +296,14 @@ class DirectoryTest extends TestCase
             'parentFolder' => $directoryToDelete,
         ]);
 
-        $count = Media::where('disk', $this->disk)->where(function (Builder $q) use ($directoryToDelete) {
+        $count = Media::where('disk', self::$disk)->where(function (Builder $q) use ($directoryToDelete) {
             $directoryToDelete = str_replace(['%', '_'], ['\%', '\_'], $directoryToDelete);
             $q->where('directory', $directoryToDelete);
             $q->orWhere('directory', 'like', $directoryToDelete . '/%');
         })->count();
 
         $this->assertTrue($count == 0);
-        $this->assertFalse(Storage::disk($this->disk)->has($directoryToDelete));
+        $this->assertFalse(Storage::disk(self::$disk)->has($directoryToDelete));
         $this->checkFinalState($finalState);
 
         // cleanup
@@ -313,7 +313,7 @@ class DirectoryTest extends TestCase
     /**
      * Data provider to test moving directories
      */
-    public function movingProvider()
+    public static function movingProvider(): array
     {
         return [
             'test_directory_with_no_files' => [
@@ -408,7 +408,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder02',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot create directory `{$this->disk}://folder02/folder01` as another file or directory by that name already exists.",
+                'expectedMessage' => "Cannot create directory `".self::$disk."://folder02/folder01` as another file or directory by that name already exists.",
             ],
             'test_directory_two_levels_with_no_files_name_collision' => [
                 'initialState' => [
@@ -429,7 +429,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01/folder02` as another file or directory by that name already exists.",
+                'expectedMessage' => "Cannot create directory `".self::$disk."://folder01/folder02` as another file or directory by that name already exists.",
             ],
             'test_directory_three_levels_with_no_files_name_collision' => [
                 'initialState' => [
@@ -454,7 +454,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01/folder02',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot create directory `{$this->disk}://folder01/folder02/folder03` as another file or directory by that name already exists.",
+                'expectedMessage' => "Cannot create directory `".self::$disk."://folder01/folder02/folder03` as another file or directory by that name already exists.",
             ],
             'test_directory_multiple_levels_with_no_files' => [
                 'initialState' => [
@@ -527,7 +527,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01` to `{$this->disk}://folder01`",
+                'expectedMessage' => "Cannot move directory `".self::$disk."://folder01` to `".self::$disk."://folder01`",
             ],
             'test_directory_two_levels_with_no_files_into_itself' => [
                 'initialState' => [
@@ -546,7 +546,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01/folder02',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02` to `{$this->disk}://folder01/folder02`",
+                'expectedMessage' => "Cannot move directory `".self::$disk."://folder01/folder02` to `".self::$disk."://folder01/folder02`",
             ],
             'test_directory_three_levels_with_no_files_into_itself' => [
                 'initialState' => [
@@ -567,7 +567,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01/folder02/folder03',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02/folder03` to `{$this->disk}://folder01/folder02/folder03`",
+                'expectedMessage' => "Cannot move directory `".self::$disk."://folder01/folder02/folder03` to `".self::$disk."://folder01/folder02/folder03`",
             ],
             'test_directory_three_levels_with_no_files_into_child' => [
                 'initialState' => [
@@ -588,7 +588,7 @@ class DirectoryTest extends TestCase
                 'destination' => 'folder01/folder02/folder03',
                 'rename' => null,
                 'expectedSuccess' => false,
-                'expectedMessage' => "Cannot move directory `{$this->disk}://folder01/folder02` to `{$this->disk}://folder01/folder02/folder03`",
+                'expectedMessage' => "Cannot move directory `".self::$disk."://folder01/folder02` to `".self::$disk."://folder01/folder02/folder03`",
             ],
         ];
     }
@@ -612,7 +612,7 @@ class DirectoryTest extends TestCase
 
         // call endpoint
         $response = $this->post(route('media-api.directory.update'), [
-            'disk' => $this->disk,
+            'disk' => self::$disk,
             'source' => $directoryToMove,
             'destination' => $destination,
             'rename' => $rename,
@@ -626,8 +626,8 @@ class DirectoryTest extends TestCase
             $response->assertJsonFragment([
                 'success' => true,
             ]);
-            $this->assertFalse(Storage::disk($this->disk)->has($directoryToMove));
-            $this->assertTrue(Storage::disk($this->disk)->has($finalPath));
+            $this->assertFalse(Storage::disk(self::$disk)->has($directoryToMove));
+            $this->assertTrue(Storage::disk(self::$disk)->has($finalPath));
         } else {
             $response->assertStatus(500);
             $this->assertTrue(isset($response->exception));

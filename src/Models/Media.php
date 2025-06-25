@@ -46,7 +46,7 @@ class Media extends BaseMedia
 
     protected $appends = ['conversion_urls', 'url'];
 
-    public function getUrlAttribute()
+    public function getUrlAttribute(): string
     {
         return $this->getUrl();
     }

@@ -17,7 +17,6 @@ class UpdateMediaTable extends Migration
         if (!Schema::hasColumns(config('media-manager.table'), $adding)) {
             Schema::table('media', function (Blueprint $table) {
                 $table->string('credit')->nullable()->after('id');
-                $table->string('alt')->nullable()->after('id');
                 $table->text('caption')->nullable()->after('id');
                 $table->string('title')->nullable()->after('id');
             });
