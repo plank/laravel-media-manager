@@ -24,8 +24,8 @@ class ProcessImage
 
         if (strpos($media->mime_type, 'image') === 0) {
             app(MediaManager::class)->manager->make($path)
-                ->resize($conversionWidth, null, function ($contraint) {
-                    $contraint->aspectRatio();
+                ->resize($conversionWidth, null, function ($constraint) {
+                    $constraint->aspectRatio();
                 })
                 ->save($destination.$name);
             // Clear stats cache since filesize() relies on stat cache
